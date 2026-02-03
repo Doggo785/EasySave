@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 namespace EasySave.Models
 {
@@ -8,9 +9,11 @@ namespace EasySave.Models
     {
         private List<BackupJob> _jobs;
 
+        private readonly string _filePath = "jobs.json";
+
         public BackupManager()
         {
-            _jobs = new List<BackupJob>();
+            _jobs = LoadJobs();
         }
 
         public List<BackupJob> GetJobs()
@@ -28,6 +31,8 @@ namespace EasySave.Models
 
             var newJob = new BackupJob(newId, name, src, dest, type);
             _jobs.Add(newJob);
+
+            SaveJobs();
         }
 
         // delete job by id
@@ -38,6 +43,8 @@ namespace EasySave.Models
             if (jobToDelete != null)
             {
                 _jobs.Remove(jobToDelete);
+
+                SaveJobs();
             }
         }
 
@@ -60,6 +67,23 @@ namespace EasySave.Models
             {
                 ExecuteJob(job.Id);
             }
+        }
+        
+        // save all jobs in jobs.json
+        private void SaveJobs()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string json = JsonSerializer.Serialize(_jobs, options);
+            File.WriteAllText(_filePath, json);
+        }
+
+        // Load all jobs
+        private List<BackupJob> LoadJobs()
+        {
+            if (!File.Exists(_filePath)) return new List<BackupJob>();
+            
+            string json = File.ReadAllText(_filePath);
+            return JsonSerializer.Deserialize<List<BackupJob>>(json) ?? new List<BackupJob>();
         }
     }
 }
