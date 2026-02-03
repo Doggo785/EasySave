@@ -1,6 +1,6 @@
 namespace EasySave.Models
 {
-	// Backup choices
+	// Backup choices enum
 	public enum BackupType
 	{
 		Full = 1,          
