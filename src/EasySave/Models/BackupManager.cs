@@ -6,16 +6,16 @@ namespace EasySave.Models
 {
     public class BackupManager
     {
-        private List<BackupJob> _job;
+        private List<BackupJob> _jobs;
 
         public BackupManager()
         {
-            _job = new List<BackupJob>();
+            _jobs = new List<BackupJob>();
         }
 
         public List<BackupJob> GetJobs()
         {
-            return _job;
+            return _jobs;
         }
 
         public void CreateJob(string name, string src, string dest, BackupType type)
