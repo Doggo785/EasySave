@@ -34,11 +34,15 @@ while (keepRunning)
             ExecuteJobFlow(manager, view);
             break;
 
-        case "4": // SUPPRIMER (Ajouté car présent dans ton manager)
+        case "4": // SUPPRIMER
+            DeleteJobFlow(manager, view);
+            break;
+
+        case "5": // CHANGER DE LANGUE
             ChangeLangueFlow(view);
             break;
 
-        case "5": // QUITTER
+        case "6": // QUITTER
             keepRunning = false;
             break;
 
