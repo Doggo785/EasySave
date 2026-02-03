@@ -136,10 +136,10 @@
     <value>Lister les travaux</value>
   </data>
   <data name="Menu_Option2" xml:space="preserve">
-    <value>Créer un travail</value>
+    <value>CrÃ©er un travail</value>
   </data>
   <data name="Menu_Option3" xml:space="preserve">
-    <value>Exécuter un travail</value>
+    <value>ExÃ©cuter un travail</value>
   </data>
   <data name="Menu_Option4" xml:space="preserve">
     <value>Changer la langue</value>
@@ -151,9 +151,9 @@
     <value>MENU PRINCIPAL</value>
   </data>
   <data name="Msg_NoJobs" xml:space="preserve">
-    <value>Aucune travail de sauvegarde trouvé.</value>
+    <value>Aucune travail de sauvegarde trouvï¿½.</value>
   </data>
   <data name="Msg_Return" xml:space="preserve">
-    <value>Appuyer sur Entré pour revenir au menu...</value>
+    <value>Appuyer sur EntrÃ©e pour revenir au menu...</value>
   </data>
 </root>
