@@ -48,11 +48,12 @@ namespace EasySave.Views
             Console.WriteLine($"    │  [1] 📋 {Resources.Menu_Option1,-27} │");
             Console.WriteLine($"    │  [2] ➕ {Resources.Menu_Option2,-27} │");
             Console.WriteLine($"    │  [3] ▶️  {Resources.Menu_Option3,-26} │");
-            Console.WriteLine($"    │  [4] 🌐 {Resources.Menu_Option4,-27} │");
+            Console.WriteLine($"    |  [4] ➖  {Resources.Menu_Option4,-27}|");
+            Console.WriteLine($"    │  [5] 🌐 {Resources.Menu_Option5,-27} │");
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"    │  [5] 🚪 {Resources.Menu_OptionExit,-27} │");
+            Console.WriteLine($"    │  [6] 🚪 {Resources.Menu_OptionExit,-27} │");
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.White;

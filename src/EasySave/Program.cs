@@ -97,8 +97,30 @@ void CreateJobFlow(BackupManager manager, ConsoleView view)
     string typeChoice = Console.ReadLine();
     BackupType type = (typeChoice == "2") ? BackupType.Differential : BackupType.Full;
 
-    manager.CreateJob(name, src, dest, type);
-    view.DisplayMessage("Sauvegarde créée avec succès !");
+    bool success;
+    try
+    {
+        manager.CreateJob(name, src, dest, type);
+        success = true;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Action annulée:{ex.Message}");
+        success = false;
+    }
+
+    if (success)
+    {
+        view.DisplayMessage("Sauvegarde créée avec succès !");
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("\nImpossible de créer la sauvegarde. Vérifiez les erreurs ci-dessus.");
+        Console.ResetColor();
+        Console.WriteLine("\nAppuyez sur une touche pour revenir au menu...");
+        Console.ReadKey();
+    }
 }
 
 void ExecuteJobFlow(BackupManager manager, ConsoleView view)

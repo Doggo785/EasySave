@@ -23,11 +23,25 @@ namespace EasySave.Models
 
         public void CreateJob(string name, string src, string dest, BackupType type)
         {
+            
+            if (string.IsNullOrWhiteSpace(name) ||
+                string.IsNullOrWhiteSpace(src) ||
+                string.IsNullOrWhiteSpace(dest))
+            {
+                Console.WriteLine("Erreur : Tous les champs doivent être remplis.");
+                throw new ArgumentException("Il ne faut laisser aucune case vide");
+            }
+
+            if (!Path.IsPathRooted(src) || !Path.IsPathRooted(dest))
+            {
+                Console.WriteLine("Erreur : Les chemins source et destination doivent être valides (ex: C:\\Dossier).");
+                throw new ArgumentException("Vérifiez vos chemins d'accès.");
+            }
             // auto id
             int newId = _jobs.Count > 0 ? _jobs.Max(j => j.Id) + 1 : 1;
 
             // job limit
-            if (_jobs.Count >= 5) { Console.WriteLine("Max jobs !"); return; }
+            if (_jobs.Count >= 5) { Console.WriteLine("Max jobs !"); throw new Exception("Nombre maximum de jobs atteint."); ; }
 
             var newJob = new BackupJob(newId, name, src, dest, type);
             _jobs.Add(newJob);
