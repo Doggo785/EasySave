@@ -142,6 +142,9 @@
     <value>Execute a backup job</value>
   </data>
   <data name="Menu_Option4" xml:space="preserve">
+    <value>Delete a backup job</value>
+  </data>
+  <data name="Menu_Option5" xml:space="preserve">
     <value>Change language</value>
   </data>
   <data name="Menu_OptionExit" xml:space="preserve">

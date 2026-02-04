@@ -142,6 +142,9 @@
     <value>Exécuter un travail</value>
   </data>
   <data name="Menu_Option4" xml:space="preserve">
+    <value>Supprimer un travail</value>
+  </data>
+  <data name="Menu_Option5" xml:space="preserve">
     <value>Changer la langue</value>
   </data>
   <data name="Menu_OptionExit" xml:space="preserve">
