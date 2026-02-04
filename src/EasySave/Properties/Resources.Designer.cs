@@ -160,7 +160,7 @@ namespace EasySave.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aucune travail de sauvegarde trouv�..
+        ///   Looks up a localized string similar to Aucune travail de sauvegarde trouvé..
         /// </summary>
         public static string Msg_NoJobs {
             get {

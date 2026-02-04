@@ -151,7 +151,7 @@
     <value>MENU PRINCIPAL</value>
   </data>
   <data name="Msg_NoJobs" xml:space="preserve">
-    <value>Aucune travail de sauvegarde trouv�.</value>
+    <value>Aucune travail de sauvegarde trouvé.</value>
   </data>
   <data name="Msg_Return" xml:space="preserve">
     <value>Appuyer sur Entrée pour revenir au menu...</value>
