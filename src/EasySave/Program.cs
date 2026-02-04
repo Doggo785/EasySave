@@ -64,14 +64,17 @@ namespace EasySave
         static void ChangeLangueFlow(ConsoleView view)
         {
             Console.Clear();
-            Console.WriteLine("=== Change Language / Changer la Langue ===");
-            Console.WriteLine("[1] English");
-            Console.WriteLine("[2] Français");
-            Console.Write("\n➤ ");
+            Views.ConsoleView.DisplayHeader();
+            Console.WriteLine($"      {Resources.Chg_Lang}\n");
+            Views.ConsoleView.PrintMenuOption("1", "English");
+            Views.ConsoleView.PrintMenuOption("2", "Français");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
 
-            string langChoice = Console.ReadLine();
+            string langChoice = Console.ReadLine() ?? "";
 
-            // Appel du Singleton LanguageManager
             if (langChoice == "1")
             {
                 LanguageManager.Instance.ChangeLanguage("en-US");
@@ -90,6 +93,7 @@ namespace EasySave
         static void CreateJobFlow(BackupManager manager, ConsoleView view)
         {
             Console.Clear();
+            Views.ConsoleView.DisplayHeader();
             Console.WriteLine(Resources.Create_Job_Header);
 
             Console.Write(Resources.Create_Job_Arg_Name);
@@ -102,7 +106,7 @@ namespace EasySave
             string dest = Console.ReadLine() ?? "";
 
             Console.Write(Resources.Create_Job_Arg_TypeSave);
-            string typeChoice = Console.ReadLine();
+            string typeChoice = Console.ReadLine() ?? "";
             BackupType type = (typeChoice == "2") ? BackupType.Differential : BackupType.Full;
 
             bool success;
@@ -137,7 +141,7 @@ namespace EasySave
         {
             view.DisplayJobs(manager.GetJobs());
             Console.Write(Resources.Get_Job_Arg_ID);
-            string input = Console.ReadLine()?.ToLower();
+            string input = Console.ReadLine()?.ToLower() ?? "";
 
             if (input == "all")
             {

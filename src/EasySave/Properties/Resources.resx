@@ -123,6 +123,9 @@
   <data name="Back_To_Menu" xml:space="preserve">
     <value>Appuyez sur une touche pour revenir au menu...</value>
   </data>
+  <data name="Chg_Lang" xml:space="preserve">
+    <value>CHANGER LA LANGUE</value>
+  </data>
   <data name="Create_Job_Arg_Dest" xml:space="preserve">
     <value>Destination (Chemin complet) : </value>
   </data>

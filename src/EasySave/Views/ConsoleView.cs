@@ -12,7 +12,7 @@ namespace EasySave.Views
     {
         public ConsoleView() { }
 
-        private void DisplayHeader()
+        public static void DisplayHeader()
         {
             Console.Clear();
             Console.WriteLine();
@@ -42,7 +42,6 @@ namespace EasySave.Views
             Console.WriteLine($"      {Resources.Menu_Title}");
             Console.WriteLine();
 
-            // Menu liste épuré sans boîtes lourdes
             PrintMenuOption("1", Resources.Menu_Option1);
             PrintMenuOption("2", Resources.Menu_Option2);
             PrintMenuOption("3", Resources.Menu_Option3);
@@ -58,7 +57,7 @@ namespace EasySave.Views
             Console.ResetColor();
         }
 
-        private void PrintMenuOption(string key, string label, ConsoleColor textColor = ConsoleColor.White)
+        public static void PrintMenuOption(string key, string label, ConsoleColor textColor = ConsoleColor.White)
         {
             Console.Write("      ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
