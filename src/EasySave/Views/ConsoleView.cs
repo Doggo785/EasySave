@@ -123,9 +123,7 @@ namespace EasySave.Views
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"      {Resources.Msg_Return}");
             Console.ResetColor();
-            Console.ReadLine();
         }
 
         public void DisplayMessage(string message)

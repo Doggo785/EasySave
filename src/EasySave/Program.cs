@@ -1,7 +1,8 @@
-﻿using System;
-using EasySave.Models;
-using EasySave.Views;
+﻿using EasySave.Models;
+using EasySave.Properties;
 using EasySave.Services;
+using EasySave.Views;
+using System;
 
 namespace EasySave
 {
@@ -29,6 +30,8 @@ namespace EasySave
                 {
                     case "1":
                         _view.DisplayJobs(_backupManager.GetJobs());
+                        Console.WriteLine($"      {Resources.Msg_Return}");
+                        Console.ReadLine();
                         break;
                     case "2":
                         Console.WriteLine("\nNom du travail :");
