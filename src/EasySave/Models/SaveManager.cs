@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.IO;
 
 namespace EasySave.Models
 {
@@ -10,7 +11,9 @@ namespace EasySave.Models
     {
         private List<SaveJob> _jobs;
 
-        private readonly string _filePath = "jobs.json";
+        private static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static readonly string _logDirectory = Path.Combine(appDataPath, "ProSoft", "EasySave", "UserConfig");
+        private readonly string _saveFilePath = Path.Combine(_logDirectory, "jobs.json");
 
         public SaveManager()
         {
@@ -87,16 +90,24 @@ namespace EasySave.Models
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             string json = JsonSerializer.Serialize(_jobs, options);
-            File.WriteAllText(_filePath, json);
+            EnsureDirectoryExist();
+            File.WriteAllText(_saveFilePath, json);
         }
 
         // Load all jobs
         private List<SaveJob> LoadJobs()
         {
-            if (!File.Exists(_filePath)) return new List<SaveJob>();
+            if (!File.Exists(_saveFilePath)) return new List<SaveJob>();
             
-            string json = File.ReadAllText(_filePath);
+            string json = File.ReadAllText(_saveFilePath);
             return JsonSerializer.Deserialize<List<SaveJob>>(json) ?? new List<SaveJob>();
+        }
+        public void EnsureDirectoryExist()
+        {
+            if (!Directory.Exists(_logDirectory))
+            {
+                Directory.CreateDirectory(_logDirectory);
+            }
         }
     }
 }
