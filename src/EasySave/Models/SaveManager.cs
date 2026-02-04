@@ -6,18 +6,18 @@ using System.Text.Json;
 
 namespace EasySave.Models
 {
-    public class BackupManager
+    public class SaveManager
     {
-        private List<BackupJob> _jobs;
+        private List<SaveJob> _jobs;
 
         private readonly string _filePath = "jobs.json";
 
-        public BackupManager()
+        public SaveManager()
         {
             _jobs = LoadJobs();
         }
 
-        public List<BackupJob> GetJobs()
+        public List<SaveJob> GetJobs()
         {
             return _jobs;
         }
@@ -42,7 +42,7 @@ namespace EasySave.Models
             // job limit
             if (_jobs.Count >= 5) { Console.WriteLine("Max jobs !"); throw new Exception(Resources.Erreur_Creation_Trop_Nombreux); ; }
 
-            var newJob = new BackupJob(newId, name, src, dest, type);
+            var newJob = new SaveJob(newId, name, src, dest, type);
             _jobs.Add(newJob);
 
             SaveJobs();
@@ -68,7 +68,7 @@ namespace EasySave.Models
 
             if (job != null)
             {
-                // BackupJob
+                // SaveJob
                 job.Run();
             }
         }
@@ -91,12 +91,12 @@ namespace EasySave.Models
         }
 
         // Load all jobs
-        private List<BackupJob> LoadJobs()
+        private List<SaveJob> LoadJobs()
         {
-            if (!File.Exists(_filePath)) return new List<BackupJob>();
+            if (!File.Exists(_filePath)) return new List<SaveJob>();
             
             string json = File.ReadAllText(_filePath);
-            return JsonSerializer.Deserialize<List<BackupJob>>(json) ?? new List<BackupJob>();
+            return JsonSerializer.Deserialize<List<SaveJob>>(json) ?? new List<SaveJob>();
         }
     }
 }

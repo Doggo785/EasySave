@@ -7,27 +7,27 @@ using EasyLog.Models;
 namespace EasySave.Models
 {
 
-    public class BackupJob
+    public class SaveJob
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string SourceDirectory { get; set; }
         public string TargetDirectory { get; set; }
-        // True = Full Backup, False = Differential Backup
-        public bool BackupType { get; set; }
+        // True = Full Save, False = Differential Save
+        public bool SaveType { get; set; }
 
         private LoggerService _logger;
-        public BackupJob(int id, string name, string source, string target, bool type)
+        public SaveJob(int id, string name, string source, string target, bool type)
         {
             Id = id;
             Name = name;
             SourceDirectory = source;
             TargetDirectory = target;
-            BackupType = type;
+            SaveType = type;
             _logger = new LoggerService();
         }
 
-        public BackupJob() 
+        public SaveJob() 
         {
             _logger = new LoggerService();
         }
@@ -83,11 +83,11 @@ namespace EasySave.Models
                 _logger.UpdateStateLog(stateLog);
 
                 bool processFile = false;
-                if (BackupType == true)
+                if (SaveType == true)
                 {
                     processFile = true;
                 }
-                else if (BackupType == false)
+                else if (SaveType == false)
                 {
                     processFile = CheckDifferential(file, targetPath);
                 }

@@ -139,13 +139,13 @@
     <value>Type (1 = Full, 2 = Differential) : </value>
   </data>
   <data name="Create_Job_Fail" xml:space="preserve">
-    <value>Could not create the backup job. Please review the errors above.</value>
+    <value>Could not create the Save job. Please review the errors above.</value>
   </data>
   <data name="Create_Job_Header" xml:space="preserve">
-    <value>=== New Backup Job ===</value>
+    <value>=== New Save Job ===</value>
   </data>
   <data name="Create_Job_Succes" xml:space="preserve">
-    <value>Backup job successfully created!</value>
+    <value>Save job successfully created!</value>
   </data>
   <data name="Delete_Job_ID" xml:space="preserve">
     <value>Enter job ID to delete :</value>
@@ -160,10 +160,10 @@
     <value>Error: Source and destination paths must be valid (e.g., C:\Folder).</value>
   </data>
   <data name="Erreur_Creation_Trop_Nombreux" xml:space="preserve">
-    <value>Maximum number of backup jobs reached.</value>
+    <value>Maximum number of Save jobs reached.</value>
   </data>
   <data name="Get_Job_All_Try" xml:space="preserve">
-    <value>Running all backup jobs...</value>
+    <value>Running all Save jobs...</value>
   </data>
   <data name="Get_Job_Arg_ID" xml:space="preserve">
     <value>Enter ID to execute (or 'all' for all):</value>
@@ -190,16 +190,16 @@
     <value>Type</value>
   </data>
   <data name="Menu_Option1" xml:space="preserve">
-    <value>List backup jobs</value>
+    <value>List Save jobs</value>
   </data>
   <data name="Menu_Option2" xml:space="preserve">
-    <value>Create a backup job</value>
+    <value>Create a Save job</value>
   </data>
   <data name="Menu_Option3" xml:space="preserve">
-    <value>Execute a backup job</value>
+    <value>Execute a Save job</value>
   </data>
   <data name="Menu_Option4" xml:space="preserve">
-    <value>Delete a backup job</value>
+    <value>Delete a Save job</value>
   </data>
   <data name="Menu_Option5" xml:space="preserve">
     <value>Change language</value>
@@ -211,7 +211,7 @@
     <value>MAIN MENU</value>
   </data>
   <data name="Msg_NoJobs" xml:space="preserve">
-    <value>No backup jobs found.</value>
+    <value>No Save jobs found.</value>
   </data>
   <data name="Msg_Return" xml:space="preserve">
     <value>Press Enter to return to the menu...</value>

@@ -28,7 +28,7 @@ namespace EasySave.Views
 ");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("      Safe & Secure Backup Solution");
+            Console.WriteLine("      Safe & Secure Save Solution");
             Console.WriteLine("      " + new string('─', 44));
             Console.ResetColor();
             Console.WriteLine();
@@ -77,7 +77,7 @@ namespace EasySave.Views
             return Console.ReadLine() ?? "";
         }
 
-        public void DisplayJobs(List<BackupJob> jobs)
+        public void DisplayJobs(List<SaveJob> jobs)
         {
             DisplayHeader();
 
@@ -116,7 +116,7 @@ namespace EasySave.Views
                     Console.ResetColor();
 
                     Console.Write($"{Truncate(job.Name, 20),-20} ");
-                    Console.Write($"{job.BackupType,-10} ");
+                    Console.Write($"{job.SaveType,-10} ");
                     Console.WriteLine($"{Truncate(job.SourceDirectory, 20),-20} → {Truncate(job.TargetDirectory, 20)}");
                 }
             }

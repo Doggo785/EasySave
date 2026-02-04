@@ -8,7 +8,7 @@ namespace EasySave
 {
     class Program
     {
-        static BackupManager _backupManager = new BackupManager();
+        static SaveManager _SaveManager = new SaveManager();
         static ConsoleView _view = new ConsoleView();
 
         static void Main(string[] args)
@@ -29,21 +29,21 @@ namespace EasySave
                 switch (choice)
                 {
                     case "1": // LISTER
-                        _view.DisplayJobs(_backupManager.GetJobs());
+                        _view.DisplayJobs(_SaveManager.GetJobs());
                         Console.WriteLine($"      {Resources.Msg_Return}");
                         Console.ReadLine();
                         break;
 
                     case "2": // CRÉER
-                        CreateJobFlow(_backupManager, _view);
+                        CreateJobFlow(_SaveManager, _view);
                         break;
 
                     case "3": // EXÉCUTER
-                        ExecuteJobFlow(_backupManager, _view);
+                        ExecuteJobFlow(_SaveManager, _view);
                         break;
 
                     case "4": // SUPPRIMER
-                        DeleteJobFlow(_backupManager, _view);
+                        DeleteJobFlow(_SaveManager, _view);
                         break;
 
                     case "5": // CHANGER DE LANGUE
@@ -90,7 +90,7 @@ namespace EasySave
                 view.DisplayMessage("Invalid choice / Choix invalide.");
             }
         }
-        static void CreateJobFlow(BackupManager manager, ConsoleView view)
+        static void CreateJobFlow(SaveManager manager, ConsoleView view)
         {
             Console.Clear();
             Views.ConsoleView.DisplayHeader();
@@ -137,7 +137,7 @@ namespace EasySave
             }
         }
 
-        static void ExecuteJobFlow(BackupManager manager, ConsoleView view)
+        static void ExecuteJobFlow(SaveManager manager, ConsoleView view)
         {
             view.DisplayJobs(manager.GetJobs());
             Console.Write(Resources.Get_Job_Arg_ID);
@@ -156,7 +156,7 @@ namespace EasySave
             view.DisplayMessage(Resources.Get_Job_End);
         }
 
-        static void DeleteJobFlow(BackupManager manager, ConsoleView view)
+        static void DeleteJobFlow(SaveManager manager, ConsoleView view)
         {
             view.DisplayJobs(manager.GetJobs());
             Console.Write(Resources.Delete_Job_ID);
@@ -175,19 +175,19 @@ namespace EasySave
                 var parts = command.Split('-');
                 if (parts.Length == 2 && int.TryParse(parts[0], out int start) && int.TryParse(parts[1], out int end))
                 {
-                    for (int i = start; i <= end; i++) _backupManager.ExecuteJob(i);
+                    for (int i = start; i <= end; i++) _SaveManager.ExecuteJob(i);
                 }
             }
             else if (command.Contains(";"))
             {
                 foreach (var idStr in command.Split(';'))
                 {
-                    if (int.TryParse(idStr, out int id)) _backupManager.ExecuteJob(id);
+                    if (int.TryParse(idStr, out int id)) _SaveManager.ExecuteJob(id);
                 }
             }
             else if (int.TryParse(command, out int id))
             {
-                _backupManager.ExecuteJob(id);
+                _SaveManager.ExecuteJob(id);
             }
         }
     }
