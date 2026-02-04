@@ -142,7 +142,7 @@
     <value>Impossible de créer la sauvegarde. Vérifiez les erreurs ci-dessus.</value>
   </data>
   <data name="Create_Job_Header" xml:space="preserve">
-    <value>=== Création d'une sauvegarde ===</value>
+    <value>NOUVELLE SAUVEGARDE</value>
   </data>
   <data name="Create_Job_Succes" xml:space="preserve">
     <value>"Sauvegarde créée avec succès !"</value>

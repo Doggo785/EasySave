@@ -94,7 +94,7 @@ namespace EasySave
         {
             Console.Clear();
             Views.ConsoleView.DisplayHeader();
-            Console.WriteLine(Resources.Create_Job_Header);
+            Console.WriteLine($"      {Resources.Create_Job_Header}\n");
 
             Console.Write(Resources.Create_Job_Arg_Name);
             string name = Console.ReadLine() ?? "Job";

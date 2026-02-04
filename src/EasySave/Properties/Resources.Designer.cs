@@ -133,7 +133,7 @@ namespace EasySave.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to === Création d&apos;une sauvegarde ===.
+        ///   Looks up a localized string similar to NOUVELLE SAUVEGARDE.
         /// </summary>
         public static string Create_Job_Header {
             get {

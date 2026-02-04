@@ -142,7 +142,7 @@
     <value>Could not create the Save job. Please review the errors above.</value>
   </data>
   <data name="Create_Job_Header" xml:space="preserve">
-    <value>=== New Save Job ===</value>
+    <value>NEW SAVE JOB</value>
   </data>
   <data name="Create_Job_Succes" xml:space="preserve">
     <value>Save job successfully created!</value>
