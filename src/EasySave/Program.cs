@@ -47,7 +47,7 @@ while (keepRunning)
             break;
 
         default:
-            view.DisplayMessage("Choix invalide.");
+            view.DisplayMessage(Resources.App_Case_Mauvais);
             break;
     }
 }
@@ -82,18 +82,18 @@ void ChangeLangueFlow(ConsoleView view)
 void CreateJobFlow(BackupManager manager, ConsoleView view)
 {
     Console.Clear();
-    Console.WriteLine("=== Création d'une sauvegarde ===");
+    Console.WriteLine(Resources.Create_Job_Header);
 
-    Console.Write("Nom : ");
+    Console.Write(Resources.Create_Job_Arg_Name);
     string name = Console.ReadLine() ?? "Job";
 
-    Console.Write("Source (Chemin complet) : ");
+    Console.Write(Resources.Create_Job_Arg_Source);
     string src = Console.ReadLine() ?? "";
 
-    Console.Write("Destination (Chemin complet) : ");
+    Console.Write(Resources.Create_Job_Arg_Dest);
     string dest = Console.ReadLine() ?? "";
 
-    Console.Write("Type (1 = Complet, 2 = Différentiel) : ");
+    Console.Write(Resources.Create_Job_Arg_TypeSave);
     string typeChoice = Console.ReadLine();
     BackupType type = (typeChoice == "2") ? BackupType.Differential : BackupType.Full;
 
@@ -105,20 +105,22 @@ void CreateJobFlow(BackupManager manager, ConsoleView view)
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Action annulée:{ex.Message}");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"{ex.Message}");
         success = false;
     }
 
     if (success)
     {
-        view.DisplayMessage("Sauvegarde créée avec succès !");
+        Console.ForegroundColor = ConsoleColor.Green;
+        view.DisplayMessage(Resources.Create_Job_Succes);
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\nImpossible de créer la sauvegarde. Vérifiez les erreurs ci-dessus.");
+        Console.WriteLine(Resources.Create_Job_Fail);
         Console.ResetColor();
-        Console.WriteLine("\nAppuyez sur une touche pour revenir au menu...");
+        Console.WriteLine(Resources.Back_To_Menu);
         Console.ReadKey();
     }
 }
@@ -126,34 +128,34 @@ void CreateJobFlow(BackupManager manager, ConsoleView view)
 void ExecuteJobFlow(BackupManager manager, ConsoleView view)
 {
     view.DisplayJobs(manager.GetJobs());
-    Console.Write("\nEntrez l'ID à exécuter (ou 'all' pour tout) : ");
+    Console.Write(Resources.Get_Job_Arg_ID);
     string input = Console.ReadLine()?.ToLower();
 
     if (input == "all")
     {
-        view.DisplayMessage("Exécution globale lancée...");
+        view.DisplayMessage(Resources.Get_Job_All_Try);
         manager.ExecuteAllJobs();
     }
     else if (int.TryParse(input, out int id))
     {
-        view.DisplayMessage($"Exécution du job {id}...");
+        view.DisplayMessage(string.Format(Resources.Get_Job_Running, id));
         manager.ExecuteJob(id);
     }
-    view.DisplayMessage("Opération terminée.");
+    view.DisplayMessage(Resources.Get_Job_End);
 }
 
 void DeleteJobFlow(BackupManager manager, ConsoleView view)
 {
     view.DisplayJobs(manager.GetJobs());
-    Console.Write("\nID du job à supprimer : ");
+    Console.Write(Resources.Delete_Job_ID);
     if (int.TryParse(Console.ReadLine(), out int id))
     {
         manager.DeleteJob(id);
-        view.DisplayMessage("Job supprimé.");
+        view.DisplayMessage(Resources.Delete_Job_Succes);
     }
 }
 
-// Pensez à aller dans cd src/EasySave/bin/Debug/net10.0/ pour execute la commande
+// Pensez à aller dans cd src/EasySave/bin/Debug/net10.0/ pour execute la commande : ".\EasySave.exe 1" 
 void ExecuteFromArgs(string arg, BackupManager manager)
 {
     var ids = new List<int>();
@@ -212,6 +214,14 @@ void ExecuteFromArgs(string arg, BackupManager manager)
                 }
             }
         }
+
+
+
+
+
+
+
+
     }
     catch (Exception ex)
     {

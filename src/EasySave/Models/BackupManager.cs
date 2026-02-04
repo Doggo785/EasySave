@@ -1,3 +1,4 @@
+using EasySave.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,20 +29,18 @@ namespace EasySave.Models
                 string.IsNullOrWhiteSpace(src) ||
                 string.IsNullOrWhiteSpace(dest))
             {
-                Console.WriteLine("Erreur : Tous les champs doivent être remplis.");
-                throw new ArgumentException("Il ne faut laisser aucune case vide");
+                throw new ArgumentException(Resources.Erreur_Creation_Blank);
             }
 
             if (!Path.IsPathRooted(src) || !Path.IsPathRooted(dest))
             {
-                Console.WriteLine("Erreur : Les chemins source et destination doivent être valides (ex: C:\\Dossier).");
-                throw new ArgumentException("Vérifiez vos chemins d'accès.");
+                throw new ArgumentException(Resources.Erreur_Creation_Chemin);
             }
             // auto id
             int newId = _jobs.Count > 0 ? _jobs.Max(j => j.Id) + 1 : 1;
 
             // job limit
-            if (_jobs.Count >= 5) { Console.WriteLine("Max jobs !"); throw new Exception("Nombre maximum de jobs atteint."); ; }
+            if (_jobs.Count >= 5) { Console.WriteLine("Max jobs !"); throw new Exception(Resources.Erreur_Creation_Trop_Nombreux); ; }
 
             var newJob = new BackupJob(newId, name, src, dest, type);
             _jobs.Add(newJob);

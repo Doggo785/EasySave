@@ -61,6 +61,168 @@ namespace EasySave.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choix invalide..
+        /// </summary>
+        public static string App_Case_Mauvais {
+            get {
+                return ResourceManager.GetString("App_Case_Mauvais", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Appuyez sur une touche pour revenir au menu....
+        /// </summary>
+        public static string Back_To_Menu {
+            get {
+                return ResourceManager.GetString("Back_To_Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Destination (Chemin complet) : .
+        /// </summary>
+        public static string Create_Job_Arg_Dest {
+            get {
+                return ResourceManager.GetString("Create_Job_Arg_Dest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nom :.
+        /// </summary>
+        public static string Create_Job_Arg_Name {
+            get {
+                return ResourceManager.GetString("Create_Job_Arg_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Source (Chemin complet) : .
+        /// </summary>
+        public static string Create_Job_Arg_Source {
+            get {
+                return ResourceManager.GetString("Create_Job_Arg_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type (1 = Complet, 2 = Différentiel) : .
+        /// </summary>
+        public static string Create_Job_Arg_TypeSave {
+            get {
+                return ResourceManager.GetString("Create_Job_Arg_TypeSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Impossible de créer la sauvegarde. Vérifiez les erreurs ci-dessus..
+        /// </summary>
+        public static string Create_Job_Fail {
+            get {
+                return ResourceManager.GetString("Create_Job_Fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à === Création d&apos;une sauvegarde ===.
+        /// </summary>
+        public static string Create_Job_Header {
+            get {
+                return ResourceManager.GetString("Create_Job_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à &quot;Sauvegarde créée avec succès !&quot;.
+        /// </summary>
+        public static string Create_Job_Succes {
+            get {
+                return ResourceManager.GetString("Create_Job_Succes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ID du job à supprimer :.
+        /// </summary>
+        public static string Delete_Job_ID {
+            get {
+                return ResourceManager.GetString("Delete_Job_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Job supprimé..
+        /// </summary>
+        public static string Delete_Job_Succes {
+            get {
+                return ResourceManager.GetString("Delete_Job_Succes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur : Tous les champs doivent être remplis.
+        /// </summary>
+        public static string Erreur_Creation_Blank {
+            get {
+                return ResourceManager.GetString("Erreur_Creation_Blank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur : Les chemins source et destination doivent être valides (ex: C:\\Dossier)..
+        /// </summary>
+        public static string Erreur_Creation_Chemin {
+            get {
+                return ResourceManager.GetString("Erreur_Creation_Chemin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nombre maximum de jobs atteint..
+        /// </summary>
+        public static string Erreur_Creation_Trop_Nombreux {
+            get {
+                return ResourceManager.GetString("Erreur_Creation_Trop_Nombreux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Exécution globale lancée....
+        /// </summary>
+        public static string Get_Job_All_Try {
+            get {
+                return ResourceManager.GetString("Get_Job_All_Try", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Entrez l&apos;ID à exécuter (ou &apos;all&apos; pour tout) : .
+        /// </summary>
+        public static string Get_Job_Arg_ID {
+            get {
+                return ResourceManager.GetString("Get_Job_Arg_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Opération terminée..
+        /// </summary>
+        public static string Get_Job_End {
+            get {
+                return ResourceManager.GetString("Get_Job_End", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Exécution du job {0}....
+        /// </summary>
+        public static string Get_Job_Running {
+            get {
+                return ResourceManager.GetString("Get_Job_Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Destination.
         /// </summary>
         public static string Header_Dest {
