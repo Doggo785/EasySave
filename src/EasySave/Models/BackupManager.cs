@@ -22,7 +22,7 @@ namespace EasySave.Models
             return _jobs;
         }
 
-        public void CreateJob(string name, string src, string dest, BackupType type)
+        public void CreateJob(string name, string src, string dest, bool type)
         {
             
             if (string.IsNullOrWhiteSpace(name) ||

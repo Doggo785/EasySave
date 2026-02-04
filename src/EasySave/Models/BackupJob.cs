@@ -13,16 +13,17 @@ namespace EasySave.Models
         public string Name { get; set; }
         public string SourceDirectory { get; set; }
         public string TargetDirectory { get; set; }
-        public BackupType Type { get; set; }
+        // True = Full Backup, False = Differential Backup
+        public bool BackupType { get; set; }
 
         private LoggerService _logger;
-        public BackupJob(int id, string name, string source, string target, BackupType type)
+        public BackupJob(int id, string name, string source, string target, bool type)
         {
             Id = id;
             Name = name;
             SourceDirectory = source;
             TargetDirectory = target;
-            Type = type;
+            BackupType = type;
             _logger = new LoggerService();
         }
 
@@ -82,11 +83,11 @@ namespace EasySave.Models
                 _logger.UpdateStateLog(stateLog);
 
                 bool processFile = false;
-                if (Type == BackupType.Full)
+                if (BackupType == true)
                 {
                     processFile = true;
                 }
-                else if (Type == BackupType.Differential)
+                else if (BackupType == false)
                 {
                     processFile = CheckDifferential(file, targetPath);
                 }

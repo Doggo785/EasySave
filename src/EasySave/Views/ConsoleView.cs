@@ -116,7 +116,7 @@ namespace EasySave.Views
                     Console.ResetColor();
 
                     Console.Write($"{Truncate(job.Name, 20),-20} ");
-                    Console.Write($"{job.Type,-10} ");
+                    Console.Write($"{job.BackupType,-10} ");
                     Console.WriteLine($"{Truncate(job.SourceDirectory, 20),-20} → {Truncate(job.TargetDirectory, 20)}");
                 }
             }

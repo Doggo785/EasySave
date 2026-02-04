@@ -107,12 +107,12 @@ namespace EasySave
 
             Console.Write(Resources.Create_Job_Arg_TypeSave);
             string typeChoice = Console.ReadLine() ?? "";
-            BackupType type = (typeChoice == "2") ? BackupType.Differential : BackupType.Full;
+            bool BakcupType = (typeChoice == "2") ? false : true;
 
             bool success;
             try
             {
-                manager.CreateJob(name, src, dest, type);
+                manager.CreateJob(name, src, dest, BakcupType);
                 success = true;
             }
             catch (Exception ex)
