@@ -47,9 +47,10 @@ namespace EasySave.Views
             PrintMenuOption("2", Resources.Menu_Option2);
             PrintMenuOption("3", Resources.Menu_Option3);
             PrintMenuOption("4", Resources.Menu_Option4);
+            PrintMenuOption("5", Resources.Menu_Option5);
             
             Console.WriteLine(); 
-            PrintMenuOption("5", Resources.Menu_OptionExit, ConsoleColor.Gray);
+            PrintMenuOption("6", Resources.Menu_OptionExit, ConsoleColor.Gray);
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
