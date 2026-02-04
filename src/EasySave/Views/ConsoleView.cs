@@ -15,21 +15,21 @@ namespace EasySave.Views
         private void DisplayHeader()
         {
             Console.Clear();
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(@"
-    ╔═══════════════════════════════════════════════════════════════╗
-    ║                                                               ║
-    ║   ███████╗ █████╗ ███████╗██╗   ██╗███████╗ █████╗ ██╗   ██╗  ║
-    ║   ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝██╔════╝██╔══██╗██║   ██║  ║
-    ║   █████╗  ███████║███████╗ ╚████╔╝ ███████╗███████║██║   ██║  ║
-    ║   ██╔══╝  ██╔══██║╚════██║  ╚██╔╝  ╚════██║██╔══██║╚██╗ ██╔╝  ║
-    ║   ███████╗██║  ██║███████║   ██║   ███████║██║  ██║ ╚████╔╝   ║
-    ║   ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝  ╚═══╝    ║
-    ║                                                               ║
-    ╚═══════════════════════════════════════════════════════════════╝");
+      '||''''|                              .|'''.|                           
+       ||  .     ....    ....  .... ...     ||..  '   ....   .... ...   ....  
+       ||''|    '' .||  ||. '   '|.  |       ''|||.  '' .||   '|.  |  .|...|| 
+       ||       .|' ||  . '|..   '|.|      .     '|| .|' ||    '|.|   ||      
+      .||.....| '|..'|' |'..|'    '|       |'....|'  '|..'|'    '|     '|...' 
+                               .. |                                           
+                               ''                                            
+");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("                    💾 Backup Made Simple 💾");
+            Console.WriteLine("      Safe & Secure Backup Solution");
+            Console.WriteLine("      " + new string('─', 44));
             Console.ResetColor();
             Console.WriteLine();
         }
@@ -39,29 +39,36 @@ namespace EasySave.Views
             DisplayHeader();
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("    ┌─────────────────────────────────────┐");
-            Console.WriteLine($"    │  {Resources.Menu_Title,-35} │");
-            Console.WriteLine("    ├─────────────────────────────────────┤");
-            Console.ResetColor();
+            Console.WriteLine($"      {Resources.Menu_Title}");
+            Console.WriteLine();
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"    │  [1] 📋 {Resources.Menu_Option1,-27} │");
-            Console.WriteLine($"    │  [2] ➕ {Resources.Menu_Option2,-27} │");
-            Console.WriteLine($"    │  [3] ▶️  {Resources.Menu_Option3,-26} │");
-            Console.WriteLine($"    │  [4] 🌐 {Resources.Menu_Option4,-27} │");
-            Console.ResetColor();
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"    │  [5] 🚪 {Resources.Menu_OptionExit,-27} │");
-            Console.ResetColor();
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("    └─────────────────────────────────────┘");
-            Console.ResetColor();
+            // Menu liste épuré sans boîtes lourdes
+            PrintMenuOption("1", Resources.Menu_Option1);
+            PrintMenuOption("2", Resources.Menu_Option2);
+            PrintMenuOption("3", Resources.Menu_Option3);
+            PrintMenuOption("4", Resources.Menu_Option4);
+            
+            Console.WriteLine(); 
+            PrintMenuOption("5", Resources.Menu_OptionExit, ConsoleColor.Gray);
 
             Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"    ➤  ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
+        }
+
+        private void PrintMenuOption(string key, string label, ConsoleColor textColor = ConsoleColor.White)
+        {
+            Console.Write("      ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(key);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("]  ");
+            
+            Console.ForegroundColor = textColor;
+            Console.WriteLine(label);
             Console.ResetColor();
         }
 
@@ -74,52 +81,55 @@ namespace EasySave.Views
         {
             DisplayHeader();
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"    ═══ {Resources.Menu_Option1} ═══");
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.Menu_Option1}");
             Console.WriteLine();
 
             if (jobs == null || jobs.Count == 0)
             {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine($"    ⚠️  {Resources.Msg_NoJobs}");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"      (i) {Resources.Msg_NoJobs}");
                 Console.ResetColor();
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("    ┌──────┬──────────────────────┬────────────┬─────────────────────────────────┐");
-                Console.WriteLine("    │ {0,-4} │ {1,-20} │ {2,-10} │ {3,-31} │", "ID", "Nom", "Type", "Source → Destination");
-                Console.WriteLine("    ├──────┼──────────────────────┼────────────┼─────────────────────────────────┤");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("      {0,-4} {1,-20} {2,-10} {3,-20} {4} {5}", 
+                    Resources.Header_Id, 
+                    Resources.Header_Name, 
+                    Resources.Header_Type, 
+                    Resources.Header_Source, 
+                    ">", 
+                    Resources.Header_Dest);
+                
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("      " + new string('─', 85));
                 Console.ResetColor();
 
                 for (int i = 0; i < jobs.Count; i++)
                 {
                     var job = jobs[i];
-                    Console.WriteLine("    │ {0,-4} │ {1,-20} │ {2,-10} │ {3,-14} → {4,-14} │",
-                        i + 1,
-                        Truncate(job.Name, 20),
-                        job.Type,
-                        Truncate(job.SourceDirectory, 14),
-                        Truncate(job.TargetDirectory, 14));
-                }
+                    Console.Write("      ");
+                    
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write($"{i + 1,-4} ");
+                    Console.ResetColor();
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("    └──────┴──────────────────────┴────────────┴─────────────────────────────────┘");
-                Console.ResetColor();
+                    Console.Write($"{Truncate(job.Name, 20),-20} ");
+                    Console.Write($"{job.Type,-10} ");
+                    Console.WriteLine($"{Truncate(job.SourceDirectory, 20),-20} → {Truncate(job.TargetDirectory, 20)}");
+                }
             }
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"    {Resources.Msg_Return}");
             Console.ResetColor();
-            Console.ReadLine();
         }
 
         public void DisplayMessage(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\n    ✨ {message}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n      > {message}");
             Console.ResetColor();
 
             Thread.Sleep(1500);
