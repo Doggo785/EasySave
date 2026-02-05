@@ -83,7 +83,10 @@ namespace EasySave.Views
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"      {Resources.Menu_Option1}");
+
+            Console.WriteLine("      " + new string('─', Resources.Menu_Option1.Length));
             Console.WriteLine();
+
 
             if (jobs == null || jobs.Count == 0)
             {

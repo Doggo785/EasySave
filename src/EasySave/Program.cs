@@ -65,7 +65,13 @@ namespace EasySave
         {
             Console.Clear();
             Views.ConsoleView.DisplayHeader();
-            Console.WriteLine($"      {Resources.Chg_Lang}\n");
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.Chg_Lang}");
+
+            Console.WriteLine("      " + new string('─', Resources.Chg_Lang.Length));
+            Console.WriteLine();
+
             Views.ConsoleView.PrintMenuOption("1", "English");
             Views.ConsoleView.PrintMenuOption("2", "Français");
             Console.WriteLine();
