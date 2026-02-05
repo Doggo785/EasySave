@@ -92,48 +92,20 @@ namespace EasySave
         }
         static void CreateJobFlow(SaveManager manager, ConsoleView view)
         {
-            Console.Clear();
-            Views.ConsoleView.DisplayHeader();
-            Console.WriteLine($"      {Resources.Create_Job_Header}\n");
+            // get user inputs
+            var jobInfo = view.GetNewJobInfo();
 
-            Console.Write(Resources.Create_Job_Arg_Name);
-            string name = Console.ReadLine() ?? "Job";
-
-            Console.Write(Resources.Create_Job_Arg_Source);
-            string src = Console.ReadLine() ?? "";
-
-            Console.Write(Resources.Create_Job_Arg_Dest);
-            string dest = Console.ReadLine() ?? "";
-
-            Console.Write(Resources.Create_Job_Arg_TypeSave);
-            string typeChoice = Console.ReadLine() ?? "";
-            bool BakcupType = (typeChoice == "2") ? false : true;
-
-            bool success;
             try
             {
-                manager.CreateJob(name, src, dest, BakcupType);
-                success = true;
+                
+                manager.CreateJob(jobInfo.name, jobInfo.source, jobInfo.dest, jobInfo.isFull);
+
+                view.DisplayMessage(Resources.Create_Job_Succes);
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{ex.Message}");
-                success = false;
-            }
-
-            if (success)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                view.DisplayMessage(Resources.Create_Job_Succes);
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(Resources.Create_Job_Fail);
-                Console.ResetColor();
-                Console.WriteLine(Resources.Back_To_Menu);
-                Console.ReadKey();
+                // show error message
+                view.DisplayError($"{Resources.Create_Job_Fail}\n      {ex.Message}");
             }
         }
 
