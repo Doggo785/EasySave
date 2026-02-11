@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace EasyLog
 {
@@ -22,13 +23,17 @@ namespace EasyLog
         }
         public void WriteDailyLog(DailyLog logEntry)
         {
-            string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}.json";
-            string fullPath = Path.Combine(_logDirectory, dailyFileName);
+            string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
+            string logFormat = GetLogFormat();
 
-            var options = new JsonSerializerOptions{ WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(logEntry, options);
-
-            File.AppendAllText(fullPath, jsonString + Environment.NewLine);
+            if (logFormat == "Json" || logFormat == "Both")
+            {
+                WriteJson(logEntry, dailyFileName);
+            }
+            if (logFormat == "Xml" || logFormat == "Both")
+            {
+                WriteXml(logEntry, dailyFileName);
+            }
         }
         public void UpdateStateLog(StateLog stateEntry)
         {
@@ -42,6 +47,59 @@ namespace EasyLog
             if(!Directory.Exists(_logDirectory))
             {
                 Directory.CreateDirectory(_logDirectory);
+            }
+        }
+        private void WriteJson(DailyLog logEntry, string dailyFileName)
+        {
+            string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.json");
+
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(logEntry, options);
+
+            File.AppendAllText(fullPath, jsonString + Environment.NewLine);
+        }
+
+        private void WriteXml(DailyLog logEntry, string dailyFileName)
+        {
+            string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.xml");
+
+            List<DailyLog> logs;
+            XmlSerializer serializer = new XmlSerializer(typeof(List<DailyLog>), new XmlRootAttribute("DailyLogs"));
+
+            if (File.Exists(fullPath))
+            {
+                try
+                {
+                    using (var stream = new FileStream(fullPath, FileMode.Open))
+                    {
+                        logs = (List<DailyLog>)serializer.Deserialize(stream);
+                    }
+                }
+                catch
+                {
+                    logs = new List<DailyLog>();
+                }
+            }
+            else
+            {
+                logs = new List<DailyLog>();
+            }
+            logs.Add(logEntry);
+
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                serializer.Serialize(stream, logs);
+            }
+        }
+        private string GetLogFormat()
+        {
+            try
+            {
+                return SettingsManager.Instance.LogFormat;
+            }
+            catch
+            {
+                return "Json";
             }
         }
     }
