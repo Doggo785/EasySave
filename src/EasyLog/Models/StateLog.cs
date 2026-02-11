@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EasyLog.Models
+namespace EasySave.Core.Models
 {
     public class StateLog
     {

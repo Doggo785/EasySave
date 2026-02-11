@@ -1,4 +1,4 @@
-﻿using EasySave.Models;
+﻿using EasySave.Core.Models;
 using EasySave.Properties;
 using EasySave.Services;
 using EasySave.Views;

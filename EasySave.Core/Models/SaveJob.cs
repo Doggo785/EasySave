@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using EasyLog;
-using EasyLog.Models;
+using EasySave.Core.Models;
 
-namespace EasySave.Models
+namespace EasySave.Core.Models
 {
 
     public class SaveJob

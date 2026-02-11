@@ -4,7 +4,7 @@ using System.Resources;
 using System.Text;
 using System.Threading;
 using EasySave.Properties;
-using EasySave.Models;
+using EasySave.Core.Models;
 
 namespace EasySave.Views
 {

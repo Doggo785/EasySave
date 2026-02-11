@@ -1,4 +1,4 @@
-﻿using EasyLog.Models;
+﻿using EasySave.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
