@@ -1,5 +1,5 @@
 ﻿using EasySave.Core.Models;
-using EasySave.Properties;
+using EasySave.Core.Properties;
 using EasySave.Services;
 using EasySave.Views;
 using System;

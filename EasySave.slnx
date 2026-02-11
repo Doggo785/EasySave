@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="EasySave.Core/EasySave.Core.csproj" Id="4fee9fb7-5231-4f12-96de-b1b95c8a3e60" />
-  <Project Path="EasySave.WPF/EasySave.WPF.csproj" Id="4ba47efa-cdd4-462b-93b0-2d30924a96b2" />
   <Project Path="src/EasyLog/EasyLog.csproj" />
-  <Project Path="src/EasySave/EasySave.Console.csproj" />
+  <Project Path="src/EasySave.Console/EasySave.Console.csproj" />
+  <Project Path="src/EasySave.Core/EasySave.Core.csproj" />
+  <Project Path="src/EasySave.WPF/EasySave.WPF.csproj" />
 </Solution>
