@@ -2,5 +2,4 @@
   <Project Path="src/EasyLog/EasyLog.csproj" />
   <Project Path="src/EasySave.Console/EasySave.Console.csproj" />
   <Project Path="src/EasySave.Core/EasySave.Core.csproj" />
-  <Project Path="src/EasySave.WPF/EasySave.WPF.csproj" />
 </Solution>
