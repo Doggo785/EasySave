@@ -21,8 +21,8 @@ namespace EasySave
                 string settingsDisplay = $"\n{Resources.SettingsFlow_Parameters}\n" +
                                          $"1. {Resources.SettingsFlow_Language} : {settings.Language}\n" +
                                          $"2. {Resources.SettingsFlow_LogFormat} : {settings.LogFormat}\n" +
-                                         $"3. {Resources.SettingsFlow_SoftwareBuis} : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? "Aucun" : settings.BusinessSoftwareName)}\n" +
-                                         $"4. {Resources.SettingsFlow_Crypto}: {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : "Aucune")}\n" +
+                                         $"3. {Resources.SettingsFlow_SoftwareBuis} : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? $"{Resources.None2}" : settings.BusinessSoftwareName)}\n" +
+                                         $"4. {Resources.SettingsFlow_Crypto}: {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : $"{Resources.None}")}\n" +
                                          $"--------------------------\n" +
                                          $"0. {Resources.SettingsFlow_BackMenu}\n";
 
@@ -64,7 +64,7 @@ namespace EasySave
             System.Console.WriteLine($"\n{Resources.SettingsFlow_Changementlang}");
             System.Console.WriteLine("1. Français (fr)");
             System.Console.WriteLine("2. English (en)");
-            System.Console.Write("\nVotre choix : ");
+            System.Console.Write($"\n{Resources.SettingsFlow_Choice} ");
 
             string choice = System.Console.ReadLine();
 
@@ -77,24 +77,24 @@ namespace EasySave
                     settings.Language = "en";
                     break;
                 default:
-                    System.Console.WriteLine("Choix invalide.");
+                    System.Console.WriteLine($"{Resources.App_Case_Mauvais}");
                     System.Console.ReadKey();
                     return;
             }
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine("\n✓ Langue modifiée avec succès !");
-            System.Console.WriteLine("Appuyez sur une touche pour continuer...");
+            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_LanguageSucessfull} ");
+            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
             System.Console.ReadKey();
         }
 
         private static void ModifyLogFormat(SettingsManager settings)
         {
             System.Console.Clear();
-            System.Console.WriteLine("\n--- MODIFICATION DU FORMAT DE LOG ---");
+            System.Console.WriteLine($"\n{Resources.SettingsFlow_ModifLogFormat}");
             System.Console.WriteLine("1. JSON");
             System.Console.WriteLine("2. XML");
-            System.Console.Write("\nVotre choix : ");
+            System.Console.Write($"\n{Resources.SettingsFlow_Choice}");
 
             string choice = System.Console.ReadLine();
 
@@ -107,39 +107,39 @@ namespace EasySave
                     settings.LogFormat = false;
                     break;
                 default:
-                    System.Console.WriteLine("Choix invalide.");
+                    System.Console.WriteLine($"{Resources.SettingsFlow_ChoixErreur}");
                     System.Console.ReadKey();
                     return;
             }
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine("\n✓ Format de log modifié avec succès !");
-            System.Console.WriteLine("Appuyez sur une touche pour continuer...");
+            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_LogFormatSuccess}");
+            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
             System.Console.ReadKey();
         }
 
         private static void ModifyBusinessSoftware(SettingsManager settings)
         {
             System.Console.Clear();
-            System.Console.WriteLine("\n--- MODIFICATION DU LOGICIEL MÉTIER ---");
-            System.Console.WriteLine($"Valeur actuelle : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? "Aucun" : settings.BusinessSoftwareName)}");
-            System.Console.Write("\nNom du logiciel (ou vide pour aucun) : ");
+            System.Console.WriteLine($"\n{Resources.SettingsFlow_ModifBusinesSoftWare}");
+            System.Console.WriteLine($"{Resources.Current_Value} {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? $"{Resources.None2}" : settings.BusinessSoftwareName)}");
+            System.Console.Write($"\n{Resources.SettingsFlow_BSoftWareName}");
 
             string input = System.Console.ReadLine();
             settings.BusinessSoftwareName = input ?? "";
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine("\n✓ Logiciel métier modifié avec succès !");
-            System.Console.WriteLine("Appuyez sur une touche pour continuer...");
+            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_BSoftWareSuccess}");
+            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
             System.Console.ReadKey();
         }
 
         private static void ModifyCryptoExtensions(SettingsManager settings)
         {
             System.Console.Clear();
-            System.Console.WriteLine("\n--- MODIFICATION DES EXTENSIONS CRYPTO ---");
-            System.Console.WriteLine($"Extensions actuelles : {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : "Aucune")}");
-            System.Console.Write("\nEntrez les extensions séparées par des virgules (ex: .txt,.doc,.pdf) : ");
+            System.Console.WriteLine($"\n {Resources.SettingsFlow_ModifEncrypt}");
+            System.Console.WriteLine($"{Resources.SettingsFlow_Encryp_Exten} {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : $"{Resources.None}")}");
+            System.Console.Write($"\n {Resources.SettingsFlow_EncryptExtenChoice}");
 
             string input = System.Console.ReadLine();
             settings.EncryptedExtensions.Clear();
@@ -160,8 +160,8 @@ namespace EasySave
             }
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine("\n✓ Extensions crypto modifiées avec succès !");
-            System.Console.WriteLine("Appuyez sur une touche pour continuer...");
+            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_EncryptSuccess}");
+            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
             System.Console.ReadKey();
         }
     }
