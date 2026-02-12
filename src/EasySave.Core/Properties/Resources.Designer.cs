@@ -151,6 +151,15 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Valeur actuelle :.
+        /// </summary>
+        public static string Current_Value {
+            get {
+                return ResourceManager.GetString("Current_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ID du job à supprimer :.
         /// </summary>
         public static string Delete_Job_ID {
@@ -367,6 +376,24 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aucune.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aucun.
+        /// </summary>
+        public static string None2 {
+            get {
+                return ResourceManager.GetString("None2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Retour au menu principal.
         /// </summary>
         public static string SettingsFlow_BackMenu {
@@ -376,11 +403,38 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nom du logiciel (ou vide pour aucun) : .
+        /// </summary>
+        public static string SettingsFlow_BSoftWareName {
+            get {
+                return ResourceManager.GetString("SettingsFlow_BSoftWareName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Logiciel métier modifié avec succès !.
+        /// </summary>
+        public static string SettingsFlow_BSoftWareSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_BSoftWareSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à --- MODIFICATION DE LA LANGUE ---.
         /// </summary>
         public static string SettingsFlow_Changementlang {
             get {
                 return ResourceManager.GetString("SettingsFlow_Changementlang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre choix :.
+        /// </summary>
+        public static string SettingsFlow_Choice {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Choice", resourceCulture);
             }
         }
         
@@ -403,11 +457,47 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Appuyer sur une touche pour continuer ....
+        /// </summary>
+        public static string SettingsFlow_Continue {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Extensions Crypto.
         /// </summary>
         public static string SettingsFlow_Crypto {
             get {
                 return ResourceManager.GetString("SettingsFlow_Crypto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Extensions actuelles :.
+        /// </summary>
+        public static string SettingsFlow_Encryp_Exten {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Encryp_Exten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Entrez les extensions séparées par des virgules (ex: .txt,.doc,.pdf) : .
+        /// </summary>
+        public static string SettingsFlow_EncryptExtenChoice {
+            get {
+                return ResourceManager.GetString("SettingsFlow_EncryptExtenChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Extensions crypto modifiées avec succès !.
+        /// </summary>
+        public static string SettingsFlow_EncryptSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_EncryptSuccess", resourceCulture);
             }
         }
         
@@ -421,11 +511,56 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Langue modifiée avec succès !.
+        /// </summary>
+        public static string SettingsFlow_LanguageSucessfull {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LanguageSucessfull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Format Log.
         /// </summary>
         public static string SettingsFlow_LogFormat {
             get {
                 return ResourceManager.GetString("SettingsFlow_LogFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Format de log modifié avec succès !.
+        /// </summary>
+        public static string SettingsFlow_LogFormatSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogFormatSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à --- MODIFICATION DU LOGICIEL MÉTIER ---.
+        /// </summary>
+        public static string SettingsFlow_ModifBusinesSoftWare {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ModifBusinesSoftWare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à --- MODIFICATION DES EXTENSIONS CRYPTO ---.
+        /// </summary>
+        public static string SettingsFlow_ModifEncrypt {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ModifEncrypt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à --- MODIFICATION DU FORMAT DE LOG ---.
+        /// </summary>
+        public static string SettingsFlow_ModifLogFormat {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ModifLogFormat", resourceCulture);
             }
         }
         
