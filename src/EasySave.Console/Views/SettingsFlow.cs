@@ -16,13 +16,13 @@ namespace EasySave
             while (!exit)
             {
                 System.Console.Clear();
-                var settings = SettingsManager.Instance.Config;
+                var settings = SettingsManager.Instance;
 
                 string settingsDisplay = $"\n{Resources.SettingsFlow_Parameters}\n" +
                                          $"1. {Resources.SettingsFlow_Language} : {settings.Language}\n" +
                                          $"2. {Resources.SettingsFlow_LogFormat} : {settings.LogFormat}\n" +
-                                         $"3. {Resources.SettingsFlow_SoftwareBuis} : {(string.IsNullOrEmpty(settings.BusinessSoftware) ? "Aucun" : settings.BusinessSoftware)}\n" +
-                                         $"4. {Resources.SettingsFlow_Crypto}: {(settings.CryptoExtensions.Count > 0 ? string.Join(", ", settings.CryptoExtensions) : "Aucune")}\n" +
+                                         $"3. {Resources.SettingsFlow_SoftwareBuis} : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? "Aucun" : settings.BusinessSoftwareName)}\n" +
+                                         $"4. {Resources.SettingsFlow_Crypto}: {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : "Aucune")}\n" +
                                          $"--------------------------\n" +
                                          $"0. {Resources.SettingsFlow_BackMenu}\n";
 
@@ -58,7 +58,7 @@ namespace EasySave
             System.Console.Clear();
         }
 
-        private static void ModifyLanguage(AppSettings settings)
+        private static void ModifyLanguage(SettingsManager settings)
         {
             System.Console.Clear();
             System.Console.WriteLine($"\n{Resources.SettingsFlow_Changementlang}");
@@ -88,7 +88,7 @@ namespace EasySave
             System.Console.ReadKey();
         }
 
-        private static void ModifyLogFormat(AppSettings settings)
+        private static void ModifyLogFormat(SettingsManager settings)
         {
             System.Console.Clear();
             System.Console.WriteLine("\n--- MODIFICATION DU FORMAT DE LOG ---");
@@ -101,10 +101,10 @@ namespace EasySave
             switch (choice)
             {
                 case "1":
-                    settings.LogFormat = "JSON";
+                    settings.LogFormat = true;
                     break;
                 case "2":
-                    settings.LogFormat = "XML";
+                    settings.LogFormat = false;
                     break;
                 default:
                     System.Console.WriteLine("Choix invalide.");
@@ -118,15 +118,15 @@ namespace EasySave
             System.Console.ReadKey();
         }
 
-        private static void ModifyBusinessSoftware(AppSettings settings)
+        private static void ModifyBusinessSoftware(SettingsManager settings)
         {
             System.Console.Clear();
             System.Console.WriteLine("\n--- MODIFICATION DU LOGICIEL MÉTIER ---");
-            System.Console.WriteLine($"Valeur actuelle : {(string.IsNullOrEmpty(settings.BusinessSoftware) ? "Aucun" : settings.BusinessSoftware)}");
+            System.Console.WriteLine($"Valeur actuelle : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? "Aucun" : settings.BusinessSoftwareName)}");
             System.Console.Write("\nNom du logiciel (ou vide pour aucun) : ");
 
             string input = System.Console.ReadLine();
-            settings.BusinessSoftware = input ?? "";
+            settings.BusinessSoftwareName = input ?? "";
 
             SettingsManager.Instance.SaveSettings();
             System.Console.WriteLine("\n✓ Logiciel métier modifié avec succès !");
@@ -134,15 +134,15 @@ namespace EasySave
             System.Console.ReadKey();
         }
 
-        private static void ModifyCryptoExtensions(AppSettings settings)
+        private static void ModifyCryptoExtensions(SettingsManager settings)
         {
             System.Console.Clear();
             System.Console.WriteLine("\n--- MODIFICATION DES EXTENSIONS CRYPTO ---");
-            System.Console.WriteLine($"Extensions actuelles : {(settings.CryptoExtensions.Count > 0 ? string.Join(", ", settings.CryptoExtensions) : "Aucune")}");
+            System.Console.WriteLine($"Extensions actuelles : {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : "Aucune")}");
             System.Console.Write("\nEntrez les extensions séparées par des virgules (ex: .txt,.doc,.pdf) : ");
 
             string input = System.Console.ReadLine();
-            settings.CryptoExtensions.Clear();
+            settings.EncryptedExtensions.Clear();
 
             if (!string.IsNullOrWhiteSpace(input))
             {
@@ -154,7 +154,7 @@ namespace EasySave
                     {
                         if (!trimmed.StartsWith("."))
                             trimmed = "." + trimmed;
-                        settings.CryptoExtensions.Add(trimmed);
+                        settings.EncryptedExtensions.Add(trimmed);
                     }
                 }
             }

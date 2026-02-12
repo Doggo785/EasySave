@@ -5,24 +5,19 @@ using System.Globalization;
 using System.IO;
 using System.Text.Json;
 using System.Threading;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace EasySave.Core.Services
 {
-    public class AppSettings
+    public class SettingsManager
     {
         public string Language { get; set; } = "fr"; // "fr" ou "en"
-        public string LogFormat { get; set; } = "JSON"; //JSON ou XML
-        public string BusinessSoftware { get; set; } = ""; 
-        public List<string> CryptoExtensions { get; set; } = new List<string>();
-    }
-    public class SettingsManager
-    {   
+        public bool LogFormat { get; set; } = true; // true = JSON, false = XML
+        public string BusinessSoftwareName { get; set; } = "";
+        public List<string> EncryptedExtensions { get; set; } = new List<string>();
+
         private static SettingsManager _instance;
         public static SettingsManager Instance => _instance ??= new SettingsManager();
         private readonly string _configFilePath;
-
-        public AppSettings Config { get; set; }
 
         private SettingsManager()
         {
@@ -33,33 +28,48 @@ namespace EasySave.Core.Services
 
         public void LoadSettings()
         {
-            if(File.Exists(_configFilePath))
+            if (File.Exists(_configFilePath))
             {
                 try
                 {
                     string json = File.ReadAllText(_configFilePath);
+                    var settings = JsonSerializer.Deserialize<SettingsModel>(json);
 
-                    Config = JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+                    if (settings != null)
+                    {
+                        Language = settings.Language;
+                        LogFormat = settings.LogFormat;
+                        BusinessSoftwareName = settings.BusinessSoftwareName;
+                        EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
+                    }
                 }
                 catch
                 {
-                    Config = new AppSettings();
+                    ResetSettings();
                 }
             }
             else
             {
-                Config = new AppSettings();
+                ResetSettings();
                 SaveSettings();
             }
-            ChangeLanguage(Config.Language);
+            ChangeLanguage(Language);
         }
 
         public void SaveSettings()
         {
+            var settings = new SettingsModel
+            {
+                Language = Language,
+                LogFormat = LogFormat,
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions
+            };
+
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(Config, options);
+            string json = JsonSerializer.Serialize(settings, options);
             File.WriteAllText(_configFilePath, json);
-            ChangeLanguage(Config.Language);
+            ChangeLanguage(Language);
         }
 
         public void ChangeLanguage(string languageCode)
@@ -74,12 +84,27 @@ namespace EasySave.Core.Services
                 CultureInfo.DefaultThreadCurrentCulture = culture;
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
 
-                Config.Language = languageCode;
+                Language = languageCode;
             }
             catch (CultureNotFoundException)
             {
-
             }
+        }
+
+        private void ResetSettings()
+        {
+            Language = "fr";
+            LogFormat = true;
+            BusinessSoftwareName = "";
+            EncryptedExtensions = new List<string>();
+        }
+
+        private class SettingsModel
+        {
+            public string Language { get; set; } = "fr";
+            public bool LogFormat { get; set; } = true;
+            public string BusinessSoftwareName { get; set; } = "";
+            public List<string> EncryptedExtensions { get; set; } = new List<string>();
         }
     }
 }

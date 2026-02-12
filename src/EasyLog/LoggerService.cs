@@ -14,25 +14,25 @@ namespace EasyLog
     {
         private string _logDirectory;
         private string _stateFilePath;
+        private bool _logFormat; // true = JSON, false = XML
 
-        public LoggerService()
+        public LoggerService(bool logFormat)
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             _logDirectory = Path.Combine(appDataPath, "ProSoft", "EasySave", "Logs");
             _stateFilePath = Path.Combine(_logDirectory, "state.json");
-
             EnsureDirectoryExist();
+
+            _logFormat = logFormat;
         }
         public void WriteDailyLog(DailyLog logEntry)
         {
             string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
-            string logFormat = GetLogFormat();
-
-            if (logFormat == "Json" || logFormat == "Both")
+            if (_logFormat)
             {
                 WriteJson(logEntry, dailyFileName);
             }
-            if (logFormat == "Xml" || logFormat == "Both")
+            else
             {
                 WriteXml(logEntry, dailyFileName);
             }
@@ -91,18 +91,6 @@ namespace EasyLog
             using (var stream = new FileStream(fullPath, FileMode.Create))
             {
                 serializer.Serialize(stream, logs);
-            }
-        }
-        private string GetLogFormat()
-        {
-            try
-            {
-                //return SettingsManager.Instance.Config.LogFormat;
-                return null;
-            }
-            catch
-            {
-                return "Json";
             }
         }
     }
