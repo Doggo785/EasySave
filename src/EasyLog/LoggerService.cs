@@ -6,6 +6,8 @@ using System.IO;
 using System.Text.Json;
 using System.Xml.Serialization;
 
+
+
 namespace EasyLog
 {
     public class LoggerService
@@ -95,7 +97,8 @@ namespace EasyLog
         {
             try
             {
-                return SettingsManager.Instance.LogFormat;
+                //return SettingsManager.Instance.Config.LogFormat;
+                return null;
             }
             catch
             {
