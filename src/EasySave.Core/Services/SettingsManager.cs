@@ -21,7 +21,7 @@ namespace EasySave.Core.Services
 
         private SettingsManager()
         {
-            var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EasySave");
+            var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ProSoft", "EasySave", "UserConfig");
             Directory.CreateDirectory(appDataPath);
             _configFilePath = Path.Combine(appDataPath, "config.json");
         }
