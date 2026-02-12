@@ -1,5 +1,6 @@
 ﻿using EasySave.Core.Models;
 using EasySave.Core.Properties;
+using EasySave.Core.Services;
 using EasySave.Services;
 using EasySave.Views;
 using System;
@@ -14,6 +15,7 @@ namespace EasySave
         static void Main(string[] args)
         {
 
+            SettingsManager.Instance.LoadSettings();
             if (args.Length > 0)
             {
                 RunCommandLine(args[0]);
@@ -50,7 +52,11 @@ namespace EasySave
                         ChangeLangueFlow(_view);
                         break;
 
-                    case "6": // QUITTER
+                    case "6": // SHOW SETTINGS
+                        ShowSettingsFlow(_view);
+                        break;
+
+                    case "7": // QUITTER
                         exit = true;
                         break;
 
@@ -168,5 +174,11 @@ namespace EasySave
                 _SaveManager.ExecuteJob(id);
             }
         }
+
+        static void ShowSettingsFlow(ConsoleView view)
+        {
+            SettingsFlow.Show(view);
+        }
+
     }
 }
