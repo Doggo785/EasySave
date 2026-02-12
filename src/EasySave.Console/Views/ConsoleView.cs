@@ -117,7 +117,7 @@ namespace EasySave.Views
                     Console.Write("      ");
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Write($"{i + 1,-4} ");
+                    Console.Write($"{job.Id,-4} ");
                     Console.ResetColor();
 
                     Console.Write($"{Truncate(job.Name, 20),-20} ");
