@@ -151,6 +151,15 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valeur actuelle :.
+        /// </summary>
+        public static string Current_Value {
+            get {
+                return ResourceManager.GetString("Current_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID du job à supprimer :.
         /// </summary>
         public static string Delete_Job_ID {
@@ -313,20 +322,20 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changer la langue.
-        /// </summary>
-        public static string Menu_Option5 {
-            get {
-                return ResourceManager.GetString("Menu_Option5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Quitter.
         /// </summary>
         public static string Menu_OptionExit {
             get {
                 return ResourceManager.GetString("Menu_OptionExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paramètres.
+        /// </summary>
+        public static string Menu_OptionSettings {
+            get {
+                return ResourceManager.GetString("Menu_OptionSettings", resourceCulture);
             }
         }
         
@@ -354,6 +363,222 @@ namespace EasySave.Core.Properties {
         public static string Msg_Return {
             get {
                 return ResourceManager.GetString("Msg_Return", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aucune.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aucun.
+        /// </summary>
+        public static string None2 {
+            get {
+                return ResourceManager.GetString("None2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retour au menu principal.
+        /// </summary>
+        public static string SettingsFlow_BackMenu {
+            get {
+                return ResourceManager.GetString("SettingsFlow_BackMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom du logiciel (ou vide pour aucun) : .
+        /// </summary>
+        public static string SettingsFlow_BSoftWareName {
+            get {
+                return ResourceManager.GetString("SettingsFlow_BSoftWareName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logiciel métier modifié avec succès !.
+        /// </summary>
+        public static string SettingsFlow_BSoftWareSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_BSoftWareSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --- MODIFICATION DE LA LANGUE ---.
+        /// </summary>
+        public static string SettingsFlow_Changementlang {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Changementlang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Votre choix :.
+        /// </summary>
+        public static string SettingsFlow_Choice {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Choice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choix invalide. Appuyez sur une touche....
+        /// </summary>
+        public static string SettingsFlow_ChoixErreur {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ChoixErreur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quel paramètre souhaitez-vous modifier ?.
+        /// </summary>
+        public static string SettingsFlow_Choixmodif {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Choixmodif", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appuyer sur une touche pour continuer ....
+        /// </summary>
+        public static string SettingsFlow_Continue {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extensions Crypto.
+        /// </summary>
+        public static string SettingsFlow_Crypto {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Crypto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extensions actuelles :.
+        /// </summary>
+        public static string SettingsFlow_Encryp_Exten {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Encryp_Exten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entrez les extensions séparées par des virgules (ex: .txt,.doc,.pdf) : .
+        /// </summary>
+        public static string SettingsFlow_EncryptExtenChoice {
+            get {
+                return ResourceManager.GetString("SettingsFlow_EncryptExtenChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extensions crypto modifiées avec succès !.
+        /// </summary>
+        public static string SettingsFlow_EncryptSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_EncryptSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Langue.
+        /// </summary>
+        public static string SettingsFlow_Language {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Langue modifiée avec succès !.
+        /// </summary>
+        public static string SettingsFlow_LanguageSucessfull {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LanguageSucessfull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format Log.
+        /// </summary>
+        public static string SettingsFlow_LogFormat {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format de log modifié avec succès !.
+        /// </summary>
+        public static string SettingsFlow_LogFormatSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogFormatSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --- MODIFICATION DU LOGICIEL MÉTIER ---.
+        /// </summary>
+        public static string SettingsFlow_ModifBusinesSoftWare {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ModifBusinesSoftWare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --- MODIFICATION DES EXTENSIONS CRYPTO ---.
+        /// </summary>
+        public static string SettingsFlow_ModifEncrypt {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ModifEncrypt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --- MODIFICATION DU FORMAT DE LOG ---.
+        /// </summary>
+        public static string SettingsFlow_ModifLogFormat {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ModifLogFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --- PARAMÈTRES ---.
+        /// </summary>
+        public static string SettingsFlow_Parameters {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Parameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Priorités.
+        /// </summary>
+        public static string SettingsFlow_Priorities {
+            get {
+                return ResourceManager.GetString("SettingsFlow_Priorities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logiciel métier.
+        /// </summary>
+        public static string SettingsFlow_SoftwareBuis {
+            get {
+                return ResourceManager.GetString("SettingsFlow_SoftwareBuis", resourceCulture);
             }
         }
     }
