@@ -4,6 +4,7 @@ using EasySave.Core.Services;
 using EasySave.Views;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace EasySave
 {
@@ -15,26 +16,34 @@ namespace EasySave
 
             while (!exit)
             {
-                System.Console.Clear();
                 var settings = SettingsManager.Instance;
 
-                string settingsDisplay = $"\n{Resources.SettingsFlow_Parameters}\n" +
-                                         $"1. {Resources.SettingsFlow_Language} : {settings.Language}\n" +
-                                         $"2. {Resources.SettingsFlow_LogFormat} : {settings.LogFormat}\n" +
-                                         $"3. {Resources.SettingsFlow_SoftwareBuis} : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? $"{Resources.None2}" : settings.BusinessSoftwareName)}\n" +
-                                         $"4. {Resources.SettingsFlow_Crypto}: {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : $"{Resources.None}")}\n" +
-                                         $"--------------------------\n" +
-                                         $"0. {Resources.SettingsFlow_BackMenu}\n";
+                ConsoleView.DisplayHeader();
 
-                view.DisplayMessage(settingsDisplay);
-                System.Console.Write($"\n{Resources.SettingsFlow_Choixmodif}");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"      {Resources.SettingsFlow_Parameters}");
+                Console.WriteLine("      " + new string('─', Resources.SettingsFlow_Parameters.Length));
+                Console.WriteLine();
 
-                string choice = System.Console.ReadLine();
+                ConsoleView.PrintMenuOption("1", $"{Resources.SettingsFlow_Language} : {settings.Language}");
+                ConsoleView.PrintMenuOption("2", $"{Resources.SettingsFlow_LogFormat} : {(settings.LogFormat ? "JSON" : "XML")}");
+                ConsoleView.PrintMenuOption("3", $"{Resources.SettingsFlow_SoftwareBuis} : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? Resources.None2 : settings.BusinessSoftwareName)}");
+                ConsoleView.PrintMenuOption("4", $"{Resources.SettingsFlow_Crypto} : {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : Resources.None)}");
+
+                Console.WriteLine();
+                ConsoleView.PrintMenuOption("0", Resources.SettingsFlow_BackMenu, ConsoleColor.Gray);
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("       > ");
+                Console.ResetColor();
+
+                string choice = Console.ReadLine();
 
                 switch (choice)
                 {
                     case "1":
-                        ModifyLanguage(settings);
+                        ChangeLangue(view);
                         break;
                     case "2":
                         ModifyLogFormat(settings);
@@ -49,54 +58,67 @@ namespace EasySave
                         exit = true;
                         break;
                     default:
-                        System.Console.WriteLine($"{Resources.SettingsFlow_ChoixErreur}");
-                        System.Console.ReadKey();
+                        view.DisplayError(Resources.SettingsFlow_ChoixErreur);
                         break;
                 }
             }
-
-            System.Console.Clear();
         }
 
-        private static void ModifyLanguage(SettingsManager settings)
+        private static void ChangeLangue(ConsoleView view)
         {
-            System.Console.Clear();
-            System.Console.WriteLine($"\n{Resources.SettingsFlow_Changementlang}");
-            System.Console.WriteLine("1. Français (fr)");
-            System.Console.WriteLine("2. English (en)");
-            System.Console.Write($"\n{Resources.SettingsFlow_Choice} ");
+            ConsoleView.DisplayHeader();
 
-            string choice = System.Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.Chg_Lang}");
+            Console.WriteLine("      " + new string('─', Resources.Chg_Lang.Length));
+            Console.WriteLine();
 
-            switch (choice)
+            ConsoleView.PrintMenuOption("1", "English");
+            ConsoleView.PrintMenuOption("2", "Français");
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
+
+            string langChoice = Console.ReadLine() ?? "";
+
+            if (langChoice == "1")
             {
-                case "1":
-                    settings.Language = "fr";
-                    break;
-                case "2":
-                    settings.Language = "en";
-                    break;
-                default:
-                    System.Console.WriteLine($"{Resources.App_Case_Mauvais}");
-                    System.Console.ReadKey();
-                    return;
+                SettingsManager.Instance.ChangeLanguage("en");
+            }
+            else if (langChoice == "2")
+            {
+                SettingsManager.Instance.ChangeLanguage("fr");
+            }
+            else
+            {
+                view.DisplayError(Resources.SettingsFlow_ChoixErreur);
+                return;
             }
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_LanguageSucessfull} ");
-            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
-            System.Console.ReadKey();
+            view.DisplayMessage($" {Resources.SettingsFlow_LanguageSucessfull}");
         }
 
         private static void ModifyLogFormat(SettingsManager settings)
         {
-            System.Console.Clear();
-            System.Console.WriteLine($"\n{Resources.SettingsFlow_ModifLogFormat}");
-            System.Console.WriteLine("1. JSON");
-            System.Console.WriteLine("2. XML");
-            System.Console.Write($"\n{Resources.SettingsFlow_Choice}");
+            ConsoleView.DisplayHeader();
 
-            string choice = System.Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.SettingsFlow_ModifLogFormat}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ModifLogFormat.Length));
+            Console.WriteLine();
+
+            ConsoleView.PrintMenuOption("1", "JSON");
+            ConsoleView.PrintMenuOption("2", "XML");
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
+
+            string choice = Console.ReadLine();
 
             switch (choice)
             {
@@ -107,41 +129,70 @@ namespace EasySave
                     settings.LogFormat = false;
                     break;
                 default:
-                    System.Console.WriteLine($"{Resources.SettingsFlow_ChoixErreur}");
-                    System.Console.ReadKey();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                    Console.ResetColor();
+                    Console.WriteLine($"      {Resources.SettingsFlow_Continue}");
+                    Console.ReadKey();
                     return;
             }
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_LogFormatSuccess}");
-            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
-            System.Console.ReadKey();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n      > {Resources.SettingsFlow_LogFormatSuccess}");
+            Console.ResetColor();
+            Thread.Sleep(1500);
         }
 
         private static void ModifyBusinessSoftware(SettingsManager settings)
         {
-            System.Console.Clear();
-            System.Console.WriteLine($"\n{Resources.SettingsFlow_ModifBusinesSoftWare}");
-            System.Console.WriteLine($"{Resources.Current_Value} {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? $"{Resources.None2}" : settings.BusinessSoftwareName)}");
-            System.Console.Write($"\n{Resources.SettingsFlow_BSoftWareName}");
+            ConsoleView.DisplayHeader();
 
-            string input = System.Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.SettingsFlow_ModifBusinesSoftWare}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ModifBusinesSoftWare.Length));
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"      {Resources.Current_Value} {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? Resources.None2 : settings.BusinessSoftwareName)}");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.SettingsFlow_BSoftWareName} ");
+            Console.ResetColor();
+
+            string input = Console.ReadLine();
             settings.BusinessSoftwareName = input ?? "";
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_BSoftWareSuccess}");
-            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
-            System.Console.ReadKey();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n      > {Resources.SettingsFlow_BSoftWareSuccess}");
+            Console.ResetColor();
+            Thread.Sleep(1500);
         }
 
         private static void ModifyCryptoExtensions(SettingsManager settings)
         {
-            System.Console.Clear();
-            System.Console.WriteLine($"\n {Resources.SettingsFlow_ModifEncrypt}");
-            System.Console.WriteLine($"{Resources.SettingsFlow_Encryp_Exten} {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : $"{Resources.None}")}");
-            System.Console.Write($"\n {Resources.SettingsFlow_EncryptExtenChoice}");
+            ConsoleView.DisplayHeader();
 
-            string input = System.Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.SettingsFlow_ModifEncrypt}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ModifEncrypt.Length));
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"      {Resources.SettingsFlow_Encryp_Exten} {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : Resources.None)}");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.SettingsFlow_EncryptExtenChoice} ");
+            Console.ResetColor();
+
+            string input = Console.ReadLine();
             settings.EncryptedExtensions.Clear();
 
             if (!string.IsNullOrWhiteSpace(input))
@@ -160,9 +211,11 @@ namespace EasySave
             }
 
             SettingsManager.Instance.SaveSettings();
-            System.Console.WriteLine($"\n✓ {Resources.SettingsFlow_EncryptSuccess}");
-            System.Console.WriteLine($"{Resources.SettingsFlow_Continue}");
-            System.Console.ReadKey();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n      > {Resources.SettingsFlow_EncryptSuccess}");
+            Console.ResetColor();
+            Thread.Sleep(1500);
         }
     }
 }

@@ -204,9 +204,6 @@
   <data name="Menu_Option4" xml:space="preserve">
     <value>Supprimer un travail</value>
   </data>
-  <data name="Menu_Option5" xml:space="preserve">
-    <value>Changer la langue</value>
-  </data>
   <data name="Menu_OptionExit" xml:space="preserve">
     <value>Quitter</value>
   </data>
@@ -286,7 +283,7 @@
     <value>--- MODIFICATION DU FORMAT DE LOG ---</value>
   </data>
   <data name="SettingsFlow_Parameters" xml:space="preserve">
-    <value>--- PARAMÈTRES ACTUELS ---</value>
+    <value>--- PARAMÈTRES ---</value>
   </data>
   <data name="SettingsFlow_Priorities" xml:space="preserve">
     <value>Priorités</value>

@@ -322,15 +322,6 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changer la langue.
-        /// </summary>
-        public static string Menu_Option5 {
-            get {
-                return ResourceManager.GetString("Menu_Option5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Quitter.
         /// </summary>
         public static string Menu_OptionExit {
@@ -565,7 +556,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to --- PARAMÈTRES ACTUELS ---.
+        ///   Looks up a localized string similar to --- PARAMÈTRES ---.
         /// </summary>
         public static string SettingsFlow_Parameters {
             get {

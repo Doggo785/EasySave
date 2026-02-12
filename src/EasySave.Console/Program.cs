@@ -1,7 +1,6 @@
 ﻿using EasySave.Core.Models;
 using EasySave.Core.Properties;
 using EasySave.Core.Services;
-using EasySave.Services;
 using EasySave.Views;
 using System;
 
@@ -48,15 +47,11 @@ namespace EasySave
                         DeleteJobFlow(_SaveManager, _view);
                         break;
 
-                    case "5": // CHANGER DE LANGUE
-                        ChangeLangueFlow(_view);
-                        break;
-
-                    case "6": // SHOW SETTINGS
+                    case "5": // SHOW SETTINGS
                         ShowSettingsFlow(_view);
                         break;
 
-                    case "7": // QUITTER
+                    case "6": // QUITTER
                         exit = true;
                         break;
 
@@ -67,41 +62,6 @@ namespace EasySave
             }
         }
 
-        static void ChangeLangueFlow(ConsoleView view)
-        {
-            Console.Clear();
-            Views.ConsoleView.DisplayHeader();
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"      {Resources.Chg_Lang}");
-
-            Console.WriteLine("      " + new string('─', Resources.Chg_Lang.Length));
-            Console.WriteLine();
-
-            Views.ConsoleView.PrintMenuOption("1", "English");
-            Views.ConsoleView.PrintMenuOption("2", "Français");
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("       > ");
-            Console.ResetColor();
-
-            string langChoice = Console.ReadLine() ?? "";
-
-            if (langChoice == "1")
-            {
-                LanguageManager.Instance.ChangeLanguage("en-US");
-                view.DisplayMessage("Language set to English!");
-            }
-            else if (langChoice == "2")
-            {
-                LanguageManager.Instance.ChangeLanguage("fr-FR");
-                view.DisplayMessage("Langue changée en Français !");
-            }
-            else
-            {
-                view.DisplayMessage("Invalid choice / Choix invalide.");
-            }
-        }
         static void CreateJobFlow(SaveManager manager, ConsoleView view)
         {
             // get user inputs
