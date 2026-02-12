@@ -207,6 +207,9 @@
   <data name="Menu_OptionExit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="Menu_OptionSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Menu_Title" xml:space="preserve">
     <value>MAIN MENU</value>
   </data>
@@ -215,5 +218,35 @@
   </data>
   <data name="Msg_Return" xml:space="preserve">
     <value>Press Enter to return to the menu...</value>
+  </data>
+  <data name="SettingsFlow_BackMenu" xml:space="preserve">
+    <value>Back to main menu</value>
+  </data>
+  <data name="SettingsFlow_Changementlang" xml:space="preserve">
+    <value>--- LANGUAGE MODIFICATION ---</value>
+  </data>
+  <data name="SettingsFlow_ChoixErreur" xml:space="preserve">
+    <value>Invalid choice. Press any key...</value>
+  </data>
+  <data name="SettingsFlow_Choixmodif" xml:space="preserve">
+    <value>Which setting would you like to modify?</value>
+  </data>
+  <data name="SettingsFlow_Crypto" xml:space="preserve">
+    <value>Crypto Extensions</value>
+  </data>
+  <data name="SettingsFlow_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsFlow_LogFormat" xml:space="preserve">
+    <value>Log Format</value>
+  </data>
+  <data name="SettingsFlow_Parameters" xml:space="preserve">
+    <value>--- CURRENT SETTINGS ---</value>
+  </data>
+  <data name="SettingsFlow_Priorities" xml:space="preserve">
+    <value>Priorities</value>
+  </data>
+  <data name="SettingsFlow_SoftwareBuis" xml:space="preserve">
+    <value>Business Software</value>
   </data>
 </root>
