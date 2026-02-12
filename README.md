@@ -9,7 +9,7 @@
 
 **EasySave** est un logiciel de gestion de sauvegardes développé en **C# .NET 10.0**. Il est conçu pour assurer la sécurité des données des clients ProSoft à travers une interface console légère et performante. 
 
-Cette version (1.0) permet la gestion de travaux de sauvegarde complets ou différentiels, avec un suivi précis via des fichiers de logs et un état en temps réel.
+Cette version (1.1) permet la gestion de travaux de sauvegarde complets ou différentiels, avec un suivi précis via des fichiers de logs et un état en temps réel.
 
 ### Fonctionnalités principales
 
