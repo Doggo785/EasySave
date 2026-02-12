@@ -1,10 +1,11 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
 using EasyLog;
-using EasyLog.Models;
+using EasySave.Core.Models;
+using EasySave.Core.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
-namespace EasySave.Models
+namespace EasySave.Core.Models
 {
 
     public class SaveJob
@@ -24,12 +25,12 @@ namespace EasySave.Models
             SourceDirectory = source;
             TargetDirectory = target;
             SaveType = type;
-            _logger = new LoggerService();
+            _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
 
         public SaveJob() 
         {
-            _logger = new LoggerService();
+            _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
 
         public void Run()

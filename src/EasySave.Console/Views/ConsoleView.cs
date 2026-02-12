@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Resources;
 using System.Text;
 using System.Threading;
-using EasySave.Properties;
-using EasySave.Models;
+using EasySave.Core.Properties;
+using EasySave.Core.Models;
+using EasySave.Core.Services;
 
 namespace EasySave.Views
 {
@@ -46,7 +47,7 @@ namespace EasySave.Views
             PrintMenuOption("2", Resources.Menu_Option2);
             PrintMenuOption("3", Resources.Menu_Option3);
             PrintMenuOption("4", Resources.Menu_Option4);
-            PrintMenuOption("5", Resources.Menu_Option5);
+            PrintMenuOption("5", Resources.Menu_OptionSettings);
 
             Console.WriteLine();
             PrintMenuOption("6", Resources.Menu_OptionExit, ConsoleColor.Gray);
@@ -115,7 +116,7 @@ namespace EasySave.Views
                     Console.Write("      ");
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Write($"{i + 1,-4} ");
+                    Console.Write($"{job.Id,-4} ");
                     Console.ResetColor();
 
                     Console.Write($"{Truncate(job.Name, 20),-20} ");
@@ -198,5 +199,7 @@ namespace EasySave.Views
             Console.WriteLine($"      {Resources.Back_To_Menu}"); // "press any key..."
             Console.ReadKey();
         }
+
     }
+
 }

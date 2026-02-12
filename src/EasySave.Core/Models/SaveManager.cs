@@ -1,11 +1,11 @@
-using EasySave.Properties;
+using EasySave.Core.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.IO;
 
-namespace EasySave.Models
+namespace EasySave.Core.Models
 {
     public class SaveManager
     {
@@ -43,7 +43,7 @@ namespace EasySave.Models
             int newId = _jobs.Count > 0 ? _jobs.Max(j => j.Id) + 1 : 1;
 
             // job limit
-            if (_jobs.Count >= 5) { Console.WriteLine("Max jobs !"); throw new Exception(Resources.Erreur_Creation_Trop_Nombreux); ; }
+            if (_jobs.Count >= 5) { throw new Exception(Resources.Erreur_Creation_Trop_Nombreux); ; }
 
             var newJob = new SaveJob(newId, name, src, dest, type);
             _jobs.Add(newJob);

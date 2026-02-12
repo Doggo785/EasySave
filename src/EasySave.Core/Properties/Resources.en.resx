@@ -147,6 +147,9 @@
   <data name="Create_Job_Succes" xml:space="preserve">
     <value>Save job successfully created!</value>
   </data>
+  <data name="Current_Value" xml:space="preserve">
+    <value>Current value:</value>
+  </data>
   <data name="Delete_Job_ID" xml:space="preserve">
     <value>Enter job ID to delete :</value>
   </data>
@@ -201,11 +204,11 @@
   <data name="Menu_Option4" xml:space="preserve">
     <value>Delete a Save job</value>
   </data>
-  <data name="Menu_Option5" xml:space="preserve">
-    <value>Change language</value>
-  </data>
   <data name="Menu_OptionExit" xml:space="preserve">
     <value>Exit</value>
+  </data>
+  <data name="Menu_OptionSettings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="Menu_Title" xml:space="preserve">
     <value>MAIN MENU</value>
@@ -215,5 +218,77 @@
   </data>
   <data name="Msg_Return" xml:space="preserve">
     <value>Press Enter to return to the menu...</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="None2" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="SettingsFlow_BackMenu" xml:space="preserve">
+    <value>Back to main menu</value>
+  </data>
+  <data name="SettingsFlow_BSoftWareName" xml:space="preserve">
+    <value>Software name (or empty for none):</value>
+  </data>
+  <data name="SettingsFlow_BSoftWareSuccess" xml:space="preserve">
+    <value>Business software modified successfully!</value>
+  </data>
+  <data name="SettingsFlow_Changementlang" xml:space="preserve">
+    <value>--- LANGUAGE MODIFICATION ---</value>
+  </data>
+  <data name="SettingsFlow_Choice" xml:space="preserve">
+    <value>Your choice :</value>
+  </data>
+  <data name="SettingsFlow_ChoixErreur" xml:space="preserve">
+    <value>Invalid choice. Press any key...</value>
+  </data>
+  <data name="SettingsFlow_Choixmodif" xml:space="preserve">
+    <value>Which setting would you like to modify?</value>
+  </data>
+  <data name="SettingsFlow_Continue" xml:space="preserve">
+    <value>Press any key to continue...</value>
+  </data>
+  <data name="SettingsFlow_Crypto" xml:space="preserve">
+    <value>Crypto Extensions</value>
+  </data>
+  <data name="SettingsFlow_EncryptExtenChoice" xml:space="preserve">
+    <value>Enter the extensions separated by commas (e.g., .txt,.doc,.pdf):</value>
+  </data>
+  <data name="SettingsFlow_EncryptSuccess" xml:space="preserve">
+    <value>Crypto extensions modified successfully!</value>
+  </data>
+  <data name="SettingsFlow_Encryp_Exten" xml:space="preserve">
+    <value>Current extensions:</value>
+  </data>
+  <data name="SettingsFlow_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsFlow_LanguageSucessfull" xml:space="preserve">
+    <value>Language changed successfully!</value>
+  </data>
+  <data name="SettingsFlow_LogFormat" xml:space="preserve">
+    <value>Log Format</value>
+  </data>
+  <data name="SettingsFlow_LogFormatSuccess" xml:space="preserve">
+    <value>Log format modified successfully!</value>
+  </data>
+  <data name="SettingsFlow_ModifBusinesSoftWare" xml:space="preserve">
+    <value>--- BUSINESS SOFTWARE MODIFICATION ---</value>
+  </data>
+  <data name="SettingsFlow_ModifEncrypt" xml:space="preserve">
+    <value>--- CRYPTO EXTENSIONS MODIFICATION ---</value>
+  </data>
+  <data name="SettingsFlow_ModifLogFormat" xml:space="preserve">
+    <value>--- LOG FORMAT MODIFICATION ---</value>
+  </data>
+  <data name="SettingsFlow_Parameters" xml:space="preserve">
+    <value>--- SETTINGS ---</value>
+  </data>
+  <data name="SettingsFlow_Priorities" xml:space="preserve">
+    <value>Priorities</value>
+  </data>
+  <data name="SettingsFlow_SoftwareBuis" xml:space="preserve">
+    <value>Business Software</value>
   </data>
 </root>
