@@ -3,15 +3,15 @@ using EasySave.Core.Models;
 using EasySave.Core.Services;
 using ReactiveUI;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
-using System.Diagnostics;
 
 namespace EasySave.UI.ViewModels
 {
     public class HomeViewModel : ReactiveObject
     {
-        private readonly SaveManager _saveManager;
         private DispatcherTimer _updateTimer;
 
         // 1. Total number of jobs indicator
@@ -48,8 +48,6 @@ namespace EasySave.UI.ViewModels
 
         public HomeViewModel()
         {
-            _saveManager = new SaveManager();
-
             // Initial fetch to populate UI immediately
             UpdateDashboard();
 
@@ -67,8 +65,8 @@ namespace EasySave.UI.ViewModels
         /// </summary>
         private void UpdateDashboard()
         {
-            // Indicator 1: Count total jobs configured
-            TotalJobsCount = _saveManager.GetJobs().Count;
+            // Indicator 1: Count total jobs configured dynamically from the JSON file
+            TotalJobsCount = GetJobsCount();
 
             // Indicator 2: Fetch last timestamp from state.json
             LastBackupTime = GetLastBackupTime();
@@ -81,6 +79,34 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
+        /// Reads the jobs.json file in real time to get the exact number of jobs.
+        /// </summary>
+        private int GetJobsCount()
+        {
+            try
+            {
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string jobsFilePath = Path.Combine(appDataPath, "ProSoft", "EasySave", "UserConfig", "jobs.json");
+
+                if (File.Exists(jobsFilePath))
+                {
+                    // Open with FileShare.ReadWrite so we don't block the file if another part of the app is writing
+                    using var stream = new FileStream(jobsFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using var reader = new StreamReader(stream);
+                    string json = reader.ReadToEnd();
+
+                    var jobs = JsonSerializer.Deserialize<List<SaveJob>>(json);
+                    return jobs?.Count ?? 0;
+                }
+            }
+            catch
+            {
+                // Silently ignore parsing/locking errors
+            }
+            return 0;
+        }
+
+        /// <summary>
         /// Reads the state.json file to extract the last action timestamp.
         /// </summary>
         private string GetLastBackupTime()
@@ -90,10 +116,8 @@ namespace EasySave.UI.ViewModels
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string stateFilePath = Path.Combine(appDataPath, "ProSoft", "EasySave", "Logs", "state.json");
 
-                // Check if file exists to prevent exceptions
                 if (File.Exists(stateFilePath))
                 {
-                    // Open with FileShare.ReadWrite to prevent locking issues while LoggerService is writing
                     using var stream = new FileStream(stateFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     using var reader = new StreamReader(stream);
                     string json = reader.ReadToEnd();
@@ -108,7 +132,7 @@ namespace EasySave.UI.ViewModels
             }
             catch
             {
-                // Silently ignore parsing/locking errors to avoid UI crashes during real-time fetch
+                // Silently ignore parsing/locking errors
             }
             return "--:--";
         }
