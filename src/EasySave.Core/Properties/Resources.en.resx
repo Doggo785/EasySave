@@ -321,4 +321,28 @@
   <data name="SettingsFlow_SoftwareBuis" xml:space="preserve">
     <value>Business Software</value>
   </data>
+  <data name="Menu_OptionDecrypt" xml:space="preserve">
+    <value>Decrypt a file</value>
+  </data>
+  <data name="Decrypt_Header" xml:space="preserve">
+    <value>FILE DECRYPTION</value>
+  </data>
+  <data name="Decrypt_Arg_Source" xml:space="preserve">
+    <value>Encrypted file (full path): </value>
+  </data>
+  <data name="Decrypt_Arg_Dest" xml:space="preserve">
+    <value>Destination (full path, or empty to replace): </value>
+  </data>
+  <data name="Decrypt_Arg_Password" xml:space="preserve">
+    <value>Password: </value>
+  </data>
+  <data name="Decrypt_Success" xml:space="preserve">
+    <value>File decrypted successfully in</value>
+  </data>
+  <data name="Decrypt_Error" xml:space="preserve">
+    <value>Decryption error (wrong password or invalid file).</value>
+  </data>
+  <data name="Decrypt_FileNotFound" xml:space="preserve">
+    <value>Encrypted file not found.</value>
+  </data>
 </root>

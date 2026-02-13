@@ -51,7 +51,11 @@ namespace EasySave
                         ShowSettingsFlow(_view);
                         break;
 
-                    case "6": // QUITTER
+                    case "6": // DÉCHIFFRER
+                        DecryptFileFlow(_view);
+                        break;
+
+                    case "7": // QUITTER
                         exit = true;
                         break;
 
@@ -138,6 +142,48 @@ namespace EasySave
         static void ShowSettingsFlow(ConsoleView view)
         {
             SettingsFlow.Show(view);
+        }
+
+        static void DecryptFileFlow(ConsoleView view)
+        {
+            ConsoleView.DisplayHeader();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.Decrypt_Header}");
+            Console.WriteLine("      " + new string('─', Resources.Decrypt_Header.Length));
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.Decrypt_Arg_Source}");
+            Console.ResetColor();
+            string sourcePath = Console.ReadLine() ?? "";
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.Decrypt_Arg_Dest}");
+            Console.ResetColor();
+            string destPath = Console.ReadLine() ?? "";
+            Console.WriteLine();
+
+            if (string.IsNullOrWhiteSpace(destPath))
+                destPath = sourcePath;
+            else if (Directory.Exists(destPath))
+                destPath = Path.Combine(destPath, Path.GetFileName(sourcePath));
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.Decrypt_Arg_Password}");
+            Console.ResetColor();
+            string password = Console.ReadLine() ?? "";
+            Console.WriteLine();
+
+            int result = CryptoService.DecryptFile(sourcePath, destPath, password);
+
+            if (result >= 0)
+                view.DisplayMessage($"{Resources.Decrypt_Success} {result} ms");
+            else if (result == -2)
+                view.DisplayError(Resources.Decrypt_FileNotFound);
+            else
+                view.DisplayError(Resources.Decrypt_Error);
         }
 
     }

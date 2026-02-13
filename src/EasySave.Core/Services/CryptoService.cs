@@ -93,9 +93,22 @@ namespace EasySave.Core.Services
             {
                 var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                using (FileStream fsCrypt = new FileStream(encryptedPath, FileMode.Open))
+                string? destDirectory = Path.GetDirectoryName(destPath);
+                if (!string.IsNullOrWhiteSpace(destDirectory))
                 {
-                
+                    Directory.CreateDirectory(destDirectory);
+                }
+
+                string outputPath = destPath;
+                bool replaceOriginal = string.Equals(Path.GetFullPath(encryptedPath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase);
+                if (replaceOriginal)
+                {
+                    string fileName = Path.GetFileName(destPath);
+                    outputPath = Path.Combine(destDirectory ?? Path.GetTempPath(), $"{fileName}.{Guid.NewGuid():N}.tmp");
+                }
+
+                using (FileStream fsCrypt = new FileStream(encryptedPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
                     byte[] salt = new byte[SaltSize];
                     fsCrypt.Read(salt, 0, SaltSize);
 
@@ -111,11 +124,17 @@ namespace EasySave.Core.Services
                             fsCrypt,
                             aes.CreateDecryptor(),
                             CryptoStreamMode.Read))
-                        using (FileStream fsOut = new FileStream(destPath, FileMode.Create))
+                        using (FileStream fsOut = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
                             cryptoStream.CopyTo(fsOut);
                         }
                     }
+                }
+
+                if (replaceOriginal)
+                {
+                    File.Copy(outputPath, destPath, true);
+                    File.Delete(outputPath);
                 }
 
                 stopwatch.Stop();

@@ -321,4 +321,28 @@
   <data name="SettingsFlow_SoftwareBuis" xml:space="preserve">
     <value>Logiciel métier</value>
   </data>
+  <data name="Menu_OptionDecrypt" xml:space="preserve">
+    <value>Déchiffrer un fichier</value>
+  </data>
+  <data name="Decrypt_Header" xml:space="preserve">
+    <value>DÉCHIFFREMENT DE FICHIER</value>
+  </data>
+  <data name="Decrypt_Arg_Source" xml:space="preserve">
+    <value>Fichier chiffré (chemin complet) : </value>
+  </data>
+  <data name="Decrypt_Arg_Dest" xml:space="preserve">
+    <value>Destination (chemin complet, ou vide pour remplacer) : </value>
+  </data>
+  <data name="Decrypt_Arg_Password" xml:space="preserve">
+    <value>Mot de passe : </value>
+  </data>
+  <data name="Decrypt_Success" xml:space="preserve">
+    <value>Fichier déchiffré avec succès en</value>
+  </data>
+  <data name="Decrypt_Error" xml:space="preserve">
+    <value>Erreur lors du déchiffrement (mot de passe incorrect ou fichier invalide).</value>
+  </data>
+  <data name="Decrypt_FileNotFound" xml:space="preserve">
+    <value>Fichier chiffré introuvable.</value>
+  </data>
 </root>
