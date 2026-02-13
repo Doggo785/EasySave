@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasySave.Core.Properties;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,7 +15,7 @@ namespace EasySave.Core.Services
         public static int EncryptFile(string sourcePath, string destPath, string password)
         {
             if (string.IsNullOrWhiteSpace(sourcePath) || string.IsNullOrWhiteSpace(destPath) || string.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Source, destination et mot de passe ne peuvent pas être vides.");
+                throw new ArgumentException(Resources.ThrowWrongInput);
 
             if (!File.Exists(sourcePath))
                 return -2;
@@ -84,7 +85,7 @@ namespace EasySave.Core.Services
         public static int DecryptFile(string encryptedPath, string destPath, string password)
         {
             if (string.IsNullOrWhiteSpace(encryptedPath) || string.IsNullOrWhiteSpace(destPath) || string.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Fichier, destination et mot de passe ne peuvent pas être vides.");
+                throw new ArgumentException(Resources.ThrowWrongInput);
 
             if (!File.Exists(encryptedPath))
                 return -2;

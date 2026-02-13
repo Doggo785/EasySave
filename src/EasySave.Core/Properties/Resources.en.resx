@@ -345,4 +345,7 @@
   <data name="Decrypt_FileNotFound" xml:space="preserve">
     <value>Encrypted file not found.</value>
   </data>
+  <data name="ThrowWrongInput" xml:space="preserve">
+    <value>Source, destination, and password cannot be left blank.</value>
+  </data>
 </root>

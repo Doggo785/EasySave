@@ -345,4 +345,7 @@
   <data name="Decrypt_FileNotFound" xml:space="preserve">
     <value>Fichier chiffré introuvable.</value>
   </data>
+  <data name="ThrowWrongInput" xml:space="preserve">
+    <value>Source, destination et mot de passe ne peuvent pas être vides.</value>
+  </data>
 </root>

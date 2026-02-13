@@ -122,7 +122,7 @@ namespace EasySave.Views
 
                     Console.Write($"{Truncate(job.Name, 20),-20} ");
                     Console.Write($"{job.SaveType,-10} ");
-                    Console.WriteLine($"{Truncate(job.SourceDirectory, 20),-20} → {Truncate(job.TargetDirectory, 20)}");
+                    Console.WriteLine($"{Truncate(job.SourceDirectory, 20),-20} > {Truncate(job.TargetDirectory, 20)}");
                 }
             }
 

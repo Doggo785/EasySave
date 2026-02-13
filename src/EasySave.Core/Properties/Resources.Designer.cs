@@ -214,6 +214,69 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destination (chemin complet, ou vide pour remplacer) : .
+        /// </summary>
+        public static string Decrypt_Arg_Dest {
+            get {
+                return ResourceManager.GetString("Decrypt_Arg_Dest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mot de passe : .
+        /// </summary>
+        public static string Decrypt_Arg_Password {
+            get {
+                return ResourceManager.GetString("Decrypt_Arg_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier chiffré (chemin complet) : .
+        /// </summary>
+        public static string Decrypt_Arg_Source {
+            get {
+                return ResourceManager.GetString("Decrypt_Arg_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur lors du déchiffrement (mot de passe incorrect ou fichier invalide)..
+        /// </summary>
+        public static string Decrypt_Error {
+            get {
+                return ResourceManager.GetString("Decrypt_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier chiffré introuvable..
+        /// </summary>
+        public static string Decrypt_FileNotFound {
+            get {
+                return ResourceManager.GetString("Decrypt_FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DÉCHIFFREMENT DE FICHIER.
+        /// </summary>
+        public static string Decrypt_Header {
+            get {
+                return ResourceManager.GetString("Decrypt_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier déchiffré avec succès en.
+        /// </summary>
+        public static string Decrypt_Success {
+            get {
+                return ResourceManager.GetString("Decrypt_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID du job à supprimer :.
         /// </summary>
         public static string Delete_Job_ID {
@@ -399,6 +462,15 @@ namespace EasySave.Core.Properties {
         public static string Menu_Option4 {
             get {
                 return ResourceManager.GetString("Menu_Option4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Déchiffrer un fichier.
+        /// </summary>
+        public static string Menu_OptionDecrypt {
+            get {
+                return ResourceManager.GetString("Menu_OptionDecrypt", resourceCulture);
             }
         }
         
@@ -671,76 +743,13 @@ namespace EasySave.Core.Properties {
                 return ResourceManager.GetString("SettingsFlow_SoftwareBuis", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Déchiffrer un fichier.
+        ///   Looks up a localized string similar to Source, destination et mot de passe ne peuvent pas être vides..
         /// </summary>
-        public static string Menu_OptionDecrypt {
+        public static string ThrowWrongInput {
             get {
-                return ResourceManager.GetString("Menu_OptionDecrypt", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to DÉCHIFFREMENT DE FICHIER.
-        /// </summary>
-        public static string Decrypt_Header {
-            get {
-                return ResourceManager.GetString("Decrypt_Header", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Fichier chiffré (chemin complet) : .
-        /// </summary>
-        public static string Decrypt_Arg_Source {
-            get {
-                return ResourceManager.GetString("Decrypt_Arg_Source", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Destination (chemin complet, ou vide pour remplacer) : .
-        /// </summary>
-        public static string Decrypt_Arg_Dest {
-            get {
-                return ResourceManager.GetString("Decrypt_Arg_Dest", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Mot de passe : .
-        /// </summary>
-        public static string Decrypt_Arg_Password {
-            get {
-                return ResourceManager.GetString("Decrypt_Arg_Password", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Fichier déchiffré avec succès en.
-        /// </summary>
-        public static string Decrypt_Success {
-            get {
-                return ResourceManager.GetString("Decrypt_Success", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Erreur lors du déchiffrement (mot de passe incorrect ou fichier invalide)..
-        /// </summary>
-        public static string Decrypt_Error {
-            get {
-                return ResourceManager.GetString("Decrypt_Error", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Fichier chiffré introuvable..
-        /// </summary>
-        public static string Decrypt_FileNotFound {
-            get {
-                return ResourceManager.GetString("Decrypt_FileNotFound", resourceCulture);
+                return ResourceManager.GetString("ThrowWrongInput", resourceCulture);
             }
         }
     }
