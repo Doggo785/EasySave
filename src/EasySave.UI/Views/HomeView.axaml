@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:EasySave.UI.ViewModels"
+             xmlns:services="using:EasySave.Core.Services"
+             x:Class="EasySave.UI.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+    
+    <Grid RowDefinitions="Auto, Auto, *" Margin="30">
+        <TextBlock Text="Tableau de Bord" FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*, 20, *, 20, *" Margin="0,0,0,30">
+            <Border Grid.Column="0" Background="#252525" CornerRadius="10" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Jobs Actifs" Foreground="#888"/>
+                    <TextBlock Text="{Binding ActiveJobsCount}" FontSize="32" FontWeight="Bold" Foreground="#00bcd4"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="2" Background="#252525" CornerRadius="10" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Dernière Exécution" Foreground="#888"/>
+                    <TextBlock Text="--:--" FontSize="32" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="En attente des logs" FontSize="12" Foreground="#666"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="4" Background="#252525" CornerRadius="10" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Taille Sauvegardée" Foreground="#888"/>
+                    <TextBlock Text="0 GB" FontSize="32" FontWeight="Bold" Foreground="#228B22"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Background="#252525" CornerRadius="12" Padding="20">
+            <Grid RowDefinitions="Auto, *">
+                <TextBlock Text="Historique Récent (Simulation)" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/>
+                
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel Spacing="10">
+                        <Border Background="#2d2d2d" Padding="15,10" CornerRadius="5">
+                            <Grid ColumnDefinitions="Auto, *, Auto">
+                                <TextBlock Text="✅" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="En attente de connexion avec EasyLog..." FontWeight="Bold"/>
+                                    <TextBlock Text="Les journaux d'activité s'afficheront ici." FontSize="11" Foreground="#888"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
