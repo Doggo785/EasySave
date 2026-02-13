@@ -25,7 +25,7 @@ namespace EasySave.UI.ViewModels
         private void ChangeLanguage(int index)
         {
             string code = index == 1 ? "en" : "fr";
-            // Le SettingsManager gère désormais tout (sauvegarde + mise à jour visuelle)
+            // SettingsManager handles saving and UI update
             SettingsManager.Instance.ChangeLanguage(code);
             SettingsManager.Instance.SaveSettings();
         }

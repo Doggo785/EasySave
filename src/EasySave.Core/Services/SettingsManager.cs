@@ -1,8 +1,8 @@
 ﻿using EasySave.Core.Models;
-using EasySave.Core.Properties; // <-- Ajout pour lire les ressources
+using EasySave.Core.Properties; // for resource access
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;    // <-- Ajout pour INotifyPropertyChanged
+using System.ComponentModel;    // for INotifyPropertyChanged
 using System.Globalization;
 using System.IO;
 using System.Text.Json;
@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace EasySave.Core.Services
 {
-    // On ajoute INotifyPropertyChanged
+    // Implements INotifyPropertyChanged
     public class SettingsManager : INotifyPropertyChanged
     {
         public string Language { get; set; } = "fr";
@@ -22,10 +22,10 @@ namespace EasySave.Core.Services
         public static SettingsManager Instance => _instance ??= new SettingsManager();
         private readonly string _configFilePath;
 
-        // Événement requis par INotifyPropertyChanged
+        // Event required by INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // L'INDEXEUR MAGIQUE : C'est lui qui remplace TranslationSource !
+        // Indexer to retrieve localized strings from resources
         public string this[string key]
         {
             get { return Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
@@ -96,7 +96,7 @@ namespace EasySave.Core.Services
 
                 Language = languageCode;
 
-                // On prévient Avalonia que la langue a changé pour qu'il actualise les textes !
+                // Notify UI that the language changed
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
             }
             catch (CultureNotFoundException)

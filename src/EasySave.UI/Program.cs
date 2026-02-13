@@ -19,6 +19,6 @@ namespace EasySave.UI
                 .UsePlatformDetect()
                 .WithInterFont()
                 .LogToTrace()
-                .UseReactiveUI(); // <--- C'est cette ligne qui est importante !
+                .UseReactiveUI(); // required for ReactiveUI integration
     }
 }
