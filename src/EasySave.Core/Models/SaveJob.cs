@@ -1,11 +1,8 @@
 using EasyLog;
-using EasySave.Core.Models;
 using EasySave.Core.Properties;
 using EasySave.Core.Services;
 using System;
 using System.Collections.Generic;
-using EasyLog;
-using EasySave.Core.Models;
 using System.IO;
 using System.Linq;
 
@@ -38,7 +35,7 @@ namespace EasySave.Core.Models
             TargetDirectory = string.Empty;
             _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
-        public void Run(List<string> extensionsToEncrypt)
+        public void Run(List<string> extensionsToEncrypt, Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null)
         {
             if (!Directory.Exists(SourceDirectory)) return;
 
@@ -89,19 +86,20 @@ namespace EasySave.Core.Models
                 {
                     CopyFile(file.FullName, targetPath);
 
-                    // ?? Cryptage conditionnel
                     if (ShouldEncrypt(file.Extension, extensionsToEncrypt))
                     {
-                        Console.Write(Resources.PasswordRequest);
-                        string password = Console.ReadLine() ?? "";
+                        string? password = requestPassword?.Invoke(Resources.PasswordRequest);
 
-                        int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);
-                        if (encryptionTime > 0)
-                            Console.WriteLine($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
-                        else if (encryptionTime == -1)
-                            Console.WriteLine($"{file.FullName} {Resources.EncryptionError}");
-                        else if (encryptionTime == -2)
-                            Console.WriteLine($"{file.FullName} {Resources.FileNotFound}");
+                        if (!string.IsNullOrEmpty(password))
+                        {
+                            int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);
+                            if (encryptionTime > 0)
+                                displayMessage?.Invoke($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
+                            else if (encryptionTime == -1)
+                                displayMessage?.Invoke($"{file.FullName} {Resources.EncryptionError}");
+                            else if (encryptionTime == -2)
+                                displayMessage?.Invoke($"{file.FullName} {Resources.FileNotFound}");
+                        }
                     }
 
                     filesProcessed++;

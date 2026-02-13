@@ -94,12 +94,13 @@ namespace EasySave
             if (input == "all")
             {
                 view.DisplayMessage(Resources.Get_Job_All_Try);
-                manager.ExecuteAllJobs();
+                manager.ExecuteAllJobs(ConsoleRequestPassword, ConsoleDisplayMessage);
             }
             else if (int.TryParse(input, out int id))
             {
+
                 view.DisplayMessage(string.Format(Resources.Get_Job_Running, id));
-                manager.ExecuteJob(id);
+                manager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
             }
             view.DisplayMessage(Resources.Get_Job_End);
         }
@@ -123,19 +124,19 @@ namespace EasySave
                 var parts = command.Split('-');
                 if (parts.Length == 2 && int.TryParse(parts[0], out int start) && int.TryParse(parts[1], out int end))
                 {
-                    for (int i = start; i <= end; i++) _SaveManager.ExecuteJob(i);
+                    for (int i = start; i <= end; i++) _SaveManager.ExecuteJob(i, ConsoleRequestPassword, ConsoleDisplayMessage);
                 }
             }
             else if (command.Contains(";"))
             {
                 foreach (var idStr in command.Split(';'))
                 {
-                    if (int.TryParse(idStr, out int id)) _SaveManager.ExecuteJob(id);
+                    if (int.TryParse(idStr, out int id)) _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
                 }
             }
             else if (int.TryParse(command, out int id))
             {
-                _SaveManager.ExecuteJob(id);
+                _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
             }
         }
 
@@ -184,6 +185,17 @@ namespace EasySave
                 view.DisplayError(Resources.Decrypt_FileNotFound);
             else
                 view.DisplayError(Resources.Decrypt_Error);
+        }
+
+        static string? ConsoleRequestPassword(string prompt)
+        {
+            Console.Write(prompt);
+            return Console.ReadLine() ?? "";
+        }
+
+        static void ConsoleDisplayMessage(string message)
+        {
+            Console.WriteLine(message);
         }
 
     }

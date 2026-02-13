@@ -42,5 +42,8 @@
     <Compile Update="Views\CreateJobView.axaml.cs">
       <DependentUpon>CreateJobView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PasswordDialog.axaml.cs">
+      <DependentUpon>PasswordDialog.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

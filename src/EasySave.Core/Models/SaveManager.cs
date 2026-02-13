@@ -64,7 +64,7 @@ namespace EasySave.Core.Models
         }
 
         // exe unique job 
-        public void ExecuteJob(int id)
+        public void ExecuteJob(int id, Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null)
         {
             var job = _jobs.FirstOrDefault(j => j.Id == id);
 
@@ -72,20 +72,20 @@ namespace EasySave.Core.Models
             {
                 if (!CanLaunchJob())
                 {
-                    Console.WriteLine($"{Resources.CanLaunch_ErreurMetier}");
+                    displayMessage?.Invoke($"{Resources.CanLaunch_ErreurMetier}");
                     return;
                 }
                 // SaveJob
-                job.Run(SettingsManager.Instance.EncryptedExtensions);
+                job.Run(SettingsManager.Instance.EncryptedExtensions, requestPassword, displayMessage);
             }
         }
 
         // exe all jobs
-        public void ExecuteAllJobs()
+        public void ExecuteAllJobs(Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null)
         {
             foreach (var job in _jobs)
             {
-                ExecuteJob(job.Id);
+                ExecuteJob(job.Id, requestPassword, displayMessage);
             }
         }
         
@@ -124,28 +124,7 @@ namespace EasySave.Core.Models
             }
 
             string processSearch = businessAppName.Replace(".exe", "");
-            bool hasWaited = false;
-
-            while (Process.GetProcessesByName(processSearch).Length > 0)
-            {
-                hasWaited = true;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n {Resources.CanLaunch_Erreur1} '{businessAppName}' {Resources.CanLaunch_Erreur1_1}");
-                Console.WriteLine($"{Resources.Canlaunch_Erreur2}");
-                Console.WriteLine($"{Resources.CanLaunch_Erreur3}");
-                Console.ResetColor();
-                Console.ReadLine();
-            }
-
-            if (hasWaited)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{Resources.CanLaunch_Resume}");
-                Console.ResetColor();
-                System.Threading.Thread.Sleep(2000);
-            }
-
-            return true;
+            return Process.GetProcessesByName(processSearch).Length == 0;
         }
     }
 }

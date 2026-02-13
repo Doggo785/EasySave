@@ -21,7 +21,7 @@
                     </Button>
                 </Grid>
 
-                <Grid Grid.Row="1" RowDefinitions="Auto, *">
+                <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto">
                     <Grid ColumnDefinitions="50, 2*, 2*, 100, 140" Margin="10,0,10,10">
                         <TextBlock Text="{Binding [Header_Id], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
                         <TextBlock Grid.Column="1" Text="{Binding [Header_Name], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
@@ -29,7 +29,7 @@
                         <TextBlock Grid.Column="3" Text="{Binding [Header_Type], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
                         <TextBlock Grid.Column="4" Text="ACTIONS" FontWeight="Bold" Foreground="#666" HorizontalAlignment="Center"/>
                     </Grid>
-                    
+
                     <ScrollViewer Grid.Row="1">
                         <ItemsControl ItemsSource="{Binding Jobs}">
                             <ItemsControl.ItemTemplate>
@@ -61,6 +61,8 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
+
+                    <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="#00bcd4" Margin="10,10,10,0" TextWrapping="Wrap" FontSize="13"/>
                 </Grid>
             </Grid>
         </Border>
