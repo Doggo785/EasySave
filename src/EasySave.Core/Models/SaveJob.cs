@@ -1,8 +1,8 @@
 using EasyLog;
+using EasySave.Core.Models;
 using EasySave.Core.Properties;
 using EasySave.Core.Services;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using EasyLog;
 using EasySave.Core.Models;
@@ -28,12 +28,12 @@ namespace EasySave.Core.Models
             SourceDirectory = source;
             TargetDirectory = target;
             SaveType = type;
-            _logger = new LoggerService();
+            _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
 
         public SaveJob()
         {
-            _logger = new LoggerService();
+            _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
         public void Run(List<string> extensionsToEncrypt)
         {

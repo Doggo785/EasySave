@@ -1,9 +1,11 @@
 using EasySave.Core.Properties;
+using EasySave.Core.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.IO;
 
 namespace EasySave.Core.Models
 {
@@ -42,9 +44,6 @@ namespace EasySave.Core.Models
             // auto id
             int newId = _jobs.Count > 0 ? _jobs.Max(j => j.Id) + 1 : 1;
 
-            // job limit
-            if (_jobs.Count >= 5) { throw new Exception(Resources.Erreur_Creation_Trop_Nombreux); ; }
-
             var newJob = new SaveJob(newId, name, src, dest, type);
             _jobs.Add(newJob);
 
@@ -71,6 +70,11 @@ namespace EasySave.Core.Models
 
             if (job != null)
             {
+                if (!CanLaunchJob())
+                {
+                    Console.WriteLine($"{Resources.CanLaunch_ErreurMetier}");
+                    return;
+                }
                 // SaveJob
                 job.Run();
             }
@@ -108,6 +112,40 @@ namespace EasySave.Core.Models
             {
                 Directory.CreateDirectory(_logDirectory);
             }
+        }
+
+        private bool CanLaunchJob()
+        {
+            string businessAppName = SettingsManager.Instance.BusinessSoftwareName;
+
+            if (string.IsNullOrWhiteSpace(businessAppName))
+            {
+                return true;
+            }
+
+            string processSearch = businessAppName.Replace(".exe", "");
+            bool hasWaited = false;
+
+            while (Process.GetProcessesByName(processSearch).Length > 0)
+            {
+                hasWaited = true;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n {Resources.CanLaunch_Erreur1} '{businessAppName}' {Resources.CanLaunch_Erreur1_1}");
+                Console.WriteLine($"{Resources.Canlaunch_Erreur2}");
+                Console.WriteLine($"{Resources.CanLaunch_Erreur3}");
+                Console.ResetColor();
+                Console.ReadLine();
+            }
+
+            if (hasWaited)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{Resources.CanLaunch_Resume}");
+                Console.ResetColor();
+                System.Threading.Thread.Sleep(2000);
+            }
+
+            return true;
         }
     }
 }
