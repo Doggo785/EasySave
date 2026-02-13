@@ -237,6 +237,9 @@
   <data name="Menu_OptionSettings" xml:space="preserve">
     <value>Paramètres</value>
   </data>
+  <data name="Menu_Option_Home" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
   <data name="Menu_Title" xml:space="preserve">
     <value>MENU PRINCIPAL</value>
   </data>

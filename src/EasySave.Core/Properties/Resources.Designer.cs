@@ -428,7 +428,15 @@ namespace EasySave.Core.Properties {
                 return ResourceManager.GetString("Header_Type", resourceCulture);
             }
         }
-        
+
+        public static string Menu_Option_Home
+        {
+            get
+            {
+                return ResourceManager.GetString("Menu_Option_Home", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Lister les travaux.
         /// </summary>

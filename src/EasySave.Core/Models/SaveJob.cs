@@ -33,6 +33,9 @@ namespace EasySave.Core.Models
 
         public SaveJob()
         {
+            Name = string.Empty;
+            SourceDirectory = string.Empty;
+            TargetDirectory = string.Empty;
             _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
         public void Run(List<string> extensionsToEncrypt)
