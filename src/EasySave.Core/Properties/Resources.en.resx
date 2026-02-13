@@ -123,6 +123,24 @@
   <data name="Back_To_Menu" xml:space="preserve">
     <value>Press any key to return to the menu...</value>
   </data>
+  <data name="CanLaunch_Erreur1" xml:space="preserve">
+    <value>[ERROR] The business software</value>
+  </data>
+  <data name="CanLaunch_Erreur1_1" xml:space="preserve">
+    <value>is detected.</value>
+  </data>
+  <data name="Canlaunch_Erreur2" xml:space="preserve">
+    <value> &gt; Please close the business software.</value>
+  </data>
+  <data name="CanLaunch_Erreur3" xml:space="preserve">
+    <value> &gt; Press [ENTER] to confirm the closure and resume...</value>
+  </data>
+  <data name="CanLaunch_ErreurMetier" xml:space="preserve">
+    <value>Forbidden action: Business software detected.</value>
+  </data>
+  <data name="CanLaunch_Resume" xml:space="preserve">
+    <value>[RESUME] Business software closed. Launching...</value>
+  </data>
   <data name="Chg_Lang" xml:space="preserve">
     <value>CHANGE LANGUAGE</value>
   </data>

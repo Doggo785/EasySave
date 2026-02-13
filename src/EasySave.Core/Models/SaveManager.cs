@@ -72,7 +72,7 @@ namespace EasySave.Core.Models
             {
                 if (!CanLaunchJob())
                 {
-                    Console.WriteLine("Action interdite : Logiciel métier détecté.");
+                    Console.WriteLine($"{Resources.CanLaunch_ErreurMetier}");
                     return;
                 }
                 // SaveJob
@@ -130,9 +130,9 @@ namespace EasySave.Core.Models
             {
                 hasWaited = true;
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n[ERREUR] Le logiciel métier '{businessAppName}' est détecté.");
-                Console.WriteLine(" > Veuillez fermer le logiciel métier.");
-                Console.WriteLine(" > Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre...");
+                Console.WriteLine($"\n {Resources.CanLaunch_Erreur1} '{businessAppName}' {Resources.CanLaunch_Erreur1_1}");
+                Console.WriteLine($"{Resources.Canlaunch_Erreur2}");
+                Console.WriteLine($"{Resources.CanLaunch_Erreur3}");
                 Console.ResetColor();
                 Console.ReadLine();
             }
@@ -140,7 +140,7 @@ namespace EasySave.Core.Models
             if (hasWaited)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("[REPRISE] Logiciel métier fermé. Lancement...");
+                Console.WriteLine($"{Resources.CanLaunch_Resume}");
                 Console.ResetColor();
                 System.Threading.Thread.Sleep(2000);
             }

@@ -123,6 +123,24 @@
   <data name="Back_To_Menu" xml:space="preserve">
     <value>Appuyez sur une touche pour revenir au menu...</value>
   </data>
+  <data name="CanLaunch_Erreur1" xml:space="preserve">
+    <value>[ERREUR] Le logiciel métier</value>
+  </data>
+  <data name="CanLaunch_Erreur1_1" xml:space="preserve">
+    <value>est détecté.</value>
+  </data>
+  <data name="Canlaunch_Erreur2" xml:space="preserve">
+    <value> &gt; Veuillez fermer le logiciel métier.</value>
+  </data>
+  <data name="CanLaunch_Erreur3" xml:space="preserve">
+    <value> &gt; Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre...</value>
+  </data>
+  <data name="CanLaunch_ErreurMetier" xml:space="preserve">
+    <value>Action interdite : Logiciel métier détecté.</value>
+  </data>
+  <data name="CanLaunch_Resume" xml:space="preserve">
+    <value>[REPRISE] Logiciel métier fermé. Lancement...</value>
+  </data>
   <data name="Chg_Lang" xml:space="preserve">
     <value>CHANGER LA LANGUE</value>
   </data>
