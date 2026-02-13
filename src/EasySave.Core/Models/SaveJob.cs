@@ -1,12 +1,16 @@
+using EasyLog;
+using EasySave.Core.Properties;
+using EasySave.Core.Services;
 using System;
 using System.IO;
 using System.Collections.Generic;
 using EasyLog;
 using EasySave.Core.Models;
+using System.IO;
+using System.Linq;
 
 namespace EasySave.Core.Models
 {
-
     public class SaveJob
     {
         public int Id { get; set; }
@@ -27,25 +31,21 @@ namespace EasySave.Core.Models
             _logger = new LoggerService();
         }
 
-        public SaveJob() 
+        public SaveJob()
         {
             _logger = new LoggerService();
         }
-
-        public void Run()
+        public void Run(List<string> extensionsToEncrypt)
         {
-            if (!Directory.Exists(SourceDirectory))
-            {
-                // TODO: Log error -> "Source directory missing"
-                return;
-            }
+            if (!Directory.Exists(SourceDirectory)) return;
+
             var sourceDir = new DirectoryInfo(SourceDirectory);
             var allFiles = sourceDir.GetFiles("*", SearchOption.AllDirectories);
             var allDirs = sourceDir.GetDirectories("*", SearchOption.AllDirectories);
 
             Directory.CreateDirectory(TargetDirectory);
 
-            foreach (var dir in allDirs) 
+            foreach (var dir in allDirs)
             {
                 string relativePath = Path.GetRelativePath(SourceDirectory, dir.FullName);
                 string targetSubDir = Path.Combine(TargetDirectory, relativePath);
@@ -68,7 +68,6 @@ namespace EasySave.Core.Models
                 State = "Active",
                 LastActionTimestamp = DateTime.Now
             };
-
             _logger.UpdateStateLog(stateLog);
 
             foreach (var file in allFiles)
@@ -82,30 +81,33 @@ namespace EasySave.Core.Models
                 stateLog.State = "Active";
                 _logger.UpdateStateLog(stateLog);
 
-                bool processFile = false;
-                if (SaveType == true)
-                {
-                    processFile = true;
-                }
-                else if (SaveType == false)
-                {
-                    processFile = CheckDifferential(file, targetPath);
-                }
+                bool processFile = SaveType || CheckDifferential(file, targetPath);
                 if (processFile)
                 {
                     CopyFile(file.FullName, targetPath);
+
+                    // ?? Cryptage conditionnel
+                    if (ShouldEncrypt(file.Extension, extensionsToEncrypt))
+                    {
+                        Console.Write("Entrez le mot de passe pour le fichier : ");
+                        string password = Console.ReadLine() ?? "";
+
+                        int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);
+                        if (encryptionTime > 0)
+                            Console.WriteLine($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
+                        else if (encryptionTime == -1)
+                            Console.WriteLine($"{file.FullName} {Resources.EncryptionError}");
+                        else if (encryptionTime == -2)
+                            Console.WriteLine($"{file.FullName} {Resources.FileNotFound}");
+                    }
+
                     filesProcessed++;
                 }
                 sizeProcessed += file.Length;
 
-                
                 stateLog.NbFilesLeftToDo = totalFiles - filesProcessed;
                 stateLog.RemainingFilesSize = totalSize - sizeProcessed;
-
-                
                 stateLog.Progression = totalFiles > 0 ? (int)((double)filesProcessed / totalFiles * 100) : 100;
-
-                
                 _logger.UpdateStateLog(stateLog);
             }
 
@@ -115,25 +117,19 @@ namespace EasySave.Core.Models
             stateLog.LastActionTimestamp = DateTime.Now;
             stateLog.Progression = 100;
             _logger.UpdateStateLog(stateLog);
-
         }
 
         private bool CheckDifferential(FileInfo sourceFile, string targetPath)
         {
-            if (!File.Exists(targetPath))
-            {
-                return true;
-            }
-            FileInfo targetFile = new FileInfo(targetPath);
+            if (!File.Exists(targetPath)) return true;
 
+            FileInfo targetFile = new FileInfo(targetPath);
             return sourceFile.LastWriteTime > targetFile.LastWriteTime;
         }
 
         private void CopyFile(string source, string destination)
         {
             long transferTime = 0;
-
-            
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
             try
@@ -145,11 +141,9 @@ namespace EasySave.Core.Models
                 transferTime = -1;
             }
 
-            
             sw.Stop();
             if (transferTime != -1) transferTime = sw.ElapsedMilliseconds;
 
-            
             var dailyLog = new DailyLog
             {
                 TimeStamp = DateTime.Now,
@@ -159,8 +153,12 @@ namespace EasySave.Core.Models
                 FileSize = new FileInfo(source).Length,
                 TransferTimeMs = transferTime
             };
-
             _logger.WriteDailyLog(dailyLog);
+        }
+        private bool ShouldEncrypt(string extension, List<string> extensionsToEncrypt)
+        {
+            return extensionsToEncrypt != null &&
+                   extensionsToEncrypt.Contains(extension, StringComparer.OrdinalIgnoreCase);
         }
     }
 }
