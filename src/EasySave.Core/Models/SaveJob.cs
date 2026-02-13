@@ -89,7 +89,7 @@ namespace EasySave.Core.Models
                     // ?? Cryptage conditionnel
                     if (ShouldEncrypt(file.Extension, extensionsToEncrypt))
                     {
-                        Console.Write("Entrez le mot de passe pour le fichier : ");
+                        Console.Write(Resources.PasswordRequest);
                         string password = Console.ReadLine() ?? "";
 
                         int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);

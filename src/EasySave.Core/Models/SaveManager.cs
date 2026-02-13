@@ -76,7 +76,7 @@ namespace EasySave.Core.Models
                     return;
                 }
                 // SaveJob
-                job.Run();
+                job.Run(SettingsManager.Instance.EncryptedExtensions);
             }
         }
 

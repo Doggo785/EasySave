@@ -174,6 +174,9 @@
   <data name="Delete_Job_Succes" xml:space="preserve">
     <value>Job supprimé.</value>
   </data>
+  <data name="EncryptionError" xml:space="preserve">
+    <value>Un fichier a rencontré une erreur pendant le chiffrement.</value>
+  </data>
   <data name="Erreur_Creation_Blank" xml:space="preserve">
     <value>Erreur : Tous les champs doivent être remplis</value>
   </data>
@@ -182,6 +185,12 @@
   </data>
   <data name="Erreur_Creation_Trop_Nombreux" xml:space="preserve">
     <value>Nombre maximum de jobs atteint.</value>
+  </data>
+  <data name="FileEncrypted" xml:space="preserve">
+    <value>Le fichier a été correctement chiffré en:</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Un fichier a chiffré n'a pas été trouvé.</value>
   </data>
   <data name="Get_Job_All_Try" xml:space="preserve">
     <value>Exécution globale lancée...</value>
@@ -242,6 +251,9 @@
   </data>
   <data name="None2" xml:space="preserve">
     <value>Aucun</value>
+  </data>
+  <data name="PasswordRequest" xml:space="preserve">
+    <value>Entrez le mot de passe pour le fichier: </value>
   </data>
   <data name="SettingsFlow_BackMenu" xml:space="preserve">
     <value>Retour au menu principal</value>

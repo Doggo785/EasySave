@@ -27,6 +27,20 @@ namespace EasySave.Core.Services
                 using (var rng = RandomNumberGenerator.Create())
                     rng.GetBytes(salt);
 
+                string? destDirectory = Path.GetDirectoryName(destPath);
+                if (!string.IsNullOrWhiteSpace(destDirectory))
+                {
+                    Directory.CreateDirectory(destDirectory);
+                }
+
+                string outputPath = destPath;
+                bool replaceOriginal = string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase);
+                if (replaceOriginal)
+                {
+                    string fileName = Path.GetFileName(destPath);
+                    outputPath = Path.Combine(destDirectory ?? Path.GetTempPath(), $"{fileName}.{Guid.NewGuid():N}.tmp");
+                }
+
                 using (Aes aes = Aes.Create())
                 {
                     aes.KeySize = 256;
@@ -37,7 +51,7 @@ namespace EasySave.Core.Services
                         aes.IV = key.GetBytes(16);
                     }
 
-                    using (FileStream fsCrypt = new FileStream(destPath, FileMode.Create))
+                    using (FileStream fsCrypt = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None))
                     {
                         fsCrypt.Write(salt, 0, salt.Length);
 
@@ -45,11 +59,17 @@ namespace EasySave.Core.Services
                             fsCrypt,
                             aes.CreateEncryptor(),
                             CryptoStreamMode.Write))
-                        using (FileStream fsIn = new FileStream(sourcePath, FileMode.Open))
+                        using (FileStream fsIn = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                         {
                             fsIn.CopyTo(cryptoStream);
                         }
                     }
+                }
+
+                if (replaceOriginal)
+                {
+                    File.Copy(outputPath, destPath, true);
+                    File.Delete(outputPath);
                 }
 
                 stopwatch.Stop();
