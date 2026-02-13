@@ -39,5 +39,8 @@
     <Compile Update="Views\SettingsView.axaml.cs">
       <DependentUpon>SettingsView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\CreateJobView.axaml.cs">
+      <DependentUpon>CreateJobView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

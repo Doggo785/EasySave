@@ -5,6 +5,10 @@
         xmlns:services="using:EasySave.Core.Services"
         x:Class="EasySave.UI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        Width="1000" Height="500" 
+        MinWidth="800" MinHeight="400"
+        WindowStartupLocation="CenterScreen"
+        
         Title="EasySave V3"
         Background="#1e1e1e" Foreground="White">
 
@@ -13,13 +17,31 @@
         <TabItem>
             <TabItem.Header>
                 <StackPanel Orientation="Horizontal" Spacing="15">
+                    <TextBlock Text="🏠"/>
+                    <TextBlock Text="{Binding [Menu_Option_Home], Source={x:Static services:SettingsManager.Instance}}"/> 
+                </StackPanel>
+            </TabItem.Header>
+            <views:HomeView DataContext="{Binding HomeVM}" />
+        </TabItem>
+
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="15">
                     <TextBlock Text="📂"/>
                     <TextBlock Text="{Binding [Menu_Option1], Source={x:Static services:SettingsManager.Instance}}"/>
                 </StackPanel>
             </TabItem.Header>
-            
             <views:JobsView DataContext="{Binding JobsVM}" />
-            
+        </TabItem>
+
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="15">
+                    <TextBlock Text="➕"/>
+                    <TextBlock Text="{Binding [Menu_Option2], Source={x:Static services:SettingsManager.Instance}}"/>
+                </StackPanel>
+            </TabItem.Header>
+            <views:CreateJobView DataContext="{Binding JobsVM}" />
         </TabItem>
 
         <TabItem>
@@ -29,9 +51,7 @@
                     <TextBlock Text="{Binding [Menu_OptionSettings], Source={x:Static services:SettingsManager.Instance}}"/>
                 </StackPanel>
             </TabItem.Header>
-            
             <views:SettingsView DataContext="{Binding SettingsVM}" />
-            
         </TabItem>
 
     </TabControl>
