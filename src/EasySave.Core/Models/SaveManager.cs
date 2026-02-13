@@ -1,9 +1,10 @@
 using EasySave.Core.Properties;
+using EasySave.Core.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.IO;
 
 namespace EasySave.Core.Models
 {
@@ -42,9 +43,6 @@ namespace EasySave.Core.Models
             // auto id
             int newId = _jobs.Count > 0 ? _jobs.Max(j => j.Id) + 1 : 1;
 
-            // job limit
-            if (_jobs.Count >= 5) { throw new Exception(Resources.Erreur_Creation_Trop_Nombreux); ; }
-
             var newJob = new SaveJob(newId, name, src, dest, type);
             _jobs.Add(newJob);
 
@@ -65,23 +63,28 @@ namespace EasySave.Core.Models
         }
 
         // exe unique job 
-        public void ExecuteJob(int id)
+        public void ExecuteJob(int id, Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null)
         {
             var job = _jobs.FirstOrDefault(j => j.Id == id);
 
             if (job != null)
             {
+                if (!CanLaunchJob())
+                {
+                    displayMessage?.Invoke($"{Resources.CanLaunch_ErreurMetier}");
+                    return;
+                }
                 // SaveJob
-                job.Run();
+                job.Run(SettingsManager.Instance.EncryptedExtensions, requestPassword, displayMessage);
             }
         }
 
         // exe all jobs
-        public void ExecuteAllJobs()
+        public void ExecuteAllJobs(Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null)
         {
             foreach (var job in _jobs)
             {
-                ExecuteJob(job.Id);
+                ExecuteJob(job.Id, requestPassword, displayMessage);
             }
         }
         
@@ -108,6 +111,26 @@ namespace EasySave.Core.Models
             {
                 Directory.CreateDirectory(_logDirectory);
             }
+        }
+
+        private bool CanLaunchJob()
+        {
+            string businessAppName = SettingsManager.Instance.BusinessSoftwareName;
+            return !ProcessChecker.IsProcessRunning(businessAppName);
+        }
+
+        public void EditJob(SaveJob job)
+        {
+            var existingJob = _jobs.FirstOrDefault(j => j.Id == job.Id);
+            if (existingJob == null)
+                return;
+
+            existingJob.Name = job.Name;
+            existingJob.SourceDirectory = job.SourceDirectory;
+            existingJob.TargetDirectory = job.TargetDirectory;
+            existingJob.SaveType = job.SaveType;
+
+            SaveJobs();
         }
     }
 }

@@ -79,6 +79,60 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [ERREUR] Le logiciel métier.
+        /// </summary>
+        public static string CanLaunch_Erreur1 {
+            get {
+                return ResourceManager.GetString("CanLaunch_Erreur1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to est détecté..
+        /// </summary>
+        public static string CanLaunch_Erreur1_1 {
+            get {
+                return ResourceManager.GetString("CanLaunch_Erreur1_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &gt; Veuillez fermer le logiciel métier..
+        /// </summary>
+        public static string Canlaunch_Erreur2 {
+            get {
+                return ResourceManager.GetString("Canlaunch_Erreur2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &gt; Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre....
+        /// </summary>
+        public static string CanLaunch_Erreur3 {
+            get {
+                return ResourceManager.GetString("CanLaunch_Erreur3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action interdite : Logiciel métier détecté..
+        /// </summary>
+        public static string CanLaunch_ErreurMetier {
+            get {
+                return ResourceManager.GetString("CanLaunch_ErreurMetier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [REPRISE] Logiciel métier fermé. Lancement....
+        /// </summary>
+        public static string CanLaunch_Resume {
+            get {
+                return ResourceManager.GetString("CanLaunch_Resume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CHANGER LA LANGUE.
         /// </summary>
         public static string Chg_Lang {
@@ -160,6 +214,69 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destination (chemin complet, ou vide pour remplacer) : .
+        /// </summary>
+        public static string Decrypt_Arg_Dest {
+            get {
+                return ResourceManager.GetString("Decrypt_Arg_Dest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mot de passe : .
+        /// </summary>
+        public static string Decrypt_Arg_Password {
+            get {
+                return ResourceManager.GetString("Decrypt_Arg_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier chiffré (chemin complet) : .
+        /// </summary>
+        public static string Decrypt_Arg_Source {
+            get {
+                return ResourceManager.GetString("Decrypt_Arg_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur lors du déchiffrement (mot de passe incorrect ou fichier invalide)..
+        /// </summary>
+        public static string Decrypt_Error {
+            get {
+                return ResourceManager.GetString("Decrypt_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier chiffré introuvable..
+        /// </summary>
+        public static string Decrypt_FileNotFound {
+            get {
+                return ResourceManager.GetString("Decrypt_FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DÉCHIFFREMENT DE FICHIER.
+        /// </summary>
+        public static string Decrypt_Header {
+            get {
+                return ResourceManager.GetString("Decrypt_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fichier déchiffré avec succès en.
+        /// </summary>
+        public static string Decrypt_Success {
+            get {
+                return ResourceManager.GetString("Decrypt_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID du job à supprimer :.
         /// </summary>
         public static string Delete_Job_ID {
@@ -174,6 +291,15 @@ namespace EasySave.Core.Properties {
         public static string Delete_Job_Succes {
             get {
                 return ResourceManager.GetString("Delete_Job_Succes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Un fichier a rencontré une erreur pendant le chiffrement..
+        /// </summary>
+        public static string EncryptionError {
+            get {
+                return ResourceManager.GetString("EncryptionError", resourceCulture);
             }
         }
         
@@ -201,6 +327,24 @@ namespace EasySave.Core.Properties {
         public static string Erreur_Creation_Trop_Nombreux {
             get {
                 return ResourceManager.GetString("Erreur_Creation_Trop_Nombreux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Le fichier a été correctement chiffré en:.
+        /// </summary>
+        public static string FileEncrypted {
+            get {
+                return ResourceManager.GetString("FileEncrypted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Un fichier a chiffré n&apos;a pas été trouvé..
+        /// </summary>
+        public static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
             }
         }
         
@@ -284,7 +428,15 @@ namespace EasySave.Core.Properties {
                 return ResourceManager.GetString("Header_Type", resourceCulture);
             }
         }
-        
+
+        public static string Menu_Option_Home
+        {
+            get
+            {
+                return ResourceManager.GetString("Menu_Option_Home", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Lister les travaux.
         /// </summary>
@@ -318,6 +470,15 @@ namespace EasySave.Core.Properties {
         public static string Menu_Option4 {
             get {
                 return ResourceManager.GetString("Menu_Option4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Déchiffrer un fichier.
+        /// </summary>
+        public static string Menu_OptionDecrypt {
+            get {
+                return ResourceManager.GetString("Menu_OptionDecrypt", resourceCulture);
             }
         }
         
@@ -381,6 +542,15 @@ namespace EasySave.Core.Properties {
         public static string None2 {
             get {
                 return ResourceManager.GetString("None2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entrez le mot de passe pour le fichier: .
+        /// </summary>
+        public static string PasswordRequest {
+            get {
+                return ResourceManager.GetString("PasswordRequest", resourceCulture);
             }
         }
         
@@ -579,6 +749,15 @@ namespace EasySave.Core.Properties {
         public static string SettingsFlow_SoftwareBuis {
             get {
                 return ResourceManager.GetString("SettingsFlow_SoftwareBuis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source, destination et mot de passe ne peuvent pas être vides..
+        /// </summary>
+        public static string ThrowWrongInput {
+            get {
+                return ResourceManager.GetString("ThrowWrongInput", resourceCulture);
             }
         }
     }

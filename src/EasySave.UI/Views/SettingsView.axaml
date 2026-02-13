@@ -1,0 +1,84 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:EasySave.UI.ViewModels"
+             xmlns:services="using:EasySave.Core.Services"
+             xmlns:sys="using:System"
+             x:Class="EasySave.UI.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel">
+
+    <ScrollViewer>
+        <Grid Margin="30" RowDefinitions="Auto, *">
+            <TextBlock Text="{Binding [SettingsFlow_Parameters], Source={x:Static services:SettingsManager.Instance}}" FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
+
+            <StackPanel Grid.Row="1" Spacing="20">
+
+                <!-- Language -->
+                <Border Background="#252525" CornerRadius="8" Padding="20">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <StackPanel>
+                            <TextBlock Text="{Binding [SettingsFlow_Language], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+                        </StackPanel>
+                        <ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLanguageIndex}" Width="200" VerticalAlignment="Center">
+                            <ComboBoxItem Content="🇫🇷 Français"/>
+                            <ComboBoxItem Content="🇬🇧 English"/>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!-- Log Format -->
+                <Border Background="#252525" CornerRadius="8" Padding="20">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <StackPanel>
+                            <TextBlock Text="{Binding [SettingsFlow_LogFormat], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="JSON / XML" Foreground="#888" FontSize="12" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLogFormatIndex}" Width="200" VerticalAlignment="Center">
+                            <ComboBoxItem Content="📄 JSON"/>
+                            <ComboBoxItem Content="📄 XML"/>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!-- Business Software -->
+                <Border Background="#252525" CornerRadius="8" Padding="20">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{Binding [SettingsFlow_SoftwareBuis], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+                        <TextBlock Text="{Binding [SettingsFlow_BSoftWareName], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12"/>
+                        <Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
+                            <TextBox Text="{Binding BusinessSoftwareName}" Watermark="calc.exe" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0" Command="{Binding SaveBusinessSoftwareCommand}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Encrypted Extensions -->
+                <Border Background="#252525" CornerRadius="8" Padding="20">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{Binding [SettingsFlow_Crypto], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+                        <TextBlock Text="{Binding [SettingsFlow_EncryptExtenChoice], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12" TextWrapping="Wrap"/>
+
+                        <Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
+                            <TextBox Text="{Binding NewExtension}" Watermark=".txt" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="+" FontWeight="Bold" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0" Command="{Binding AddExtensionCommand}" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <ItemsControl ItemsSource="{Binding EncryptedExtensions}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="sys:String">
+                                    <Border Background="#333" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
+                                        <Grid ColumnDefinitions="*, Auto">
+                                            <TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                            <Button Grid.Column="1" Content="✕" FontSize="12" Padding="6,2" Background="#B22222" Foreground="White"
+                                                    Command="{Binding $parent[UserControl].DataContext.RemoveExtensionCommand}" CommandParameter="{Binding}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

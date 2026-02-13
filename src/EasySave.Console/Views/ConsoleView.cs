@@ -48,9 +48,10 @@ namespace EasySave.Views
             PrintMenuOption("3", Resources.Menu_Option3);
             PrintMenuOption("4", Resources.Menu_Option4);
             PrintMenuOption("5", Resources.Menu_OptionSettings);
+            PrintMenuOption("6", Resources.Menu_OptionDecrypt);
 
             Console.WriteLine();
-            PrintMenuOption("6", Resources.Menu_OptionExit, ConsoleColor.Gray);
+            PrintMenuOption("7", Resources.Menu_OptionExit, ConsoleColor.Gray);
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -121,7 +122,7 @@ namespace EasySave.Views
 
                     Console.Write($"{Truncate(job.Name, 20),-20} ");
                     Console.Write($"{job.SaveType,-10} ");
-                    Console.WriteLine($"{Truncate(job.SourceDirectory, 20),-20} → {Truncate(job.TargetDirectory, 20)}");
+                    Console.WriteLine($"{Truncate(job.SourceDirectory, 20),-20} > {Truncate(job.TargetDirectory, 20)}");
                 }
             }
 

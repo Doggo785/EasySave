@@ -51,7 +51,11 @@ namespace EasySave
                         ShowSettingsFlow(_view);
                         break;
 
-                    case "6": // QUITTER
+                    case "6": // DÉCHIFFRER
+                        DecryptFileFlow(_view);
+                        break;
+
+                    case "7": // QUITTER
                         exit = true;
                         break;
 
@@ -90,12 +94,13 @@ namespace EasySave
             if (input == "all")
             {
                 view.DisplayMessage(Resources.Get_Job_All_Try);
-                manager.ExecuteAllJobs();
+                manager.ExecuteAllJobs(ConsoleRequestPassword, ConsoleDisplayMessage);
             }
             else if (int.TryParse(input, out int id))
             {
+
                 view.DisplayMessage(string.Format(Resources.Get_Job_Running, id));
-                manager.ExecuteJob(id);
+                manager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
             }
             view.DisplayMessage(Resources.Get_Job_End);
         }
@@ -119,25 +124,78 @@ namespace EasySave
                 var parts = command.Split('-');
                 if (parts.Length == 2 && int.TryParse(parts[0], out int start) && int.TryParse(parts[1], out int end))
                 {
-                    for (int i = start; i <= end; i++) _SaveManager.ExecuteJob(i);
+                    for (int i = start; i <= end; i++) _SaveManager.ExecuteJob(i, ConsoleRequestPassword, ConsoleDisplayMessage);
                 }
             }
             else if (command.Contains(";"))
             {
                 foreach (var idStr in command.Split(';'))
                 {
-                    if (int.TryParse(idStr, out int id)) _SaveManager.ExecuteJob(id);
+                    if (int.TryParse(idStr, out int id)) _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
                 }
             }
             else if (int.TryParse(command, out int id))
             {
-                _SaveManager.ExecuteJob(id);
+                _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
             }
         }
 
         static void ShowSettingsFlow(ConsoleView view)
         {
             SettingsFlow.Show(view);
+        }
+
+        static void DecryptFileFlow(ConsoleView view)
+        {
+            ConsoleView.DisplayHeader();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.Decrypt_Header}");
+            Console.WriteLine("      " + new string('─', Resources.Decrypt_Header.Length));
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.Decrypt_Arg_Source}");
+            Console.ResetColor();
+            string sourcePath = Console.ReadLine() ?? "";
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.Decrypt_Arg_Dest}");
+            Console.ResetColor();
+            string destPath = Console.ReadLine() ?? "";
+            Console.WriteLine();
+
+            if (string.IsNullOrWhiteSpace(destPath))
+                destPath = sourcePath;
+            else if (Directory.Exists(destPath))
+                destPath = Path.Combine(destPath, Path.GetFileName(sourcePath));
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"      {Resources.Decrypt_Arg_Password}");
+            Console.ResetColor();
+            string password = Console.ReadLine() ?? "";
+            Console.WriteLine();
+
+            int result = CryptoService.DecryptFile(sourcePath, destPath, password);
+
+            if (result >= 0)
+                view.DisplayMessage($"{Resources.Decrypt_Success} {result} ms");
+            else if (result == -2)
+                view.DisplayError(Resources.Decrypt_FileNotFound);
+            else
+                view.DisplayError(Resources.Decrypt_Error);
+        }
+
+        static string? ConsoleRequestPassword(string prompt)
+        {
+            Console.Write(prompt);
+            return Console.ReadLine() ?? "";
+        }
+
+        static void ConsoleDisplayMessage(string message)
+        {
+            Console.WriteLine(message);
         }
 
     }

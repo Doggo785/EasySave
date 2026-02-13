@@ -123,6 +123,24 @@
   <data name="Back_To_Menu" xml:space="preserve">
     <value>Press any key to return to the menu...</value>
   </data>
+  <data name="CanLaunch_Erreur1" xml:space="preserve">
+    <value>[ERROR] The business software</value>
+  </data>
+  <data name="CanLaunch_Erreur1_1" xml:space="preserve">
+    <value>is detected.</value>
+  </data>
+  <data name="Canlaunch_Erreur2" xml:space="preserve">
+    <value> &gt; Please close the business software.</value>
+  </data>
+  <data name="CanLaunch_Erreur3" xml:space="preserve">
+    <value> &gt; Press [ENTER] to confirm the closure and resume...</value>
+  </data>
+  <data name="CanLaunch_ErreurMetier" xml:space="preserve">
+    <value>Forbidden action: Business software detected.</value>
+  </data>
+  <data name="CanLaunch_Resume" xml:space="preserve">
+    <value>[RESUME] Business software closed. Launching...</value>
+  </data>
   <data name="Chg_Lang" xml:space="preserve">
     <value>CHANGE LANGUAGE</value>
   </data>
@@ -156,6 +174,9 @@
   <data name="Delete_Job_Succes" xml:space="preserve">
     <value>Job successfully deleted.</value>
   </data>
+  <data name="EncryptionError" xml:space="preserve">
+    <value>A file encountered an error during encryption.</value>
+  </data>
   <data name="Erreur_Creation_Blank" xml:space="preserve">
     <value>Error: All fields must be filled.</value>
   </data>
@@ -164,6 +185,12 @@
   </data>
   <data name="Erreur_Creation_Trop_Nombreux" xml:space="preserve">
     <value>Maximum number of Save jobs reached.</value>
+  </data>
+  <data name="FileEncrypted" xml:space="preserve">
+    <value>The file was successfully encrypted in:</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>A file to encrypt was not found.</value>
   </data>
   <data name="Get_Job_All_Try" xml:space="preserve">
     <value>Running all Save jobs...</value>
@@ -210,6 +237,9 @@
   <data name="Menu_OptionSettings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Menu_Option_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="Menu_Title" xml:space="preserve">
     <value>MAIN MENU</value>
   </data>
@@ -224,6 +254,9 @@
   </data>
   <data name="None2" xml:space="preserve">
     <value>None</value>
+  </data>
+  <data name="PasswordRequest" xml:space="preserve">
+    <value>Enter the password for the file: </value>
   </data>
   <data name="SettingsFlow_BackMenu" xml:space="preserve">
     <value>Back to main menu</value>
@@ -290,5 +323,32 @@
   </data>
   <data name="SettingsFlow_SoftwareBuis" xml:space="preserve">
     <value>Business Software</value>
+  </data>
+  <data name="Menu_OptionDecrypt" xml:space="preserve">
+    <value>Decrypt a file</value>
+  </data>
+  <data name="Decrypt_Header" xml:space="preserve">
+    <value>FILE DECRYPTION</value>
+  </data>
+  <data name="Decrypt_Arg_Source" xml:space="preserve">
+    <value>Encrypted file (full path): </value>
+  </data>
+  <data name="Decrypt_Arg_Dest" xml:space="preserve">
+    <value>Destination (full path, or empty to replace): </value>
+  </data>
+  <data name="Decrypt_Arg_Password" xml:space="preserve">
+    <value>Password: </value>
+  </data>
+  <data name="Decrypt_Success" xml:space="preserve">
+    <value>File decrypted successfully in</value>
+  </data>
+  <data name="Decrypt_Error" xml:space="preserve">
+    <value>Decryption error (wrong password or invalid file).</value>
+  </data>
+  <data name="Decrypt_FileNotFound" xml:space="preserve">
+    <value>Encrypted file not found.</value>
+  </data>
+  <data name="ThrowWrongInput" xml:space="preserve">
+    <value>Source, destination, and password cannot be left blank.</value>
   </data>
 </root>
