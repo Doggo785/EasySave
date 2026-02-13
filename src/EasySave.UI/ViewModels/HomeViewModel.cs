@@ -4,7 +4,6 @@ using EasySave.Core.Services;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 
@@ -143,21 +142,7 @@ namespace EasySave.UI.ViewModels
         private void CheckBusinessProcess()
         {
             string businessSoftware = SettingsManager.Instance.BusinessSoftwareName;
-
-            if (string.IsNullOrWhiteSpace(businessSoftware))
-            {
-                IsBusinessProcessRunning = false;
-                return;
-            }
-
-            // Clean process name (remove ".exe" if the user typed it in settings)
-            string processName = businessSoftware.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
-                ? businessSoftware.Substring(0, businessSoftware.Length - 4)
-                : businessSoftware;
-
-            // Check system processes
-            var processes = Process.GetProcessesByName(processName);
-            IsBusinessProcessRunning = processes.Length > 0;
+            IsBusinessProcessRunning = ProcessChecker.IsProcessRunning(businessSoftware);
         }
     }
 }

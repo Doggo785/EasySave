@@ -46,4 +46,8 @@
       <DependentUpon>PasswordDialog.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
 </Project>

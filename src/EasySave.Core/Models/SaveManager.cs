@@ -2,7 +2,6 @@ using EasySave.Core.Properties;
 using EasySave.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -117,14 +116,21 @@ namespace EasySave.Core.Models
         private bool CanLaunchJob()
         {
             string businessAppName = SettingsManager.Instance.BusinessSoftwareName;
+            return !ProcessChecker.IsProcessRunning(businessAppName);
+        }
 
-            if (string.IsNullOrWhiteSpace(businessAppName))
-            {
-                return true;
-            }
+        public void EditJob(SaveJob job)
+        {
+            var existingJob = _jobs.FirstOrDefault(j => j.Id == job.Id);
+            if (existingJob == null)
+                return;
 
-            string processSearch = businessAppName.Replace(".exe", "");
-            return Process.GetProcessesByName(processSearch).Length == 0;
+            existingJob.Name = job.Name;
+            existingJob.SourceDirectory = job.SourceDirectory;
+            existingJob.TargetDirectory = job.TargetDirectory;
+            existingJob.SaveType = job.SaveType;
+
+            SaveJobs();
         }
     }
 }
