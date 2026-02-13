@@ -1,0 +1,109 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:EasySave.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+        x:Class="EasySave.UI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="EasySave V3"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="#1e1e1e"
+        Foreground="White">
+
+    <Design.DataContext><vm:MainWindowViewModel/></Design.DataContext>
+
+    <Window.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Styles>
+
+    <TabControl TabStripPlacement="Left" Padding="0">
+        <TabControl.Template>
+             <ControlTemplate TargetType="TabControl">
+                <Grid ColumnDefinitions="250, *">
+                    <Border Grid.Column="0" Background="#1a1a1a" BorderBrush="#333" BorderThickness="0,0,1,0">
+                         <Grid RowDefinitions="Auto, *">
+                             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="12" Margin="25,30,20,40">
+                                 <TextBlock Text="EasySave UI" FontWeight="Bold" FontSize="20"/>
+                             </StackPanel>
+                             <ItemsPresenter Grid.Row="1" Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                         </Grid>
+                    </Border>
+                    <ContentPresenter Grid.Column="1" Name="PART_SelectedContentHost" Content="{TemplateBinding SelectedContent}" Margin="{TemplateBinding Padding}"/>
+                </Grid>
+            </ControlTemplate>
+        </TabControl.Template>
+
+        <TabItem Header="Mes Travaux">
+            <Grid Margin="30" RowDefinitions="Auto, *">
+                <TextBlock Text="Gestion des Travaux" FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
+                <Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="20">
+                    <Grid RowDefinitions="Auto, *">
+                        <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,15">
+                            <TextBlock Text="Travaux configurés" Foreground="#888" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="▶ Tout Exécuter" Command="{Binding ExecuteAllCommand}" Background="#00bcd4" Foreground="Black"/>
+                        </Grid>
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding Jobs}" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal" Background="Transparent">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                                <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Source" Binding="{Binding SourceDirectory}" Width="2*"/>
+                                <DataGridTextColumn Header="Cible" Binding="{Binding TargetDirectory}" Width="2*"/>
+                                <DataGridTextColumn Header="Type" Binding="{Binding SaveType}" Width="80"/>
+                                <DataGridTemplateColumn Header="Actions">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                <Button Content="▶" Command="{Binding $parent[Window].DataContext.ExecuteJobCommand}" CommandParameter="{Binding Id}"/>
+                                                <Button Content="🗑" Command="{Binding $parent[Window].DataContext.DeleteJobCommand}" CommandParameter="{Binding Id}" Background="#B22222"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Nouveau">
+            <Grid Margin="30" RowDefinitions="Auto, *">
+                <TextBlock Text="Création" FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
+                <Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="40" VerticalAlignment="Top">
+                    <StackPanel Spacing="25">
+                        <StackPanel>
+                            <TextBlock Text="Nom" Foreground="#00bcd4"/>
+                            <TextBox Text="{Binding NewName}" Watermark="Nom du travail"/>
+                        </StackPanel>
+                        <Grid ColumnDefinitions="*, 20, *">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Source" Foreground="#aaa"/>
+                                <TextBox Text="{Binding NewSource}" Watermark="Chemin complet"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Destination" Foreground="#aaa"/>
+                                <TextBox Text="{Binding NewDest}" Watermark="Chemin complet"/>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel>
+                             <TextBlock Text="Type" Foreground="#aaa"/>
+                             <ComboBox SelectedIndex="{Binding SelectedTypeIndex}">
+                                 <ComboBoxItem Content="Complète (Full)"/>
+                                 <ComboBoxItem Content="Différentielle (Diff)"/>
+                             </ComboBox>
+                        </StackPanel>
+                        <Button Command="{Binding CreateJobCommand}" Background="#00bcd4" Foreground="Black" HorizontalAlignment="Right" Content="CRÉER LE TRAVAIL"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

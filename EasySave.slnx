@@ -1,5 +1,8 @@
 <Solution>
-  <Project Path="src/EasyLog/EasyLog.csproj" />
-  <Project Path="src/EasySave.Console/EasySave.Console.csproj" />
-  <Project Path="src/EasySave.Core/EasySave.Core.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/EasyLog/EasyLog.csproj" />
+    <Project Path="src/EasySave.Console/EasySave.Console.csproj" />
+    <Project Path="src/EasySave.Core/EasySave.Core.csproj" />
+    <Project Path="src/EasySave.UI/EasySave.UI.csproj" />
+  </Folder>
 </Solution>
