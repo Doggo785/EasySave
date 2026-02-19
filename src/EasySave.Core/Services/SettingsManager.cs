@@ -1,8 +1,8 @@
 ﻿using EasySave.Core.Models;
-using EasySave.Core.Properties; // for resource access
+using EasySave.Core.Properties;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;    // for INotifyPropertyChanged
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Text.Json;
@@ -10,22 +10,19 @@ using System.Threading;
 
 namespace EasySave.Core.Services
 {
-    // Implements INotifyPropertyChanged
     public class SettingsManager : INotifyPropertyChanged
     {
         public string Language { get; set; } = "fr";
         public bool LogFormat { get; set; } = true;
-        public string BusinessSoftwareName { get; set; } = "";
+        public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
         public List<string> EncryptedExtensions { get; set; } = new List<string>();
 
         private static SettingsManager _instance;
         public static SettingsManager Instance => _instance ??= new SettingsManager();
         private readonly string _configFilePath;
 
-        // Event required by INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Indexer to retrieve localized strings from resources
         public string this[string key]
         {
             get { return Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
@@ -51,7 +48,7 @@ namespace EasySave.Core.Services
                     {
                         Language = settings.Language;
                         LogFormat = settings.LogFormat;
-                        BusinessSoftwareName = settings.BusinessSoftwareName;
+                        BusinessSoftwareNames = settings.BusinessSoftwareNames ?? new List<string>();
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
                     }
                 }
@@ -74,7 +71,7 @@ namespace EasySave.Core.Services
             {
                 Language = Language,
                 LogFormat = LogFormat,
-                BusinessSoftwareName = BusinessSoftwareName,
+                BusinessSoftwareNames = BusinessSoftwareNames,
                 EncryptedExtensions = EncryptedExtensions
             };
 
@@ -96,7 +93,6 @@ namespace EasySave.Core.Services
 
                 Language = languageCode;
 
-                // Notify UI that the language changed
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
             }
             catch (CultureNotFoundException)
@@ -108,7 +104,7 @@ namespace EasySave.Core.Services
         {
             Language = "fr";
             LogFormat = true;
-            BusinessSoftwareName = "";
+            BusinessSoftwareNames = new List<string>();
             EncryptedExtensions = new List<string>();
         }
 
@@ -116,7 +112,7 @@ namespace EasySave.Core.Services
         {
             public string Language { get; set; } = "fr";
             public bool LogFormat { get; set; } = true;
-            public string BusinessSoftwareName { get; set; } = "";
+            public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
         }
     }
