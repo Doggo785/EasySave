@@ -115,8 +115,8 @@ namespace EasySave.Core.Models
 
         private bool CanLaunchJob()
         {
-            string businessAppName = SettingsManager.Instance.BusinessSoftwareName;
-            return !ProcessChecker.IsProcessRunning(businessAppName);
+            var businessAppNames = SettingsManager.Instance.BusinessSoftwareNames;
+            return !ProcessChecker.IsAnyProcessRunning(businessAppNames);
         }
 
         public void EditJob(SaveJob job)
