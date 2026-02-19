@@ -10,22 +10,20 @@ using System.Threading;
 
 namespace EasySave.Core.Services
 {
-    // Implements INotifyPropertyChanged
     public class SettingsManager : INotifyPropertyChanged
     {
         public string Language { get; set; } = "fr";
         public bool LogFormat { get; set; } = true;
         public string BusinessSoftwareName { get; set; } = "";
         public List<string> EncryptedExtensions { get; set; } = new List<string>();
+        public int MaxConcurrentJobs { get; set; } = Environment.ProcessorCount;
 
         private static SettingsManager _instance;
         public static SettingsManager Instance => _instance ??= new SettingsManager();
         private readonly string _configFilePath;
 
-        // Event required by INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Indexer to retrieve localized strings from resources
         public string this[string key]
         {
             get { return Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
@@ -53,6 +51,7 @@ namespace EasySave.Core.Services
                         LogFormat = settings.LogFormat;
                         BusinessSoftwareName = settings.BusinessSoftwareName;
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
+                        MaxConcurrentJobs = settings.MaxConcurrentJobs > 0 ? settings.MaxConcurrentJobs : Environment.ProcessorCount;
                     }
                 }
                 catch
@@ -75,7 +74,8 @@ namespace EasySave.Core.Services
                 Language = Language,
                 LogFormat = LogFormat,
                 BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -110,6 +110,7 @@ namespace EasySave.Core.Services
             LogFormat = true;
             BusinessSoftwareName = "";
             EncryptedExtensions = new List<string>();
+            MaxConcurrentJobs = Environment.ProcessorCount;
         }
 
         private class SettingsModel
@@ -118,6 +119,7 @@ namespace EasySave.Core.Services
             public bool LogFormat { get; set; } = true;
             public string BusinessSoftwareName { get; set; } = "";
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
+            public int MaxConcurrentJobs { get; set; } = 0;
         }
     }
 }
