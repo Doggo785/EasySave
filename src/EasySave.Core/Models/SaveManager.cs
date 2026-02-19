@@ -95,11 +95,11 @@ namespace EasySave.Core.Models
 
                 if (job == null)
                 {
-                    displayMessage?.Invoke($"Job {id} non trouvé");
+                    displayMessage?.Invoke($"Job {id} {Resources.NotFound}");
                     return;
                 }
 
-                displayMessage?.Invoke($"Démarrage: {job.Name}");
+                displayMessage?.Invoke($"{Resources.Start}: {job.Name}");
 
                 // Exécuter le job (la vraie copie/chiffrement des fichiers)
                 await job.RunAsync(
@@ -108,15 +108,15 @@ namespace EasySave.Core.Models
                     displayMessage,
                     cancellationToken);
 
-                displayMessage?.Invoke($"Terminé: {job.Name}");
+                displayMessage?.Invoke($"{Resources.Complete}: {job.Name}");
             }
             catch (OperationCanceledException)
             {
-                displayMessage?.Invoke($" Annulé: Job {id}");
+                displayMessage?.Invoke($" {Resources.Cancel_job} {id}");
             }
             catch (Exception ex)
             {
-                displayMessage?.Invoke($" Erreur Job {id}: {ex.Message}");
+                displayMessage?.Invoke($"{Resources.Erreur_job} {id}: {ex.Message}");
             }
             finally
             {
@@ -135,7 +135,6 @@ namespace EasySave.Core.Models
                 jobsSnapshot = _jobs.ToList();
             }
 
-            displayMessage?.Invoke($"Lancement de {jobsSnapshot.Count} job(s) en parallèle...");
 
             var tasks = jobsSnapshot.Select(job =>
                 ExecuteJob(job.Id, requestPassword, displayMessage, cancellationToken)
@@ -144,11 +143,11 @@ namespace EasySave.Core.Models
             try
             {
                 await Task.WhenAll(tasks);
-                displayMessage?.Invoke(" Tous les jobs sont terminés");
+                displayMessage?.Invoke(Resources.Alljob_Completed);
             }
             catch (OperationCanceledException)
             {
-                displayMessage?.Invoke(" Exécution annulée");
+                displayMessage?.Invoke(Resources.JobViewModel_Cancelexecution);
             }
         }
         

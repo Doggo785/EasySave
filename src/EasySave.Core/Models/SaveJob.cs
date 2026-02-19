@@ -60,7 +60,7 @@ namespace EasySave.Core.Models
             int filesProcessed = 0;
             long sizeProcessed = 0;
 
-            displayMessage?.Invoke($"?? Total: {totalFiles} fichiers ({totalSize / 1024 / 1024} MB)");
+            displayMessage?.Invoke($"?? Total: {totalFiles} {Resources.File} ({totalSize / 1024 / 1024} MB)");
 
             var stateLog = new StateLog
             {
@@ -116,7 +116,7 @@ namespace EasySave.Core.Models
                 stateLog.Progression = totalFiles > 0 ? (int)((double)filesProcessed / totalFiles * 100) : 100;
                 _logger.UpdateStateLog(stateLog);
 
-                displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} fichiers)");
+                displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
             }
 
             stateLog.State = "Finished";
@@ -125,7 +125,7 @@ namespace EasySave.Core.Models
             stateLog.LastActionTimestamp = DateTime.Now;
             stateLog.Progression = 100;
             _logger.UpdateStateLog(stateLog);
-            displayMessage?.Invoke($"? Sauvegarde terminée: {Name}");
+            displayMessage?.Invoke($"? {Resources.Savejob_sauvegardefinis} {Name}");
         }
 
 

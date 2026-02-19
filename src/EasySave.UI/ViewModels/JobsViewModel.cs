@@ -12,6 +12,7 @@ using EasySave.Core.Models;
 using EasySave.Core.Services;
 using EasySave.UI.Views;
 using System.Linq;
+using EasySave.Core.Properties;
 
 namespace EasySave.UI.ViewModels
 {
@@ -96,7 +97,7 @@ namespace EasySave.UI.ViewModels
             }
             catch (OperationCanceledException)
             {
-                StatusMessage = "Exécution annulée";
+                StatusMessage = Resources.JobViewModel_Cancelexecution;
             }
             catch (Exception ex)
             {
@@ -124,12 +125,12 @@ namespace EasySave.UI.ViewModels
                     DisplayMessage,
                     _cancellationTokenSource.Token);
 
-                StatusMessage = "✓ Tous les jobs sont terminés";
+                StatusMessage = Resources.JobViewModel_JobSuccess;
                 RefreshList();
             }
             catch (OperationCanceledException)
             {
-                StatusMessage = "Exécution annulée";
+                StatusMessage = Resources.JobViewModel_Cancelexecution;
             }
             catch (Exception ex)
             {
@@ -144,7 +145,7 @@ namespace EasySave.UI.ViewModels
         private void CancelExecution()
         {
             _cancellationTokenSource?.Cancel();
-            StatusMessage = "Annulation en cours...";
+            StatusMessage = Resources.JobViewModel_CancelToken;
         }
 
         private void DeleteJob(int id) 
