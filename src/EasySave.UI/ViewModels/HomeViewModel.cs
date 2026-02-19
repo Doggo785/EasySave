@@ -141,8 +141,8 @@ namespace EasySave.UI.ViewModels
         /// </summary>
         private void CheckBusinessProcess()
         {
-            string businessSoftware = SettingsManager.Instance.BusinessSoftwareName;
-            IsBusinessProcessRunning = ProcessChecker.IsProcessRunning(businessSoftware);
+            var businessSoftwares = SettingsManager.Instance.BusinessSoftwareNames;
+            IsBusinessProcessRunning = ProcessChecker.IsAnyProcessRunning(businessSoftwares);
         }
     }
 }
