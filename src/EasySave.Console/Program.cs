@@ -68,9 +68,7 @@ namespace EasySave
 
         static void CreateJobFlow(SaveManager manager, ConsoleView view)
         {
-            // get user inputs
             var jobInfo = view.GetNewJobInfo();
-
             try
             {
                 
@@ -80,7 +78,6 @@ namespace EasySave
             }
             catch (Exception ex)
             {
-                // show error message
                 view.DisplayError($"{Resources.Create_Job_Fail}\n      {ex.Message}");
             }
         }
@@ -94,15 +91,17 @@ namespace EasySave
             if (input == "all")
             {
                 view.DisplayMessage(Resources.Get_Job_All_Try);
-                manager.ExecuteAllJobs(ConsoleRequestPassword, ConsoleDisplayMessage);
+                Task.Run(() => manager.ExecuteAllJobs(ConsoleRequestPassword, ConsoleDisplayMessage));
+
+                view.DisplayMessage(">>> Toutes les sauvegardes tournent en arrière-plan.");
             }
             else if (int.TryParse(input, out int id))
             {
-
                 view.DisplayMessage(string.Format(Resources.Get_Job_Running, id));
-                manager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
+                Task.Run(() => manager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage));
+
+                view.DisplayMessage($">>> Le job {id} a été lancé en arrière-plan.");
             }
-            view.DisplayMessage(Resources.Get_Job_End);
         }
 
         static void DeleteJobFlow(SaveManager manager, ConsoleView view)
@@ -193,9 +192,13 @@ namespace EasySave
             return Console.ReadLine() ?? "";
         }
 
+        private static readonly object _consoleLock = new object();
         static void ConsoleDisplayMessage(string message)
         {
-            Console.WriteLine(message);
+            lock (_consoleLock)
+            {
+                Console.WriteLine(message);
+            }
         }
 
     }
