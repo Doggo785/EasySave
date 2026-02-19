@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EasySave.Core.Models
 {
@@ -18,6 +20,7 @@ namespace EasySave.Core.Models
         public bool SaveType { get; set; }
 
         private LoggerService _logger;
+
         public SaveJob(int id, string name, string source, string target, bool type)
         {
             Id = id;
@@ -56,6 +59,8 @@ namespace EasySave.Core.Models
             int totalFiles = allFiles.Length;
             int filesProcessed = 0;
             long sizeProcessed = 0;
+
+            displayMessage?.Invoke($"?? Total: {totalFiles} {Resources.File} ({totalSize / 1024 / 1024} MB)");
 
             var stateLog = new StateLog
             {
@@ -110,6 +115,8 @@ namespace EasySave.Core.Models
                 stateLog.RemainingFilesSize = totalSize - sizeProcessed;
                 stateLog.Progression = totalFiles > 0 ? (int)((double)filesProcessed / totalFiles * 100) : 100;
                 _logger.UpdateStateLog(stateLog);
+
+                displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
             }
 
             stateLog.State = "Finished";
@@ -118,6 +125,17 @@ namespace EasySave.Core.Models
             stateLog.LastActionTimestamp = DateTime.Now;
             stateLog.Progression = 100;
             _logger.UpdateStateLog(stateLog);
+            displayMessage?.Invoke($"? {Resources.Savejob_sauvegardefinis} {Name}");
+        }
+
+
+        public async Task RunAsync(
+            List<string> extensionsToEncrypt,
+            Func<string, string?>? requestPassword = null,
+            Action<string>? displayMessage = null,
+            CancellationToken cancellationToken = default)
+        {
+            await Task.Run(() => Run(extensionsToEncrypt, requestPassword, displayMessage), cancellationToken);
         }
 
         private bool CheckDifferential(FileInfo sourceFile, string targetPath)
