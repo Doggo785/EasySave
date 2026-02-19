@@ -16,6 +16,8 @@ namespace EasyLog
         private string _stateFilePath;
         private bool _logFormat; // true = JSON, false = XML
 
+        private static readonly object _stateLock = new object();
+
         public LoggerService(bool logFormat)
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -27,22 +29,30 @@ namespace EasyLog
         }
         public void WriteDailyLog(DailyLog logEntry)
         {
-            string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
-            if (_logFormat)
+            lock (_stateLock)
             {
-                WriteJson(logEntry, dailyFileName);
-            }
-            else
-            {
-                WriteXml(logEntry, dailyFileName);
+
+                string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
+                if (_logFormat)
+                {
+                    WriteJson(logEntry, dailyFileName);
+                }
+                else
+                {
+                    WriteXml(logEntry, dailyFileName);
+                }
             }
         }
+
         public void UpdateStateLog(StateLog stateEntry)
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(stateEntry, options);
+            lock (_stateLock)
+            {
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string jsonString = JsonSerializer.Serialize(stateEntry, options);
 
-            File.WriteAllText(_stateFilePath, jsonString);
+                File.WriteAllText(_stateFilePath, jsonString);
+            }
         }
         public void EnsureDirectoryExist()
         {
