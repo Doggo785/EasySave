@@ -351,4 +351,37 @@
   <data name="ThrowWrongInput" xml:space="preserve">
     <value>Source, destination, and password cannot be left blank.</value>
   </data>
+  <data name="JobViewModel_Cancelexecution" xml:space="preserve">
+    <value>Execution cancelled</value>
+  </data>
+  <data name="JobViewModel_JobSuccess" xml:space="preserve">
+    <value>All jobs are completed</value>
+  </data>
+  <data name="JobViewModel_CancelToken" xml:space="preserve">
+    <value>Cancellation in progress...</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>file</value>
+  </data>
+  <data name="Savejob_sauvegardefinis" xml:space="preserve">
+    <value>Backup completed:</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>not found</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Starting</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Cancel_job" xml:space="preserve">
+    <value>Cancelled: Job</value>
+  </data>
+  <data name="Erreur_job" xml:space="preserve">
+    <value>Job Error</value>
+  </data>
+  <data name="Alljob_Completed" xml:space="preserve">
+    <value>All jobs are completed</value>
+  </data>
 </root>

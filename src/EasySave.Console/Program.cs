@@ -93,14 +93,12 @@ namespace EasySave
                 view.DisplayMessage(Resources.Get_Job_All_Try);
                 Task.Run(() => manager.ExecuteAllJobs(ConsoleRequestPassword, ConsoleDisplayMessage));
 
-                view.DisplayMessage(">>> Toutes les sauvegardes tournent en arrière-plan.");
             }
             else if (int.TryParse(input, out int id))
             {
                 view.DisplayMessage(string.Format(Resources.Get_Job_Running, id));
                 Task.Run(() => manager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage));
 
-                view.DisplayMessage($">>> Le job {id} a été lancé en arrière-plan.");
             }
         }
 
