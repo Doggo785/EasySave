@@ -4,13 +4,20 @@ namespace EasySave.Core.Services
 {
     public static class ProcessChecker
     {
-        public static bool IsProcessRunning(string processName)
+        public static bool IsAnyProcessRunning(List<string> processNames)
         {
-            if (string.IsNullOrWhiteSpace(processName))
+            if (processNames == null || processNames.Count == 0)
                 return false;
-    
-            string cleanName = processName.Replace(".exe", "");
-            return Process.GetProcessesByName(cleanName).Length > 0;
+
+            foreach (var processName in processNames)
+            {
+                if (string.IsNullOrWhiteSpace(processName)) continue;
+
+                string cleanName = processName.Replace(".exe", "");
+                if (Process.GetProcessesByName(cleanName).Length > 0)
+                    return true;
+            }
+            return false;
         }
     }
 }
