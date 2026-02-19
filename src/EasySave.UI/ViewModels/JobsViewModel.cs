@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using ReactiveUI;
 using EasySave.Core.Models;
 using EasySave.Core.Services;
@@ -17,6 +19,7 @@ namespace EasySave.UI.ViewModels
     {
         private readonly SaveManager _saveManager;
         public ObservableCollection<SaveJob> Jobs { get; set; }
+        public ObservableCollection<string> ExecutionLog { get; set; }
 
         private string _newName = "";
         public string NewName { get => _newName; set => this.RaiseAndSetIfChanged(ref _newName, value); }
@@ -33,20 +36,28 @@ namespace EasySave.UI.ViewModels
         private string _statusMessage = "";
         public string StatusMessage { get => _statusMessage; set => this.RaiseAndSetIfChanged(ref _statusMessage, value); }
 
+        private bool _isExecuting = false;
+        public bool IsExecuting { get => _isExecuting; set => this.RaiseAndSetIfChanged(ref _isExecuting, value); }
+
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
         public ReactiveCommand<Unit, Unit> CreateJobCommand { get; }
         public ReactiveCommand<int, Unit> ExecuteJobCommand { get; }
         public ReactiveCommand<int, Unit> DeleteJobCommand { get; }
         public ReactiveCommand<Unit, Unit> ExecuteAllCommand { get; }
+        public ReactiveCommand<Unit, Unit> CancelExecutionCommand { get; }
 
         public JobsViewModel()
         {
             _saveManager = new SaveManager();
             Jobs = new ObservableCollection<SaveJob>(_saveManager.GetJobs());
+            ExecutionLog = new ObservableCollection<string>();
 
             CreateJobCommand = ReactiveCommand.Create(CreateJob);
             ExecuteJobCommand = ReactiveCommand.CreateFromTask<int>(ExecuteJobAsync);
             DeleteJobCommand = ReactiveCommand.Create<int>(DeleteJob);
             ExecuteAllCommand = ReactiveCommand.CreateFromTask(ExecuteAllAsync);
+            CancelExecutionCommand = ReactiveCommand.Create(CancelExecution);
         }
 
         private void CreateJob()
@@ -58,26 +69,89 @@ namespace EasySave.UI.ViewModels
                 RefreshList();
                 NewName = ""; NewSource = ""; NewDest = "";
             }
-            catch { }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erreur: {ex.Message}";
+            }
         }
 
         private async Task ExecuteJobAsync(int id)
         {
             StatusMessage = "";
-            string? password = await RequestPasswordIfNeeded();
-            _saveManager.ExecuteJob(id, _ => password, DisplayMessage);
-            RefreshList();
+            IsExecuting = true;
+
+            try
+            {
+                _cancellationTokenSource = new CancellationTokenSource();
+                string? password = await RequestPasswordIfNeeded();
+
+                // Appeler la méthode async réelle avec SemaphoreSlim + parallélisme
+                await _saveManager.ExecuteJob(
+                    id,
+                    _ => password,
+                    DisplayMessage,
+                    _cancellationTokenSource.Token);
+
+                RefreshList();
+            }
+            catch (OperationCanceledException)
+            {
+                StatusMessage = "Exécution annulée";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erreur: {ex.Message}";
+            }
+            finally
+            {
+                IsExecuting = false;
+            }
         }
 
         private async Task ExecuteAllAsync()
         {
             StatusMessage = "";
-            string? password = await RequestPasswordIfNeeded();
-            _saveManager.ExecuteAllJobs(_ => password, DisplayMessage);
-            RefreshList();
+            IsExecuting = true;
+
+            try
+            {
+                _cancellationTokenSource = new CancellationTokenSource();
+                string? password = await RequestPasswordIfNeeded();
+
+                // Appeler la méthode async réelle qui gère le parallélisme automatiquement
+                await _saveManager.ExecuteAllJobs(
+                    _ => password,
+                    DisplayMessage,
+                    _cancellationTokenSource.Token);
+
+                StatusMessage = "✓ Tous les jobs sont terminés";
+                RefreshList();
+            }
+            catch (OperationCanceledException)
+            {
+                StatusMessage = "Exécution annulée";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erreur: {ex.Message}";
+            }
+            finally
+            {
+                IsExecuting = false;
+            }
         }
 
-        private void DeleteJob(int id) { _saveManager.DeleteJob(id); RefreshList(); }
+        private void CancelExecution()
+        {
+            _cancellationTokenSource?.Cancel();
+            StatusMessage = "Annulation en cours...";
+        }
+
+        private void DeleteJob(int id) 
+        { 
+            _saveManager.DeleteJob(id); 
+            RefreshList(); 
+        }
 
         private async Task<string?> RequestPasswordIfNeeded()
         {
@@ -102,13 +176,21 @@ namespace EasySave.UI.ViewModels
 
         private void DisplayMessage(string message)
         {
-            StatusMessage = message;
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                ExecutionLog.Add($"[{DateTime.Now:HH:mm:ss}] {message}");
+                StatusMessage = message;
+            });
         }
 
         private void RefreshList()
         {
-            Jobs.Clear();
-            foreach (var job in _saveManager.GetJobs()) Jobs.Add(job);
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                Jobs.Clear();
+                foreach (var job in _saveManager.GetJobs()) 
+                    Jobs.Add(job);
+            });
         }
     }
 }
