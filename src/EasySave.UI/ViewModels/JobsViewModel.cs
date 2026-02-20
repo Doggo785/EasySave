@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Reactive;
-using System.Threading.Tasks;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
-using ReactiveUI;
 using EasySave.Core.Models;
+using EasySave.Core.Properties;
 using EasySave.Core.Services;
 using EasySave.UI.Views;
+using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
+using System.Threading.Tasks;
 
 namespace EasySave.UI.ViewModels
 {
@@ -69,12 +70,18 @@ namespace EasySave.UI.ViewModels
             Job = job;
             Job.ProgressChanged += (sender, value) =>
             {
-                Dispatcher.UIThread.Post(() => Progress = value);
+                Dispatcher.UIThread.Post(() =>
+                {
+
+                    if (State == JobState.Stopped) return;
+
+                    Progress = value;
+                });
             };
         }
     }
 
-    public class JobsViewModel : ReactiveObject
+        public class JobsViewModel : ReactiveObject
     {
         private readonly SaveManager _saveManager;
 
@@ -170,6 +177,7 @@ namespace EasySave.UI.ViewModels
             {
                 jobVm.State = JobState.Stopped;
                 jobVm.Progress = 0;
+                StatusMessage = string.Format(Resources.Cancel_job + " {0}", id);
             }
         }
 
