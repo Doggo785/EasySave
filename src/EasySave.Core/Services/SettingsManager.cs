@@ -10,26 +10,37 @@ using System.Threading;
 
 namespace EasySave.Core.Services
 {
+    // Manages application settings using a Singleton pattern
     public class SettingsManager : INotifyPropertyChanged
     {
+        // General settings
         public string Language { get; set; } = "fr";
         public bool LogFormat { get; set; } = true;
+
+        // Lists for restrictions and cryptography
         public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
         public List<string> EncryptedExtensions { get; set; } = new List<string>();
+
+        // Job execution settings
         public int MaxConcurrentJobs { get; set; } = Environment.ProcessorCount;
         public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
 
         private static SettingsManager _instance;
+
+        // Singleton instance of SettingsManager
         public static SettingsManager Instance => _instance ??= new SettingsManager();
+
         private readonly string _configFilePath;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Retrieves localized resource strings
         public string this[string key]
         {
             get { return Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
         }
 
+        // Initializes the settings directory and file path
         private SettingsManager()
         {
             var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ProSoft", "EasySave", "UserConfig");
@@ -37,6 +48,7 @@ namespace EasySave.Core.Services
             _configFilePath = Path.Combine(appDataPath, "config.json");
         }
 
+        // Loads settings from the JSON configuration file
         public void LoadSettings()
         {
             if (File.Exists(_configFilePath))
@@ -69,6 +81,7 @@ namespace EasySave.Core.Services
             ChangeLanguage(Language);
         }
 
+        // Saves current settings to the JSON configuration file
         public void SaveSettings()
         {
             var settings = new SettingsModel
@@ -80,6 +93,31 @@ namespace EasySave.Core.Services
                 MaxParallelFileSizeKb = MaxParallelFileSizeKb 
                 BusinessSoftwareNames = BusinessSoftwareNames,
                 EncryptedExtensions = EncryptedExtensions
+=======
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
+>>>>>>> dev
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
+>>>>>>> dev
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
+>>>>>>> dev
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
+>>>>>>> dev
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
+>>>>>>> dev
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
+>>>>>>> dev
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -87,6 +125,7 @@ namespace EasySave.Core.Services
             File.WriteAllText(_configFilePath, json);
         }
 
+        // Updates the application's culture and language
         public void ChangeLanguage(string languageCode)
         {
             try
@@ -107,6 +146,7 @@ namespace EasySave.Core.Services
             }
         }
 
+        // Resets settings to their default values
         private void ResetSettings()
         {
             Language = "fr";
@@ -117,6 +157,7 @@ namespace EasySave.Core.Services
             MaxParallelFileSizeKb = 1000; // Ajout partie 3
         }
 
+        // Internal model for JSON serialization
         private class SettingsModel
         {
             public string Language { get; set; } = "fr";
