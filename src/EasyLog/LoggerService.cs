@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using System.Text.Json;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
+using System.Net.Sockets;
 
 
 
@@ -41,6 +43,10 @@ namespace EasyLog
                 {
                     WriteXml(logEntry, dailyFileName);
                 }
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string jsonString = JsonSerializer.Serialize(logEntry, options);
+                _ = SendLogToServerAsync(jsonString);
             }
         }
 
@@ -61,6 +67,27 @@ namespace EasyLog
                 Directory.CreateDirectory(_logDirectory);
             }
         }
+
+        private async Task SendLogToServerAsync(string logData)
+        {
+            try
+            {
+                using (var client = new TcpClient())
+                {
+                    await client.ConnectAsync("127.0.0.1", 5000);
+                    using (var stream = client.GetStream())
+                    {
+                        byte[] data = Encoding.UTF8.GetBytes(logData);
+                        await stream.WriteAsync(data, 0, data.Length);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Ignore connection errors if the server is not reachable
+            }
+        }
+
         private void WriteJson(DailyLog logEntry, string dailyFileName)
         {
             string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.json");
