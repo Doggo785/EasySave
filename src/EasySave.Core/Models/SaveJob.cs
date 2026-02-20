@@ -38,7 +38,11 @@ namespace EasySave.Core.Models
             TargetDirectory = string.Empty;
             _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
-        public void Run(List<string> extensionsToEncrypt, Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null)
+        public void Run(
+            List<string> extensionsToEncrypt,
+            SemaphoreSlim grosFichierEnCours,
+            Func<string, string?>? requestPassword = null, 
+            Action<string>? displayMessage = null)
         {
             if (!Directory.Exists(SourceDirectory)) return;
 
@@ -89,7 +93,27 @@ namespace EasySave.Core.Models
                 bool processFile = SaveType || CheckDifferential(file, targetPath);
                 if (processFile)
                 {
-                    CopyFile(file.FullName, targetPath);
+                    long tailleFichier = file.Length;
+                    long tailleMax = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
+
+                    if (tailleFichier > tailleMax)
+                    {
+                        // Large file: we wait for the semaphore to become free (only one at a time)
+                        grosFichierEnCours.Wait();
+                        try
+                        {
+                            CopyFile(file.FullName, targetPath);
+                        }
+                        finally
+                        {
+                            grosFichierEnCours.Release();
+                        }
+                    }
+                    else
+                    {
+                        // Small file: free parallel transfer
+                        CopyFile(file.FullName, targetPath);
+                    }
 
                     if (ShouldEncrypt(file.Extension, extensionsToEncrypt))
                     {
@@ -131,11 +155,12 @@ namespace EasySave.Core.Models
 
         public async Task RunAsync(
             List<string> extensionsToEncrypt,
+            SemaphoreSlim grosFichierEnCours,
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
             CancellationToken cancellationToken = default)
         {
-            await Task.Run(() => Run(extensionsToEncrypt, requestPassword, displayMessage), cancellationToken);
+            await Task.Run(() => Run(extensionsToEncrypt, grosFichierEnCours, requestPassword, displayMessage), cancellationToken);
         }
 
         private bool CheckDifferential(FileInfo sourceFile, string targetPath)

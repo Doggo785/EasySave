@@ -17,6 +17,7 @@ namespace EasySave.Core.Services
         public string BusinessSoftwareName { get; set; } = "";
         public List<string> EncryptedExtensions { get; set; } = new List<string>();
         public int MaxConcurrentJobs { get; set; } = Environment.ProcessorCount;
+        public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
 
         private static SettingsManager _instance;
         public static SettingsManager Instance => _instance ??= new SettingsManager();
@@ -52,6 +53,7 @@ namespace EasySave.Core.Services
                         BusinessSoftwareName = settings.BusinessSoftwareName;
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
                         MaxConcurrentJobs = settings.MaxConcurrentJobs > 0 ? settings.MaxConcurrentJobs : Environment.ProcessorCount;
+                        MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000; // Ajout partie 3
                     }
                 }
                 catch
@@ -75,7 +77,8 @@ namespace EasySave.Core.Services
                 LogFormat = LogFormat,
                 BusinessSoftwareName = BusinessSoftwareName,
                 EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
+                MaxConcurrentJobs = MaxConcurrentJobs,
+                MaxParallelFileSizeKb = MaxParallelFileSizeKb 
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -111,6 +114,7 @@ namespace EasySave.Core.Services
             BusinessSoftwareName = "";
             EncryptedExtensions = new List<string>();
             MaxConcurrentJobs = Environment.ProcessorCount;
+            MaxParallelFileSizeKb = 1000; // Ajout partie 3
         }
 
         private class SettingsModel
@@ -120,6 +124,7 @@ namespace EasySave.Core.Services
             public string BusinessSoftwareName { get; set; } = "";
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
             public int MaxConcurrentJobs { get; set; } = 0;
+            public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
         }
     }
 }

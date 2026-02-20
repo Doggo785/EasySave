@@ -46,6 +46,22 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _newExtension, value);
         }
 
+        private string _maxParallelFileSizeKbText = "";
+        public string MaxParallelFileSizeKbText
+        {
+            get => _maxParallelFileSizeKbText;
+            set => this.RaiseAndSetIfChanged(ref _maxParallelFileSizeKbText, value);
+        }
+
+        private bool _maxSizeConfirmationVisible;
+        public bool MaxSizeConfirmationVisible
+        {
+            get => _maxSizeConfirmationVisible;
+            set => this.RaiseAndSetIfChanged(ref _maxSizeConfirmationVisible, value);
+        }
+
+        public ReactiveCommand<Unit, Unit> SaveMaxSizeCommand { get; }
+
         public ObservableCollection<string> EncryptedExtensions { get; }
 
         public ReactiveCommand<Unit, Unit> SaveBusinessSoftwareCommand { get; }
@@ -59,11 +75,13 @@ namespace EasySave.UI.ViewModels
             _selectedLanguageIndex = settings.Language == "en" ? 1 : 0;
             _selectedLogFormatIndex = settings.LogFormat ? 0 : 1;
             _businessSoftwareName = settings.BusinessSoftwareName;
+            _maxParallelFileSizeKbText = settings.MaxParallelFileSizeKb.ToString();
             EncryptedExtensions = new ObservableCollection<string>(settings.EncryptedExtensions);
 
             SaveBusinessSoftwareCommand = ReactiveCommand.Create(SaveBusinessSoftware);
             AddExtensionCommand = ReactiveCommand.Create(AddExtension);
             RemoveExtensionCommand = ReactiveCommand.Create<string>(RemoveExtension);
+            SaveMaxSizeCommand = ReactiveCommand.Create(SaveMaxSize);
         }
 
         private void ChangeLanguage(int index)
@@ -77,6 +95,23 @@ namespace EasySave.UI.ViewModels
         {
             SettingsManager.Instance.BusinessSoftwareName = BusinessSoftwareName;
             SettingsManager.Instance.SaveSettings();
+        }
+
+        private void SaveMaxSize()
+        {
+            if (long.TryParse(MaxParallelFileSizeKbText, out long value) && value > 0)
+            {
+                SettingsManager.Instance.MaxParallelFileSizeKb = value;
+                SettingsManager.Instance.SaveSettings();
+
+                // Displays confirmation then cache after 2 seconds
+                MaxSizeConfirmationVisible = true;
+                System.Threading.Tasks.Task.Delay(2000).ContinueWith(_ =>
+                {
+                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                        MaxSizeConfirmationVisible = false);
+                });
+            }
         }
 
         private void AddExtension()

@@ -790,6 +790,33 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Taille max transfert parallèle.
+        /// </summary>
+        public static string SettingsFlow_MaxParallelSize {
+            get {
+                return ResourceManager.GetString("SettingsFlow_MaxParallelSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ✓ Paramètre sauvegardé !.
+        /// </summary>
+        public static string SettingsFlow_MaxParallelSizeConfirm {
+            get {
+                return ResourceManager.GetString("SettingsFlow_MaxParallelSizeConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Un seul fichier à la fois au dessus de cette taille (Ko).
+        /// </summary>
+        public static string SettingsFlow_MaxParallelSizeDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_MaxParallelSizeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à --- MODIFICATION DU LOGICIEL MÉTIER ---.
         /// </summary>
         public static string SettingsFlow_ModifBusinesSoftWare {

@@ -384,4 +384,13 @@
   <data name="Alljob_Completed" xml:space="preserve">
     <value>All jobs are completed</value>
   </data>
+  <data name="SettingsFlow_MaxParallelSize" xml:space="preserve">
+    <value>Max parallel transfer size</value>
+  </data>
+  <data name="SettingsFlow_MaxParallelSizeDesc" xml:space="preserve">
+    <value>Only one file at a time above this size (Ko)</value>
+  </data>
+  <data name="SettingsFlow_MaxParallelSizeConfirm" xml:space="preserve">
+    <value>✓ Parameter saved !</value>
+  </data>
 </root>
