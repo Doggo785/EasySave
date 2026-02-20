@@ -393,4 +393,16 @@
   <data name="SettingsFlow_MaxParallelSizeConfirm" xml:space="preserve">
     <value>✓ Paramètre sauvegardé !</value>
   </data>
+  <data name="JobsViewModel_Error_BS" xml:space="preserve">
+    <value>Action impossible : Logiciel métier en cours d'exécution.</value>
+  </data>
+  <data name="JobsViewModel_Passwordrequest" xml:space="preserve">
+    <value>Demande de mot de passe</value>
+  </data>
+  <data name="JobsViewModel_SourceFolder" xml:space="preserve">
+    <value>Sélectionner le dossier source</value>
+  </data>
+  <data name="JobsViewModel_Destinationfolder" xml:space="preserve">
+    <value>Sélectionner le dossier de destination</value>
+  </data>
 </root>

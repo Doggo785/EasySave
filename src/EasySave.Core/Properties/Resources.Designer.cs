@@ -475,11 +475,38 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} travaux configurés.
+        ///   Recherche une chaîne localisée semblable à Sélectionner le dossier de destination.
         /// </summary>
-        public static string JobsConfiguredCount {
+        public static string JobsViewModel_Destinationfolder {
             get {
-                return ResourceManager.GetString("JobsConfiguredCount", resourceCulture);
+                return ResourceManager.GetString("JobsViewModel_Destinationfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Action impossible : Logiciel métier en cours d&apos;exécution..
+        /// </summary>
+        public static string JobsViewModel_Error_BS {
+            get {
+                return ResourceManager.GetString("JobsViewModel_Error_BS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Demande de mot de passe.
+        /// </summary>
+        public static string JobsViewModel_Passwordrequest {
+            get {
+                return ResourceManager.GetString("JobsViewModel_Passwordrequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sélectionner le dossier source.
+        /// </summary>
+        public static string JobsViewModel_SourceFolder {
+            get {
+                return ResourceManager.GetString("JobsViewModel_SourceFolder", resourceCulture);
             }
         }
         
