@@ -28,8 +28,16 @@ namespace EasyLog.LogServer
         static async Task Main(string[] args)
         {
             _startTime = DateTime.Now;
-            Console.Clear();
-            Console.CursorVisible = false;
+
+            try
+            {
+                if (!Console.IsOutputRedirected)
+                {
+                    Console.Clear();
+                    Console.CursorVisible = false;
+                }
+            }
+            catch { /* Ignore console errors in Docker */ }
 
             if (!Directory.Exists(LogDirectory))
             {
@@ -120,28 +128,49 @@ namespace EasyLog.LogServer
             }
         }
 
+        private static DateTime _lastFallbackLog = DateTime.MinValue;
+
         private static async Task RenderDashboardAsync()
         {
             while (true)
             {
                 lock (_consoleLock)
                 {
-                    Console.SetCursorPosition(0, 0);
-                    Console.WriteLine("============================================================");
-                    Console.WriteLine("                 EASYLOG CENTRALIZED SERVER                 ");
-                    Console.WriteLine("============================================================");
-                    Console.WriteLine($" Uptime:          {DateTime.Now - _startTime:hh\\:mm\\:ss}");
-                    Console.WriteLine($" Port:            {Port}");
-                    Console.WriteLine("------------------------------------------------------------");
-                    Console.WriteLine($" Active Connections: {_totalConnections,-10}");
-                    Console.WriteLine($" Logs Received:     {_logsReceived,-10}");
-                    Console.WriteLine($" Logs Written:      {_logsWritten,-10}");
-                    Console.WriteLine($" Queue Size:        {_logQueue.Count,-10}");
-                    Console.WriteLine($" Errors:            {_errors,-10}");
-                    Console.WriteLine("------------------------------------------------------------");
-                    Console.WriteLine(" Latest Log Snippet:");
-                    Console.WriteLine($" {_lastLog,-58}");
-                    Console.WriteLine("============================================================");
+                    try
+                    {
+                        if (!Console.IsOutputRedirected)
+                        {
+                            Console.SetCursorPosition(0, 0);
+                            Console.WriteLine("============================================================");
+                            Console.WriteLine("                 EASYLOG CENTRALIZED SERVER                 ");
+                            Console.WriteLine("============================================================");
+                            Console.WriteLine($" Uptime:          {DateTime.Now - _startTime:hh\\:mm\\:ss}");
+                            Console.WriteLine($" Port:            {Port}");
+                            Console.WriteLine("------------------------------------------------------------");
+                            Console.WriteLine($" Active Connections: {_totalConnections,-10}");
+                            Console.WriteLine($" Logs Received:     {_logsReceived,-10}");
+                            Console.WriteLine($" Logs Written:      {_logsWritten,-10}");
+                            Console.WriteLine($" Queue Size:        {_logQueue.Count,-10}");
+                            Console.WriteLine($" Errors:            {_errors,-10}");
+                            Console.WriteLine("------------------------------------------------------------");
+                            Console.WriteLine(" Latest Log Snippet:");
+                            Console.WriteLine($" {_lastLog,-58}");
+                            Console.WriteLine("============================================================");
+                        }
+                        else
+                        {
+                            // For Docker environment
+                            if ((DateTime.Now - _lastFallbackLog).TotalSeconds >= 10)
+                            {
+                                Console.WriteLine($"[EasyLog Server] Uptime: {DateTime.Now - _startTime:hh\\:mm\\:ss} | Active Conn: {_totalConnections} | Received: {_logsReceived} | Written: {_logsWritten} | Queue: {_logQueue.Count} | Errors: {_errors}");
+                                _lastFallbackLog = DateTime.Now;
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        // Ignore console errors
+                    }
                 }
                 await Task.Delay(500);
             }
