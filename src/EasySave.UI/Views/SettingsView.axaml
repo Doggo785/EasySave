@@ -53,8 +53,8 @@
 				<!-- Max parallel file size -->
 				<Border Background="#252525" CornerRadius="8" Padding="20">
 					<StackPanel Spacing="12">
-						<TextBlock Text="Taille max transfert parallèle" FontWeight="Bold" FontSize="16"/>
-						<TextBlock Text="Un seul fichier à la fois au dessus de cette taille (Ko)" Foreground="#888" FontSize="12"/>
+						<TextBlock Text="{Binding [SettingsFlow_MaxParallelSize], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+						<TextBlock Text="{Binding [SettingsFlow_MaxParallelSizeDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12"/>
 						<Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
 							<TextBox Text="{Binding MaxParallelFileSizeKbText}" Watermark="1000" VerticalAlignment="Center"/>
 							<Button Grid.Column="1" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
@@ -63,7 +63,7 @@
 						<!-- Confirmation message -->
 						<Border Background="#1a3a1a" CornerRadius="4" Padding="10,6"
 								IsVisible="{Binding MaxSizeConfirmationVisible}">
-							<TextBlock Text="✓ Paramètre sauvegardé !" Foreground="#4caf50" FontWeight="SemiBold"/>
+							<TextBlock Text="{Binding [SettingsFlow_MaxParallelSizeConfirm], Source={x:Static services:SettingsManager.Instance}}" Foreground="#4caf50" FontWeight="SemiBold"/>
 						</Border>
 					</StackPanel>
 				</Border>
