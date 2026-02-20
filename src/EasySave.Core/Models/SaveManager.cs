@@ -183,6 +183,9 @@ namespace EasySave.Core.Models
             if (_activeJobsTokens.TryGetValue(id, out var tokenSource))
             {
                 tokenSource.Cancel();
+
+                ResumeJob(id);
+
                 _activeJobsTokens.Remove(id);
             }
         }
