@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace EasySave.Core.Models
 {
@@ -21,6 +22,7 @@ namespace EasySave.Core.Models
         private LoggerService _logger;
 
         // Thread control elements
+        [JsonIgnore]
         public ManualResetEventSlim PauseEvent { get; } = new ManualResetEventSlim(true);
         public event EventHandler<int> ProgressChanged;
 
