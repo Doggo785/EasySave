@@ -51,7 +51,7 @@ namespace EasySave.UI.ViewModels
         {
             JobState.Stopped => "▶",
             JobState.Running => "⏸",
-            JobState.Paused => "⏵",
+            JobState.Paused => "▶",
             _ => "▶"
         };
 
