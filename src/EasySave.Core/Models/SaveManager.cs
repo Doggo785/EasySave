@@ -16,6 +16,7 @@ namespace EasySave.Core.Models
         private List<SaveJob> _jobs;
         private readonly object _jobsLock = new object(); 
         private SemaphoreSlim _concurrencyLimiter;
+        private static readonly SemaphoreSlim _grosFichierEnCours = new SemaphoreSlim(1, 1);
 
         private static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly string _logDirectory = Path.Combine(appDataPath, "ProSoft", "EasySave", "UserConfig");
@@ -104,6 +105,7 @@ namespace EasySave.Core.Models
                 // Exécuter le job (la vraie copie/chiffrement des fichiers)
                 await job.RunAsync(
                     SettingsManager.Instance.EncryptedExtensions,
+                    _grosFichierEnCours,
                     requestPassword,
                     displayMessage,
                     cancellationToken);
