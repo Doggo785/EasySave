@@ -16,6 +16,7 @@ namespace EasySave.Core.Services
         public bool LogFormat { get; set; } = true;
         public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
         public List<string> EncryptedExtensions { get; set; } = new List<string>();
+        public int MaxConcurrentJobs { get; set; } = Environment.ProcessorCount;
 
         private static SettingsManager _instance;
         public static SettingsManager Instance => _instance ??= new SettingsManager();
@@ -50,6 +51,7 @@ namespace EasySave.Core.Services
                         LogFormat = settings.LogFormat;
                         BusinessSoftwareNames = settings.BusinessSoftwareNames ?? new List<string>();
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
+                        MaxConcurrentJobs = settings.MaxConcurrentJobs > 0 ? settings.MaxConcurrentJobs : Environment.ProcessorCount;
                     }
                 }
                 catch
@@ -71,8 +73,14 @@ namespace EasySave.Core.Services
             {
                 Language = Language,
                 LogFormat = LogFormat,
+<<<<<<< HEAD
                 BusinessSoftwareNames = BusinessSoftwareNames,
                 EncryptedExtensions = EncryptedExtensions
+=======
+                BusinessSoftwareName = BusinessSoftwareName,
+                EncryptedExtensions = EncryptedExtensions,
+                MaxConcurrentJobs = MaxConcurrentJobs
+>>>>>>> dev
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -106,6 +114,7 @@ namespace EasySave.Core.Services
             LogFormat = true;
             BusinessSoftwareNames = new List<string>();
             EncryptedExtensions = new List<string>();
+            MaxConcurrentJobs = Environment.ProcessorCount;
         }
 
         private class SettingsModel
@@ -114,6 +123,7 @@ namespace EasySave.Core.Services
             public bool LogFormat { get; set; } = true;
             public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
+            public int MaxConcurrentJobs { get; set; } = 0;
         }
     }
 }
