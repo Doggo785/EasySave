@@ -150,7 +150,7 @@ namespace EasySave.UI.ViewModels
             {
                 if (!_saveManager.CanLaunchJob()) 
                 {
-                    StatusMessage = "Action impossible : Logiciel métier en cours d'exécution.";
+                    StatusMessage = Resources.JobsViewModel_Error_BS;
                     return; 
                 }
             }
@@ -243,7 +243,7 @@ namespace EasySave.UI.ViewModels
             var owner = GetMainWindow();
             if (owner == null) return null;
 
-            var dialog = new PasswordDialog(SettingsManager.Instance["PasswordRequest"]);
+            var dialog = new PasswordDialog(SettingsManager.Instance[Resources.JobsViewModel_Passwordrequest]);
             var result = await dialog.ShowDialog<string?>(owner);
             return result;
         }
@@ -300,7 +300,7 @@ namespace EasySave.UI.ViewModels
 
             var folders = await storageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions
             {
-                Title = "Sélectionner le dossier source",
+                Title = Resources.JobsViewModel_SourceFolder,
                 AllowMultiple = false
             });
 
@@ -317,7 +317,7 @@ namespace EasySave.UI.ViewModels
 
             var folders = await storageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions
             {
-                Title = "Sélectionner le dossier de destination",
+                Title = Resources.JobsViewModel_Destinationfolder,
                 AllowMultiple = false
             });
 
