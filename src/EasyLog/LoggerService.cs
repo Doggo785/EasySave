@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Xml.Serialization;
 using System.Threading.Tasks;
 using System.Net.Sockets;
+using System.Collections.Concurrent;
 
 
 
@@ -19,6 +20,12 @@ namespace EasyLog
         private bool _logFormat; // true = JSON, false = XML
 
         private static readonly object _stateLock = new object();
+        private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
+
+        static LoggerService()
+        {
+            _ = Task.Run(ProcessLogQueueAsync);
+        }
 
         public LoggerService(bool logFormat)
         {
@@ -44,9 +51,9 @@ namespace EasyLog
                     WriteXml(logEntry, dailyFileName);
                 }
 
-                var options = new JsonSerializerOptions { WriteIndented = true };
+                var options = new JsonSerializerOptions { WriteIndented = false };
                 string jsonString = JsonSerializer.Serialize(logEntry, options);
-                _ = SendLogToServerAsync(jsonString);
+                _logQueue.Enqueue(jsonString);
             }
         }
 
@@ -68,23 +75,46 @@ namespace EasyLog
             }
         }
 
-        private async Task SendLogToServerAsync(string logData)
+        private static async Task ProcessLogQueueAsync()
         {
-            try
+            while (true)
             {
-                using (var client = new TcpClient())
+                try
                 {
-                    await client.ConnectAsync("127.0.0.1", 5000);
-                    using (var stream = client.GetStream())
+                    using (var client = new TcpClient())
                     {
-                        byte[] data = Encoding.UTF8.GetBytes(logData);
-                        await stream.WriteAsync(data, 0, data.Length);
+                        await client.ConnectAsync("127.0.0.1", 5000);
+                        using (var stream = client.GetStream())
+                        using (var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true })
+                        {
+                            while (true)
+                            {
+                                if (_logQueue.TryDequeue(out string logData))
+                                {
+                                    try
+                                    {
+                                        await writer.WriteLineAsync(logData);
+                                    }
+                                    catch
+                                    {
+                                        // Re-enqueue the log data if writing fails
+                                        _logQueue.Enqueue(logData);
+                                        throw; // Break the inner loop to reconnect
+                                    }
+                                }
+                                else
+                                {
+                                    await Task.Delay(50);
+                                }
+                            }
+                        }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                // Ignore connection errors if the server is not reachable
+                catch (Exception)
+                {
+                    // Wait before trying to reconnect
+                    await Task.Delay(2000);
+                }
             }
         }
 
