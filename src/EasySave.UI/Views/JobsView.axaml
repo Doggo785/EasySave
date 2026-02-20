@@ -50,8 +50,7 @@
                                                 </Grid>
 
                                                 <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Right">
-                                                    <Button Content="{Binding ActionIcon}" 
-                                                            ToolTip.Tip="Play / Pause / Reprendre" 
+                                                    <Button Content="{Binding ActionIcon}"  
                                                             Padding="8,4" 
                                                             Background="{Binding ActionColor}" 
                                                             Foreground="White" 
@@ -59,7 +58,6 @@
                                                             CommandParameter="{Binding Id}"/>
                                                     
                                                     <Button Content="⏹" 
-                                                            ToolTip.Tip="Arrêter" 
                                                             Padding="8,4" 
                                                             Background="#8B0000" 
                                                             Foreground="White" 
@@ -67,7 +65,6 @@
                                                             CommandParameter="{Binding Id}"/>
                                                     
                                                     <Button Content="🗑" 
-                                                            ToolTip.Tip="Supprimer" 
                                                             Padding="8,4" 
                                                             Background="#555555" 
                                                             Foreground="White" 
