@@ -9,6 +9,7 @@ namespace EasySave.UI.ViewModels
 {
     public class SettingsViewModel : ReactiveObject
     {
+        // Language settings
         private int _selectedLanguageIndex;
         public int SelectedLanguageIndex
         {
@@ -20,6 +21,7 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        // Log format settings
         private int _selectedLogFormatIndex;
         public int SelectedLogFormatIndex
         {
@@ -32,13 +34,19 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        private string _businessSoftwareName = "";
-        public string BusinessSoftwareName
+        // Business software properties
+        private string _newBusinessSoftware = "";
+        public string NewBusinessSoftware
         {
-            get => _businessSoftwareName;
-            set => this.RaiseAndSetIfChanged(ref _businessSoftwareName, value);
+            get => _newBusinessSoftware;
+            set => this.RaiseAndSetIfChanged(ref _newBusinessSoftware, value);
         }
 
+        public ObservableCollection<string> BusinessSoftwareNames { get; }
+        public ReactiveCommand<Unit, Unit> AddBusinessSoftwareCommand { get; }
+        public ReactiveCommand<string, Unit> RemoveBusinessSoftwareCommand { get; }
+
+        // Encrypted extensions properties
         private string _newExtension = "";
         public string NewExtension
         {
@@ -63,8 +71,6 @@ namespace EasySave.UI.ViewModels
         public ReactiveCommand<Unit, Unit> SaveMaxSizeCommand { get; }
 
         public ObservableCollection<string> EncryptedExtensions { get; }
-
-        public ReactiveCommand<Unit, Unit> SaveBusinessSoftwareCommand { get; }
         public ReactiveCommand<Unit, Unit> AddExtensionCommand { get; }
         public ReactiveCommand<string, Unit> RemoveExtensionCommand { get; }
 
@@ -72,18 +78,25 @@ namespace EasySave.UI.ViewModels
         {
             var settings = SettingsManager.Instance;
 
+            // Initialize base settings
             _selectedLanguageIndex = settings.Language == "en" ? 1 : 0;
             _selectedLogFormatIndex = settings.LogFormat ? 0 : 1;
-            _businessSoftwareName = settings.BusinessSoftwareName;
+
+            // Initialize observable collections
+            BusinessSoftwareNames = new ObservableCollection<string>(settings.BusinessSoftwareNames);
             _maxParallelFileSizeKbText = settings.MaxParallelFileSizeKb.ToString();
             EncryptedExtensions = new ObservableCollection<string>(settings.EncryptedExtensions);
 
-            SaveBusinessSoftwareCommand = ReactiveCommand.Create(SaveBusinessSoftware);
+            // Initialize commands
+            AddBusinessSoftwareCommand = ReactiveCommand.Create(AddBusinessSoftware);
+            RemoveBusinessSoftwareCommand = ReactiveCommand.Create<string>(RemoveBusinessSoftware);
+
             AddExtensionCommand = ReactiveCommand.Create(AddExtension);
             RemoveExtensionCommand = ReactiveCommand.Create<string>(RemoveExtension);
             SaveMaxSizeCommand = ReactiveCommand.Create(SaveMaxSize);
         }
 
+        // Changes the application language
         private void ChangeLanguage(int index)
         {
             string code = index == 1 ? "en" : "fr";
@@ -91,9 +104,28 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
-        private void SaveBusinessSoftware()
+        // Adds a new business software to the list
+        private void AddBusinessSoftware()
         {
-            SettingsManager.Instance.BusinessSoftwareName = BusinessSoftwareName;
+            if (string.IsNullOrWhiteSpace(NewBusinessSoftware)) return;
+
+            string name = NewBusinessSoftware.Trim();
+
+            if (!BusinessSoftwareNames.Contains(name, StringComparer.OrdinalIgnoreCase))
+            {
+                BusinessSoftwareNames.Add(name);
+                SettingsManager.Instance.BusinessSoftwareNames = BusinessSoftwareNames.ToList();
+                SettingsManager.Instance.SaveSettings();
+            }
+
+            NewBusinessSoftware = "";
+        }
+
+        // Removes a business software from the list
+        private void RemoveBusinessSoftware(string name)
+        {
+            BusinessSoftwareNames.Remove(name);
+            SettingsManager.Instance.BusinessSoftwareNames = BusinessSoftwareNames.ToList();
             SettingsManager.Instance.SaveSettings();
         }
 
@@ -114,6 +146,7 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        // Adds a new encrypted extension to the list
         private void AddExtension()
         {
             if (string.IsNullOrWhiteSpace(NewExtension)) return;
@@ -130,12 +163,14 @@ namespace EasySave.UI.ViewModels
             NewExtension = "";
         }
 
+        // Removes an encrypted extension from the list
         private void RemoveExtension(string ext)
         {
             EncryptedExtensions.Remove(ext);
             SyncExtensionsToSettings();
         }
 
+        // Synchronizes the extensions collection with the settings manager
         private void SyncExtensionsToSettings()
         {
             SettingsManager.Instance.EncryptedExtensions = EncryptedExtensions.ToList();

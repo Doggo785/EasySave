@@ -79,7 +79,7 @@
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Text="EasySave" FontSize="18" FontWeight="Bold" Foreground="White"/>
-                                    <TextBlock Text="v2.0 Enterprise" FontSize="11" Foreground="#888"/>
+                                    <TextBlock Text="v3.0 Enterprise" FontSize="11" Foreground="#888"/>
                                 </StackPanel>
                             </StackPanel>
                             
@@ -107,7 +107,7 @@
             <TabItem.Header>
                 <StackPanel Orientation="Horizontal" Spacing="15">
                     <TextBlock Text="🏠"/>
-                    <TextBlock Text="Accueil"/>
+                    <TextBlock Text="{Binding [Menu_Option_Home], Source={x:Static services:SettingsManager.Instance}}"/>
                 </StackPanel>
             </TabItem.Header>
             <views:HomeView DataContext="{Binding HomeVM}" />

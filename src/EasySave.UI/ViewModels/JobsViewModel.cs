@@ -1,26 +1,91 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Reactive;
-using System.Threading;
-using System.Threading.Tasks;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
-using ReactiveUI;
 using EasySave.Core.Models;
+using EasySave.Core.Properties;
 using EasySave.Core.Services;
 using EasySave.UI.Views;
+using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using EasySave.Core.Properties;
+using System.Reactive;
+using System.Threading.Tasks;
 
 namespace EasySave.UI.ViewModels
 {
-    public class JobsViewModel : ReactiveObject
+    // Represents the current execution state of a job
+    public enum JobState { Stopped, Running, Paused }
+
+    // View model wrapper linking a SaveJob to its UI representation and progress
+    public class JobItemViewModel : ReactiveObject
+    {
+        public SaveJob Job { get; }
+        public int Id => Job.Id;
+        public string Name => Job.Name;
+        public string TargetDirectory => Job.TargetDirectory;
+        public bool SaveType => Job.SaveType;
+
+        private int _progress;
+        public int Progress
+        {
+            get => _progress;
+            set => this.RaiseAndSetIfChanged(ref _progress, value);
+        }
+
+        // Job execution state driving the UI button
+        private JobState _state = JobState.Stopped;
+        public JobState State
+        {
+            get => _state;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _state, value);
+                this.RaisePropertyChanged(nameof(ActionIcon));
+                this.RaisePropertyChanged(nameof(ActionColor));
+            }
+        }
+
+        // Dynamic icon based on current state
+        public string ActionIcon => State switch
+        {
+            JobState.Stopped => "▶",
+            JobState.Running => "⏸",
+            JobState.Paused => "▶",
+            _ => "▶"
+        };
+
+        // Dynamic color based on current state
+        public string ActionColor => State switch
+        {
+            JobState.Stopped => "#2E8B57", // Green (Ready to play)
+            JobState.Running => "#DAA520", // Yellow (Ready to pause)
+            JobState.Paused => "#4682B4",  // Blue (Ready to resume)
+            _ => "#2E8B57"
+        };
+
+        public JobItemViewModel(SaveJob job)
+        {
+            Job = job;
+            Job.ProgressChanged += (sender, value) =>
+            {
+                Dispatcher.UIThread.Post(() =>
+                {
+
+                    if (State == JobState.Stopped) return;
+
+                    Progress = value;
+                });
+            };
+        }
+    }
+
+        public class JobsViewModel : ReactiveObject
     {
         private readonly SaveManager _saveManager;
-        public ObservableCollection<SaveJob> Jobs { get; set; }
-        public ObservableCollection<string> ExecutionLog { get; set; }
+
+        public ObservableCollection<JobItemViewModel> Jobs { get; set; }
 
         private string _newName = "";
         public string NewName { get => _newName; set => this.RaiseAndSetIfChanged(ref _newName, value); }
@@ -35,30 +100,28 @@ namespace EasySave.UI.ViewModels
         public int SelectedTypeIndex { get => _selectedTypeIndex; set => this.RaiseAndSetIfChanged(ref _selectedTypeIndex, value); }
 
         private string _statusMessage = "";
+
+        private bool _isExecutingAll = false;
         public string StatusMessage { get => _statusMessage; set => this.RaiseAndSetIfChanged(ref _statusMessage, value); }
 
-        private bool _isExecuting = false;
-        public bool IsExecuting { get => _isExecuting; set => this.RaiseAndSetIfChanged(ref _isExecuting, value); }
-
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-
+        // UI Commands
         public ReactiveCommand<Unit, Unit> CreateJobCommand { get; }
-        public ReactiveCommand<int, Unit> ExecuteJobCommand { get; }
+        public ReactiveCommand<int, Unit> TogglePlayPauseCommand { get; } // Single unified command
+        public ReactiveCommand<int, Unit> StopJobCommand { get; }
         public ReactiveCommand<int, Unit> DeleteJobCommand { get; }
         public ReactiveCommand<Unit, Unit> ExecuteAllCommand { get; }
-        public ReactiveCommand<Unit, Unit> CancelExecutionCommand { get; }
 
         public JobsViewModel()
         {
             _saveManager = new SaveManager();
-            Jobs = new ObservableCollection<SaveJob>(_saveManager.GetJobs());
-            ExecutionLog = new ObservableCollection<string>();
+            Jobs = new ObservableCollection<JobItemViewModel>();
+            RefreshList();
 
             CreateJobCommand = ReactiveCommand.Create(CreateJob);
-            ExecuteJobCommand = ReactiveCommand.CreateFromTask<int>(ExecuteJobAsync);
+            TogglePlayPauseCommand = ReactiveCommand.CreateFromTask<int>(TogglePlayPauseAsync);
+            StopJobCommand = ReactiveCommand.Create<int>(StopJob);
             DeleteJobCommand = ReactiveCommand.Create<int>(DeleteJob);
             ExecuteAllCommand = ReactiveCommand.CreateFromTask(ExecuteAllAsync);
-            CancelExecutionCommand = ReactiveCommand.Create(CancelExecution);
         }
 
         private void CreateJob()
@@ -70,88 +133,91 @@ namespace EasySave.UI.ViewModels
                 RefreshList();
                 NewName = ""; NewSource = ""; NewDest = "";
             }
-            catch (Exception ex)
+            catch { }
+        }
+
+        // Handles Play, Pause, and Resume logic based on current state
+        private async Task TogglePlayPauseAsync(int id)
+        {
+            var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
+            if (jobVm == null) return;
+
+            if (jobVm.State == JobState.Stopped)
             {
-                StatusMessage = $"Erreur: {ex.Message}";
+                jobVm.State = JobState.Running;
+                jobVm.Progress = 0;
+                StatusMessage = "";
+
+                string? password = await RequestPasswordIfNeeded();
+
+                // Run in background and reset state when finished
+                _ = Task.Run(async () =>
+                {
+                    await _saveManager.ExecuteJob(id, _ => password, DisplayMessage);
+                    Dispatcher.UIThread.Post(() => jobVm.State = JobState.Stopped);
+                });
+            }
+            else if (jobVm.State == JobState.Running)
+            {
+                jobVm.State = JobState.Paused;
+                _saveManager.PauseJob(id);
+            }
+            else if (jobVm.State == JobState.Paused)
+            {
+                jobVm.State = JobState.Running;
+                _saveManager.ResumeJob(id);
             }
         }
 
-        private async Task ExecuteJobAsync(int id)
+        private void StopJob(int id)
         {
-            StatusMessage = "";
-            IsExecuting = true;
-
-            try
+            _saveManager.StopJob(id);
+            var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
+            if (jobVm != null)
             {
-                _cancellationTokenSource = new CancellationTokenSource();
-                string? password = await RequestPasswordIfNeeded();
-
-                // Appeler la méthode async réelle avec SemaphoreSlim + parallélisme
-                await _saveManager.ExecuteJob(
-                    id,
-                    _ => password,
-                    DisplayMessage,
-                    _cancellationTokenSource.Token);
-
-                RefreshList();
-            }
-            catch (OperationCanceledException)
-            {
-                StatusMessage = Resources.JobViewModel_Cancelexecution;
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erreur: {ex.Message}";
-            }
-            finally
-            {
-                IsExecuting = false;
+                jobVm.State = JobState.Stopped;
+                jobVm.Progress = 0;
+                StatusMessage = string.Format(Resources.Cancel_job + " {0}", id);
             }
         }
 
         private async Task ExecuteAllAsync()
         {
-            StatusMessage = "";
-            IsExecuting = true;
+            
+            if (_isExecutingAll) return;
 
             try
             {
-                _cancellationTokenSource = new CancellationTokenSource();
+                _isExecutingAll = true;
+                StatusMessage = "";
+
                 string? password = await RequestPasswordIfNeeded();
 
-                // Appeler la méthode async réelle qui gère le parallélisme automatiquement
-                await _saveManager.ExecuteAllJobs(
-                    _ => password,
-                    DisplayMessage,
-                    _cancellationTokenSource.Token);
 
-                StatusMessage = Resources.JobViewModel_JobSuccess;
-                RefreshList();
-            }
-            catch (OperationCanceledException)
-            {
-                StatusMessage = Resources.JobViewModel_Cancelexecution;
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erreur: {ex.Message}";
+                foreach (var job in Jobs)
+                {
+                    job.State = JobState.Running;
+                    job.Progress = 0;
+                }
+
+
+                await _saveManager.ExecuteAllJobs(_ => password, DisplayMessage);
             }
             finally
             {
-                IsExecuting = false;
+                _isExecutingAll = false;
+
+                Dispatcher.UIThread.Post(() =>
+                {
+                    foreach (var job in Jobs) job.State = JobState.Stopped;
+                });
             }
         }
 
-        private void CancelExecution()
+        private void DeleteJob(int id)
         {
-            _cancellationTokenSource?.Cancel();
-            StatusMessage = Resources.JobViewModel_CancelToken;
-        }
-
-        private void DeleteJob(int id) 
-        { 
-            _saveManager.DeleteJob(id); 
-            RefreshList(); 
+            _saveManager.DeleteJob(id);
+            RefreshList();
         }
 
         private async Task<string?> RequestPasswordIfNeeded()
@@ -177,21 +243,16 @@ namespace EasySave.UI.ViewModels
 
         private void DisplayMessage(string message)
         {
-            Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                ExecutionLog.Add($"[{DateTime.Now:HH:mm:ss}] {message}");
-                StatusMessage = message;
-            });
+            Dispatcher.UIThread.Post(() => StatusMessage = message);
         }
 
         private void RefreshList()
         {
-            Dispatcher.UIThread.InvokeAsync(() =>
+            Jobs.Clear();
+            foreach (var job in _saveManager.GetJobs())
             {
-                Jobs.Clear();
-                foreach (var job in _saveManager.GetJobs()) 
-                    Jobs.Add(job);
-            });
+                Jobs.Add(new JobItemViewModel(job));
+            }
         }
     }
 }

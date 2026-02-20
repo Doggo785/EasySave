@@ -2,7 +2,6 @@ using EasySave.Core.Properties;
 using EasySave.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -14,9 +13,12 @@ namespace EasySave.Core.Models
     public class SaveManager
     {
         private List<SaveJob> _jobs;
-        private readonly object _jobsLock = new object(); 
+        private readonly object _jobsLock = new object();
         private SemaphoreSlim _concurrencyLimiter;
         private static readonly SemaphoreSlim _grosFichierEnCours = new SemaphoreSlim(1, 1);
+
+        // Tracks active jobs and their cancellation tokens
+        private readonly Dictionary<int, CancellationTokenSource> _activeJobsTokens = new Dictionary<int, CancellationTokenSource>();
 
         private static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly string _logDirectory = Path.Combine(appDataPath, "ProSoft", "EasySave", "UserConfig");
@@ -25,7 +27,10 @@ namespace EasySave.Core.Models
         public SaveManager()
         {
             _jobs = LoadJobs();
+
+            // Initialize concurrent jobs limit
             int maxConcurrent = SettingsManager.Instance.MaxConcurrentJobs;
+            if (maxConcurrent <= 0) maxConcurrent = Environment.ProcessorCount;
             _concurrencyLimiter = new SemaphoreSlim(maxConcurrent, maxConcurrent);
         }
 
@@ -39,7 +44,6 @@ namespace EasySave.Core.Models
 
         public void CreateJob(string name, string src, string dest, bool type)
         {
-            
             if (string.IsNullOrWhiteSpace(name) ||
                 string.IsNullOrWhiteSpace(src) ||
                 string.IsNullOrWhiteSpace(dest))
@@ -70,21 +74,25 @@ namespace EasySave.Core.Models
                 if (jobToDelete != null)
                 {
                     _jobs.Remove(jobToDelete);
-
-
                 }
             }
             SaveJobs();
         }
 
+        // Executes a single job asynchronously
         public async Task ExecuteJob(
             int id,
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
             CancellationToken cancellationToken = default)
         {
-            await _concurrencyLimiter.WaitAsync(cancellationToken);
+            if (!CanLaunchJob())
+            {
+                displayMessage?.Invoke($"{Resources.CanLaunch_ErreurMetier}");
+                return;
+            }
 
+            await _concurrencyLimiter.WaitAsync(cancellationToken);
 
             try
             {
@@ -100,15 +108,19 @@ namespace EasySave.Core.Models
                     return;
                 }
 
+                // Create and register a cancellation token to allow stopping the job
+                var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                _activeJobsTokens[id] = cts;
+
                 displayMessage?.Invoke($"{Resources.Start}: {job.Name}");
 
-                // Exécuter le job (la vraie copie/chiffrement des fichiers)
+                // Execute the job with the cancellation token
                 await job.RunAsync(
                     SettingsManager.Instance.EncryptedExtensions,
                     _grosFichierEnCours,
                     requestPassword,
                     displayMessage,
-                    cancellationToken);
+                    cts.Token);
 
                 displayMessage?.Invoke($"{Resources.Complete}: {job.Name}");
             }
@@ -122,10 +134,13 @@ namespace EasySave.Core.Models
             }
             finally
             {
+                // cleanup token and release concurrency slot
+                _activeJobsTokens.Remove(id);
                 _concurrencyLimiter.Release();
             }
         }
 
+        // Executes all jobs concurrently
         public async Task ExecuteAllJobs(
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
@@ -136,7 +151,6 @@ namespace EasySave.Core.Models
             {
                 jobsSnapshot = _jobs.ToList();
             }
-
 
             var tasks = jobsSnapshot.Select(job =>
                 ExecuteJob(job.Id, requestPassword, displayMessage, cancellationToken)
@@ -152,7 +166,33 @@ namespace EasySave.Core.Models
                 displayMessage?.Invoke(Resources.JobViewModel_Cancelexecution);
             }
         }
-        
+
+        // thread Control Methods
+        public void PauseJob(int id)
+        {
+            var job = _jobs.FirstOrDefault(j => j.Id == id);
+            job?.PauseEvent.Reset();
+        }
+
+        public void ResumeJob(int id)
+        {
+            var job = _jobs.FirstOrDefault(j => j.Id == id);
+            job?.PauseEvent.Set();
+        }
+
+        public void StopJob(int id)
+        {
+            if (_activeJobsTokens.TryGetValue(id, out var tokenSource))
+            {
+                tokenSource.Cancel();
+
+                ResumeJob(id);
+
+                _activeJobsTokens.Remove(id);
+            }
+        }
+
+
         private void SaveJobs()
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -164,10 +204,11 @@ namespace EasySave.Core.Models
         private List<SaveJob> LoadJobs()
         {
             if (!File.Exists(_saveFilePath)) return new List<SaveJob>();
-            
+
             string json = File.ReadAllText(_saveFilePath);
             return JsonSerializer.Deserialize<List<SaveJob>>(json) ?? new List<SaveJob>();
         }
+
         public void EnsureDirectoryExist()
         {
             if (!Directory.Exists(_logDirectory))
@@ -176,10 +217,11 @@ namespace EasySave.Core.Models
             }
         }
 
+        // Checks if any configured business software is currently running
         private bool CanLaunchJob()
         {
-            string businessAppName = SettingsManager.Instance.BusinessSoftwareName;
-            return !ProcessChecker.IsProcessRunning(businessAppName);
+            var businessAppNames = SettingsManager.Instance.BusinessSoftwareNames;
+            return !ProcessChecker.IsAnyProcessRunning(businessAppNames);
         }
 
         public void EditJob(SaveJob job)

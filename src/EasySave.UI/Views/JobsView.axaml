@@ -1,7 +1,6 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:EasySave.UI.ViewModels"
-             xmlns:models="using:EasySave.Core.Models"
              xmlns:services="using:EasySave.Core.Services"
              x:Class="EasySave.UI.Views.JobsView"
              x:DataType="vm:JobsViewModel">
@@ -22,7 +21,7 @@
                 </Grid>
 
                 <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto">
-                    <Grid ColumnDefinitions="50, 2*, 2*, 100, 140" Margin="10,0,10,10">
+                    <Grid ColumnDefinitions="40, 2*, 2*, 80, 220" Margin="10,0,10,10">
                         <TextBlock Text="{Binding [Header_Id], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
                         <TextBlock Grid.Column="1" Text="{Binding [Header_Name], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
                         <TextBlock Grid.Column="2" Text="{Binding [Header_Dest], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
@@ -33,28 +32,55 @@
                     <ScrollViewer Grid.Row="1">
                         <ItemsControl ItemsSource="{Binding Jobs}">
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate x:DataType="models:SaveJob">
+                                <DataTemplate x:DataType="vm:JobItemViewModel">
                                     <Border Background="#2d2d2d" CornerRadius="6" Padding="15,10" Margin="0,0,0,8">
-                                        <Grid ColumnDefinitions="50, 2*, 2*, 100, 140">
-                                            <TextBlock Text="{Binding Id}" VerticalAlignment="Center" Foreground="#666"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" FontWeight="Bold"/>
-                                            <TextBlock Grid.Column="2" Text="{Binding TargetDirectory}" VerticalAlignment="Center" Foreground="#aaa"/>
-                                            
-                                            <Grid Grid.Column="3" VerticalAlignment="Center">
-                                                <Border Background="#228B22" CornerRadius="4" HorizontalAlignment="Left" Padding="8,4" IsVisible="{Binding SaveType}">
-                                                    <TextBlock Text="FULL" FontSize="11" FontWeight="Bold" Foreground="White"/>
-                                                </Border>
-                                                <Border Background="#4682B4" CornerRadius="4" HorizontalAlignment="Left" Padding="8,4" IsVisible="{Binding !SaveType}">
-                                                    <TextBlock Text="DIFF" FontSize="11" FontWeight="Bold" Foreground="White"/>
-                                                </Border>
-                                            </Grid>
+                                        <Grid RowDefinitions="Auto, Auto">
+                                            <Grid ColumnDefinitions="40, 2*, 2*, 80, 220">
+                                                <TextBlock Text="{Binding Id}" VerticalAlignment="Center" Foreground="#666"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" FontWeight="Bold"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding TargetDirectory}" VerticalAlignment="Center" Foreground="#aaa"/>
+                                                
+                                                <Grid Grid.Column="3" VerticalAlignment="Center">
+                                                    <Border Background="#228B22" CornerRadius="4" HorizontalAlignment="Left" Padding="8,4" IsVisible="{Binding SaveType}">
+                                                        <TextBlock Text="FULL" FontSize="11" FontWeight="Bold" Foreground="White"/>
+                                                    </Border>
+                                                    <Border Background="#4682B4" CornerRadius="4" HorizontalAlignment="Left" Padding="8,4" IsVisible="{Binding !SaveType}">
+                                                        <TextBlock Text="DIFF" FontSize="11" FontWeight="Bold" Foreground="White"/>
+                                                    </Border>
+                                                </Grid>
 
-                                            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="5" HorizontalAlignment="Right">
-                                                <Button Content="▶" Padding="10,6" Background="#333" Command="{Binding $parent[UserControl].DataContext.ExecuteJobCommand}" CommandParameter="{Binding Id}"/>
-                                                <Button Content="🔒" Padding="10,6" Background="#FF8C00" Foreground="White" IsVisible="{Binding SaveType}"/>
-                                                <Button Content="🔒" Padding="10,6" Background="#333" Opacity="0.5" IsVisible="{Binding !SaveType}"/>
-                                                <Button Content="🗑" Padding="10,6" Background="#B22222" Command="{Binding $parent[UserControl].DataContext.DeleteJobCommand}" CommandParameter="{Binding Id}"/>
-                                            </StackPanel>
+                                                <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Right">
+                                                    <Button Content="{Binding ActionIcon}"  
+                                                            Padding="8,4" 
+                                                            Background="{Binding ActionColor}" 
+                                                            Foreground="White" 
+                                                            Command="{Binding $parent[UserControl].DataContext.TogglePlayPauseCommand}" 
+                                                            CommandParameter="{Binding Id}"/>
+                                                    
+                                                    <Button Content="⏹" 
+                                                            Padding="8,4" 
+                                                            Background="#8B0000" 
+                                                            Foreground="White" 
+                                                            Command="{Binding $parent[UserControl].DataContext.StopJobCommand}" 
+                                                            CommandParameter="{Binding Id}"/>
+                                                    
+                                                    <Button Content="🗑" 
+                                                            Padding="8,4" 
+                                                            Background="#555555" 
+                                                            Foreground="White" 
+                                                            Command="{Binding $parent[UserControl].DataContext.DeleteJobCommand}" 
+                                                            CommandParameter="{Binding Id}"/>
+                                                </StackPanel>
+
+                                               
+                                            </Grid>
+                                            <ProgressBar Grid.Row="1" Value="{Binding Progress}" Maximum="100" Height="4" Margin="0,10,0,0" Foreground="#00bcd4" Background="#444" CornerRadius="2">
+                                                <ProgressBar.Transitions>
+                                                    <Transitions>
+                                                        <DoubleTransition Property="Value" Duration="0:0:0.4"/>
+                                                    </Transitions>
+                                                </ProgressBar.Transitions>
+                                            </ProgressBar>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace EasySave.Core.Models
 {
@@ -16,10 +17,14 @@ namespace EasySave.Core.Models
         public string Name { get; set; }
         public string SourceDirectory { get; set; }
         public string TargetDirectory { get; set; }
-        // True = Full Save, False = Differential Save
         public bool SaveType { get; set; }
 
         private LoggerService _logger;
+
+        // Thread control elements
+        [JsonIgnore]
+        public ManualResetEventSlim PauseEvent { get; } = new ManualResetEventSlim(true);
+        public event EventHandler<int> ProgressChanged;
 
         public SaveJob(int id, string name, string source, string target, bool type)
         {
@@ -38,11 +43,14 @@ namespace EasySave.Core.Models
             TargetDirectory = string.Empty;
             _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
+
+        // Executes the backup process synchronously
         public void Run(
             List<string> extensionsToEncrypt,
             SemaphoreSlim grosFichierEnCours,
-            Func<string, string?>? requestPassword = null, 
-            Action<string>? displayMessage = null)
+            Func<string, string?>? requestPassword = null,
+            Action<string>? displayMessage = null,
+            CancellationToken cancellationToken = default)
         {
             if (!Directory.Exists(SourceDirectory)) return;
 
@@ -64,7 +72,7 @@ namespace EasySave.Core.Models
             int filesProcessed = 0;
             long sizeProcessed = 0;
 
-            displayMessage?.Invoke($"?? Total: {totalFiles} {Resources.File} ({totalSize / 1024 / 1024} MB)");
+            displayMessage?.Invoke($"\u25b6 Total: {totalFiles} {Resources.File} ({totalSize / 1024 / 1024} MB)");
 
             var stateLog = new StateLog
             {
@@ -81,6 +89,10 @@ namespace EasySave.Core.Models
 
             foreach (var file in allFiles)
             {
+                // Thread control checkpoints
+                cancellationToken.ThrowIfCancellationRequested();
+                PauseEvent.Wait(cancellationToken);
+
                 string relativePath = Path.GetRelativePath(SourceDirectory, file.FullName);
                 string targetPath = Path.Combine(TargetDirectory, relativePath);
 
@@ -122,9 +134,9 @@ namespace EasySave.Core.Models
                         if (!string.IsNullOrEmpty(password))
                         {
                             int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);
-                            if (encryptionTime > 0)
-                                displayMessage?.Invoke($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
-                            else if (encryptionTime == -1)
+                            //if (encryptionTime > 0)
+                            //    displayMessage?.Invoke($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
+                            if (encryptionTime == -1)
                                 displayMessage?.Invoke($"{file.FullName} {Resources.EncryptionError}");
                             else if (encryptionTime == -2)
                                 displayMessage?.Invoke($"{file.FullName} {Resources.FileNotFound}");
@@ -140,7 +152,11 @@ namespace EasySave.Core.Models
                 stateLog.Progression = totalFiles > 0 ? (int)((double)filesProcessed / totalFiles * 100) : 100;
                 _logger.UpdateStateLog(stateLog);
 
-                displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
+                // Notify UI of progression
+                ProgressChanged?.Invoke(this, stateLog.Progression);
+
+                //displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
+
             }
 
             stateLog.State = "Finished";
@@ -149,10 +165,14 @@ namespace EasySave.Core.Models
             stateLog.LastActionTimestamp = DateTime.Now;
             stateLog.Progression = 100;
             _logger.UpdateStateLog(stateLog);
-            displayMessage?.Invoke($"? {Resources.Savejob_sauvegardefinis} {Name}");
+
+            // Ensure final completion state is sent to UI
+            ProgressChanged?.Invoke(this, 100);
+
+            displayMessage?.Invoke($"\u2705 {Resources.Savejob_sauvegardefinis} {Name}");
         }
 
-
+        // Executes the backup process asynchronously using a background thread
         public async Task RunAsync(
             List<string> extensionsToEncrypt,
             SemaphoreSlim grosFichierEnCours,
@@ -160,9 +180,10 @@ namespace EasySave.Core.Models
             Action<string>? displayMessage = null,
             CancellationToken cancellationToken = default)
         {
-            await Task.Run(() => Run(extensionsToEncrypt, grosFichierEnCours, requestPassword, displayMessage), cancellationToken);
+            await Task.Run(() => Run(extensionsToEncrypt, grosFichierEnCours, requestPassword, displayMessage, cancellationToken), cancellationToken);
         }
 
+        // Checks if source file is newer than target file for differential backup
         private bool CheckDifferential(FileInfo sourceFile, string targetPath)
         {
             if (!File.Exists(targetPath)) return true;
@@ -171,6 +192,7 @@ namespace EasySave.Core.Models
             return sourceFile.LastWriteTime > targetFile.LastWriteTime;
         }
 
+        // Handles file copying and logs the operation
         private void CopyFile(string source, string destination)
         {
             long transferTime = 0;
@@ -199,6 +221,8 @@ namespace EasySave.Core.Models
             };
             _logger.WriteDailyLog(dailyLog);
         }
+
+        // Checks if the file extension matches the encryption list
         private bool ShouldEncrypt(string extension, List<string> extensionsToEncrypt)
         {
             return extensionsToEncrypt != null &&
