@@ -110,18 +110,23 @@ namespace EasySave.UI.ViewModels
         public ReactiveCommand<int, Unit> StopJobCommand { get; }
         public ReactiveCommand<int, Unit> DeleteJobCommand { get; }
         public ReactiveCommand<Unit, Unit> ExecuteAllCommand { get; }
+        public ReactiveCommand<Unit, Unit> BrowseSourceCommand { get; }
+        public ReactiveCommand<Unit, Unit> BrowseDestCommand { get; }
 
         public JobsViewModel()
         {
             _saveManager = new SaveManager();
             Jobs = new ObservableCollection<JobItemViewModel>();
             RefreshList();
+            UpdateUiStatesContinuously();
 
             CreateJobCommand = ReactiveCommand.Create(CreateJob);
             TogglePlayPauseCommand = ReactiveCommand.CreateFromTask<int>(TogglePlayPauseAsync);
             StopJobCommand = ReactiveCommand.Create<int>(StopJob);
             DeleteJobCommand = ReactiveCommand.Create<int>(DeleteJob);
             ExecuteAllCommand = ReactiveCommand.CreateFromTask(ExecuteAllAsync);
+            BrowseSourceCommand = ReactiveCommand.CreateFromTask(BrowseSourceAsync);
+            BrowseDestCommand = ReactiveCommand.CreateFromTask(BrowseDestAsync);
         }
 
         private void CreateJob()
@@ -141,6 +146,14 @@ namespace EasySave.UI.ViewModels
         {
             var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
             if (jobVm == null) return;
+            if (jobVm.State == JobState.Stopped || jobVm.State == JobState.Paused)
+            {
+                if (!_saveManager.CanLaunchJob()) 
+                {
+                    StatusMessage = "Action impossible : Logiciel métier en cours d'exécution.";
+                    return; 
+                }
+            }
 
             if (jobVm.State == JobState.Stopped)
             {
@@ -150,7 +163,6 @@ namespace EasySave.UI.ViewModels
 
                 string? password = await RequestPasswordIfNeeded();
 
-                // Run in background and reset state when finished
                 _ = Task.Run(async () =>
                 {
                     await _saveManager.ExecuteJob(id, _ => password, DisplayMessage);
@@ -160,11 +172,13 @@ namespace EasySave.UI.ViewModels
             else if (jobVm.State == JobState.Running)
             {
                 jobVm.State = JobState.Paused;
+                jobVm.Job.IsManuallyPaused = true;
                 _saveManager.PauseJob(id);
             }
             else if (jobVm.State == JobState.Paused)
             {
                 jobVm.State = JobState.Running;
+                jobVm.Job.IsManuallyPaused = false;
                 _saveManager.ResumeJob(id);
             }
         }
@@ -183,7 +197,7 @@ namespace EasySave.UI.ViewModels
 
         private async Task ExecuteAllAsync()
         {
-            
+
             if (_isExecutingAll) return;
 
             try
@@ -252,6 +266,64 @@ namespace EasySave.UI.ViewModels
             foreach (var job in _saveManager.GetJobs())
             {
                 Jobs.Add(new JobItemViewModel(job));
+            }
+        }
+
+        private void UpdateUiStatesContinuously()
+        {
+            _ = Task.Run(async () =>
+            {
+                while (true)
+                {
+                    var activeJobs = Jobs.Where(j => j.State != JobState.Stopped).ToList();
+
+                    foreach (var jobVm in activeJobs)
+                    {
+                        bool isRunning = jobVm.Job.PauseEvent.IsSet;
+                        var newState = isRunning ? JobState.Running : JobState.Paused;
+                        if (jobVm.State != newState)
+                        {
+                            Dispatcher.UIThread.Post(() => jobVm.State = newState);
+                        }
+                    }
+                    await Task.Delay(1000); 
+                }
+            });
+
+
+        }
+
+        private async Task BrowseSourceAsync()
+        {
+            var storageProvider = GetMainWindow()?.StorageProvider;
+            if (storageProvider == null) return;
+
+            var folders = await storageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions
+            {
+                Title = "Sélectionner le dossier source",
+                AllowMultiple = false
+            });
+
+            if (folders.Count > 0)
+            {
+                NewSource = folders[0].Path.LocalPath;
+            }
+        }
+
+        private async Task BrowseDestAsync()
+        {
+            var storageProvider = GetMainWindow()?.StorageProvider;
+            if (storageProvider == null) return;
+
+            var folders = await storageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions
+            {
+                Title = "Sélectionner le dossier de destination",
+                AllowMultiple = false
+            });
+
+            if (folders.Count > 0)
+            {
+                NewDest = folders[0].Path.LocalPath;
             }
         }
     }

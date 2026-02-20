@@ -475,6 +475,15 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} travaux configurés.
+        /// </summary>
+        public static string JobsConfiguredCount {
+            get {
+                return ResourceManager.GetString("JobsConfiguredCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Exécution annulée.
         /// </summary>
         public static string JobViewModel_Cancelexecution {
