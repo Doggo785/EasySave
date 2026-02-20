@@ -63,18 +63,21 @@ namespace EasyLog.LogServer
             try
             {
                 using NetworkStream stream = client.GetStream();
-                byte[] buffer = new byte[4096];
-                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
 
-                if (bytesRead > 0)
+                while (true)
                 {
-                    string logData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                     
-                    _logQueue.Enqueue(logData);
-                    Interlocked.Increment(ref _logsReceived);
+                    string logData = await reader.ReadLineAsync();
+                    if (logData == null) break;
 
-                    string cleanLog = logData.Replace("\r", "").Replace("\n", " ");
-                    _lastLog = cleanLog.Length > 60 ? cleanLog.Substring(0, 57) + "..." : cleanLog;
+                    if (!string.IsNullOrWhiteSpace(logData))
+                    {
+                        _logQueue.Enqueue(logData);
+                        Interlocked.Increment(ref _logsReceived);
+
+                        string cleanLog = logData.Replace("\r", "").Replace("\n", " ");
+                        _lastLog = cleanLog.Length > 60 ? cleanLog.Substring(0, 57) + "..." : cleanLog;
+                    }
                 }
             }
             catch (Exception)
@@ -84,6 +87,7 @@ namespace EasyLog.LogServer
             finally
             {
                 client.Close();
+                Interlocked.Decrement(ref _totalConnections);
             }
         }
 
@@ -129,7 +133,7 @@ namespace EasyLog.LogServer
                     Console.WriteLine($" Uptime:          {DateTime.Now - _startTime:hh\\:mm\\:ss}");
                     Console.WriteLine($" Port:            {Port}");
                     Console.WriteLine("------------------------------------------------------------");
-                    Console.WriteLine($" Total Connections: {_totalConnections,-10}");
+                    Console.WriteLine($" Active Connections: {_totalConnections,-10}");
                     Console.WriteLine($" Logs Received:     {_logsReceived,-10}");
                     Console.WriteLine($" Logs Written:      {_logsWritten,-10}");
                     Console.WriteLine($" Queue Size:        {_logQueue.Count,-10}");
