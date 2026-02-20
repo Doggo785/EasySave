@@ -19,8 +19,8 @@
                             <TextBlock Text="{Binding [SettingsFlow_Language], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
                         </StackPanel>
                         <ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLanguageIndex}" Width="200" VerticalAlignment="Center">
-                            <ComboBoxItem Content="🇫🇷 Français"/>
-                            <ComboBoxItem Content="🇬🇧 English"/>
+                            <ComboBoxItem Content="Français"/>
+                            <ComboBoxItem Content="English"/>
                         </ComboBox>
                     </Grid>
                 </Border>
