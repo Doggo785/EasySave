@@ -393,4 +393,16 @@
   <data name="SettingsFlow_MaxParallelSizeConfirm" xml:space="preserve">
     <value>✓ Parameter saved !</value>
   </data>
+  <data name="JobsViewModel_Error_BS" xml:space="preserve">
+    <value>Action impossible: Business software is currently running.</value>
+  </data>
+  <data name="JobsViewModel_Passwordrequest" xml:space="preserve">
+    <value>PasswordRequest</value>
+  </data>
+  <data name="JobsViewModel_SourceFolder" xml:space="preserve">
+    <value>Select source folder</value>
+  </data>
+  <data name="JobsViewModel_Destinationfolder" xml:space="preserve">
+    <value>Select destination folder</value>
+  </data>
 </root>

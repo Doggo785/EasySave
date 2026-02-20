@@ -91,50 +91,47 @@ namespace EasySave.Core.Models
                 displayMessage?.Invoke($"{Resources.CanLaunch_ErreurMetier}");
                 return;
             }
-
             await _concurrencyLimiter.WaitAsync(cancellationToken);
+            using var watcherCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            var watchTask = Task.Run(async () =>
+            {
+                while (!watcherCts.Token.IsCancellationRequested)
+                {
+                    bool businessAppRunning = !CanLaunchJob();
+                    SaveJob? currentJob;
+                    lock (_jobsLock) { currentJob = _jobs.FirstOrDefault(j => j.Id == id); }
+                    if (currentJob != null)
+                    {
+                        if (businessAppRunning)
+                        {
+                            currentJob.PauseEvent.Reset(); 
+                        }
+                        else
+                        {
+                            currentJob.PauseEvent.Set();
+                        }
+                    }
+                    await Task.Delay(1000); 
+                }
+            }, watcherCts.Token);
 
             try
             {
                 SaveJob job;
-                lock (_jobsLock)
-                {
-                    job = _jobs.FirstOrDefault(j => j.Id == id);
-                }
+                lock (_jobsLock) { job = _jobs.FirstOrDefault(j => j.Id == id); }
 
-                if (job == null)
-                {
-                    displayMessage?.Invoke($"Job {id} {Resources.NotFound}");
-                    return;
-                }
-
-                // Create and register a cancellation token to allow stopping the job
                 var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
                 _activeJobsTokens[id] = cts;
-
-                displayMessage?.Invoke($"{Resources.Start}: {job.Name}");
-
-                // Execute the job with the cancellation token
                 await job.RunAsync(
                     SettingsManager.Instance.EncryptedExtensions,
                     _grosFichierEnCours,
                     requestPassword,
                     displayMessage,
                     cts.Token);
-
-                displayMessage?.Invoke($"{Resources.Complete}: {job.Name}");
-            }
-            catch (OperationCanceledException)
-            {
-                displayMessage?.Invoke($" {Resources.Cancel_job} {id}");
-            }
-            catch (Exception ex)
-            {
-                displayMessage?.Invoke($"{Resources.Erreur_job} {id}: {ex.Message}");
             }
             finally
             {
-                // cleanup token and release concurrency slot
+                watcherCts.Cancel();
                 _activeJobsTokens.Remove(id);
                 _concurrencyLimiter.Release();
             }
@@ -218,7 +215,7 @@ namespace EasySave.Core.Models
         }
 
         // Checks if any configured business software is currently running
-        private bool CanLaunchJob()
+        public bool CanLaunchJob()
         {
             var businessAppNames = SettingsManager.Instance.BusinessSoftwareNames;
             return !ProcessChecker.IsAnyProcessRunning(businessAppNames);

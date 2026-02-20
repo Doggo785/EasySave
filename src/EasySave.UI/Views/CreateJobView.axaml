@@ -4,49 +4,67 @@
              xmlns:services="using:EasySave.Core.Services"
              x:Class="EasySave.UI.Views.CreateJobView"
              x:DataType="vm:JobsViewModel">
-    
-    <Grid Margin="30" RowDefinitions="Auto, *">
-        <TextBlock Text="{Binding [Create_Job_Header], Source={x:Static services:SettingsManager.Instance}}" FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
 
-        <Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="40" VerticalAlignment="Top">
-            <StackPanel Spacing="25">
-                <StackPanel>
-                    <TextBlock Text="{Binding [Header_Name], Source={x:Static services:SettingsManager.Instance}}" Foreground="#00bcd4" Margin="0,0,0,8"/>
-                    <TextBox Text="{Binding NewName}" Watermark="Entrez un nom unique..."/>
-                </StackPanel>
+	<Grid Margin="30" RowDefinitions="Auto, *">
+		<TextBlock Text="{Binding [Create_Job_Header], Source={x:Static services:SettingsManager.Instance}}"
+                   FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
 
-                <Grid ColumnDefinitions="*, 20, *">
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="{Binding [Header_Source], Source={x:Static services:SettingsManager.Instance}}" Foreground="#aaa" Margin="0,0,0,8"/>
-                        <TextBox Text="{Binding NewSource}" Watermark="C:/..."/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="2">
-                        <TextBlock Text="{Binding [Header_Dest], Source={x:Static services:SettingsManager.Instance}}" Foreground="#aaa" Margin="0,0,0,8"/>
-                        <TextBox Text="{Binding NewDest}" Watermark="D:/..."/>
-                    </StackPanel>
-                </Grid>
+		<Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="40" VerticalAlignment="Top">
+			<StackPanel Spacing="25">
+				<StackPanel>
+					<TextBlock Text="{Binding [Header_Name], Source={x:Static services:SettingsManager.Instance}}"
+                               Foreground="#00bcd4" Margin="0,0,0,8"/>
+					<TextBox Text="{Binding NewName}" Watermark="Entrez un nom unique..."/>
+				</StackPanel>
 
-                <Grid ColumnDefinitions="*, 20, *">
-                    <StackPanel>
-                        <TextBlock Text="{Binding [Header_Type], Source={x:Static services:SettingsManager.Instance}}" Foreground="#aaa" Margin="0,0,0,8"/>
-                        <ComboBox SelectedIndex="{Binding SelectedTypeIndex}" HorizontalAlignment="Stretch">
-                            <ComboBoxItem Content="Complète (Full)"/>
-                            <ComboBoxItem Content="Différentielle (Differential)"/>
-                        </ComboBox>
-                    </StackPanel>
-                    
-                    <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                        <CheckBox IsChecked="True" Content="Activer le chiffrement (CryptoSoft)"/>
-                    </StackPanel>
-                </Grid>
+				<Grid ColumnDefinitions="*, 20, *">
+					<StackPanel Grid.Column="0">
+						<TextBlock Text="{Binding [Header_Source], Source={x:Static services:SettingsManager.Instance}}"
+                                   Foreground="#aaa" Margin="0,0,0,8"/>
+						<Grid ColumnDefinitions="*, Auto">
+							<TextBox Text="{Binding NewSource}" Watermark="C:/..."/>
+							<Button Grid.Column="1" Content="📁"
+                                    Command="{Binding BrowseSourceCommand}"
+                                    Margin="5,0,0,0"/>
+						</Grid>
+					</StackPanel>
 
-                <Button Command="{Binding CreateJobCommand}" Background="#00bcd4" Foreground="Black" HorizontalAlignment="Right" Margin="0,20,0,0">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <TextBlock Text="✓"/>
-                        <TextBlock Text="{Binding [Menu_Option2], Source={x:Static services:SettingsManager.Instance}}"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Border>
-    </Grid>
+					<StackPanel Grid.Column="2">
+						<TextBlock Text="{Binding [Header_Dest], Source={x:Static services:SettingsManager.Instance}}"
+                                   Foreground="#aaa" Margin="0,0,0,8"/>
+						<Grid ColumnDefinitions="*, Auto">
+							<TextBox Text="{Binding NewDest}" Watermark="D:/..."/>
+							<Button Grid.Column="1" Content="📁"
+                                    Command="{Binding BrowseDestCommand}"
+                                    Margin="5,0,0,0"/>
+						</Grid>
+					</StackPanel>
+				</Grid>
+
+				<Grid ColumnDefinitions="*, 20, *">
+					<StackPanel>
+						<TextBlock Text="{Binding [Header_Type], Source={x:Static services:SettingsManager.Instance}}"
+                                   Foreground="#aaa" Margin="0,0,0,8"/>
+						<ComboBox SelectedIndex="{Binding SelectedTypeIndex}" HorizontalAlignment="Stretch">
+							<ComboBoxItem Content="Complète (Full)"/>
+							<ComboBoxItem Content="Différentielle (Differential)"/>
+						</ComboBox>
+					</StackPanel>
+
+					<StackPanel Grid.Column="2" VerticalAlignment="Center">
+						<CheckBox IsChecked="True" Content="Activer le chiffrement (CryptoSoft)"/>
+					</StackPanel>
+				</Grid>
+
+				<Button Command="{Binding CreateJobCommand}"
+                        Background="#00bcd4" Foreground="Black"
+                        HorizontalAlignment="Right" Margin="0,20,0,0">
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<TextBlock Text="✓"/>
+						<TextBlock Text="{Binding [Menu_Option2], Source={x:Static services:SettingsManager.Instance}}"/>
+					</StackPanel>
+				</Button>
+			</StackPanel>
+		</Border>
+	</Grid>
 </UserControl>
