@@ -90,34 +90,8 @@ namespace EasySave.Core.Services
                 LogFormat = LogFormat,
                 EncryptedExtensions = EncryptedExtensions,
                 MaxConcurrentJobs = MaxConcurrentJobs,
-                MaxParallelFileSizeKb = MaxParallelFileSizeKb 
-                BusinessSoftwareNames = BusinessSoftwareNames,
-                EncryptedExtensions = EncryptedExtensions
-=======
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
+                MaxParallelFileSizeKb = MaxParallelFileSizeKb,
+                BusinessSoftwareNames = BusinessSoftwareNames
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
