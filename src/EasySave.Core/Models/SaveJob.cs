@@ -113,9 +113,9 @@ namespace EasySave.Core.Models
                         if (!string.IsNullOrEmpty(password))
                         {
                             int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);
-                            if (encryptionTime > 0)
-                                displayMessage?.Invoke($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
-                            else if (encryptionTime == -1)
+                            //if (encryptionTime > 0)
+                            //    displayMessage?.Invoke($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
+                            if (encryptionTime == -1)
                                 displayMessage?.Invoke($"{file.FullName} {Resources.EncryptionError}");
                             else if (encryptionTime == -2)
                                 displayMessage?.Invoke($"{file.FullName} {Resources.FileNotFound}");
@@ -134,7 +134,7 @@ namespace EasySave.Core.Models
                 // Notify UI of progression
                 ProgressChanged?.Invoke(this, stateLog.Progression);
 
-                displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
+                //displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
 
             }
 
