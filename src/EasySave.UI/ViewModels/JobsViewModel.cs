@@ -14,6 +14,9 @@ using System.Linq;
 
 namespace EasySave.UI.ViewModels
 {
+    // Represents the current execution state of a job
+    public enum JobState { Stopped, Running, Paused }
+
     // View model wrapper linking a SaveJob to its UI representation and progress
     public class JobItemViewModel : ReactiveObject
     {
@@ -30,14 +33,42 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _progress, value);
         }
 
+        // Job execution state driving the UI button
+        private JobState _state = JobState.Stopped;
+        public JobState State
+        {
+            get => _state;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _state, value);
+                this.RaisePropertyChanged(nameof(ActionIcon));
+                this.RaisePropertyChanged(nameof(ActionColor));
+            }
+        }
+
+        // Dynamic icon based on current state
+        public string ActionIcon => State switch
+        {
+            JobState.Stopped => "▶",
+            JobState.Running => "⏸",
+            JobState.Paused => "⏵",
+            _ => "▶"
+        };
+
+        // Dynamic color based on current state
+        public string ActionColor => State switch
+        {
+            JobState.Stopped => "#2E8B57", // Green (Ready to play)
+            JobState.Running => "#DAA520", // Yellow (Ready to pause)
+            JobState.Paused => "#4682B4",  // Blue (Ready to resume)
+            _ => "#2E8B57"
+        };
+
         public JobItemViewModel(SaveJob job)
         {
             Job = job;
-
-            // Subscribe to backend progress updates
             Job.ProgressChanged += (sender, value) =>
             {
-                // Ensure UI updates are dispatched to the main thread
                 Dispatcher.UIThread.Post(() => Progress = value);
             };
         }
@@ -47,7 +78,6 @@ namespace EasySave.UI.ViewModels
     {
         private readonly SaveManager _saveManager;
 
-        // Observable collection of wrapped jobs for UI binding
         public ObservableCollection<JobItemViewModel> Jobs { get; set; }
 
         private string _newName = "";
@@ -63,13 +93,13 @@ namespace EasySave.UI.ViewModels
         public int SelectedTypeIndex { get => _selectedTypeIndex; set => this.RaiseAndSetIfChanged(ref _selectedTypeIndex, value); }
 
         private string _statusMessage = "";
+
+        private bool _isExecutingAll = false;
         public string StatusMessage { get => _statusMessage; set => this.RaiseAndSetIfChanged(ref _statusMessage, value); }
 
         // UI Commands
         public ReactiveCommand<Unit, Unit> CreateJobCommand { get; }
-        public ReactiveCommand<int, Unit> ExecuteJobCommand { get; }
-        public ReactiveCommand<int, Unit> PauseJobCommand { get; }
-        public ReactiveCommand<int, Unit> ResumeJobCommand { get; }
+        public ReactiveCommand<int, Unit> TogglePlayPauseCommand { get; } // Single unified command
         public ReactiveCommand<int, Unit> StopJobCommand { get; }
         public ReactiveCommand<int, Unit> DeleteJobCommand { get; }
         public ReactiveCommand<Unit, Unit> ExecuteAllCommand { get; }
@@ -81,9 +111,7 @@ namespace EasySave.UI.ViewModels
             RefreshList();
 
             CreateJobCommand = ReactiveCommand.Create(CreateJob);
-            ExecuteJobCommand = ReactiveCommand.CreateFromTask<int>(ExecuteJobAsync);
-            PauseJobCommand = ReactiveCommand.Create<int>(PauseJob);
-            ResumeJobCommand = ReactiveCommand.Create<int>(ResumeJob);
+            TogglePlayPauseCommand = ReactiveCommand.CreateFromTask<int>(TogglePlayPauseAsync);
             StopJobCommand = ReactiveCommand.Create<int>(StopJob);
             DeleteJobCommand = ReactiveCommand.Create<int>(DeleteJob);
             ExecuteAllCommand = ReactiveCommand.CreateFromTask(ExecuteAllAsync);
@@ -101,28 +129,82 @@ namespace EasySave.UI.ViewModels
             catch { }
         }
 
-        private async Task ExecuteJobAsync(int id)
+        // Handles Play, Pause, and Resume logic based on current state
+        private async Task TogglePlayPauseAsync(int id)
         {
-            StatusMessage = "";
-            string? password = await RequestPasswordIfNeeded();
+            var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
+            if (jobVm == null) return;
 
-            // Run the job asynchronously to keep the UI responsive
-            _ = _saveManager.ExecuteJob(id, _ => password, DisplayMessage);
+            if (jobVm.State == JobState.Stopped)
+            {
+                jobVm.State = JobState.Running;
+                jobVm.Progress = 0;
+                StatusMessage = "";
+
+                string? password = await RequestPasswordIfNeeded();
+
+                // Run in background and reset state when finished
+                _ = Task.Run(async () =>
+                {
+                    await _saveManager.ExecuteJob(id, _ => password, DisplayMessage);
+                    Dispatcher.UIThread.Post(() => jobVm.State = JobState.Stopped);
+                });
+            }
+            else if (jobVm.State == JobState.Running)
+            {
+                jobVm.State = JobState.Paused;
+                _saveManager.PauseJob(id);
+            }
+            else if (jobVm.State == JobState.Paused)
+            {
+                jobVm.State = JobState.Running;
+                _saveManager.ResumeJob(id);
+            }
+        }
+
+        private void StopJob(int id)
+        {
+            _saveManager.StopJob(id);
+            var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
+            if (jobVm != null)
+            {
+                jobVm.State = JobState.Stopped;
+                jobVm.Progress = 0;
+            }
         }
 
         private async Task ExecuteAllAsync()
         {
-            StatusMessage = "";
-            string? password = await RequestPasswordIfNeeded();
+            
+            if (_isExecutingAll) return;
 
-            // Run all jobs asynchronously
-            _ = _saveManager.ExecuteAllJobs(_ => password, DisplayMessage);
+            try
+            {
+                _isExecutingAll = true;
+                StatusMessage = "";
+
+                string? password = await RequestPasswordIfNeeded();
+
+
+                foreach (var job in Jobs)
+                {
+                    job.State = JobState.Running;
+                    job.Progress = 0;
+                }
+
+
+                await _saveManager.ExecuteAllJobs(_ => password, DisplayMessage);
+            }
+            finally
+            {
+                _isExecutingAll = false;
+
+                Dispatcher.UIThread.Post(() =>
+                {
+                    foreach (var job in Jobs) job.State = JobState.Stopped;
+                });
+            }
         }
-
-        // --- Execution control methods ---
-        private void PauseJob(int id) => _saveManager.PauseJob(id);
-        private void ResumeJob(int id) => _saveManager.ResumeJob(id);
-        private void StopJob(int id) => _saveManager.StopJob(id);
 
         private void DeleteJob(int id)
         {
@@ -153,7 +235,6 @@ namespace EasySave.UI.ViewModels
 
         private void DisplayMessage(string message)
         {
-            // Safely update the status message from any background thread
             Dispatcher.UIThread.Post(() => StatusMessage = message);
         }
 
