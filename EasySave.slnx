@@ -1,9 +1,7 @@
 <Solution>
-  <Folder Name="/src/">
-    <Project Path="../../../../../../source/repos/Doggo785/EasySave/src/EasyLog.LogServer/EasyLog.LogServer.csproj" Id="04dff41c-78dd-4df2-8ab7-5d96a38d217c" />
-    <Project Path="../../../../../../source/repos/Doggo785/EasySave/src/EasyLog/EasyLog.csproj" />
-    <Project Path="../../../../../../source/repos/Doggo785/EasySave/src/EasySave.Console/EasySave.Console.csproj" />
-    <Project Path="../../../../../../source/repos/Doggo785/EasySave/src/EasySave.Core/EasySave.Core.csproj" />
-    <Project Path="../../../../../../source/repos/Doggo785/EasySave/src/EasySave.UI/EasySave.UI.csproj" />
-  </Folder>
+  <Project Path="src/EasyLog.LogServer/EasyLog.LogServer.csproj" />
+  <Project Path="src/EasyLog/EasyLog.csproj" />
+  <Project Path="src/EasySave.Console/EasySave.Console.csproj" />
+  <Project Path="src/EasySave.Core/EasySave.Core.csproj" />
+  <Project Path="src/EasySave.UI/EasySave.UI.csproj" />
 </Solution>
