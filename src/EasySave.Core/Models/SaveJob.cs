@@ -156,6 +156,7 @@ namespace EasySave.Core.Models
                 ProgressChanged?.Invoke(this, stateLog.Progression);
 
                 displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
+
             }
 
             stateLog.State = "Finished";
