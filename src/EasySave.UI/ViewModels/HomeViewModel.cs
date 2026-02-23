@@ -55,6 +55,8 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isLogServerConnected, value);
         }
 
+        public string WelcomeMessage => $"Bienvenue {Environment.UserName}";
+
         public HomeViewModel()
         {
             // Initial fetch to populate UI immediately

@@ -7,7 +7,24 @@
     
     <Grid RowDefinitions="Auto, *" Margin="40">
 
-		<TextBlock Text="{Binding [HomeView_Dashboard], Source={x:Static services:SettingsManager.Instance}}" FontSize="32" FontWeight="Light" Margin="0,0,0,30" Foreground="White"/>
+		<Grid ColumnDefinitions="*, Auto, *" Margin="0,0,0,30">
+			<TextBlock Grid.Column="0"
+					   Text="{Binding [HomeView_Dashboard], Source={x:Static services:SettingsManager.Instance}}"
+					   FontSize="32"
+					   FontWeight="Light"
+					   Foreground="White"
+					   VerticalAlignment="Center"/>
+
+			<TextBlock Grid.Column="1"
+					   Text="{Binding WelcomeMessage}"
+					   FontSize="32"
+					   FontWeight="SemiBold"
+					   Foreground="White"
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Center"/>
+
+			<Panel Grid.Column="2" />
+		</Grid>
 
         <Grid Grid.Row="1" ColumnDefinitions="*, 20, *" RowDefinitions="Auto, 20, Auto, 20, Auto">
 

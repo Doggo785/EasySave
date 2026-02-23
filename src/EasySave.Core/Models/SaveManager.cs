@@ -2,6 +2,7 @@ using EasySave.Core.Properties;
 using EasySave.Core.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -250,6 +251,14 @@ namespace EasySave.Core.Models
             existingJob.SaveType = job.SaveType;
 
             SaveJobs();
+        }
+
+        public string GetBlockingProcessName()
+        {
+            if (Process.GetProcessesByName("mspaint").Any()) return "Paint";
+            if (Process.GetProcessesByName("calculatorapp").Any()) return "Calculatrice";
+            if (Process.GetProcessesByName("winword").Any())return "Microsoft Word";
+            return null;
         }
     }
 }
