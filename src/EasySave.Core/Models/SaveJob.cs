@@ -104,6 +104,15 @@ namespace EasySave.Core.Models
 
             displayMessage?.Invoke($"\u25b6 Total: {totalFiles} {Resources.File} ({totalSize / 1024 / 1024} MB)");
 
+            // Ask password once before the loop if any file needs encryption
+            bool hasFilesToEncrypt = extensionsToEncrypt != null &&
+                allFiles.Any(f => extensionsToEncrypt.Contains(f.Extension, StringComparer.OrdinalIgnoreCase));
+            string? encryptionPassword = null;
+            if (hasFilesToEncrypt)
+            {
+                encryptionPassword = requestPassword?.Invoke(Resources.PasswordRequest);
+            }
+
             var stateLog = new StateLog
             {
                 JobName = Name,
