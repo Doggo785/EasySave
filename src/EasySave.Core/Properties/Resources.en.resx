@@ -501,4 +501,8 @@
   <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
     <value>Log mode switched to local to prevent data loss.</value>
   </data>
+
+<data name="Run_selection" xml:space="preserve">
+    <value>Start the selection</value>
+  </data>
 </root>

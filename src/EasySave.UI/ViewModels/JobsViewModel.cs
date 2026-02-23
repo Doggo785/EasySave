@@ -29,6 +29,13 @@ namespace EasySave.UI.ViewModels
         public string SourceDirectory => Job.SourceDirectory;
         public bool SaveType => Job.SaveType;
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => this.RaiseAndSetIfChanged(ref _isSelected, value);
+        }
+
         private int _progress;
         public int Progress
         {
@@ -83,7 +90,7 @@ namespace EasySave.UI.ViewModels
         }
     }
 
-        public class JobsViewModel : ReactiveObject
+    public class JobsViewModel : ReactiveObject
     {
         private readonly SaveManager _saveManager;
 
@@ -112,6 +119,7 @@ namespace EasySave.UI.ViewModels
         public ReactiveCommand<int, Unit> StopJobCommand { get; }
         public ReactiveCommand<int, Unit> DeleteJobCommand { get; }
         public ReactiveCommand<Unit, Unit> ExecuteAllCommand { get; }
+        public ReactiveCommand<Unit, Unit> ExecuteSelectedCommand { get; }
         public ReactiveCommand<Unit, Unit> BrowseSourceCommand { get; }
         public ReactiveCommand<Unit, Unit> BrowseDestCommand { get; }
 
@@ -127,6 +135,7 @@ namespace EasySave.UI.ViewModels
             StopJobCommand = ReactiveCommand.Create<int>(StopJob);
             DeleteJobCommand = ReactiveCommand.Create<int>(DeleteJob);
             ExecuteAllCommand = ReactiveCommand.CreateFromTask(ExecuteAllAsync);
+            ExecuteSelectedCommand = ReactiveCommand.CreateFromTask(ExecuteSelectedAsync);
             BrowseSourceCommand = ReactiveCommand.CreateFromTask(BrowseSourceAsync);
             BrowseDestCommand = ReactiveCommand.CreateFromTask(BrowseDestAsync);
         }
@@ -150,10 +159,10 @@ namespace EasySave.UI.ViewModels
             if (jobVm == null) return;
             if (jobVm.State == JobState.Stopped || jobVm.State == JobState.Paused)
             {
-                if (!_saveManager.CanLaunchJob()) 
+                if (!_saveManager.CanLaunchJob())
                 {
                     StatusMessage = Resources.JobsViewModel_Error_BS;
-                    return; 
+                    return;
                 }
             }
 
@@ -334,7 +343,7 @@ namespace EasySave.UI.ViewModels
                             Dispatcher.UIThread.Post(() => jobVm.State = newState);
                         }
                     }
-                    await Task.Delay(1000); 
+                    await Task.Delay(1000);
                 }
             });
 
@@ -372,6 +381,43 @@ namespace EasySave.UI.ViewModels
             if (folders.Count > 0)
             {
                 NewDest = folders[0].Path.LocalPath;
+            }
+        }
+
+        private async Task ExecuteSelectedAsync()
+        {
+            if (_isExecutingAll) return;
+
+            var selectedJobs = Jobs.Where(j => j.IsSelected).ToList();
+            if (!selectedJobs.Any()) return;
+
+            try
+            {
+                _isExecutingAll = true;
+                StatusMessage = "";
+
+                string? password = await RequestPasswordIfNeeded();
+
+                foreach (var job in selectedJobs)
+                {
+                    job.State = JobState.Running;
+                    job.Progress = 0;
+                }
+
+                var tasks = selectedJobs.Select(job =>
+                    _saveManager.ExecuteJob(job.Id, _ => password, DisplayMessage)
+                ).ToList();
+
+                await Task.WhenAll(tasks);
+            }
+            finally
+            {
+                _isExecutingAll = false;
+
+                Dispatcher.UIThread.Post(() =>
+                {
+                    foreach (var job in selectedJobs) job.State = JobState.Stopped;
+                });
             }
         }
     }

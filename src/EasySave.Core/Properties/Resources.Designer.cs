@@ -808,7 +808,16 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Sauvegarde terminée:.
+        ///   Recherche une chaîne localisée semblable à Lancer la sélection.
+        /// </summary>
+        public static string Run_selection {
+            get {
+                return ResourceManager.GetString("Run_selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à  Sauvegarde terminée:.
         /// </summary>
         public static string Savejob_sauvegardefinis {
             get {
