@@ -141,7 +141,7 @@ namespace EasySave.UI.ViewModels
             CreateJobCommand = ReactiveCommand.Create(CreateJob);
             TogglePlayPauseCommand = ReactiveCommand.CreateFromTask<int>(TogglePlayPauseAsync);
             StopJobCommand = ReactiveCommand.Create<int>(StopJob);
-            DeleteJobCommand = ReactiveCommand.Create<int>(DeleteJob);
+            DeleteJobCommand = ReactiveCommand.CreateFromTask<int>(DeleteJobAsync);
             ExecuteAllCommand = ReactiveCommand.CreateFromTask(ExecuteAllAsync);
             ExecuteSelectedCommand = ReactiveCommand.CreateFromTask(ExecuteSelectedAsync, canExecuteSelected);
             BrowseSourceCommand = ReactiveCommand.CreateFromTask(BrowseSourceAsync);
@@ -251,10 +251,26 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        private void DeleteJob(int id)
+        private async Task DeleteJobAsync(int id)
         {
-            _saveManager.DeleteJob(id);
-            RefreshList();
+            var owner = GetMainWindow();
+            if (owner == null) return;
+
+            var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
+            string jobName = jobVm != null ? jobVm.Name : "ce travail";
+
+            string template = SettingsManager.Instance["Confirm_Delete_Message"];
+
+            string localizedMessage = string.Format(template, jobName);
+
+            var dialog = new ConfirmDialog(localizedMessage);
+            bool result = await dialog.ShowDialog<bool>(owner);
+
+            if (result)
+            {
+                _saveManager.DeleteJob(id);
+                RefreshList();
+            }
         }
 
         private async Task<string?> RequestPasswordIfNeeded()
