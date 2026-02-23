@@ -27,7 +27,7 @@ namespace EasySave
 
                 ConsoleView.PrintMenuOption("1", $"{Resources.SettingsFlow_Language} : {settings.Language}");
                 ConsoleView.PrintMenuOption("2", $"{Resources.SettingsFlow_LogFormat} : {(settings.LogFormat ? "JSON" : "XML")}");
-                ConsoleView.PrintMenuOption("3", $"{Resources.SettingsFlow_SoftwareBuis} : {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? Resources.None2 : settings.BusinessSoftwareName)}");
+                ConsoleView.PrintMenuOption("3", $"{Resources.SettingsFlow_SoftwareBuis} : {(settings.BusinessSoftwareNames.Count > 0 ? string.Join(", ", settings.BusinessSoftwareNames) : Resources.None2)}");
                 ConsoleView.PrintMenuOption("4", $"{Resources.SettingsFlow_Crypto} : {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : Resources.None)}");
 
                 Console.WriteLine();
@@ -155,16 +155,29 @@ namespace EasySave
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"      {Resources.Current_Value} {(string.IsNullOrEmpty(settings.BusinessSoftwareName) ? Resources.None2 : settings.BusinessSoftwareName)}");
+            Console.WriteLine($"      {Resources.Current_Value} {(settings.BusinessSoftwareNames.Count > 0 ? string.Join(", ", settings.BusinessSoftwareNames) : Resources.None2)}");
             Console.ResetColor();
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"      {Resources.SettingsFlow_BSoftWareName} ");
+            Console.Write($"      {Resources.SettingsFlow_BSoftWareName} (séparés par des virgules) ");
             Console.ResetColor();
 
             string input = Console.ReadLine();
-            settings.BusinessSoftwareName = input ?? "";
+            settings.BusinessSoftwareNames.Clear();
+
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                var softwares = input.Split(',');
+                foreach (var soft in softwares)
+                {
+                    var trimmed = soft.Trim();
+                    if (!string.IsNullOrWhiteSpace(trimmed))
+                    {
+                        settings.BusinessSoftwareNames.Add(trimmed);
+                    }
+                }
+            }
 
             SettingsManager.Instance.SaveSettings();
 
