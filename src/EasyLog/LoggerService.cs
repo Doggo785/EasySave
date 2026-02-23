@@ -17,7 +17,7 @@ namespace EasyLog
     {
         private string _logDirectory;
         private string _stateFilePath;
-        private bool _logFormat; // true = JSON, false = XML
+        public static bool _logFormat; // true = JSON, false = XML
 
         private static readonly object _stateLock = new object();
         private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
@@ -68,7 +68,7 @@ namespace EasyLog
                 if (CurrentLogTarget == LogTarget.Local || CurrentLogTarget == LogTarget.Both)
                 {
                     string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
-                    if (_logFormat)
+                    if (_logFormat == true)
                     {
                         WriteJson(logEntry, dailyFileName);
                     }
@@ -100,7 +100,7 @@ namespace EasyLog
         }
         public void EnsureDirectoryExist()
         {
-            if(!Directory.Exists(_logDirectory))
+            if (!Directory.Exists(_logDirectory))
             {
                 Directory.CreateDirectory(_logDirectory);
             }
@@ -155,43 +155,60 @@ namespace EasyLog
         private void WriteJson(DailyLog logEntry, string dailyFileName)
         {
             string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.json");
+            List<DailyLog> logs = new List<DailyLog>();
+
+            if (File.Exists(fullPath))
+            {
+                try
+                {
+                    string existingJson = File.ReadAllText(fullPath);
+                    logs = JsonSerializer.Deserialize<List<DailyLog>>(existingJson) ?? new List<DailyLog>();
+                }
+                catch { logs = new List<DailyLog>(); }
+            }
+
+            logs.Add(logEntry);
 
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(logEntry, options);
-
-            File.AppendAllText(fullPath, jsonString + Environment.NewLine);
+            string jsonString = JsonSerializer.Serialize(logs, options);
+            using (var stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.Write(jsonString);
+            }
         }
 
         private void WriteXml(DailyLog logEntry, string dailyFileName)
         {
             string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.xml");
-
-            List<DailyLog> logs;
+            List<DailyLog> logs = new List<DailyLog>();
             XmlSerializer serializer = new XmlSerializer(typeof(List<DailyLog>), new XmlRootAttribute("DailyLogs"));
 
             if (File.Exists(fullPath))
             {
                 try
                 {
-                    using (var stream = new FileStream(fullPath, FileMode.Open))
+                    using (var stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     {
-                        logs = (List<DailyLog>)serializer.Deserialize(stream);
+                        if (stream.Length > 0)
+                            logs = (List<DailyLog>)serializer.Deserialize(stream);
                     }
                 }
-                catch
-                {
-                    logs = new List<DailyLog>();
-                }
+                catch { logs = new List<DailyLog>(); }
             }
-            else
-            {
-                logs = new List<DailyLog>();
-            }
+
             logs.Add(logEntry);
 
-            using (var stream = new FileStream(fullPath, FileMode.Create))
+            try
             {
-                serializer.Serialize(stream, logs);
+                using (var stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                {
+                    serializer.Serialize(stream, logs);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"XML Write Error: {ex.Message}");
             }
         }
     }

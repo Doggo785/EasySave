@@ -13,5 +13,17 @@ namespace EasySave.Core.Models
         public string TargetFile { get; set; }
         public long FileSize { get; set; }
         public double TransferTimeMs { get; set; }
+
+        public DailyLog() { }
+
+        public DailyLog(string jobName, string source, string target, long size, double time)
+        {
+            TimeStamp = DateTime.Now;
+            JobName = jobName;
+            SourceFile = source;
+            TargetFile = target;
+            FileSize = size;
+            TransferTimeMs = time;
+        }
     }
 }
