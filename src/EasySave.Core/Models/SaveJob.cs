@@ -19,6 +19,8 @@ namespace EasySave.Core.Models
         public string TargetDirectory { get; set; }
         public bool SaveType { get; set; }
 
+        public bool IsManuallyPaused { get; set; } = false;
+
         private LoggerService _logger;
 
         // Thread control elements
