@@ -25,6 +25,7 @@ namespace EasySave.UI.ViewModels
         public int Id => Job.Id;
         public string Name => Job.Name;
         public string TargetDirectory => Job.TargetDirectory;
+        public string SourceDirectory => Job.SourceDirectory;
         public bool SaveType => Job.SaveType;
 
         private int _progress;
