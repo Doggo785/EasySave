@@ -88,7 +88,25 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Annulé: Job.
+        ///   Recherche une chaîne localisée semblable à Annuler.
+        /// </summary>
+        public static string Button_Cancel {
+            get {
+                return ResourceManager.GetString("Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Oui.
+        /// </summary>
+        public static string Button_Yes {
+            get {
+                return ResourceManager.GetString("Button_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Annulé: Job.
         /// </summary>
         public static string Cancel_job {
             get {
@@ -169,7 +187,25 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Destination (Chemin complet) : .
+        ///   Recherche une chaîne localisée semblable à Êtes-vous sûr de vouloir supprimer la sauvegarde ?.
+        /// </summary>
+        public static string Confirm_Delete_Message {
+            get {
+                return ResourceManager.GetString("Confirm_Delete_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmation de suppression.
+        /// </summary>
+        public static string Confirm_Delete_Title {
+            get {
+                return ResourceManager.GetString("Confirm_Delete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Destination (Chemin complet) : .
         /// </summary>
         public static string Create_Job_Arg_Dest {
             get {
@@ -808,7 +844,16 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Sauvegarde terminée:.
+        ///   Recherche une chaîne localisée semblable à Lancer la sélection.
+        /// </summary>
+        public static string Run_selection {
+            get {
+                return ResourceManager.GetString("Run_selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à  Sauvegarde terminée:.
         /// </summary>
         public static string Savejob_sauvegardefinis {
             get {

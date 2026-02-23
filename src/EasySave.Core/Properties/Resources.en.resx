@@ -501,4 +501,20 @@
   <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
     <value>Log mode switched to local to prevent data loss.</value>
   </data>
+
+<data name="Run_selection" xml:space="preserve">
+    <value>Start the selection</value>
+  </data>
+  <data name="Confirm_Delete_Title" xml:space="preserve">
+    <value>Confirmation of deletion</value>
+  </data>
+  <data name="Confirm_Delete_Message" xml:space="preserve">
+    <value>Are you sure you want to delete this backup ?</value>
+  </data>
+  <data name="Button_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>
