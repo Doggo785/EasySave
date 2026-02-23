@@ -5,7 +5,9 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Sockets;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace EasySave.UI.ViewModels
 {
@@ -45,6 +47,14 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _logFormat, value);
         }
 
+        // 5. LogServer connection status
+        private bool _isLogServerConnected;
+        public bool IsLogServerConnected
+        {
+            get => _isLogServerConnected;
+            set => this.RaiseAndSetIfChanged(ref _isLogServerConnected, value);
+        }
+
         public HomeViewModel()
         {
             // Initial fetch to populate UI immediately
@@ -75,6 +85,9 @@ namespace EasySave.UI.ViewModels
 
             // Indicator 4: Get current log format from global settings
             LogFormat = SettingsManager.Instance.LogFormat ? "JSON" : "XML";
+
+            // Indicator 5: Check LogServer connection
+            CheckLogServerConnection();
         }
 
         /// <summary>
@@ -143,6 +156,30 @@ namespace EasySave.UI.ViewModels
         {
             var businessSoftwares = SettingsManager.Instance.BusinessSoftwareNames;
             IsBusinessProcessRunning = ProcessChecker.IsAnyProcessRunning(businessSoftwares);
+        }
+
+        /// <summary>
+        /// Checks if the Docker LogServer is reachable.
+        /// </summary>
+        private async void CheckLogServerConnection()
+        {
+            try
+            {
+                using var client = new TcpClient();
+                var connectTask = client.ConnectAsync("127.0.0.1", 5000);
+                if (await Task.WhenAny(connectTask, Task.Delay(500)) == connectTask)
+                {
+                    IsLogServerConnected = client.Connected;
+                }
+                else
+                {
+                    IsLogServerConnected = false;
+                }
+            }
+            catch
+            {
+                IsLogServerConnected = false;
+            }
         }
     }
 }
