@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="EasySave.UI.Views.ServerOfflineDialog"
+        Title="Warning"
+        Width="480" Height="230"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#1e1e1e" Foreground="White"
+        SystemDecorations="BorderOnly">
+
+    <Border Background="#252525" CornerRadius="12" Margin="10" Padding="25">
+        <StackPanel Spacing="15">
+            <TextBlock x:Name="TitleText" Text="" FontSize="16" FontWeight="Bold" Foreground="#ff9800"/>
+            <TextBlock x:Name="MessageText" Text="" FontSize="14" TextWrapping="Wrap" Foreground="#ccc"/>
+            <Grid ColumnDefinitions="*, Auto, Auto, Auto" Margin="0,10,0,0">
+                <Button Grid.Column="1" x:Name="SwitchLocalButton" Content="" Padding="16,8" Background="#2E8B57" Foreground="White" Margin="0,0,10,0"/>
+                <Button Grid.Column="2" x:Name="ContinueButton" Content="" Padding="16,8" Background="#DAA520" Foreground="Black" Margin="0,0,10,0"/>
+                <Button Grid.Column="3" x:Name="CancelButton" Content="" Padding="16,8" Background="#444" Foreground="White"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

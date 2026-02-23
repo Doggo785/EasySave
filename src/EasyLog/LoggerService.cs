@@ -5,6 +5,9 @@ using System.Text;
 using System.IO;
 using System.Text.Json;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
+using System.Net.Sockets;
+using System.Collections.Concurrent;
 
 
 
@@ -17,6 +20,36 @@ namespace EasyLog
         private bool _logFormat; // true = JSON, false = XML
 
         private static readonly object _stateLock = new object();
+        private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
+
+        // Configurable log target and server IP
+        public static LogTarget CurrentLogTarget { get; set; } = LogTarget.Both;
+        public static string ServerIp { get; set; } = "127.0.0.1";
+        public static bool IsServerConnected { get; private set; } = false;
+
+        static LoggerService()
+        {
+            _ = Task.Run(ProcessLogQueueAsync);
+        }
+
+        /// <summary>
+        /// Tests TCP connectivity to the configured log server.
+        /// Uses a CancellationToken to abort the connection attempt on timeout.
+        /// </summary>
+        public static async Task<bool> CheckServerConnectionAsync(int timeoutMs = 500)
+        {
+            try
+            {
+                using var cts = new CancellationTokenSource(timeoutMs);
+                using var client = new TcpClient();
+                await client.ConnectAsync(ServerIp, 5000, cts.Token);
+                return client.Connected;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public LoggerService(bool logFormat)
         {
@@ -31,15 +64,26 @@ namespace EasyLog
         {
             lock (_stateLock)
             {
-
-                string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
-                if (_logFormat)
+                // Write locally if target is Local or Both
+                if (CurrentLogTarget == LogTarget.Local || CurrentLogTarget == LogTarget.Both)
                 {
-                    WriteJson(logEntry, dailyFileName);
+                    string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
+                    if (_logFormat)
+                    {
+                        WriteJson(logEntry, dailyFileName);
+                    }
+                    else
+                    {
+                        WriteXml(logEntry, dailyFileName);
+                    }
                 }
-                else
+
+                // Enqueue for centralized server if target is Centralized or Both
+                if (CurrentLogTarget == LogTarget.Centralized || CurrentLogTarget == LogTarget.Both)
                 {
-                    WriteXml(logEntry, dailyFileName);
+                    var options = new JsonSerializerOptions { WriteIndented = false };
+                    string jsonString = JsonSerializer.Serialize(logEntry, options);
+                    _logQueue.Enqueue(jsonString);
                 }
             }
         }
@@ -61,6 +105,53 @@ namespace EasyLog
                 Directory.CreateDirectory(_logDirectory);
             }
         }
+
+        private static async Task ProcessLogQueueAsync()
+        {
+            while (true)
+            {
+                try
+                {
+                    using (var client = new TcpClient())
+                    {
+                        await client.ConnectAsync(ServerIp, 5000);
+                        IsServerConnected = true;
+                        using (var stream = client.GetStream())
+                        using (var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true })
+                        {
+                            while (true)
+                            {
+                                if (_logQueue.TryDequeue(out string logData))
+                                {
+                                    try
+                                    {
+                                        await writer.WriteLineAsync(logData);
+                                    }
+                                    catch
+                                    {
+                                        IsServerConnected = false;
+                                        // Re-enqueue the log data if writing fails
+                                        _logQueue.Enqueue(logData);
+                                        throw; // Break the inner loop to reconnect
+                                    }
+                                }
+                                else
+                                {
+                                    await Task.Delay(50);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    IsServerConnected = false;
+                    // Wait before trying to reconnect
+                    await Task.Delay(2000);
+                }
+            }
+        }
+
         private void WriteJson(DailyLog logEntry, string dailyFileName)
         {
             string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.json");

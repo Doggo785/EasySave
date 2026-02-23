@@ -5,6 +5,7 @@ using Avalonia.Threading;
 using EasySave.Core.Models;
 using EasySave.Core.Properties;
 using EasySave.Core.Services;
+using EasyLog;
 using EasySave.UI.Views;
 using ReactiveUI;
 using System;
@@ -158,6 +159,8 @@ namespace EasySave.UI.ViewModels
 
             if (jobVm.State == JobState.Stopped)
             {
+                if (!await CheckServerBeforeLaunch()) return;
+
                 jobVm.State = JobState.Running;
                 jobVm.Progress = 0;
                 StatusMessage = "";
@@ -200,6 +203,8 @@ namespace EasySave.UI.ViewModels
         {
 
             if (_isExecutingAll) return;
+
+            if (!await CheckServerBeforeLaunch()) return;
 
             try
             {
@@ -254,6 +259,48 @@ namespace EasySave.UI.ViewModels
             if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
                 return desktop.MainWindow;
             return null;
+        }
+
+        /// <summary>
+        /// Checks if the log server is reachable when log target requires it.
+        /// Returns true if the job should proceed, false to cancel.
+        /// </summary>
+        private async Task<bool> CheckServerBeforeLaunch()
+        {
+            var target = SettingsManager.Instance.LogTarget;
+            if (target != LogTarget.Centralized && target != LogTarget.Both)
+                return true;
+
+            bool reachable = await LoggerService.CheckServerConnectionAsync();
+            if (reachable)
+                return true;
+
+            var owner = GetMainWindow();
+            if (owner == null)
+                return true;
+
+            var dialog = new ServerOfflineDialog(
+                Resources.JobLaunch_ServerOfflineTitle,
+                Resources.JobLaunch_ServerOfflineMessage,
+                Resources.JobLaunch_SwitchToLocal,
+                Resources.JobLaunch_ContinueAnyway,
+                Resources.JobLaunch_Cancel);
+
+            var result = await dialog.ShowDialog<string?>(owner);
+
+            if (result == "local")
+            {
+                SettingsManager.Instance.LogTarget = LogTarget.Local;
+                LoggerService.CurrentLogTarget = LogTarget.Local;
+                SettingsManager.Instance.SaveSettings();
+                StatusMessage = Resources.JobLaunch_SwitchedToLocal;
+                return true;
+            }
+
+            if (result == "continue")
+                return true;
+
+            return false;
         }
 
         private void DisplayMessage(string message)
