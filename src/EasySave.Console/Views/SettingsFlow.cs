@@ -297,6 +297,23 @@ namespace EasySave
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"\n      > {Resources.SettingsFlow_LogTargetSuccess}");
             Console.ResetColor();
+
+            if (settings.LogTarget == LogTarget.Centralized || settings.LogTarget == LogTarget.Both)
+            {
+                var reachable = LoggerService.CheckServerConnectionAsync().GetAwaiter().GetResult();
+                if (!reachable)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"\n      {Resources.SettingsFlow_ServerOfflineWarning}");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"\n      {Resources.HomeView_LogServerStatusConnected}");
+                }
+                Console.ResetColor();
+            }
+
             Thread.Sleep(1500);
         }
 
@@ -329,6 +346,22 @@ namespace EasySave
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"\n      > {Resources.SettingsFlow_ServerIpSuccess}");
                 Console.ResetColor();
+
+                if (settings.LogTarget == LogTarget.Centralized || settings.LogTarget == LogTarget.Both)
+                {
+                    var reachable = LoggerService.CheckServerConnectionAsync().GetAwaiter().GetResult();
+                    if (!reachable)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"\n      {Resources.SettingsFlow_ServerOfflineWarning}");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"\n      {Resources.HomeView_LogServerStatusConnected}");
+                    }
+                    Console.ResetColor();
+                }
             }
             else
             {

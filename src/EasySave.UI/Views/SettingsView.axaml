@@ -41,17 +41,23 @@
 
                 <!-- Log Target -->
                 <Border Background="#252525" CornerRadius="8" Padding="20">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <StackPanel>
-                            <TextBlock Text="{Binding [SettingsFlow_LogTarget], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-                            <TextBlock Text="{Binding [SettingsFlow_LogTargetDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12" Margin="0,4,0,0"/>
-                        </StackPanel>
-                        <ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLogTargetIndex}" Width="200" VerticalAlignment="Center">
-                            <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Local], Source={x:Static services:SettingsManager.Instance}}"/>
-                            <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Centralized], Source={x:Static services:SettingsManager.Instance}}"/>
-                            <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Both], Source={x:Static services:SettingsManager.Instance}}"/>
-                        </ComboBox>
-                    </Grid>
+                    <StackPanel Spacing="12">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel>
+                                <TextBlock Text="{Binding [SettingsFlow_LogTarget], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+                                <TextBlock Text="{Binding [SettingsFlow_LogTargetDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLogTargetIndex}" Width="200" VerticalAlignment="Center">
+                                <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Local], Source={x:Static services:SettingsManager.Instance}}"/>
+                                <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Centralized], Source={x:Static services:SettingsManager.Instance}}"/>
+                                <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Both], Source={x:Static services:SettingsManager.Instance}}"/>
+                            </ComboBox>
+                        </Grid>
+                        <Border Background="#3a2a1a" CornerRadius="4" Padding="10,6"
+                                IsVisible="{Binding ServerOfflineWarningVisible}">
+                            <TextBlock Text="{Binding [SettingsFlow_ServerOfflineWarning], Source={x:Static services:SettingsManager.Instance}}" Foreground="#ff9800" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        </Border>
+                    </StackPanel>
                 </Border>
 
                 <!-- Server IP -->

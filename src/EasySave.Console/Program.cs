@@ -1,6 +1,7 @@
 ﻿using EasySave.Core.Models;
 using EasySave.Core.Properties;
 using EasySave.Core.Services;
+using EasyLog;
 using EasySave.Views;
 using System;
 
@@ -84,6 +85,8 @@ namespace EasySave
 
         static void ExecuteJobFlow(SaveManager manager, ConsoleView view)
         {
+            if (!CheckServerBeforeLaunch()) return;
+
             view.DisplayJobs(manager.GetJobs());
             Console.Write(Resources.Get_Job_Arg_ID);
             string input = Console.ReadLine()?.ToLower() ?? "";
@@ -116,6 +119,8 @@ namespace EasySave
 
         static void RunCommandLine(string command)
         {
+            if (!CheckServerBeforeLaunch()) return;
+
             if (command.Contains("-"))
             {
                 var parts = command.Split('-');
@@ -196,6 +201,48 @@ namespace EasySave
             lock (_consoleLock)
             {
                 Console.WriteLine(message);
+            }
+        }
+
+        static bool CheckServerBeforeLaunch()
+        {
+            var target = SettingsManager.Instance.LogTarget;
+            if (target != LogTarget.Centralized && target != LogTarget.Both)
+                return true;
+
+            bool reachable = LoggerService.CheckServerConnectionAsync().GetAwaiter().GetResult();
+            if (reachable)
+                return true;
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"\n      {Resources.JobLaunch_ServerOfflineMessage}");
+            Console.ResetColor();
+            Console.WriteLine();
+            ConsoleView.PrintMenuOption("1", Resources.JobLaunch_SwitchToLocal);
+            ConsoleView.PrintMenuOption("2", Resources.JobLaunch_ContinueAnyway);
+            ConsoleView.PrintMenuOption("0", Resources.JobLaunch_Cancel);
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
+
+            string choice = Console.ReadLine() ?? "";
+
+            switch (choice)
+            {
+                case "1":
+                    SettingsManager.Instance.LogTarget = LogTarget.Local;
+                    LoggerService.CurrentLogTarget = LogTarget.Local;
+                    SettingsManager.Instance.SaveSettings();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"\n      {Resources.JobLaunch_SwitchedToLocal}");
+                    Console.ResetColor();
+                    return true;
+                case "2":
+                    return true;
+                default:
+                    return false;
             }
         }
 

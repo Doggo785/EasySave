@@ -1148,5 +1148,68 @@ namespace EasySave.Core.Properties {
                 return ResourceManager.GetString("SettingsFlow_ServerIpSuccess", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ⚠ Le serveur de logs est injoignable ou hors ligne....
+        /// </summary>
+        public static string SettingsFlow_ServerOfflineWarning {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerOfflineWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Serveur de logs hors ligne.
+        /// </summary>
+        public static string JobLaunch_ServerOfflineTitle {
+            get {
+                return ResourceManager.GetString("JobLaunch_ServerOfflineTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Le serveur de logs centralisé est injoignable. Les logs risquent d'être perdus..
+        /// </summary>
+        public static string JobLaunch_ServerOfflineMessage {
+            get {
+                return ResourceManager.GetString("JobLaunch_ServerOfflineMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Passer en local.
+        /// </summary>
+        public static string JobLaunch_SwitchToLocal {
+            get {
+                return ResourceManager.GetString("JobLaunch_SwitchToLocal", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Continuer quand même.
+        /// </summary>
+        public static string JobLaunch_ContinueAnyway {
+            get {
+                return ResourceManager.GetString("JobLaunch_ContinueAnyway", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Annuler.
+        /// </summary>
+        public static string JobLaunch_Cancel {
+            get {
+                return ResourceManager.GetString("JobLaunch_Cancel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mode de logs basculé en local pour éviter la perte de données..
+        /// </summary>
+        public static string JobLaunch_SwitchedToLocal {
+            get {
+                return ResourceManager.GetString("JobLaunch_SwitchedToLocal", resourceCulture);
+            }
+        }
     }
 }

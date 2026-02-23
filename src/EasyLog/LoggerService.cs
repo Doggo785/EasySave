@@ -25,10 +25,34 @@ namespace EasyLog
         // Configurable log target and server IP
         public static LogTarget CurrentLogTarget { get; set; } = LogTarget.Both;
         public static string ServerIp { get; set; } = "127.0.0.1";
+        public static bool IsServerConnected { get; private set; } = false;
 
         static LoggerService()
         {
             _ = Task.Run(ProcessLogQueueAsync);
+        }
+
+        /// <summary>
+        /// Tests TCP connectivity to the configured log server.
+        /// Returns true if the server is reachable, false otherwise.
+        /// </summary>
+        public static async Task<bool> CheckServerConnectionAsync(int timeoutMs = 2000)
+        {
+            try
+            {
+                using var client = new TcpClient();
+                var connectTask = client.ConnectAsync(ServerIp, 5000);
+                var completed = await Task.WhenAny(connectTask, Task.Delay(timeoutMs));
+                if (completed == connectTask && client.Connected)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public LoggerService(bool logFormat)
@@ -95,6 +119,7 @@ namespace EasyLog
                     using (var client = new TcpClient())
                     {
                         await client.ConnectAsync(ServerIp, 5000);
+                        IsServerConnected = true;
                         using (var stream = client.GetStream())
                         using (var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true })
                         {
@@ -108,6 +133,7 @@ namespace EasyLog
                                     }
                                     catch
                                     {
+                                        IsServerConnected = false;
                                         // Re-enqueue the log data if writing fails
                                         _logQueue.Enqueue(logData);
                                         throw; // Break the inner loop to reconnect
@@ -123,6 +149,7 @@ namespace EasyLog
                 }
                 catch (Exception)
                 {
+                    IsServerConnected = false;
                     // Wait before trying to reconnect
                     await Task.Delay(2000);
                 }

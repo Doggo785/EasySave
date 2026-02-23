@@ -80,7 +80,16 @@ namespace EasySave.UI.ViewModels
                 SettingsManager.Instance.LogTarget = (LogTarget)value;
                 LoggerService.CurrentLogTarget = (LogTarget)value;
                 SettingsManager.Instance.SaveSettings();
+                CheckServerIfNeeded((LogTarget)value);
             }
+        }
+
+        // Server offline warning
+        private bool _serverOfflineWarningVisible;
+        public bool ServerOfflineWarningVisible
+        {
+            get => _serverOfflineWarningVisible;
+            set => this.RaiseAndSetIfChanged(ref _serverOfflineWarningVisible, value);
         }
 
         // Server IP settings
@@ -131,6 +140,8 @@ namespace EasySave.UI.ViewModels
             RemoveExtensionCommand = ReactiveCommand.Create<string>(RemoveExtension);
             SaveMaxSizeCommand = ReactiveCommand.Create(SaveMaxSize);
             SaveServerIpCommand = ReactiveCommand.Create(SaveServerIp);
+
+            CheckServerIfNeeded(settings.LogTarget);
         }
 
         // Changes the application language
@@ -221,6 +232,25 @@ namespace EasySave.UI.ViewModels
                     Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                         ServerIpConfirmationVisible = false);
                 });
+
+                CheckServerIfNeeded(SettingsManager.Instance.LogTarget);
+            }
+        }
+
+        private void CheckServerIfNeeded(LogTarget target)
+        {
+            if (target == LogTarget.Centralized || target == LogTarget.Both)
+            {
+                System.Threading.Tasks.Task.Run(async () =>
+                {
+                    bool reachable = await LoggerService.CheckServerConnectionAsync();
+                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                        ServerOfflineWarningVisible = !reachable);
+                });
+            }
+            else
+            {
+                ServerOfflineWarningVisible = false;
             }
         }
 

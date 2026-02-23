@@ -480,4 +480,25 @@
   <data name="SettingsFlow_ServerIpSuccess" xml:space="preserve">
     <value>Adresse IP du serveur mise à jour avec succès.</value>
   </data>
+  <data name="SettingsFlow_ServerOfflineWarning" xml:space="preserve">
+    <value>⚠ Le serveur de logs est injoignable ou hors ligne. Les logs centralisés ne seront pas envoyés tant que le serveur ne sera pas disponible.</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineTitle" xml:space="preserve">
+    <value>Serveur de logs hors ligne</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineMessage" xml:space="preserve">
+    <value>Le serveur de logs centralisé est injoignable. Les logs risquent d'être perdus.</value>
+  </data>
+  <data name="JobLaunch_SwitchToLocal" xml:space="preserve">
+    <value>Passer en local</value>
+  </data>
+  <data name="JobLaunch_ContinueAnyway" xml:space="preserve">
+    <value>Continuer quand même</value>
+  </data>
+  <data name="JobLaunch_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
+    <value>Mode de logs basculé en local pour éviter la perte de données.</value>
+  </data>
 </root>

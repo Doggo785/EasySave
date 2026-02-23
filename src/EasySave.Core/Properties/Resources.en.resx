@@ -480,4 +480,25 @@
   <data name="SettingsFlow_ServerIpSuccess" xml:space="preserve">
     <value>Server IP address updated successfully.</value>
   </data>
+  <data name="SettingsFlow_ServerOfflineWarning" xml:space="preserve">
+    <value>⚠ The log server is unreachable or offline. Centralized logs will not be sent until the server is available.</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineTitle" xml:space="preserve">
+    <value>Log server offline</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineMessage" xml:space="preserve">
+    <value>The centralized log server is unreachable. Logs may be lost.</value>
+  </data>
+  <data name="JobLaunch_SwitchToLocal" xml:space="preserve">
+    <value>Switch to local</value>
+  </data>
+  <data name="JobLaunch_ContinueAnyway" xml:space="preserve">
+    <value>Continue anyway</value>
+  </data>
+  <data name="JobLaunch_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
+    <value>Log mode switched to local to prevent data loss.</value>
+  </data>
 </root>
