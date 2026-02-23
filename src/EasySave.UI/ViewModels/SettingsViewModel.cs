@@ -1,6 +1,4 @@
-﻿using ReactiveUI;
-using EasySave.Core.Services;
-using EasyLog;
+﻿using EasyLog;
 using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
@@ -37,6 +35,26 @@ namespace EasySave.UI.ViewModels
                 LoggerService._logFormat = isJson;
                 SettingsManager.Instance.LogFormat = (value == 0);
                 SettingsManager.Instance.SaveSettings();
+            }
+        }
+
+        private bool _isDarkMode;
+        public bool IsDarkMode
+        {
+            get => _isDarkMode;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _isDarkMode, value);
+
+                SettingsManager.Instance.ChangeTheme(value);
+                SettingsManager.Instance.SaveSettings();
+
+                if (Avalonia.Application.Current != null)
+                {
+                    Avalonia.Application.Current.RequestedThemeVariant = value ?
+                        Avalonia.Styling.ThemeVariant.Dark :
+                        Avalonia.Styling.ThemeVariant.Light;
+                }
             }
         }
 
@@ -152,6 +170,8 @@ namespace EasySave.UI.ViewModels
             _selectedLogTargetIndex = (int)settings.LogTarget;
             _serverIp = settings.ServerIp;
             _serverPort = settings.ServerPort.ToString();
+            _isDarkMode = settings.IsDarkMode;
+            IsDarkMode = settings.IsDarkMode;
 
             // Initialize observable collections
             BusinessSoftwareNames = new ObservableCollection<string>(settings.BusinessSoftwareNames);
@@ -335,5 +355,7 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.EncryptedExtensions = EncryptedExtensions.ToList();
             SettingsManager.Instance.SaveSettings();
         }
+
+
     }
 }
