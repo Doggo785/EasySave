@@ -160,7 +160,7 @@ namespace EasySave
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"      {Resources.SettingsFlow_BSoftWareName} (séparés par des virgules) ");
+            Console.Write($"      {Resources.SettingsFlow_BSoftWareName} ");
             Console.ResetColor();
 
             string input = Console.ReadLine();
