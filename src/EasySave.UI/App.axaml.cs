@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using EasySave.UI.ViewModels;
@@ -19,7 +20,9 @@ namespace EasySave.UI
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel()
+                    DataContext = new MainWindowViewModel(),
+
+                    WindowState = WindowState.Maximized
                 };
             }
             base.OnFrameworkInitializationCompleted();
