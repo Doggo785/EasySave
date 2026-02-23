@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:EasySave.UI.ViewModels"
+             xmlns:services="using:EasySave.Core.Services"
+             x:Class="EasySave.UI.Views.DecryptView"
+             x:DataType="vm:DecryptViewModel">
+
+    <Grid Margin="30" RowDefinitions="Auto, *">
+        <TextBlock Text="{Binding [Decrypt_Header], Source={x:Static services:SettingsManager.Instance}}"
+                   FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
+
+        <Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="30"
+                VerticalAlignment="Top">
+            <StackPanel Spacing="20" MaxWidth="600" HorizontalAlignment="Left">
+
+                <!-- Source file -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{Binding [Decrypt_Arg_Source], Source={x:Static services:SettingsManager.Instance}}"
+                               Foreground="#aaa" FontSize="13"/>
+                    <Grid ColumnDefinitions="*, Auto">
+                        <TextBox Grid.Column="0" Text="{Binding SourcePath}" Watermark="C:\..."/>
+                        <Button Grid.Column="1" Content="&#128193;" Padding="12,8" Margin="8,0,0,0"
+                                Command="{Binding BrowseSourceCommand}"
+                                Background="#2d2d2d" Foreground="White"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Destination -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{Binding [Decrypt_Arg_Dest], Source={x:Static services:SettingsManager.Instance}}"
+                               Foreground="#aaa" FontSize="13"/>
+                    <Grid ColumnDefinitions="*, Auto">
+                        <TextBox Grid.Column="0" Text="{Binding DestPath}" Watermark="C:\..."/>
+                        <Button Grid.Column="1" Content="&#128193;" Padding="12,8" Margin="8,0,0,0"
+                                Command="{Binding BrowseDestCommand}"
+                                Background="#2d2d2d" Foreground="White"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Password -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{Binding [Decrypt_Arg_Password], Source={x:Static services:SettingsManager.Instance}}"
+                               Foreground="#aaa" FontSize="13"/>
+                    <TextBox Text="{Binding Password}" PasswordChar="*" Watermark="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;"/>
+                </StackPanel>
+
+                <!-- Decrypt button -->
+                <Button Command="{Binding DecryptCommand}"
+                        Background="#00bcd4" Foreground="Black"
+                        HorizontalAlignment="Left"
+                        Padding="25,10"
+                        IsEnabled="{Binding !IsDecrypting}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="&#128275;"/>
+                        <TextBlock Text="{Binding [Menu_OptionDecrypt], Source={x:Static services:SettingsManager.Instance}}"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Status message (success = green, error = red) -->
+                <TextBlock Text="{Binding StatusMessage}"
+                           TextWrapping="Wrap" FontSize="13"
+                           Foreground="{Binding StatusColor}"
+                           IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
