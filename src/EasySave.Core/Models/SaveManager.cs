@@ -108,7 +108,10 @@ namespace EasySave.Core.Models
                         }
                         else
                         {
-                            currentJob.PauseEvent.Set();
+                            if (!currentJob.IsManuallyPaused)
+                            {
+                                currentJob.PauseEvent.Set();
+                            }
                         }
                     }
                     await Task.Delay(1000); 
