@@ -76,6 +76,8 @@ namespace EasySave.UI.ViewModels
 
         public SettingsViewModel()
         {
+            SettingsManager.Instance.LoadSettings();
+
             var settings = SettingsManager.Instance;
 
             // Initialize base settings
