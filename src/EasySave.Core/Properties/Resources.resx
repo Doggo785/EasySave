@@ -504,4 +504,16 @@
 <data name="Run_selection" xml:space="preserve">
     <value>Lancer la sélection</value>
   </data>
+  <data name="Confirm_Delete_Title" xml:space="preserve">
+    <value>Confirmation de suppression</value>
+  </data>
+  <data name="Confirm_Delete_Message" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer la sauvegarde ?</value>
+  </data>
+  <data name="Button_Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
 </root>
