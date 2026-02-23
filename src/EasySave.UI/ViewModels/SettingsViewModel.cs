@@ -241,6 +241,10 @@ namespace EasySave.UI.ViewModels
         {
             if (target == LogTarget.Centralized || target == LogTarget.Both)
             {
+                // Instant feedback from the background loop state
+                ServerOfflineWarningVisible = !LoggerService.IsServerConnected;
+
+                // Then verify async with a short timeout to confirm
                 System.Threading.Tasks.Task.Run(async () =>
                 {
                     bool reachable = await LoggerService.CheckServerConnectionAsync();

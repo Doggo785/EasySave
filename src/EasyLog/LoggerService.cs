@@ -34,20 +34,16 @@ namespace EasyLog
 
         /// <summary>
         /// Tests TCP connectivity to the configured log server.
-        /// Returns true if the server is reachable, false otherwise.
+        /// Uses a CancellationToken to abort the connection attempt on timeout.
         /// </summary>
-        public static async Task<bool> CheckServerConnectionAsync(int timeoutMs = 2000)
+        public static async Task<bool> CheckServerConnectionAsync(int timeoutMs = 500)
         {
             try
             {
+                using var cts = new CancellationTokenSource(timeoutMs);
                 using var client = new TcpClient();
-                var connectTask = client.ConnectAsync(ServerIp, 5000);
-                var completed = await Task.WhenAny(connectTask, Task.Delay(timeoutMs));
-                if (completed == connectTask && client.Connected)
-                {
-                    return true;
-                }
-                return false;
+                await client.ConnectAsync(ServerIp, 5000, cts.Token);
+                return client.Connected;
             }
             catch
             {
