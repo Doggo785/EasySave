@@ -198,6 +198,15 @@
   <data name="Get_Job_Arg_ID" xml:space="preserve">
     <value>Entrez l'ID à exécuter (ou 'all' pour tout) : </value>
   </data>
+  <data name="HomeView_LogServerConnection" xml:space="preserve">
+    <value>Serveur de log</value>
+  </data>
+  <data name="HomeView_LogServerStatusConnected" xml:space="preserve">
+    <value>STATUT : CONNECTÉ</value>
+  </data>
+  <data name="HomeView_LogServerStatusDisconnected" xml:space="preserve">
+    <value>STATUT : DÉCONNECTÉ</value>
+  </data>
   <data name="Get_Job_End" xml:space="preserve">
     <value>Opération terminée.</value>
   </data>
