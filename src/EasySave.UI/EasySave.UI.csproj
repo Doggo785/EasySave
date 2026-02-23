@@ -45,6 +45,9 @@
     <Compile Update="Views\PasswordDialog.axaml.cs">
       <DependentUpon>PasswordDialog.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ConfirmDialog.axaml.cs">
+      <DependentUpon>ConfirmDialog.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
