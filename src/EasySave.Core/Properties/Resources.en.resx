@@ -510,8 +510,7 @@
   <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
     <value>Log mode switched to local to prevent data loss.</value>
   </data>
-
-<data name="Run_selection" xml:space="preserve">
+  <data name="Run_selection" xml:space="preserve">
     <value>Start the selection</value>
   </data>
   <data name="Confirm_Delete_Title" xml:space="preserve">
@@ -525,6 +524,18 @@
   </data>
   <data name="Button_Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="SettingsFlow_Theme" xml:space="preserve">
+    <value>Application theme</value>
+  </data>
+  <data name="SettingsFlow_ThemeDesc" xml:space="preserve">
+    <value>Switch between light and dark mode</value>
+  </data>
+  <data name="SettingsFlow_ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="SettingsFlow_ThemeLight" xml:space="preserve">
+    <value>Light</value>
   </data>
   <data name="SettingsFlow_PriorityExtensions" xml:space="preserve">
     <value>Priority files</value>

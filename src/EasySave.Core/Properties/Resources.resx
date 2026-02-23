@@ -510,7 +510,7 @@
   <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
     <value>Mode de logs basculé en local pour éviter la perte de données.</value>
   </data>
-<data name="Run_selection" xml:space="preserve">
+  <data name="Run_selection" xml:space="preserve">
     <value>Lancer la sélection</value>
   </data>
   <data name="Confirm_Delete_Title" xml:space="preserve">
@@ -524,6 +524,18 @@
   </data>
   <data name="Button_Cancel" xml:space="preserve">
     <value>Annuler</value>
+  </data>
+  <data name="SettingsFlow_Theme" xml:space="preserve">
+    <value>Thème de l'application</value>
+  </data>
+  <data name="SettingsFlow_ThemeDesc" xml:space="preserve">
+    <value>Basculer entre le mode clair et le mode sombre</value>
+  </data>
+  <data name="SettingsFlow_ThemeDark" xml:space="preserve">
+    <value>Sombre</value>
+  </data>
+  <data name="SettingsFlow_ThemeLight" xml:space="preserve">
+    <value>Clair</value>
   </data>
   <data name="SettingsFlow_PriorityExtensions" xml:space="preserve">
     <value>Fichiers prioritaires</value>
