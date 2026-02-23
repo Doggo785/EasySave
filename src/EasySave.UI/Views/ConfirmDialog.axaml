@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:services="using:EasySave.Core.Services"
+        x:Class="EasySave.UI.Views.ConfirmDialog"
+        Title="{Binding [Confirm_Delete_Title], Source={x:Static services:SettingsManager.Instance}}"
+        Width="420" Height="200"
+        WindowStartupLocation="CenterOwner"
+        SystemDecorations="None"
+        Background="Transparent"
+        CanResize="False">
+	
+    <Border Background="#1e1e1e" CornerRadius="12" BorderBrush="#333" BorderThickness="1" Padding="25">
+        <Grid RowDefinitions="Auto, *, Auto">
+            
+            <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="0">
+                <Border Background="#2B1010" CornerRadius="8" Padding="8">
+                    <TextBlock Text="⚠️" FontSize="18" VerticalAlignment="Center"/>
+                </Border>
+                <TextBlock Text="{Binding [Confirm_Delete_Title], Source={x:Static services:SettingsManager.Instance}}" 
+                           FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <TextBlock Name="MessageText" 
+                       Grid.Row="1"
+                       Foreground="#cccccc" 
+                       FontSize="15"
+                       TextWrapping="Wrap" 
+                       Margin="0,20,0,20"
+                       VerticalAlignment="Center"/>
+            
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right">
+                <Button Name="NoButton" 
+                        Content="{Binding [Button_Cancel], Source={x:Static services:SettingsManager.Instance}}" 
+                        Background="#333333" Foreground="White" Padding="20,8" CornerRadius="6" Cursor="Hand"/>
+                
+                <Button Name="YesButton" 
+                        Content="{Binding [Button_Yes], Source={x:Static services:SettingsManager.Instance}}" 
+                        Background="#D32F2F" Foreground="White" FontWeight="Bold" Padding="20,8" CornerRadius="6" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
