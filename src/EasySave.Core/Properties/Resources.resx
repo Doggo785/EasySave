@@ -130,10 +130,10 @@
     <value>est détecté.</value>
   </data>
   <data name="Canlaunch_Erreur2" xml:space="preserve">
-    <value> &gt; Veuillez fermer le logiciel métier.</value>
+    <value>Veuillez fermer le logiciel métier.</value>
   </data>
   <data name="CanLaunch_Erreur3" xml:space="preserve">
-    <value> &gt; Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre...</value>
+    <value>Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre...</value>
   </data>
   <data name="CanLaunch_ErreurMetier" xml:space="preserve">
     <value>Action interdite : Logiciel métier détecté.</value>
@@ -163,7 +163,7 @@
     <value>NOUVELLE SAUVEGARDE</value>
   </data>
   <data name="Create_Job_Succes" xml:space="preserve">
-    <value>"Sauvegarde créée avec succès !"</value>
+    <value>Sauvegarde créée avec succès !</value>
   </data>
   <data name="Current_Value" xml:space="preserve">
     <value>Valeur actuelle :</value>
@@ -268,7 +268,7 @@
     <value>Logiciel métier modifié avec succès !</value>
   </data>
   <data name="SettingsFlow_Changementlang" xml:space="preserve">
-    <value>--- MODIFICATION DE LA LANGUE ---</value>
+    <value>MODIFICATION DE LA LANGUE</value>
   </data>
   <data name="SettingsFlow_Choice" xml:space="preserve">
     <value>Votre choix :</value>
@@ -307,16 +307,16 @@
     <value>Format de log modifié avec succès !</value>
   </data>
   <data name="SettingsFlow_ModifBusinesSoftWare" xml:space="preserve">
-    <value>--- MODIFICATION DU LOGICIEL MÉTIER ---</value>
+    <value>MODIFICATION DU LOGICIEL MÉTIER</value>
   </data>
   <data name="SettingsFlow_ModifEncrypt" xml:space="preserve">
-    <value>--- MODIFICATION DES EXTENSIONS CRYPTO ---</value>
+    <value>MODIFICATION DES EXTENSIONS CRYPTO</value>
   </data>
   <data name="SettingsFlow_ModifLogFormat" xml:space="preserve">
-    <value>--- MODIFICATION DU FORMAT DE LOG ---</value>
+    <value>MODIFICATION DU FORMAT DE LOG</value>
   </data>
   <data name="SettingsFlow_Parameters" xml:space="preserve">
-    <value>--- PARAMÈTRES ---</value>
+    <value>PARAMÈTRES</value>
   </data>
   <data name="SettingsFlow_Priorities" xml:space="preserve">
     <value>Priorités</value>
@@ -391,7 +391,7 @@
     <value>Un seul fichier à la fois au dessus de cette taille (Ko)</value>
   </data>
   <data name="SettingsFlow_MaxParallelSizeConfirm" xml:space="preserve">
-    <value>✓ Paramètre sauvegardé !</value>
+    <value>Paramètre sauvegardé !</value>
   </data>
   <data name="JobsViewModel_Error_BS" xml:space="preserve">
     <value>Action impossible : Logiciel métier en cours d'exécution.</value>
