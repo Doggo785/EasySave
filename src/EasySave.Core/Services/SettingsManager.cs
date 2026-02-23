@@ -1,5 +1,4 @@
 ﻿using EasySave.Core.Models;
-using EasySave.Core.Properties;
 using EasyLog;
 using System;
 using System.Collections.Generic;
@@ -23,24 +22,25 @@ namespace EasySave.Core.Services
         // Lists for restrictions and cryptography
         public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
         public List<string> EncryptedExtensions { get; set; } = new List<string>();
+        public List<string> PriorityExtensions { get; set; } = new List<string>();
 
         // Job execution settings
         public int MaxConcurrentJobs { get; set; } = Environment.ProcessorCount;
-        public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
+        public long MaxParallelFileSizeKb { get; set; } = 1000;
 
-        private static SettingsManager _instance;
+        private static SettingsManager? _instance;
 
         // Singleton instance of SettingsManager
         public static SettingsManager Instance => _instance ??= new SettingsManager();
 
         private readonly string _configFilePath;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         // Retrieves localized resource strings
         public string this[string key]
         {
-            get { return Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
+            get { return Properties.Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
         }
 
         // Initializes the settings directory and file path
@@ -67,8 +67,9 @@ namespace EasySave.Core.Services
                         LogFormat = settings.LogFormat;
                         BusinessSoftwareNames = settings.BusinessSoftwareNames ?? new List<string>();
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
+                        PriorityExtensions = settings.PriorityExtensions ?? new List<string>(); 
                         MaxConcurrentJobs = settings.MaxConcurrentJobs > 0 ? settings.MaxConcurrentJobs : Environment.ProcessorCount;
-                        MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000; // Ajout partie 3
+                        MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000;
                         LogTarget = (LogTarget)settings.LogTarget;
                         ServerIp = !string.IsNullOrWhiteSpace(settings.ServerIp) ? settings.ServerIp : "127.0.0.1";
                     }
@@ -94,6 +95,7 @@ namespace EasySave.Core.Services
                 Language = Language,
                 LogFormat = LogFormat,
                 EncryptedExtensions = EncryptedExtensions,
+                PriorityExtensions = PriorityExtensions,
                 MaxConcurrentJobs = MaxConcurrentJobs,
                 MaxParallelFileSizeKb = MaxParallelFileSizeKb,
                 BusinessSoftwareNames = BusinessSoftwareNames,
@@ -117,14 +119,12 @@ namespace EasySave.Core.Services
                 Thread.CurrentThread.CurrentUICulture = culture;
                 CultureInfo.DefaultThreadCurrentCulture = culture;
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
-
                 Language = languageCode;
-
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
             }
             catch (CultureNotFoundException)
             {
-            }
+        }
         }
 
         // Resets settings to their default values
@@ -134,8 +134,9 @@ namespace EasySave.Core.Services
             LogFormat = true;
             BusinessSoftwareNames = new List<string>();
             EncryptedExtensions = new List<string>();
+            PriorityExtensions = new List<string>();
             MaxConcurrentJobs = Environment.ProcessorCount;
-            MaxParallelFileSizeKb = 1000; // Ajout partie 3
+            MaxParallelFileSizeKb = 1000;
             LogTarget = LogTarget.Both;
             ServerIp = "127.0.0.1";
         }
@@ -147,9 +148,10 @@ namespace EasySave.Core.Services
             public bool LogFormat { get; set; } = true;
             public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
+            public List<string> PriorityExtensions { get; set; } = new List<string>();
             public int MaxConcurrentJobs { get; set; } = 0;
-            public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
-            public int LogTarget { get; set; } = 2; // Both
+            public long MaxParallelFileSizeKb { get; set; } = 1000;
+            public int LogTarget { get; set; } = 2;
             public string ServerIp { get; set; } = "127.0.0.1";
         }
     }

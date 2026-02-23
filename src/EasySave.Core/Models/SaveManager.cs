@@ -17,7 +17,26 @@ namespace EasySave.Core.Models
         private SemaphoreSlim _concurrencyLimiter;
         private static readonly SemaphoreSlim _grosFichierEnCours = new SemaphoreSlim(1, 1);
 
-        // Tracks active jobs and their cancellation tokens
+        // Priority file management
+        private static int _priorityFilesRemaining = 0;
+        private static readonly ManualResetEventSlim _noPriorityPending = new ManualResetEventSlim(true);
+
+        /// Called before the job starts to report the number of priority files and close the lock if > 0.
+        public static void RegisterPriorityFiles(int count)
+        {
+            if (count <= 0) return;
+            Interlocked.Add(ref _priorityFilesRemaining, count);
+            _noPriorityPending.Reset();
+        }
+
+        /// Called after processing a priority file to open the lock once all priority files have finished.
+        public static void OnPriorityFileDone()
+        {
+            int remaining = Interlocked.Decrement(ref _priorityFilesRemaining);
+            if (remaining <= 0)
+                _noPriorityPending.Set();
+        }
+
         private readonly Dictionary<int, CancellationTokenSource> _activeJobsTokens = new Dictionary<int, CancellationTokenSource>();
 
         private static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -39,7 +58,7 @@ namespace EasySave.Core.Models
             lock (_jobsLock)
             {
                 return _jobs.ToList();
-            }
+        }
         }
 
         public void CreateJob(string name, string src, string dest, bool type)
@@ -62,7 +81,6 @@ namespace EasySave.Core.Models
                 var newJob = new SaveJob(newId, name, src, dest, type);
                 _jobs.Add(newJob);
             }
-
             SaveJobs();
         }
 
@@ -71,10 +89,7 @@ namespace EasySave.Core.Models
             lock (_jobsLock)
             {
                 var jobToDelete = _jobs.FirstOrDefault(j => j.Id == id);
-                if (jobToDelete != null)
-                {
-                    _jobs.Remove(jobToDelete);
-                }
+                if (jobToDelete != null) _jobs.Remove(jobToDelete);
             }
             SaveJobs();
         }
@@ -91,7 +106,9 @@ namespace EasySave.Core.Models
                 displayMessage?.Invoke($"{Resources.CanLaunch_ErreurMetier}");
                 return;
             }
+
             await _concurrencyLimiter.WaitAsync(cancellationToken);
+
             using var watcherCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             var watchTask = Task.Run(async () =>
             {
@@ -114,20 +131,22 @@ namespace EasySave.Core.Models
                             }
                         }
                     }
-                    await Task.Delay(1000); 
+                    await Task.Delay(1000);
                 }
             }, watcherCts.Token);
 
             try
             {
                 SaveJob job;
-                lock (_jobsLock) { job = _jobs.FirstOrDefault(j => j.Id == id); }
+                lock (_jobsLock) { job = _jobs.FirstOrDefault(j => j.Id == id)!; }
 
                 var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
                 _activeJobsTokens[id] = cts;
+
                 await job.RunAsync(
                     SettingsManager.Instance.EncryptedExtensions,
                     _grosFichierEnCours,
+                    _noPriorityPending,
                     requestPassword,
                     displayMessage,
                     cts.Token);
@@ -185,13 +204,11 @@ namespace EasySave.Core.Models
             if (_activeJobsTokens.TryGetValue(id, out var tokenSource))
             {
                 tokenSource.Cancel();
-
                 ResumeJob(id);
 
                 _activeJobsTokens.Remove(id);
             }
         }
-
 
         private void SaveJobs()
         {
@@ -204,7 +221,6 @@ namespace EasySave.Core.Models
         private List<SaveJob> LoadJobs()
         {
             if (!File.Exists(_saveFilePath)) return new List<SaveJob>();
-
             string json = File.ReadAllText(_saveFilePath);
             return JsonSerializer.Deserialize<List<SaveJob>>(json) ?? new List<SaveJob>();
         }
@@ -212,9 +228,7 @@ namespace EasySave.Core.Models
         public void EnsureDirectoryExist()
         {
             if (!Directory.Exists(_logDirectory))
-            {
                 Directory.CreateDirectory(_logDirectory);
-            }
         }
 
         // Checks if any configured business software is currently running
