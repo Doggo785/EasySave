@@ -39,6 +39,44 @@
                     </Grid>
                 </Border>
 
+                <!-- Log Target -->
+                <Border Background="#252525" CornerRadius="8" Padding="20">
+                    <StackPanel Spacing="12">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel>
+                                <TextBlock Text="{Binding [SettingsFlow_LogTarget], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+                                <TextBlock Text="{Binding [SettingsFlow_LogTargetDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLogTargetIndex}" Width="200" VerticalAlignment="Center">
+                                <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Local], Source={x:Static services:SettingsManager.Instance}}"/>
+                                <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Centralized], Source={x:Static services:SettingsManager.Instance}}"/>
+                                <ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Both], Source={x:Static services:SettingsManager.Instance}}"/>
+                            </ComboBox>
+                        </Grid>
+                        <Border Background="#3a2a1a" CornerRadius="4" Padding="10,6"
+                                IsVisible="{Binding ServerOfflineWarningVisible}">
+                            <TextBlock Text="{Binding [SettingsFlow_ServerOfflineWarning], Source={x:Static services:SettingsManager.Instance}}" Foreground="#ff9800" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Server IP -->
+                <Border Background="#252525" CornerRadius="8" Padding="20">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{Binding [SettingsFlow_ServerIp], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+                        <TextBlock Text="{Binding [SettingsFlow_ServerIpDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12"/>
+                        <Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
+                            <TextBox Text="{Binding ServerIp}" Watermark="127.0.0.1" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
+                                    Command="{Binding SaveServerIpCommand}" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Border Background="#1a3a1a" CornerRadius="4" Padding="10,6"
+                                IsVisible="{Binding ServerIpConfirmationVisible}">
+                            <TextBlock Text="{Binding [SettingsFlow_ServerIpSuccess], Source={x:Static services:SettingsManager.Instance}}" Foreground="#4caf50" FontWeight="SemiBold"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
                 <!-- Business Software -->
 
                 <Border Background="#252525" CornerRadius="8" Padding="20">

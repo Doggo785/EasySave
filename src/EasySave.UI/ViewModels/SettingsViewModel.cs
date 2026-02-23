@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using EasySave.Core.Services;
+using EasyLog;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -68,6 +69,46 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _maxSizeConfirmationVisible, value);
         }
 
+        // Log target settings
+        private int _selectedLogTargetIndex;
+        public int SelectedLogTargetIndex
+        {
+            get => _selectedLogTargetIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedLogTargetIndex, value);
+                SettingsManager.Instance.LogTarget = (LogTarget)value;
+                LoggerService.CurrentLogTarget = (LogTarget)value;
+                SettingsManager.Instance.SaveSettings();
+                CheckServerIfNeeded((LogTarget)value);
+            }
+        }
+
+        // Server offline warning
+        private bool _serverOfflineWarningVisible;
+        public bool ServerOfflineWarningVisible
+        {
+            get => _serverOfflineWarningVisible;
+            set => this.RaiseAndSetIfChanged(ref _serverOfflineWarningVisible, value);
+        }
+
+        // Server IP settings
+        private string _serverIp = "";
+        public string ServerIp
+        {
+            get => _serverIp;
+            set => this.RaiseAndSetIfChanged(ref _serverIp, value);
+        }
+
+        private bool _serverIpConfirmationVisible;
+        public bool ServerIpConfirmationVisible
+        {
+            get => _serverIpConfirmationVisible;
+            set => this.RaiseAndSetIfChanged(ref _serverIpConfirmationVisible, value);
+        }
+
+        public ReactiveCommand<Unit, Unit> SaveServerIpCommand { get; }
+
         public ReactiveCommand<Unit, Unit> SaveMaxSizeCommand { get; }
 
         public ObservableCollection<string> EncryptedExtensions { get; }
@@ -83,6 +124,8 @@ namespace EasySave.UI.ViewModels
             // Initialize base settings
             _selectedLanguageIndex = settings.Language == "en" ? 1 : 0;
             _selectedLogFormatIndex = settings.LogFormat ? 0 : 1;
+            _selectedLogTargetIndex = (int)settings.LogTarget;
+            _serverIp = settings.ServerIp;
 
             // Initialize observable collections
             BusinessSoftwareNames = new ObservableCollection<string>(settings.BusinessSoftwareNames);
@@ -96,6 +139,9 @@ namespace EasySave.UI.ViewModels
             AddExtensionCommand = ReactiveCommand.Create(AddExtension);
             RemoveExtensionCommand = ReactiveCommand.Create<string>(RemoveExtension);
             SaveMaxSizeCommand = ReactiveCommand.Create(SaveMaxSize);
+            SaveServerIpCommand = ReactiveCommand.Create(SaveServerIp);
+
+            CheckServerIfNeeded(settings.LogTarget);
         }
 
         // Changes the application language
@@ -170,6 +216,46 @@ namespace EasySave.UI.ViewModels
         {
             EncryptedExtensions.Remove(ext);
             SyncExtensionsToSettings();
+        }
+
+        private void SaveServerIp()
+        {
+            if (!string.IsNullOrWhiteSpace(ServerIp))
+            {
+                SettingsManager.Instance.ServerIp = ServerIp.Trim();
+                LoggerService.ServerIp = ServerIp.Trim();
+                SettingsManager.Instance.SaveSettings();
+
+                ServerIpConfirmationVisible = true;
+                System.Threading.Tasks.Task.Delay(2000).ContinueWith(_ =>
+                {
+                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                        ServerIpConfirmationVisible = false);
+                });
+
+                CheckServerIfNeeded(SettingsManager.Instance.LogTarget);
+            }
+        }
+
+        private void CheckServerIfNeeded(LogTarget target)
+        {
+            if (target == LogTarget.Centralized || target == LogTarget.Both)
+            {
+                // Instant feedback from the background loop state
+                ServerOfflineWarningVisible = !LoggerService.IsServerConnected;
+
+                // Then verify async with a short timeout to confirm
+                System.Threading.Tasks.Task.Run(async () =>
+                {
+                    bool reachable = await LoggerService.CheckServerConnectionAsync();
+                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                        ServerOfflineWarningVisible = !reachable);
+                });
+            }
+            else
+            {
+                ServerOfflineWarningVisible = false;
+            }
         }
 
         // Synchronizes the extensions collection with the settings manager

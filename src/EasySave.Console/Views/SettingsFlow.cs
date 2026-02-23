@@ -1,6 +1,7 @@
 ﻿using EasySave.Core.Models;
 using EasySave.Core.Properties;
 using EasySave.Core.Services;
+using EasyLog;
 using EasySave.Views;
 using System;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace EasySave
                 ConsoleView.PrintMenuOption("2", $"{Resources.SettingsFlow_LogFormat} : {(settings.LogFormat ? "JSON" : "XML")}");
                 ConsoleView.PrintMenuOption("3", $"{Resources.SettingsFlow_SoftwareBuis} : {(settings.BusinessSoftwareNames.Count > 0 ? string.Join(", ", settings.BusinessSoftwareNames) : Resources.None2)}");
                 ConsoleView.PrintMenuOption("4", $"{Resources.SettingsFlow_Crypto} : {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : Resources.None)}");
+                ConsoleView.PrintMenuOption("5", $"{Resources.SettingsFlow_LogTarget} : {GetLogTargetLabel(settings.LogTarget)}");
+                ConsoleView.PrintMenuOption("6", $"{Resources.SettingsFlow_ServerIp} : {settings.ServerIp}");
 
                 Console.WriteLine();
                 ConsoleView.PrintMenuOption("0", Resources.SettingsFlow_BackMenu, ConsoleColor.Gray);
@@ -53,6 +56,12 @@ namespace EasySave
                         break;
                     case "4":
                         ModifyCryptoExtensions(settings);
+                        break;
+                    case "5":
+                        ModifyLogTarget(settings);
+                        break;
+                    case "6":
+                        ModifyServerIp(settings);
                         break;
                     case "0":
                         exit = true;
@@ -228,6 +237,139 @@ namespace EasySave
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"\n      > {Resources.SettingsFlow_EncryptSuccess}");
             Console.ResetColor();
+            Thread.Sleep(1500);
+        }
+
+        private static string GetLogTargetLabel(LogTarget target)
+        {
+            return target switch
+            {
+                LogTarget.Local => Resources.SettingsFlow_LogTarget_Local,
+                LogTarget.Centralized => Resources.SettingsFlow_LogTarget_Centralized,
+                LogTarget.Both => Resources.SettingsFlow_LogTarget_Both,
+                _ => Resources.SettingsFlow_LogTarget_Both
+            };
+        }
+
+        private static void ModifyLogTarget(SettingsManager settings)
+        {
+            ConsoleView.DisplayHeader();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.SettingsFlow_LogTarget}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_LogTarget.Length));
+            Console.WriteLine();
+
+            ConsoleView.PrintMenuOption("1", Resources.SettingsFlow_LogTarget_Local);
+            ConsoleView.PrintMenuOption("2", Resources.SettingsFlow_LogTarget_Centralized);
+            ConsoleView.PrintMenuOption("3", Resources.SettingsFlow_LogTarget_Both);
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    settings.LogTarget = LogTarget.Local;
+                    break;
+                case "2":
+                    settings.LogTarget = LogTarget.Centralized;
+                    break;
+                case "3":
+                    settings.LogTarget = LogTarget.Both;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                    Console.ResetColor();
+                    Console.WriteLine($"      {Resources.SettingsFlow_Continue}");
+                    Console.ReadKey();
+                    return;
+            }
+
+            LoggerService.CurrentLogTarget = settings.LogTarget;
+            SettingsManager.Instance.SaveSettings();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n      > {Resources.SettingsFlow_LogTargetSuccess}");
+            Console.ResetColor();
+
+            if (settings.LogTarget == LogTarget.Centralized || settings.LogTarget == LogTarget.Both)
+            {
+                var reachable = LoggerService.CheckServerConnectionAsync().GetAwaiter().GetResult();
+                if (!reachable)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"\n      {Resources.SettingsFlow_ServerOfflineWarning}");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"\n      {Resources.HomeView_LogServerStatusConnected}");
+                }
+                Console.ResetColor();
+            }
+
+            Thread.Sleep(1500);
+        }
+
+        private static void ModifyServerIp(SettingsManager settings)
+        {
+            ConsoleView.DisplayHeader();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.SettingsFlow_ServerIp}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ServerIp.Length));
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"      {Resources.SettingsFlow_ServerIpDesc} : {settings.ServerIp}");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
+
+            string input = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                settings.ServerIp = input.Trim();
+                LoggerService.ServerIp = settings.ServerIp;
+                SettingsManager.Instance.SaveSettings();
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"\n      > {Resources.SettingsFlow_ServerIpSuccess}");
+                Console.ResetColor();
+
+                if (settings.LogTarget == LogTarget.Centralized || settings.LogTarget == LogTarget.Both)
+                {
+                    var reachable = LoggerService.CheckServerConnectionAsync().GetAwaiter().GetResult();
+                    if (!reachable)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"\n      {Resources.SettingsFlow_ServerOfflineWarning}");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"\n      {Resources.HomeView_LogServerStatusConnected}");
+                    }
+                    Console.ResetColor();
+                }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                Console.ResetColor();
+            }
+
             Thread.Sleep(1500);
         }
     }

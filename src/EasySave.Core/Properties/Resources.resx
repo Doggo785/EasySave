@@ -198,6 +198,15 @@
   <data name="Get_Job_Arg_ID" xml:space="preserve">
     <value>Entrez l'ID à exécuter (ou 'all' pour tout) : </value>
   </data>
+  <data name="HomeView_LogServerConnection" xml:space="preserve">
+    <value>Serveur de log</value>
+  </data>
+  <data name="HomeView_LogServerStatusConnected" xml:space="preserve">
+    <value>STATUT : CONNECTÉ</value>
+  </data>
+  <data name="HomeView_LogServerStatusDisconnected" xml:space="preserve">
+    <value>STATUT : DÉCONNECTÉ</value>
+  </data>
   <data name="Get_Job_End" xml:space="preserve">
     <value>Opération terminée.</value>
   </data>
@@ -443,5 +452,53 @@
   </data>
   <data name="HomeView_Suspended" xml:space="preserve">
     <value>STATUT : SUSPENDU</value>
+  </data>
+  <data name="SettingsFlow_LogTarget" xml:space="preserve">
+    <value>Destination des logs</value>
+  </data>
+  <data name="SettingsFlow_LogTargetDesc" xml:space="preserve">
+    <value>Choisissez où enregistrer les logs</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Local" xml:space="preserve">
+    <value>Local uniquement</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Centralized" xml:space="preserve">
+    <value>Centralisé uniquement</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Both" xml:space="preserve">
+    <value>Les deux</value>
+  </data>
+  <data name="SettingsFlow_LogTargetSuccess" xml:space="preserve">
+    <value>Destination des logs mise à jour avec succès.</value>
+  </data>
+  <data name="SettingsFlow_ServerIp" xml:space="preserve">
+    <value>Adresse IP du serveur</value>
+  </data>
+  <data name="SettingsFlow_ServerIpDesc" xml:space="preserve">
+    <value>IP ou nom de domaine du serveur de logs centralisé</value>
+  </data>
+  <data name="SettingsFlow_ServerIpSuccess" xml:space="preserve">
+    <value>Adresse IP du serveur mise à jour avec succès.</value>
+  </data>
+  <data name="SettingsFlow_ServerOfflineWarning" xml:space="preserve">
+    <value>⚠ Le serveur de logs est injoignable ou hors ligne. Les logs centralisés ne seront pas envoyés tant que le serveur ne sera pas disponible.</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineTitle" xml:space="preserve">
+    <value>Serveur de logs hors ligne</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineMessage" xml:space="preserve">
+    <value>Le serveur de logs centralisé est injoignable. Les logs risquent d'être perdus.</value>
+  </data>
+  <data name="JobLaunch_SwitchToLocal" xml:space="preserve">
+    <value>Passer en local</value>
+  </data>
+  <data name="JobLaunch_ContinueAnyway" xml:space="preserve">
+    <value>Continuer quand même</value>
+  </data>
+  <data name="JobLaunch_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
+    <value>Mode de logs basculé en local pour éviter la perte de données.</value>
   </data>
 </root>

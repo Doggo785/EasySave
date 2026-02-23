@@ -198,6 +198,15 @@
   <data name="Get_Job_Arg_ID" xml:space="preserve">
     <value>Enter ID to execute (or 'all' for all):</value>
   </data>
+  <data name="HomeView_LogServerConnection" xml:space="preserve">
+    <value>Log server</value>
+  </data>
+  <data name="HomeView_LogServerStatusConnected" xml:space="preserve">
+    <value>STATUS : CONNECTED</value>
+  </data>
+  <data name="HomeView_LogServerStatusDisconnected" xml:space="preserve">
+    <value>STATUS : DISCONNECTED</value>
+  </data>
   <data name="Get_Job_End" xml:space="preserve">
     <value>Operation finished.</value>
   </data>
@@ -443,5 +452,53 @@
   </data>
   <data name="HomeView_Suspended" xml:space="preserve">
     <value>STATUS : SUSPENDED</value>
+  </data>
+  <data name="SettingsFlow_LogTarget" xml:space="preserve">
+    <value>Log destination</value>
+  </data>
+  <data name="SettingsFlow_LogTargetDesc" xml:space="preserve">
+    <value>Choose where to save logs</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Local" xml:space="preserve">
+    <value>Local only</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Centralized" xml:space="preserve">
+    <value>Centralized only</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="SettingsFlow_LogTargetSuccess" xml:space="preserve">
+    <value>Log destination updated successfully.</value>
+  </data>
+  <data name="SettingsFlow_ServerIp" xml:space="preserve">
+    <value>Server IP address</value>
+  </data>
+  <data name="SettingsFlow_ServerIpDesc" xml:space="preserve">
+    <value>IP or domain name of the centralized log server</value>
+  </data>
+  <data name="SettingsFlow_ServerIpSuccess" xml:space="preserve">
+    <value>Server IP address updated successfully.</value>
+  </data>
+  <data name="SettingsFlow_ServerOfflineWarning" xml:space="preserve">
+    <value>⚠ The log server is unreachable or offline. Centralized logs will not be sent until the server is available.</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineTitle" xml:space="preserve">
+    <value>Log server offline</value>
+  </data>
+  <data name="JobLaunch_ServerOfflineMessage" xml:space="preserve">
+    <value>The centralized log server is unreachable. Logs may be lost.</value>
+  </data>
+  <data name="JobLaunch_SwitchToLocal" xml:space="preserve">
+    <value>Switch to local</value>
+  </data>
+  <data name="JobLaunch_ContinueAnyway" xml:space="preserve">
+    <value>Continue anyway</value>
+  </data>
+  <data name="JobLaunch_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
+    <value>Log mode switched to local to prevent data loss.</value>
   </data>
 </root>
