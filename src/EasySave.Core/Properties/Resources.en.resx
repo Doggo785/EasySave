@@ -130,10 +130,10 @@
     <value>is detected.</value>
   </data>
   <data name="Canlaunch_Erreur2" xml:space="preserve">
-    <value> &gt; Please close the business software.</value>
+    <value>Please close the business software.</value>
   </data>
   <data name="CanLaunch_Erreur3" xml:space="preserve">
-    <value> &gt; Press [ENTER] to confirm the closure and resume...</value>
+    <value>Press [ENTER] to confirm the closure and resume...</value>
   </data>
   <data name="CanLaunch_ErreurMetier" xml:space="preserve">
     <value>Forbidden action: Business software detected.</value>
@@ -205,7 +205,7 @@
     <value>Running job {0}...</value>
   </data>
   <data name="Header_Dest" xml:space="preserve">
-    <value>Dest.</value>
+    <value>Destination </value>
   </data>
   <data name="Header_Id" xml:space="preserve">
     <value>ID</value>
@@ -268,7 +268,7 @@
     <value>Business software modified successfully!</value>
   </data>
   <data name="SettingsFlow_Changementlang" xml:space="preserve">
-    <value>--- LANGUAGE MODIFICATION ---</value>
+    <value>LANGUAGE MODIFICATION</value>
   </data>
   <data name="SettingsFlow_Choice" xml:space="preserve">
     <value>Your choice :</value>
@@ -307,16 +307,16 @@
     <value>Log format modified successfully!</value>
   </data>
   <data name="SettingsFlow_ModifBusinesSoftWare" xml:space="preserve">
-    <value>--- BUSINESS SOFTWARE MODIFICATION ---</value>
+    <value>BUSINESS SOFTWARE MODIFICATION</value>
   </data>
   <data name="SettingsFlow_ModifEncrypt" xml:space="preserve">
-    <value>--- CRYPTO EXTENSIONS MODIFICATION ---</value>
+    <value>CRYPTO EXTENSIONS MODIFICATION</value>
   </data>
   <data name="SettingsFlow_ModifLogFormat" xml:space="preserve">
-    <value>--- LOG FORMAT MODIFICATION ---</value>
+    <value>LOG FORMAT MODIFICATION</value>
   </data>
   <data name="SettingsFlow_Parameters" xml:space="preserve">
-    <value>--- SETTINGS ---</value>
+    <value>SETTINGS</value>
   </data>
   <data name="SettingsFlow_Priorities" xml:space="preserve">
     <value>Priorities</value>
@@ -364,7 +364,7 @@
     <value>file</value>
   </data>
   <data name="Savejob_sauvegardefinis" xml:space="preserve">
-    <value>Backup completed:</value>
+    <value>Save completed:</value>
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>not found</value>
@@ -391,7 +391,7 @@
     <value>Only one file at a time above this size (Ko)</value>
   </data>
   <data name="SettingsFlow_MaxParallelSizeConfirm" xml:space="preserve">
-    <value>✓ Parameter saved !</value>
+    <value>Parameter saved !</value>
   </data>
   <data name="JobsViewModel_Error_BS" xml:space="preserve">
     <value>Action impossible: Business software is currently running.</value>

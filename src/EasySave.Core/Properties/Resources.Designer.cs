@@ -115,7 +115,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à  &gt; Veuillez fermer le logiciel métier..
+        ///   Recherche une chaîne localisée semblable à Veuillez fermer le logiciel métier..
         /// </summary>
         public static string Canlaunch_Erreur2 {
             get {
@@ -124,7 +124,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à  &gt; Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre....
+        ///   Recherche une chaîne localisée semblable à Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre....
         /// </summary>
         public static string CanLaunch_Erreur3 {
             get {
@@ -223,7 +223,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à &quot;Sauvegarde créée avec succès !&quot;.
+        ///   Recherche une chaîne localisée semblable à Sauvegarde créée avec succès !.
         /// </summary>
         public static string Create_Job_Succes {
             get {
@@ -817,7 +817,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à --- MODIFICATION DE LA LANGUE ---.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DE LA LANGUE.
         /// </summary>
         public static string SettingsFlow_Changementlang {
             get {
@@ -943,7 +943,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à ✓ Paramètre sauvegardé !.
+        ///   Recherche une chaîne localisée semblable à Paramètre sauvegardé !.
         /// </summary>
         public static string SettingsFlow_MaxParallelSizeConfirm {
             get {
@@ -961,7 +961,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à --- MODIFICATION DU LOGICIEL MÉTIER ---.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DU LOGICIEL MÉTIER.
         /// </summary>
         public static string SettingsFlow_ModifBusinesSoftWare {
             get {
@@ -970,7 +970,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à --- MODIFICATION DES EXTENSIONS CRYPTO ---.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DES EXTENSIONS CRYPTO.
         /// </summary>
         public static string SettingsFlow_ModifEncrypt {
             get {
@@ -979,7 +979,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à --- MODIFICATION DU FORMAT DE LOG ---.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DU FORMAT DE LOG.
         /// </summary>
         public static string SettingsFlow_ModifLogFormat {
             get {
@@ -988,7 +988,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à --- PARAMÈTRES ---.
+        ///   Recherche une chaîne localisée semblable à PARAMÈTRES.
         /// </summary>
         public static string SettingsFlow_Parameters {
             get {
