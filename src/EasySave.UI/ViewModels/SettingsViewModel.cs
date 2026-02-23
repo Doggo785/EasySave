@@ -30,6 +30,9 @@ namespace EasySave.UI.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _selectedLogFormatIndex, value);
+
+                bool isJson = (value == 0);
+                LoggerService._logFormat = isJson;
                 SettingsManager.Instance.LogFormat = (value == 0);
                 SettingsManager.Instance.SaveSettings();
             }
