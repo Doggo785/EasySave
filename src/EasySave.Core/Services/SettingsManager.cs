@@ -23,7 +23,9 @@ namespace EasySave.Core.Services
 
         // Job execution settings
         public int MaxConcurrentJobs { get; set; } = Environment.ProcessorCount;
-        public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
+
+        // Settings for parallel file transfer (Part 3)
+        public long MaxParallelFileSizeKb { get; set; } = 1000;
 
         private static SettingsManager _instance;
 
@@ -65,7 +67,7 @@ namespace EasySave.Core.Services
                         BusinessSoftwareNames = settings.BusinessSoftwareNames ?? new List<string>();
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
                         MaxConcurrentJobs = settings.MaxConcurrentJobs > 0 ? settings.MaxConcurrentJobs : Environment.ProcessorCount;
-                        MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000; // Ajout partie 3
+                        MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000;
                     }
                 }
                 catch
@@ -88,36 +90,10 @@ namespace EasySave.Core.Services
             {
                 Language = Language,
                 LogFormat = LogFormat,
+                BusinessSoftwareNames = BusinessSoftwareNames,
                 EncryptedExtensions = EncryptedExtensions,
                 MaxConcurrentJobs = MaxConcurrentJobs,
-                MaxParallelFileSizeKb = MaxParallelFileSizeKb 
-                BusinessSoftwareNames = BusinessSoftwareNames,
-                EncryptedExtensions = EncryptedExtensions
-=======
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
-                BusinessSoftwareName = BusinessSoftwareName,
-                EncryptedExtensions = EncryptedExtensions,
-                MaxConcurrentJobs = MaxConcurrentJobs
->>>>>>> dev
+                MaxParallelFileSizeKb = MaxParallelFileSizeKb
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -154,7 +130,7 @@ namespace EasySave.Core.Services
             BusinessSoftwareNames = new List<string>();
             EncryptedExtensions = new List<string>();
             MaxConcurrentJobs = Environment.ProcessorCount;
-            MaxParallelFileSizeKb = 1000; // Ajout partie 3
+            MaxParallelFileSizeKb = 1000;
         }
 
         // Internal model for JSON serialization
@@ -165,7 +141,7 @@ namespace EasySave.Core.Services
             public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
             public int MaxConcurrentJobs { get; set; } = 0;
-            public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
+            public long MaxParallelFileSizeKb { get; set; } = 1000;
         }
     }
 }
