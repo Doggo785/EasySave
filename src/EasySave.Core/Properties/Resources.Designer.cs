@@ -232,6 +232,24 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Activer le chiffrement (CryptoSoft).
+        /// </summary>
+        public static string CreateJobView_Chiffrement {
+            get {
+                return ResourceManager.GetString("CreateJobView_Chiffrement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Entrez un nom unique....
+        /// </summary>
+        public static string CreateJobView_EnterName {
+            get {
+                return ResourceManager.GetString("CreateJobView_EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Valeur actuelle :.
         /// </summary>
         public static string Current_Value {
@@ -471,6 +489,96 @@ namespace EasySave.Core.Properties {
         public static string Header_Type {
             get {
                 return ResourceManager.GetString("Header_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Format des logs actifs.
+        /// </summary>
+        public static string HomeView_ActiveLogFormat {
+            get {
+                return ResourceManager.GetString("HomeView_ActiveLogFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à STATUT : LIBRE.
+        /// </summary>
+        public static string HomeView_Clear {
+            get {
+                return ResourceManager.GetString("HomeView_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tableau de bord.
+        /// </summary>
+        public static string HomeView_Dashboard {
+            get {
+                return ResourceManager.GetString("HomeView_Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Configuration des paramètres globaux.
+        /// </summary>
+        public static string HomeView_GlobConf {
+            get {
+                return ResourceManager.GetString("HomeView_GlobConf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Lu depuis state.json.
+        /// </summary>
+        public static string HomeView_JsonRead {
+            get {
+                return ResourceManager.GetString("HomeView_JsonRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Dernière sauvegarde effectuée.
+        /// </summary>
+        public static string HomeView_LastBackUp {
+            get {
+                return ResourceManager.GetString("HomeView_LastBackUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Moniteur de logiciels métiers.
+        /// </summary>
+        public static string HomeView_Monitor {
+            get {
+                return ResourceManager.GetString("HomeView_Monitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à STATUT : SUSPENDU.
+        /// </summary>
+        public static string HomeView_Suspended {
+            get {
+                return ResourceManager.GetString("HomeView_Suspended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nombre total de travaux configurés.
+        /// </summary>
+        public static string HomeView_TotalconfigJob {
+            get {
+                return ResourceManager.GetString("HomeView_TotalconfigJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à travaux configurés.
+        /// </summary>
+        public static string JobsView_Config_Jog {
+            get {
+                return ResourceManager.GetString("JobsView_Config_Jog", resourceCulture);
             }
         }
         
@@ -903,6 +1011,15 @@ namespace EasySave.Core.Properties {
         public static string SettingsFlow_SoftwareBuis {
             get {
                 return ResourceManager.GetString("SettingsFlow_SoftwareBuis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajoutez les logiciels bloquants (ex: calc.exe).
+        /// </summary>
+        public static string SettingsView_Sotftwareblock {
+            get {
+                return ResourceManager.GetString("SettingsView_Sotftwareblock", resourceCulture);
             }
         }
         

@@ -405,4 +405,43 @@
   <data name="JobsViewModel_Destinationfolder" xml:space="preserve">
     <value>Select destination folder</value>
   </data>
+  <data name="JobsView_Config_Jog" xml:space="preserve">
+    <value>jobs configured</value>
+  </data>
+  <data name="CreateJobView_Chiffrement" xml:space="preserve">
+    <value>Enable encryption (CryptoSoft)</value>
+  </data>
+  <data name="CreateJobView_EnterName" xml:space="preserve">
+    <value>Enter a unique name...</value>
+  </data>
+  <data name="SettingsView_Sotftwareblock" xml:space="preserve">
+    <value>Add blocking software (e.g., calc.exe)</value>
+  </data>
+  <data name="HomeView_TotalconfigJob" xml:space="preserve">
+    <value>Total Configured Jobs</value>
+  </data>
+  <data name="HomeView_Monitor" xml:space="preserve">
+    <value>Business Software Monitor</value>
+  </data>
+  <data name="HomeView_LastBackUp" xml:space="preserve">
+    <value>Last Performed Backup same</value>
+  </data>
+  <data name="HomeView_ActiveLogFormat" xml:space="preserve">
+    <value>Active Log Format</value>
+  </data>
+  <data name="HomeView_GlobConf" xml:space="preserve">
+    <value>Global parameter configuration</value>
+  </data>
+  <data name="HomeView_JsonRead" xml:space="preserve">
+    <value>Read from state.json</value>
+  </data>
+  <data name="HomeView_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="HomeView_Clear" xml:space="preserve">
+    <value>STATUT : CLEAR</value>
+  </data>
+  <data name="HomeView_Suspended" xml:space="preserve">
+    <value>STATUS : SUSPENDED</value>
+  </data>
 </root>

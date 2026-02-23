@@ -405,4 +405,43 @@
   <data name="JobsViewModel_Destinationfolder" xml:space="preserve">
     <value>Sélectionner le dossier de destination</value>
   </data>
+  <data name="JobsView_Config_Jog" xml:space="preserve">
+    <value>travaux configurés</value>
+  </data>
+  <data name="CreateJobView_Chiffrement" xml:space="preserve">
+    <value>Activer le chiffrement (CryptoSoft)</value>
+  </data>
+  <data name="CreateJobView_EnterName" xml:space="preserve">
+    <value>Entrez un nom unique...</value>
+  </data>
+  <data name="SettingsView_Sotftwareblock" xml:space="preserve">
+    <value>Ajoutez les logiciels bloquants (ex: calc.exe)</value>
+  </data>
+  <data name="HomeView_TotalconfigJob" xml:space="preserve">
+    <value>Nombre total de travaux configurés</value>
+  </data>
+  <data name="HomeView_Monitor" xml:space="preserve">
+    <value>Moniteur de logiciels métiers</value>
+  </data>
+  <data name="HomeView_LastBackUp" xml:space="preserve">
+    <value>Dernière sauvegarde effectuée</value>
+  </data>
+  <data name="HomeView_ActiveLogFormat" xml:space="preserve">
+    <value>Format des logs actifs</value>
+  </data>
+  <data name="HomeView_GlobConf" xml:space="preserve">
+    <value>Configuration des paramètres globaux</value>
+  </data>
+  <data name="HomeView_JsonRead" xml:space="preserve">
+    <value>Lu depuis state.json</value>
+  </data>
+  <data name="HomeView_Dashboard" xml:space="preserve">
+    <value>Tableau de bord</value>
+  </data>
+  <data name="HomeView_Clear" xml:space="preserve">
+    <value>STATUT : LIBRE</value>
+  </data>
+  <data name="HomeView_Suspended" xml:space="preserve">
+    <value>STATUT : SUSPENDU</value>
+  </data>
 </root>
