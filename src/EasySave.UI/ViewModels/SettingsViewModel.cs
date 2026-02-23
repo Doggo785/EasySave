@@ -115,14 +115,22 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _serverIp, value);
         }
 
-        private bool _serverIpConfirmationVisible;
-        public bool ServerIpConfirmationVisible
+        // Server Port settings
+        private string _serverPort = "";
+        public string ServerPort
         {
-            get => _serverIpConfirmationVisible;
-            set => this.RaiseAndSetIfChanged(ref _serverIpConfirmationVisible, value);
+            get => _serverPort;
+            set => this.RaiseAndSetIfChanged(ref _serverPort, value);
         }
 
-        public ReactiveCommand<Unit, Unit> SaveServerIpCommand { get; }
+        private bool _serverConnectionConfirmationVisible;
+        public bool ServerConnectionConfirmationVisible
+        {
+            get => _serverConnectionConfirmationVisible;
+            set => this.RaiseAndSetIfChanged(ref _serverConnectionConfirmationVisible, value);
+        }
+
+        public ReactiveCommand<Unit, Unit> SaveServerConnectionCommand { get; }
 
         public ReactiveCommand<Unit, Unit> SaveMaxSizeCommand { get; }
 
@@ -141,6 +149,7 @@ namespace EasySave.UI.ViewModels
             _selectedLogFormatIndex = settings.LogFormat ? 0 : 1;
             _selectedLogTargetIndex = (int)settings.LogTarget;
             _serverIp = settings.ServerIp;
+            _serverPort = settings.ServerPort.ToString();
 
             // Initialize observable collections
             BusinessSoftwareNames = new ObservableCollection<string>(settings.BusinessSoftwareNames);
@@ -159,7 +168,7 @@ namespace EasySave.UI.ViewModels
             RemovePriorityExtensionCommand = ReactiveCommand.Create<string>(RemovePriorityExtension);
 
             SaveMaxSizeCommand = ReactiveCommand.Create(SaveMaxSize);
-            SaveServerIpCommand = ReactiveCommand.Create(SaveServerIp);
+            SaveServerConnectionCommand = ReactiveCommand.Create(SaveServerConnection);
 
             CheckServerIfNeeded(settings.LogTarget);
         }
@@ -262,19 +271,34 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
-        private void SaveServerIp()
+        private void SaveServerConnection()
         {
+            bool changed = false;
+
             if (!string.IsNullOrWhiteSpace(ServerIp))
             {
                 SettingsManager.Instance.ServerIp = ServerIp.Trim();
                 LoggerService.ServerIp = ServerIp.Trim();
-                SettingsManager.Instance.SaveSettings();
+                changed = true;
+            }
 
-                ServerIpConfirmationVisible = true;
+            if (int.TryParse(ServerPort, out int port) && port > 0 && port <= 65535)
+            {
+                SettingsManager.Instance.ServerPort = port;
+                LoggerService.ServerPort = port;
+                changed = true;
+            }
+
+            if (changed)
+            {
+                SettingsManager.Instance.SaveSettings();
+                LoggerService.ForceReconnect();
+
+                ServerConnectionConfirmationVisible = true;
                 System.Threading.Tasks.Task.Delay(2000).ContinueWith(_ =>
                 {
                     Avalonia.Threading.Dispatcher.UIThread.Post(() =>
-                        ServerIpConfirmationVisible = false);
+                        ServerConnectionConfirmationVisible = false);
                 });
 
                 CheckServerIfNeeded(SettingsManager.Instance.LogTarget);

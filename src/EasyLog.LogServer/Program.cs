@@ -13,7 +13,7 @@ namespace EasyLog.LogServer
     {
         private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
 
-        private const int Port = 5000;
+        private const int Port = 25549;
         private const string LogDirectory = "Logs";
 
         // Dashboard stats

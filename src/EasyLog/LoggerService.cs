@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Text.Json;
 using System.Xml.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
@@ -22,14 +23,29 @@ namespace EasyLog
         private static readonly object _stateLock = new object();
         private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
 
-        // Configurable log target and server IP
+        // Configurable log target and server connection
         public static LogTarget CurrentLogTarget { get; set; } = LogTarget.Both;
         public static string ServerIp { get; set; } = "127.0.0.1";
+        public static int ServerPort { get; set; } = 25549;
         public static bool IsServerConnected { get; private set; } = false;
+
+        private static CancellationTokenSource _reconnectCts = new CancellationTokenSource();
 
         static LoggerService()
         {
             _ = Task.Run(ProcessLogQueueAsync);
+        }
+
+        /// <summary>
+        /// Forces the background loop to close its current connection and reconnect
+        /// using the latest ServerIp/ServerPort values.
+        /// </summary>
+        public static void ForceReconnect()
+        {
+            var oldCts = Interlocked.Exchange(ref _reconnectCts, new CancellationTokenSource());
+            oldCts.Cancel();
+            oldCts.Dispose();
+            IsServerConnected = false;
         }
 
         /// <summary>
@@ -42,7 +58,7 @@ namespace EasyLog
             {
                 using var cts = new CancellationTokenSource(timeoutMs);
                 using var client = new TcpClient();
-                await client.ConnectAsync(ServerIp, 5000, cts.Token);
+                await client.ConnectAsync(ServerIp, ServerPort, cts.Token);
                 return client.Connected;
             }
             catch
@@ -110,22 +126,23 @@ namespace EasyLog
         {
             while (true)
             {
+                var token = _reconnectCts.Token;
                 try
                 {
                     using (var client = new TcpClient())
                     {
-                        await client.ConnectAsync(ServerIp, 5000);
+                        await client.ConnectAsync(ServerIp, ServerPort, token);
                         IsServerConnected = true;
                         using (var stream = client.GetStream())
                         using (var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true })
                         {
-                            while (true)
+                            while (!token.IsCancellationRequested)
                             {
                                 if (_logQueue.TryDequeue(out string logData))
                                 {
                                     try
                                     {
-                                        await writer.WriteLineAsync(logData);
+                                        await writer.WriteLineAsync(logData.AsMemory(), token);
                                     }
                                     catch
                                     {
@@ -137,17 +154,31 @@ namespace EasyLog
                                 }
                                 else
                                 {
-                                    await Task.Delay(50);
+                                    // Detect if the remote server has closed the connection:
+                                    // Poll returns true when data is available OR the connection is closed.
+                                    // If true but Available == 0, the remote end has disconnected.
+                                    if (client.Client.Poll(0, SelectMode.SelectRead) && client.Client.Available == 0)
+                                    {
+                                        IsServerConnected = false;
+                                        throw new IOException("Server disconnected.");
+                                    }
+                                    await Task.Delay(50, token);
                                 }
                             }
                         }
                     }
                 }
+                catch (OperationCanceledException)
+                {
+                    // ForceReconnect() was called — loop back to reconnect with new settings
+                    IsServerConnected = false;
+                }
                 catch (Exception)
                 {
                     IsServerConnected = false;
-                    // Wait before trying to reconnect
-                    await Task.Delay(2000);
+                    // Wait before trying to reconnect, but respect cancellation
+                    try { await Task.Delay(2000, _reconnectCts.Token); }
+                    catch (OperationCanceledException) { }
                 }
             }
         }

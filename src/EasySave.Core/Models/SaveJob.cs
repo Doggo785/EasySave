@@ -52,6 +52,7 @@ namespace EasySave.Core.Models
         {
             LoggerService.CurrentLogTarget = SettingsManager.Instance.LogTarget;
             LoggerService.ServerIp = SettingsManager.Instance.ServerIp;
+            LoggerService.ServerPort = SettingsManager.Instance.ServerPort;
         }
 
         // Executes the backup process synchronously

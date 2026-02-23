@@ -32,6 +32,7 @@ namespace EasySave
                 ConsoleView.PrintMenuOption("4", $"{Resources.SettingsFlow_Crypto} : {(settings.EncryptedExtensions.Count > 0 ? string.Join(", ", settings.EncryptedExtensions) : Resources.None)}");
                 ConsoleView.PrintMenuOption("5", $"{Resources.SettingsFlow_LogTarget} : {GetLogTargetLabel(settings.LogTarget)}");
                 ConsoleView.PrintMenuOption("6", $"{Resources.SettingsFlow_ServerIp} : {settings.ServerIp}");
+                ConsoleView.PrintMenuOption("7", $"{Resources.SettingsFlow_ServerPort} : {settings.ServerPort}");
 
                 Console.WriteLine();
                 ConsoleView.PrintMenuOption("0", Resources.SettingsFlow_BackMenu, ConsoleColor.Gray);
@@ -62,6 +63,9 @@ namespace EasySave
                         break;
                     case "6":
                         ModifyServerIp(settings);
+                        break;
+                    case "7":
+                        ModifyServerPort(settings);
                         break;
                     case "0":
                         exit = true;
@@ -342,9 +346,67 @@ namespace EasySave
                 settings.ServerIp = input.Trim();
                 LoggerService.ServerIp = settings.ServerIp;
                 SettingsManager.Instance.SaveSettings();
+                LoggerService.ForceReconnect();
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"\n      > {Resources.SettingsFlow_ServerIpSuccess}");
+                Console.ResetColor();
+
+                if (settings.LogTarget == LogTarget.Centralized || settings.LogTarget == LogTarget.Both)
+                {
+                    var reachable = LoggerService.CheckServerConnectionAsync().GetAwaiter().GetResult();
+                    if (!reachable)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"\n      {Resources.SettingsFlow_ServerOfflineWarning}");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"\n      {Resources.HomeView_LogServerStatusConnected}");
+                    }
+                    Console.ResetColor();
+                }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                Console.ResetColor();
+            }
+
+            Thread.Sleep(1500);
+        }
+
+        private static void ModifyServerPort(SettingsManager settings)
+        {
+            ConsoleView.DisplayHeader();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"      {Resources.SettingsFlow_ServerPort}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ServerPort.Length));
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"      {Resources.SettingsFlow_ServerPortDesc} : {settings.ServerPort}");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("       > ");
+            Console.ResetColor();
+
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int port) && port > 0 && port <= 65535)
+            {
+                settings.ServerPort = port;
+                LoggerService.ServerPort = port;
+                SettingsManager.Instance.SaveSettings();
+                LoggerService.ForceReconnect();
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"\n      > {Resources.SettingsFlow_ServerPortSuccess}");
                 Console.ResetColor();
 
                 if (settings.LogTarget == LogTarget.Centralized || settings.LogTarget == LogTarget.Both)
