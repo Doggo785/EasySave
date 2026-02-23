@@ -59,7 +59,10 @@ namespace EasyLog
                 using var cts = new CancellationTokenSource(timeoutMs);
                 using var client = new TcpClient();
                 await client.ConnectAsync(ServerIp, ServerPort, cts.Token);
-                return client.Connected;
+                using var stream = client.GetStream();
+                using var reader = new StreamReader(stream, Encoding.UTF8);
+                string greeting = await reader.ReadLineAsync(cts.Token);
+                return greeting == "EASYSAVE_LOGSERVER";
             }
             catch
             {
@@ -131,11 +134,26 @@ namespace EasyLog
                 {
                     using (var client = new TcpClient())
                     {
-                        await client.ConnectAsync(ServerIp, ServerPort, token);
-                        IsServerConnected = true;
-                        using (var stream = client.GetStream())
-                        using (var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true })
+                        // Use a linked token that also enforces a 5-second connection timeout.
+                        // Without this, ConnectAsync waits for the OS TCP timeout (20-75s)
+                        // when the remote host silently drops packets or a transparent proxy
+                        // intercepts the connection.
+                        using (var connectCts = CancellationTokenSource.CreateLinkedTokenSource(token))
                         {
+                            connectCts.CancelAfter(TimeSpan.FromSeconds(5));
+                            await client.ConnectAsync(ServerIp, ServerPort, connectCts.Token);
+                        }
+                        using (var stream = client.GetStream())
+                        using (var reader = new StreamReader(stream, Encoding.UTF8, false, 1024, leaveOpen: true))
+                        using (var writer = new StreamWriter(stream, Encoding.UTF8, -1, leaveOpen: true) { AutoFlush = true })
+                        {
+                            using var greetCts = CancellationTokenSource.CreateLinkedTokenSource(token);
+                            greetCts.CancelAfter(TimeSpan.FromSeconds(3));
+                            string greeting = await reader.ReadLineAsync(greetCts.Token);
+                            if (greeting != "EASYSAVE_LOGSERVER")
+                                throw new IOException("Invalid server handshake.");
+
+                            IsServerConnected = true;
                             while (!token.IsCancellationRequested)
                             {
                                 if (_logQueue.TryDequeue(out string logData))
@@ -168,13 +186,14 @@ namespace EasyLog
                         }
                     }
                 }
-                catch (OperationCanceledException)
+                catch (OperationCanceledException) when (token.IsCancellationRequested)
                 {
-                    // ForceReconnect() was called — loop back to reconnect with new settings
+                    // ForceReconnect() was called — loop back immediately with new settings
                     IsServerConnected = false;
                 }
                 catch (Exception)
                 {
+                    // Connection timeout, refused, or server disconnected
                     IsServerConnected = false;
                     // Wait before trying to reconnect, but respect cancellation
                     try { await Task.Delay(2000, _reconnectCts.Token); }

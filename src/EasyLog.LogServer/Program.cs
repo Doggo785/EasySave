@@ -71,7 +71,10 @@ namespace EasyLog.LogServer
             try
             {
                 using NetworkStream stream = client.GetStream();
-                using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                using StreamWriter writer = new StreamWriter(stream, Encoding.UTF8, bufferSize: -1, leaveOpen: true) { AutoFlush = true };
+                using StreamReader reader = new StreamReader(stream, Encoding.UTF8, false, 1024, leaveOpen: true);
+
+                await writer.WriteLineAsync("EASYSAVE_LOGSERVER");
 
                 while (true)
                 {
