@@ -22,6 +22,10 @@ namespace EasyLog
         private static readonly object _stateLock = new object();
         private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
 
+        // Configurable log target and server IP
+        public static LogTarget CurrentLogTarget { get; set; } = LogTarget.Both;
+        public static string ServerIp { get; set; } = "127.0.0.1";
+
         static LoggerService()
         {
             _ = Task.Run(ProcessLogQueueAsync);
@@ -40,20 +44,27 @@ namespace EasyLog
         {
             lock (_stateLock)
             {
-
-                string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
-                if (_logFormat)
+                // Write locally if target is Local or Both
+                if (CurrentLogTarget == LogTarget.Local || CurrentLogTarget == LogTarget.Both)
                 {
-                    WriteJson(logEntry, dailyFileName);
-                }
-                else
-                {
-                    WriteXml(logEntry, dailyFileName);
+                    string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
+                    if (_logFormat)
+                    {
+                        WriteJson(logEntry, dailyFileName);
+                    }
+                    else
+                    {
+                        WriteXml(logEntry, dailyFileName);
+                    }
                 }
 
-                var options = new JsonSerializerOptions { WriteIndented = false };
-                string jsonString = JsonSerializer.Serialize(logEntry, options);
-                _logQueue.Enqueue(jsonString);
+                // Enqueue for centralized server if target is Centralized or Both
+                if (CurrentLogTarget == LogTarget.Centralized || CurrentLogTarget == LogTarget.Both)
+                {
+                    var options = new JsonSerializerOptions { WriteIndented = false };
+                    string jsonString = JsonSerializer.Serialize(logEntry, options);
+                    _logQueue.Enqueue(jsonString);
+                }
             }
         }
 
@@ -83,7 +94,7 @@ namespace EasyLog
                 {
                     using (var client = new TcpClient())
                     {
-                        await client.ConnectAsync("127.0.0.1", 5000);
+                        await client.ConnectAsync(ServerIp, 5000);
                         using (var stream = client.GetStream())
                         using (var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true })
                         {

@@ -1067,5 +1067,86 @@ namespace EasySave.Core.Properties {
                 return ResourceManager.GetString("ThrowWrongInput", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Destination des logs.
+        /// </summary>
+        public static string SettingsFlow_LogTarget {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogTarget", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Choisissez où enregistrer les logs.
+        /// </summary>
+        public static string SettingsFlow_LogTargetDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogTargetDesc", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Local uniquement.
+        /// </summary>
+        public static string SettingsFlow_LogTarget_Local {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogTarget_Local", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Centralisé uniquement.
+        /// </summary>
+        public static string SettingsFlow_LogTarget_Centralized {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogTarget_Centralized", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Les deux.
+        /// </summary>
+        public static string SettingsFlow_LogTarget_Both {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogTarget_Both", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Destination des logs mise à jour avec succès..
+        /// </summary>
+        public static string SettingsFlow_LogTargetSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_LogTargetSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Adresse IP du serveur.
+        /// </summary>
+        public static string SettingsFlow_ServerIp {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerIp", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IP ou nom de domaine du serveur de logs centralisé.
+        /// </summary>
+        public static string SettingsFlow_ServerIpDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerIpDesc", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Adresse IP du serveur mise à jour avec succès..
+        /// </summary>
+        public static string SettingsFlow_ServerIpSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerIpSuccess", resourceCulture);
+            }
+        }
     }
 }

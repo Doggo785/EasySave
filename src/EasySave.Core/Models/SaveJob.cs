@@ -35,6 +35,7 @@ namespace EasySave.Core.Models
             SourceDirectory = source;
             TargetDirectory = target;
             SaveType = type;
+            ApplyLoggerSettings();
             _logger = new LoggerService(SettingsManager.Instance.LogFormat);
         }
 
@@ -43,7 +44,14 @@ namespace EasySave.Core.Models
             Name = string.Empty;
             SourceDirectory = string.Empty;
             TargetDirectory = string.Empty;
+            ApplyLoggerSettings();
             _logger = new LoggerService(SettingsManager.Instance.LogFormat);
+        }
+
+        private static void ApplyLoggerSettings()
+        {
+            LoggerService.CurrentLogTarget = SettingsManager.Instance.LogTarget;
+            LoggerService.ServerIp = SettingsManager.Instance.ServerIp;
         }
 
         // Executes the backup process synchronously

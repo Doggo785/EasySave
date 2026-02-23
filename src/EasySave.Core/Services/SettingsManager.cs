@@ -1,5 +1,6 @@
 ﻿using EasySave.Core.Models;
 using EasySave.Core.Properties;
+using EasyLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace EasySave.Core.Services
         // General settings
         public string Language { get; set; } = "fr";
         public bool LogFormat { get; set; } = true;
+        public LogTarget LogTarget { get; set; } = LogTarget.Both;
+        public string ServerIp { get; set; } = "127.0.0.1";
 
         // Lists for restrictions and cryptography
         public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
@@ -66,6 +69,8 @@ namespace EasySave.Core.Services
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
                         MaxConcurrentJobs = settings.MaxConcurrentJobs > 0 ? settings.MaxConcurrentJobs : Environment.ProcessorCount;
                         MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000; // Ajout partie 3
+                        LogTarget = (LogTarget)settings.LogTarget;
+                        ServerIp = !string.IsNullOrWhiteSpace(settings.ServerIp) ? settings.ServerIp : "127.0.0.1";
                     }
                 }
                 catch
@@ -91,7 +96,9 @@ namespace EasySave.Core.Services
                 EncryptedExtensions = EncryptedExtensions,
                 MaxConcurrentJobs = MaxConcurrentJobs,
                 MaxParallelFileSizeKb = MaxParallelFileSizeKb,
-                BusinessSoftwareNames = BusinessSoftwareNames
+                BusinessSoftwareNames = BusinessSoftwareNames,
+                LogTarget = (int)LogTarget,
+                ServerIp = ServerIp
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -129,6 +136,8 @@ namespace EasySave.Core.Services
             EncryptedExtensions = new List<string>();
             MaxConcurrentJobs = Environment.ProcessorCount;
             MaxParallelFileSizeKb = 1000; // Ajout partie 3
+            LogTarget = LogTarget.Both;
+            ServerIp = "127.0.0.1";
         }
 
         // Internal model for JSON serialization
@@ -140,6 +149,8 @@ namespace EasySave.Core.Services
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
             public int MaxConcurrentJobs { get; set; } = 0;
             public long MaxParallelFileSizeKb { get; set; } = 1000; // Ajout partie 3
+            public int LogTarget { get; set; } = 2; // Both
+            public string ServerIp { get; set; } = "127.0.0.1";
         }
     }
 }

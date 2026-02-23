@@ -453,4 +453,31 @@
   <data name="HomeView_Suspended" xml:space="preserve">
     <value>STATUT : SUSPENDU</value>
   </data>
+  <data name="SettingsFlow_LogTarget" xml:space="preserve">
+    <value>Destination des logs</value>
+  </data>
+  <data name="SettingsFlow_LogTargetDesc" xml:space="preserve">
+    <value>Choisissez où enregistrer les logs</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Local" xml:space="preserve">
+    <value>Local uniquement</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Centralized" xml:space="preserve">
+    <value>Centralisé uniquement</value>
+  </data>
+  <data name="SettingsFlow_LogTarget_Both" xml:space="preserve">
+    <value>Les deux</value>
+  </data>
+  <data name="SettingsFlow_LogTargetSuccess" xml:space="preserve">
+    <value>Destination des logs mise à jour avec succès.</value>
+  </data>
+  <data name="SettingsFlow_ServerIp" xml:space="preserve">
+    <value>Adresse IP du serveur</value>
+  </data>
+  <data name="SettingsFlow_ServerIpDesc" xml:space="preserve">
+    <value>IP ou nom de domaine du serveur de logs centralisé</value>
+  </data>
+  <data name="SettingsFlow_ServerIpSuccess" xml:space="preserve">
+    <value>Adresse IP du serveur mise à jour avec succès.</value>
+  </data>
 </root>
