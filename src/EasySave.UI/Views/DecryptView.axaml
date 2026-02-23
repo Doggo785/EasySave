@@ -13,14 +13,19 @@
                 VerticalAlignment="Top">
             <StackPanel Spacing="20" MaxWidth="600" HorizontalAlignment="Left">
 
-                <!-- Source file -->
+                <!-- Source: file or folder -->
                 <StackPanel Spacing="6">
                     <TextBlock Text="{Binding [Decrypt_Arg_Source], Source={x:Static services:SettingsManager.Instance}}"
                                Foreground="#aaa" FontSize="13"/>
-                    <Grid ColumnDefinitions="*, Auto">
+                    <Grid ColumnDefinitions="*, Auto, Auto">
                         <TextBox Grid.Column="0" Text="{Binding SourcePath}" Watermark="C:\..."/>
-                        <Button Grid.Column="1" Content="&#128193;" Padding="12,8" Margin="8,0,0,0"
-                                Command="{Binding BrowseSourceCommand}"
+                        <Button Grid.Column="1" Content="&#128196;" Padding="12,8" Margin="8,0,0,0"
+                                ToolTip.Tip="Fichier"
+                                Command="{Binding BrowseSourceFileCommand}"
+                                Background="#2d2d2d" Foreground="White"/>
+                        <Button Grid.Column="2" Content="&#128193;" Padding="12,8" Margin="4,0,0,0"
+                                ToolTip.Tip="Dossier"
+                                Command="{Binding BrowseSourceFolderCommand}"
                                 Background="#2d2d2d" Foreground="White"/>
                     </Grid>
                 </StackPanel>
@@ -56,7 +61,21 @@
                     </StackPanel>
                 </Button>
 
-                <!-- Status message (success = green, error = red) -->
+                <!-- Progress bar (folder mode) -->
+                <StackPanel Spacing="4" IsVisible="{Binding ShowProgress}">
+                    <ProgressBar Value="{Binding Progress}" Maximum="100" Height="6"
+                                 Foreground="#00bcd4" Background="#444" CornerRadius="3">
+                        <ProgressBar.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Value" Duration="0:0:0.3"/>
+                            </Transitions>
+                        </ProgressBar.Transitions>
+                    </ProgressBar>
+                    <TextBlock Text="{Binding Progress, StringFormat={}{0}%}"
+                               Foreground="#888" FontSize="12" HorizontalAlignment="Right"/>
+                </StackPanel>
+
+                <!-- Status message -->
                 <TextBlock Text="{Binding StatusMessage}"
                            TextWrapping="Wrap" FontSize="13"
                            Foreground="{Binding StatusColor}"
