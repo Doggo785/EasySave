@@ -5,28 +5,23 @@
              x:Class="EasySave.UI.Views.JobsView"
              x:DataType="vm:JobsViewModel">
 
-	<Grid Margin="30" RowDefinitions="Auto, *">
-		<TextBlock Text="{Binding [Menu_Option1], Source={x:Static services:SettingsManager.Instance}}"
+    <Grid Margin="30" RowDefinitions="Auto, *">
+        <TextBlock Text="{Binding [Menu_Option1], Source={x:Static services:SettingsManager.Instance}}"
                    FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
 
-		<Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="20">
-			<Grid RowDefinitions="Auto, *">
-				<Grid ColumnDefinitions="*, Auto" Margin="0,0,0,25">
-					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-						<TextBlock Text="{Binding Jobs.Count}"
-                                   Foreground="#888"
-                                   FontSize="14"
-                                   Margin="0,0,5,0"/>
-						<TextBlock Text="{Binding [JobsView_Config_Jog], Source={x:Static services:SettingsManager.Instance}}"
-                                   Foreground="#888"
-                                   FontSize="14"/>
-					</StackPanel>
+        <Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="20">
+            <Grid RowDefinitions="Auto, *">
+                <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,25">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Jobs.Count}" Foreground="#888" FontSize="14" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding [JobsView_Config_Jog], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="14"/>
+                    </StackPanel>
+                    
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
                         <Button Background="#00bcd4" Foreground="Black" Command="{Binding ExecuteSelectedCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <TextBlock Text="☑"/>
-                                <TextBlock Text="{Binding [Run_selection], Source={x:Static services:SettingsManager.Instance}}"/>
-                            </StackPanel>
+                                <TextBlock Text="Lancer la sélection"/> </StackPanel>
                         </Button>
                         
                         <Button Background="#228B22" Foreground="White" Command="{Binding ExecuteAllCommand}">
@@ -39,13 +34,14 @@
                 </Grid>
 
                 <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto">
-                    <Grid ColumnDefinitions="40, 40, 2*, 2*, 80, 220" Margin="10,0,10,10">
+                    
+                    <Grid ColumnDefinitions="40, 40, 1.5*, 2.5*, 2.5*, 60, 130" Margin="10,0,10,10">
                         <TextBlock Grid.Column="1" Text="{Binding [Header_Id], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
-                        <TextBlock Grid.Column="2" Text="Source" FontWeight="Bold" Foreground="#666" Margin="0,0,10,0"/>
                         <TextBlock Grid.Column="2" Text="{Binding [Header_Name], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
-                        <TextBlock Grid.Column="3" Text="{Binding [Header_Dest], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
-                        <TextBlock Grid.Column="4" Text="{Binding [Header_Type], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
-                        <TextBlock Grid.Column="5" Text="ACTIONS" FontWeight="Bold" Foreground="#666" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="3" Text="SOURCE" FontWeight="Bold" Foreground="#666"/>
+                        <TextBlock Grid.Column="4" Text="{Binding [Header_Dest], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
+                        <TextBlock Grid.Column="5" Text="{Binding [Header_Type], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" Foreground="#666"/>
+                        <TextBlock Grid.Column="6" Text="ACTIONS" FontWeight="Bold" Foreground="#666" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                     </Grid>
 
                     <ScrollViewer Grid.Row="1">
@@ -54,16 +50,24 @@
                                 <DataTemplate x:DataType="vm:JobItemViewModel">
                                     <Border Background="#2d2d2d" CornerRadius="6" Padding="15,10" Margin="0,0,0,8">
                                         <Grid RowDefinitions="Auto, Auto">
-                                            <Grid ColumnDefinitions="40, 40, 2*, 2*, 80, 220">
+                                            
+                                            <Grid ColumnDefinitions="40, 40, 1.5*, 2.5*, 2.5*, 60, 130">
                                                 
                                                 <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                                 
                                                 <TextBlock Grid.Column="1" Text="{Binding Id}" VerticalAlignment="Center" Foreground="#666"/>
-                                                <TextBlock Grid.Column="2" Text="{Binding Name}" VerticalAlignment="Center" FontWeight="Bold"/>
-												<TextBlock Grid.Column="2" Text="{Binding SourceDirectory}" VerticalAlignment="Center" Foreground="#aaa" FontSize="12" TextTrimming="PathSegmentEllipsis" Margin="0,0,20,0" ToolTip.Tip="{Binding SourceDirectory}" />
-                                                <TextBlock Grid.Column="3" Text="{Binding TargetDirectory}" VerticalAlignment="Center" Foreground="#aaa"/>
                                                 
-                                                <Grid Grid.Column="4" VerticalAlignment="Center">
+                                                <TextBlock Grid.Column="2" Text="{Binding Name}" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,15,0" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Name}"/>
+                                                
+                                                <Grid Grid.Column="3" ColumnDefinitions="Auto, *" Margin="0,0,15,0" VerticalAlignment="Center" ToolTip.Tip="{Binding SourceDirectory}">
+                                                    <TextBlock Grid.Column="1" Text="{Binding SourceDirectory}" Foreground="#aaa" FontSize="12" TextTrimming="PathSegmentEllipsis" VerticalAlignment="Center"/>
+                                                </Grid>
+
+                                                <Grid Grid.Column="4" ColumnDefinitions="Auto, *" Margin="0,0,15,0" VerticalAlignment="Center" ToolTip.Tip="{Binding TargetDirectory}">
+                                                    <TextBlock Grid.Column="1" Text="{Binding TargetDirectory}" Foreground="#aaa" FontSize="12" TextTrimming="PathSegmentEllipsis" VerticalAlignment="Center"/>
+                                                </Grid>
+                                                
+                                                <Grid Grid.Column="5" VerticalAlignment="Center">
                                                     <Border Background="#228B22" CornerRadius="4" HorizontalAlignment="Left" Padding="8,4" IsVisible="{Binding SaveType}">
                                                         <TextBlock Text="FULL" FontSize="11" FontWeight="Bold" Foreground="White"/>
                                                     </Border>
@@ -72,7 +76,7 @@
                                                     </Border>
                                                 </Grid>
 
-                                                <StackPanel Grid.Column="5" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Right">
+                                                <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Right">
                                                     <Button Content="{Binding ActionIcon}" Padding="8,4" Background="{Binding ActionColor}" Foreground="White" Command="{Binding $parent[UserControl].DataContext.TogglePlayPauseCommand}" CommandParameter="{Binding Id}"/>
                                                     <Button Content="⏹" Padding="8,4" Background="#8B0000" Foreground="White" Command="{Binding $parent[UserControl].DataContext.StopJobCommand}" CommandParameter="{Binding Id}"/>
                                                     <Button Content="🗑" Padding="8,4" Background="#555555" Foreground="White" Command="{Binding $parent[UserControl].DataContext.DeleteJobCommand}" CommandParameter="{Binding Id}"/>
@@ -93,9 +97,9 @@
                         </ItemsControl>
                     </ScrollViewer>
 
-					<TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="#00bcd4" Margin="10,10,10,0" TextWrapping="Wrap" FontSize="13"/>
-				</Grid>
-			</Grid>
-		</Border>
-	</Grid>
+                    <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="#00bcd4" Margin="10,10,10,0" TextWrapping="Wrap" FontSize="13"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>
