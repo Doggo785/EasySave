@@ -113,6 +113,13 @@ namespace EasySave.UI.ViewModels
         private bool _isExecutingAll = false;
         public string StatusMessage { get => _statusMessage; set => this.RaiseAndSetIfChanged(ref _statusMessage, value); }
 
+        private bool _hasSelectedJobs;
+        public bool HasSelectedJobs
+        {
+            get => _hasSelectedJobs;
+            set => this.RaiseAndSetIfChanged(ref _hasSelectedJobs, value);
+        }
+
         // UI Commands
         public ReactiveCommand<Unit, Unit> CreateJobCommand { get; }
         public ReactiveCommand<int, Unit> TogglePlayPauseCommand { get; } // Single unified command
@@ -129,13 +136,14 @@ namespace EasySave.UI.ViewModels
             Jobs = new ObservableCollection<JobItemViewModel>();
             RefreshList();
             UpdateUiStatesContinuously();
+            var canExecuteSelected = this.WhenAnyValue(x => x.HasSelectedJobs);
 
             CreateJobCommand = ReactiveCommand.Create(CreateJob);
             TogglePlayPauseCommand = ReactiveCommand.CreateFromTask<int>(TogglePlayPauseAsync);
             StopJobCommand = ReactiveCommand.Create<int>(StopJob);
             DeleteJobCommand = ReactiveCommand.Create<int>(DeleteJob);
             ExecuteAllCommand = ReactiveCommand.CreateFromTask(ExecuteAllAsync);
-            ExecuteSelectedCommand = ReactiveCommand.CreateFromTask(ExecuteSelectedAsync);
+            ExecuteSelectedCommand = ReactiveCommand.CreateFromTask(ExecuteSelectedAsync, canExecuteSelected);
             BrowseSourceCommand = ReactiveCommand.CreateFromTask(BrowseSourceAsync);
             BrowseDestCommand = ReactiveCommand.CreateFromTask(BrowseDestAsync);
         }
@@ -322,8 +330,20 @@ namespace EasySave.UI.ViewModels
             Jobs.Clear();
             foreach (var job in _saveManager.GetJobs())
             {
-                Jobs.Add(new JobItemViewModel(job));
+                var jobVm = new JobItemViewModel(job);
+
+                jobVm.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(JobItemViewModel.IsSelected))
+                    {
+                        HasSelectedJobs = Jobs.Any(j => j.IsSelected);
+                    }
+                };
+
+                Jobs.Add(jobVm);
             }
+
+            HasSelectedJobs = Jobs.Any(j => j.IsSelected);
         }
 
         private void UpdateUiStatesContinuously()
@@ -409,6 +429,14 @@ namespace EasySave.UI.ViewModels
                 ).ToList();
 
                 await Task.WhenAll(tasks);
+            }
+            catch (OperationCanceledException)
+            {
+                DisplayMessage(Resources.JobViewModel_Cancelexecution);
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage($"Erreur : {ex.Message}");
             }
             finally
             {
