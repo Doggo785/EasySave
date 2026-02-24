@@ -8,6 +8,7 @@ namespace EasySave.UI.ViewModels
         public HomeViewModel HomeVM { get; }
         public JobsViewModel JobsVM { get; }
         public SettingsViewModel SettingsVM { get; }
+        public DecryptViewModel DecryptVM { get; }
 
         public MainWindowViewModel()
         {
@@ -15,6 +16,7 @@ namespace EasySave.UI.ViewModels
             HomeVM = new HomeViewModel(saveManager);
             JobsVM = new JobsViewModel(saveManager);
             SettingsVM = new SettingsViewModel();
+            DecryptVM = new DecryptViewModel();
         }
     }
 }

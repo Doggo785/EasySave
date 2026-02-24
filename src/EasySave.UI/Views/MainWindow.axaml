@@ -136,15 +136,28 @@
                 <views:CreateJobView DataContext="{Binding JobsVM}" />
             </TabItem>
 
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Spacing="15">
-                        <TextBlock Text="⚙️"/>
-                        <TextBlock Text="{Binding [Menu_OptionSettings], Source={x:Static services:SettingsManager.Instance}}"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <views:SettingsView DataContext="{Binding SettingsVM}" />
-            </TabItem>
+		<!-- Decryption Tab -->
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="15">
+                    <TextBlock Text="🔓"/>
+                    <TextBlock Text="{Binding [Menu_OptionDecrypt], Source={x:Static services:SettingsManager.Instance}}"/>
+                </StackPanel>
+            </TabItem.Header>
+            <views:DecryptView DataContext="{Binding DecryptVM}" />
+        </TabItem>
+
+
+			<!-- Settings tab -->
+			<TabItem>
+				<TabItem.Header>
+					<StackPanel Orientation="Horizontal" Spacing="15">
+						<TextBlock Text="⚙️"/>
+						<TextBlock Text="{Binding [Menu_OptionSettings], Source={x:Static services:SettingsManager.Instance}}"/>
+					</StackPanel>
+				</TabItem.Header>
+				<views:SettingsView DataContext="{Binding SettingsVM}" />
+			</TabItem>
 
         </TabControl>
 
