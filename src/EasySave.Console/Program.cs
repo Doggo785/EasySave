@@ -9,7 +9,7 @@ namespace EasySave
 {
     class Program
     {
-        static SaveManager _SaveManager = new SaveManager();
+        static SaveManager _saveManager = new SaveManager();
         static ConsoleView _view = new ConsoleView();
 
         static void Main(string[] args)
@@ -33,33 +33,33 @@ namespace EasySave
 
                 switch (choice)
                 {
-                    case "1": // LISTER
-                        _view.DisplayJobs(_SaveManager.GetJobs());
+                    case "1":
+                        _view.DisplayJobs(_saveManager.GetJobs());
                         Console.WriteLine($"      {Resources.Msg_Return}");
                         Console.ReadLine();
                         break;
 
-                    case "2": // CRÉER
-                        CreateJobFlow(_SaveManager, _view);
+                    case "2":
+                        CreateJobFlow(_saveManager, _view);
                         break;
 
-                    case "3": // EXÉCUTER
-                        ExecuteJobFlow(_SaveManager, _view);
+                    case "3":
+                        ExecuteJobFlow(_saveManager, _view);
                         break;
 
-                    case "4": // SUPPRIMER
-                        DeleteJobFlow(_SaveManager, _view);
+                    case "4":
+                        DeleteJobFlow(_saveManager, _view);
                         break;
 
-                    case "5": // SHOW SETTINGS
+                    case "5":
                         ShowSettingsFlow(_view);
                         break;
 
-                    case "6": // DÉCHIFFRER
+                    case "6":
                         DecryptFileFlow(_view);
                         break;
 
-                    case "7": // QUITTER
+                    case "7":
                         exit = true;
                         break;
 
@@ -130,37 +130,19 @@ namespace EasySave
                 var parts = command.Split('-');
                 if (parts.Length == 2 && int.TryParse(parts[0], out int start) && int.TryParse(parts[1], out int end))
                 {
-                    for (int i = start; i <= end; i++)
-                    {
-                        if (jobs.Any(j => j.Id == i))
-                        {
-                            _SaveManager.ExecuteJob(i, ConsoleRequestPassword, ConsoleDisplayMessage).GetAwaiter().GetResult();
-                        }
-                    }
+                    for (int i = start; i <= end; i++) _saveManager.ExecuteJob(i, ConsoleRequestPassword, ConsoleDisplayMessage);
                 }
             }
             else if (command.Contains(";"))
             {
                 foreach (var idStr in command.Split(';'))
                 {
-                    if (int.TryParse(idStr, out int id) && jobs.Any(j => j.Id == id))
-                    {
-                        _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage).GetAwaiter().GetResult();
-                    }
+                    if (int.TryParse(idStr, out int id)) _saveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
                 }
             }
             else if (int.TryParse(command, out int id))
             {
-                if (jobs.Any(j => j.Id == id))
-                {
-                    _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage).GetAwaiter().GetResult();
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"ID {id} non trouvé.");
-                    Console.ResetColor();
-                }
+                _saveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
             }
         }
 

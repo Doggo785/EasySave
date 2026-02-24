@@ -34,7 +34,7 @@ namespace EasySave.UI.ViewModels
                 this.RaiseAndSetIfChanged(ref _selectedLogFormatIndex, value);
 
                 bool isJson = (value == 0);
-                LoggerService._logFormat = isJson;
+                LoggerService.LogFormat = isJson;
                 SettingsManager.Instance.LogFormat = (value == 0);
                 SettingsManager.Instance.SaveSettings();
             }
@@ -270,7 +270,7 @@ namespace EasySave.UI.ViewModels
             SyncExtensionsToSettings();
         }
 
-        // Méthodes Priority files
+        // Priority files methods
         private void AddPriorityExtension()
         {
             if (string.IsNullOrWhiteSpace(NewPriorityExtension)) return;

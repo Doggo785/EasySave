@@ -54,7 +54,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isLogServerConnected, value);
         }
 
-        //public string WelcomeMessage => $"Bienvenue {Environment.UserName}";
         public string WelcomeMessage => $"{SettingsManager.Instance["Welcome"]} {Environment.UserName}";
 
         public HomeViewModel()

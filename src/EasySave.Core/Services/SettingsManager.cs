@@ -123,7 +123,8 @@ namespace EasySave.Core.Services
             }
             catch (CultureNotFoundException)
             {
-        }
+
+            }
         }
         private void ResetSettings()
         {

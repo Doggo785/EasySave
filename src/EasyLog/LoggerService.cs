@@ -18,7 +18,7 @@ namespace EasyLog
     {
         private string _logDirectory;
         private string _stateFilePath;
-        public static bool _logFormat; // true = JSON, false = XML
+        public static bool LogFormat; // true = JSON, false = XML
 
         private static readonly object _stateLock = new object();
         private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
@@ -69,7 +69,7 @@ namespace EasyLog
             _stateFilePath = Path.Combine(_logDirectory, "state.json");
             EnsureDirectoryExist();
 
-            _logFormat = logFormat;
+            LogFormat = logFormat;
         }
         public void WriteDailyLog(DailyLog logEntry)
         {
@@ -78,7 +78,7 @@ namespace EasyLog
                 if (CurrentLogTarget == LogTarget.Local || CurrentLogTarget == LogTarget.Both)
                 {
                     string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
-                    if (_logFormat == true)
+                    if (LogFormat == true)
                     {
                         WriteJson(logEntry, dailyFileName);
                     }
@@ -92,7 +92,7 @@ namespace EasyLog
                 if (CurrentLogTarget == LogTarget.Centralized || CurrentLogTarget == LogTarget.Both)
                 {
                     string serialized;
-                    if (_logFormat)
+                    if (LogFormat)
                     {
                         var options = new JsonSerializerOptions { WriteIndented = false };
                         serialized = JsonSerializer.Serialize(logEntry, options);

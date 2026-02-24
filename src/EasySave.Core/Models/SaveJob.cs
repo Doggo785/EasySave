@@ -58,7 +58,7 @@ namespace EasySave.Core.Models
         // Executes the backup process synchronously
         public void Run(
             List<string> extensionsToEncrypt,
-            SemaphoreSlim grosFichierEnCours,
+            SemaphoreSlim largeFileSemaphore,
             ManualResetEventSlim noPriorityPending,
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
@@ -81,7 +81,7 @@ namespace EasySave.Core.Models
 
             // Priority and non-priority separation
             var priorityExtensions = SettingsManager.Instance.PriorityExtensions;
-            long tailleMax = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
+            long maxFileSizeBytes = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
 
             var priorityFiles = allFiles
                 .Where(f => priorityExtensions != null &&
@@ -124,9 +124,9 @@ namespace EasySave.Core.Models
 
                 bool isPriority = priorityExtensions != null &&
                                   priorityExtensions.Contains(file.Extension, StringComparer.OrdinalIgnoreCase);
-                bool isLarge = file.Length > tailleMax;
+                bool isLarge = file.Length > maxFileSizeBytes;
 
-                /// Non-priority files are blocked as long as there are priority files waiting on a job in progress.
+                // Non-priority files are blocked as long as there are priority files waiting on a job in progress.
                 if (!isPriority)
                 {
                     noPriorityPending.Wait(cancellationToken);
@@ -148,14 +148,14 @@ namespace EasySave.Core.Models
                     if (isLarge)
                     {
                         // Large file: we wait for the semaphore to become free (only one at a time)
-                        grosFichierEnCours.Wait(cancellationToken);
+                        largeFileSemaphore.Wait(cancellationToken);
                         try
                         {
                             fileLog = CopyFile(file.FullName, targetPath);
                         }
                         finally
                         {
-                            grosFichierEnCours.Release();
+                            largeFileSemaphore.Release();
                         }
                     }
                     else

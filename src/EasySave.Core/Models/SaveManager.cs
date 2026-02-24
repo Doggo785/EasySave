@@ -16,7 +16,7 @@ namespace EasySave.Core.Models
         private List<SaveJob> _jobs;
         private readonly object _jobsLock = new object();
         private SemaphoreSlim _concurrencyLimiter;
-        private static readonly SemaphoreSlim _grosFichierEnCours = new SemaphoreSlim(1, 1);
+        private static readonly SemaphoreSlim _largeFileSemaphore = new SemaphoreSlim(1, 1);
 
         // Priority file management
         private static int _priorityFilesRemaining = 0;
@@ -40,8 +40,8 @@ namespace EasySave.Core.Models
 
         private readonly Dictionary<int, CancellationTokenSource> _activeJobsTokens = new Dictionary<int, CancellationTokenSource>();
 
-        private static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private static readonly string _logDirectory = Path.Combine(appDataPath, "ProSoft", "EasySave", "UserConfig");
+        private static string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static readonly string _logDirectory = Path.Combine(_appDataPath, "ProSoft", "EasySave", "UserConfig");
         private readonly string _saveFilePath = Path.Combine(_logDirectory, "jobs.json");
 
         public SaveManager()
@@ -145,7 +145,7 @@ namespace EasySave.Core.Models
 
                 await job.RunAsync(
                     SettingsManager.Instance.EncryptedExtensions,
-                    _grosFichierEnCours,
+                    _largeFileSemaphore,
                     _noPriorityPending,
                     requestPassword,
                     displayMessage,

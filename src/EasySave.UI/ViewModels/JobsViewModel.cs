@@ -257,7 +257,7 @@ namespace EasySave.UI.ViewModels
             if (owner == null) return;
 
             var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
-            string jobName = jobVm != null ? jobVm.Name : "ce travail";
+            string jobName = jobVm != null ? jobVm.Name : "null";
 
             string template = SettingsManager.Instance["Confirm_Delete_Message"];
 
