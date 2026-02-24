@@ -160,7 +160,17 @@ namespace EasyLog.LogServer
 
                     try
                     {
-                        await File.AppendAllTextAsync(filePath, logEntry + Environment.NewLine);
+                        string prettyJson;
+                        try
+                        {
+                            using var doc = JsonDocument.Parse(logEntry);
+                            prettyJson = JsonSerializer.Serialize(doc.RootElement, new JsonSerializerOptions { WriteIndented = true });
+                        }
+                        catch
+                        {
+                            prettyJson = logEntry;
+                        }
+                        await File.AppendAllTextAsync(filePath, prettyJson + Environment.NewLine);
                         Interlocked.Increment(ref _logsWritten);
                     }
                     catch (Exception)
