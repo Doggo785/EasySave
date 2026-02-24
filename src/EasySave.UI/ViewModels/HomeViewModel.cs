@@ -3,16 +3,13 @@ using EasySave.Core.Models;
 using EasySave.Core.Services;
 using ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace EasySave.UI.ViewModels
 {
     public class HomeViewModel : ReactiveObject
     {
         private DispatcherTimer _updateTimer;
+        private readonly SaveManager _saveManager;
 
         // 1. Total number of jobs indicator
         private int _totalJobsCount;
@@ -54,11 +51,11 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isLogServerConnected, value);
         }
 
-        //public string WelcomeMessage => $"Bienvenue {Environment.UserName}";
         public string WelcomeMessage => $"{SettingsManager.Instance["Welcome"]} {Environment.UserName}";
 
-        public HomeViewModel()
+        public HomeViewModel(SaveManager saveManager)
         {
+            _saveManager = saveManager;
             // Initial fetch to populate UI immediately
             UpdateDashboard();
 
@@ -73,69 +70,18 @@ namespace EasySave.UI.ViewModels
         // Updates all dashboard indicators. Triggered by the DispatcherTimer.
         private void UpdateDashboard()
         {
+            TotalJobsCount = _saveManager.GetJobs().Count;
 
-            TotalJobsCount = GetJobsCount();
-
-            LastBackupTime = GetLastBackupTime();
+            var lastBackup = _saveManager.LastBackupTime;
+            LastBackupTime = lastBackup != DateTime.MinValue
+                ? lastBackup.ToString("HH:mm:ss - dd/MM/yyyy")
+                : "--:--";
 
             CheckBusinessProcess();
 
             LogFormat = SettingsManager.Instance.LogFormat ? "JSON" : "XML";
 
             CheckLogServerConnection();
-        }
-
-        private int GetJobsCount()
-        {
-            try
-            {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string jobsFilePath = Path.Combine(appDataPath, "ProSoft", "EasySave", "UserConfig", "jobs.json");
-
-                if (File.Exists(jobsFilePath))
-                {
-                    // Open with FileShare.ReadWrite so we don't block the file if another part of the app is writing
-                    using var stream = new FileStream(jobsFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using var reader = new StreamReader(stream);
-                    string json = reader.ReadToEnd();
-
-                    var jobs = JsonSerializer.Deserialize<List<SaveJob>>(json);
-                    return jobs?.Count ?? 0;
-                }
-            }
-            catch
-            {
-                // Silently ignore parsing/locking errors
-            }
-            return 0;
-        }
-
-        private string GetLastBackupTime()
-        {
-            try
-            {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string stateFilePath = Path.Combine(appDataPath, "ProSoft", "EasySave", "Logs", "state.json");
-
-                if (File.Exists(stateFilePath))
-                {
-                    using var stream = new FileStream(stateFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using var reader = new StreamReader(stream);
-                    string json = reader.ReadToEnd();
-
-                    var stateLog = JsonSerializer.Deserialize<StateLog>(json);
-
-                    if (stateLog != null && stateLog.LastActionTimestamp != DateTime.MinValue)
-                    {
-                        return stateLog.LastActionTimestamp.ToString("HH:mm:ss - dd/MM/yyyy");
-                    }
-                }
-            }
-            catch
-            {
-                // Silently ignore parsing/locking errors
-            }
-            return "--:--";
         }
 
         private void CheckBusinessProcess()

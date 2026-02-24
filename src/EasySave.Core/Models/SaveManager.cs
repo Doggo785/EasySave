@@ -16,7 +16,7 @@ namespace EasySave.Core.Models
         private List<SaveJob> _jobs;
         private readonly object _jobsLock = new object();
         private SemaphoreSlim _concurrencyLimiter;
-        private static readonly SemaphoreSlim _grosFichierEnCours = new SemaphoreSlim(1, 1);
+        private static readonly SemaphoreSlim _largeFileSemaphore = new SemaphoreSlim(1, 1);
 
         // Priority file management
         private static int _priorityFilesRemaining = 0;
@@ -39,9 +39,10 @@ namespace EasySave.Core.Models
         }
 
         private readonly Dictionary<int, CancellationTokenSource> _activeJobsTokens = new Dictionary<int, CancellationTokenSource>();
+        public DateTime LastBackupTime { get; private set; } = DateTime.MinValue;
 
-        private static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private static readonly string _logDirectory = Path.Combine(appDataPath, "ProSoft", "EasySave", "UserConfig");
+        private static string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static readonly string _logDirectory = Path.Combine(_appDataPath, "ProSoft", "EasySave", "UserConfig");
         private readonly string _saveFilePath = Path.Combine(_logDirectory, "jobs.json");
 
         public SaveManager()
@@ -51,6 +52,8 @@ namespace EasySave.Core.Models
             int maxConcurrent = SettingsManager.Instance.MaxConcurrentJobs;
             if (maxConcurrent <= 0) maxConcurrent = Environment.ProcessorCount;
             _concurrencyLimiter = new SemaphoreSlim(maxConcurrent, maxConcurrent);
+
+            LastBackupTime = LoadLastBackupTime();
         }
 
         public List<SaveJob> GetJobs()
@@ -145,11 +148,12 @@ namespace EasySave.Core.Models
 
                 await job.RunAsync(
                     SettingsManager.Instance.EncryptedExtensions,
-                    _grosFichierEnCours,
+                    _largeFileSemaphore,
                     _noPriorityPending,
                     requestPassword,
                     displayMessage,
                     cts.Token);
+                LastBackupTime = DateTime.Now;
             }
             finally
             {
@@ -229,6 +233,24 @@ namespace EasySave.Core.Models
         {
             if (!Directory.Exists(_logDirectory))
                 Directory.CreateDirectory(_logDirectory);
+        }
+
+        private static DateTime LoadLastBackupTime()
+        {
+            try
+            {
+                string stateFilePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "ProSoft", "EasySave", "Logs", "state.json");
+                if (File.Exists(stateFilePath))
+                {
+                    string json = File.ReadAllText(stateFilePath);
+                    var state = JsonSerializer.Deserialize<StateLog>(json);
+                    return state?.LastActionTimestamp ?? DateTime.MinValue;
+                }
+            }
+            catch { }
+            return DateTime.MinValue;
         }
 
         // Checks if any configured business software is currently running

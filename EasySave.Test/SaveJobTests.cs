@@ -83,7 +83,8 @@ namespace EasySave.Tests
             var messages = new List<string>();
 
             // Act
-            var act = () => job.Run(new List<string>(), semaphore, null, msg => messages.Add(msg));
+            var noPriority = new ManualResetEventSlim(true);
+            var act = () => job.Run(new List<string>(), semaphore, noPriority, null, msg => messages.Add(msg));
 
             // Assert
             act.Should().NotThrow(
@@ -108,7 +109,7 @@ namespace EasySave.Tests
             try
             {
                 // Act
-                job.Run(new List<string>(), semaphore);
+                job.Run(new List<string>(), semaphore, new ManualResetEventSlim(true));
 
                 // Assert
                 string copiedFile = Path.Combine(targetDir, "test.txt");

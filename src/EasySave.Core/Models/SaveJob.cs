@@ -58,7 +58,7 @@ namespace EasySave.Core.Models
         // Executes the backup process synchronously
         public void Run(
             List<string> extensionsToEncrypt,
-            SemaphoreSlim grosFichierEnCours,
+            SemaphoreSlim largeFileSemaphore,
             ManualResetEventSlim noPriorityPending,
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
@@ -81,16 +81,18 @@ namespace EasySave.Core.Models
 
             // Priority and non-priority separation
             var priorityExtensions = SettingsManager.Instance.PriorityExtensions;
-            long tailleMax = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
+            long maxFileSizeBytes = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
 
-            var priorityFiles = allFiles
-                .Where(f => priorityExtensions != null &&
-                            priorityExtensions.Contains(f.Extension, StringComparer.OrdinalIgnoreCase))
-                .ToList();
-            var normalFiles = allFiles
-                .Where(f => priorityExtensions == null ||
-                            !priorityExtensions.Contains(f.Extension, StringComparer.OrdinalIgnoreCase))
-                .ToList();
+            var priorityFiles = new List<FileInfo>();
+            var normalFiles = new List<FileInfo>();
+            bool hasPriorityExtensions = priorityExtensions is { Count: > 0 };
+            foreach (var f in allFiles)
+            {
+                if (hasPriorityExtensions && priorityExtensions!.Contains(f.Extension, StringComparer.OrdinalIgnoreCase))
+                    priorityFiles.Add(f);
+                else
+                    normalFiles.Add(f);
+            }
 
             // Announcement, before the start of the job, of the number of priority files in order to immediately block non-priority files from all jobs.
             SaveManager.RegisterPriorityFiles(priorityFiles.Count);
@@ -116,17 +118,16 @@ namespace EasySave.Core.Models
             _logger.UpdateStateLog(stateLog);
 
             // Priority files first, then regular ones
-            foreach (var file in priorityFiles.Concat(normalFiles))
+            foreach (var (file, isPriority) in
+                priorityFiles.Select(f => (f, true)).Concat(normalFiles.Select(f => (f, false))))
             {
                 // Thread control checkpoints
                 cancellationToken.ThrowIfCancellationRequested();
                 PauseEvent.Wait(cancellationToken);
 
-                bool isPriority = priorityExtensions != null &&
-                                  priorityExtensions.Contains(file.Extension, StringComparer.OrdinalIgnoreCase);
-                bool isLarge = file.Length > tailleMax;
+                bool isLarge = file.Length > maxFileSizeBytes;
 
-                /// Non-priority files are blocked as long as there are priority files waiting on a job in progress.
+                // Non-priority files are blocked as long as there are priority files waiting on a job in progress.
                 if (!isPriority)
                 {
                     noPriorityPending.Wait(cancellationToken);
@@ -148,20 +149,20 @@ namespace EasySave.Core.Models
                     if (isLarge)
                     {
                         // Large file: we wait for the semaphore to become free (only one at a time)
-                        grosFichierEnCours.Wait(cancellationToken);
+                        largeFileSemaphore.Wait(cancellationToken);
                         try
                         {
-                            fileLog = CopyFile(file.FullName, targetPath);
+                            fileLog = CopyFile(file, targetPath);
                         }
                         finally
                         {
-                            grosFichierEnCours.Release();
+                            largeFileSemaphore.Release();
                         }
                     }
                     else
                     {
                         // Small file: free parallel transfer
-                        fileLog = CopyFile(file.FullName, targetPath);
+                        fileLog = CopyFile(file, targetPath);
                     }
 
                     int encryptionTimeMs = 0;
@@ -234,14 +235,14 @@ namespace EasySave.Core.Models
             return sourceFile.LastWriteTime > targetFile.LastWriteTime;
         }
 
-        private DailyLog CopyFile(string source, string destination)
+        private DailyLog CopyFile(FileInfo sourceFile, string destination)
         {
             long transferTime = 0;
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
             try
             {
-                File.Copy(source, destination, true);
+                File.Copy(sourceFile.FullName, destination, true);
             }
             catch (Exception)
             {
@@ -255,9 +256,9 @@ namespace EasySave.Core.Models
             {
                 TimeStamp = DateTime.Now,
                 JobName = Name,
-                SourceFile = source,
+                SourceFile = sourceFile.FullName,
                 TargetFile = destination,
-                FileSize = new FileInfo(source).Length,
+                FileSize = sourceFile.Length,
                 TransferTimeMs = transferTime
             };
             return dailyLog;

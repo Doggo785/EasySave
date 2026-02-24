@@ -1,5 +1,6 @@
 ﻿using EasySave.Core.Services;
 using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace EasySave.Tests
@@ -13,7 +14,7 @@ namespace EasySave.Tests
         public void IsProcessRunning_ActiveSystemProcess_ReturnTrue()
         {
             // Act
-            bool result = ProcessChecker.IsProcessRunning("explorer");
+            bool result = ProcessChecker.IsAnyProcessRunning(new List<string> { "explorer" });
 
             // Assert
             result.Should().BeTrue(
@@ -25,7 +26,7 @@ namespace EasySave.Tests
         public void IsProcessRunning_ProcessNonexistent_ReturnFalse()
         {
             // Act
-            bool result = ProcessChecker.IsProcessRunning("process_that_doesn't_really_exist_12345");
+            bool result = ProcessChecker.IsAnyProcessRunning(new List<string> { "process_that_doesn't_really_exist_12345" });
 
             // Assert
             result.Should().BeFalse(
@@ -37,7 +38,7 @@ namespace EasySave.Tests
         public void IsProcessRunning_EmptyName_ReturnFalse()
         {
             // Act
-            bool result = ProcessChecker.IsProcessRunning("");
+            bool result = ProcessChecker.IsAnyProcessRunning(new List<string> { "" });
 
             // Assert
             result.Should().BeFalse(
@@ -49,7 +50,7 @@ namespace EasySave.Tests
         public void IsProcessRunning_NameNull_ReturnFalse()
         {
             // Act
-            bool result = ProcessChecker.IsProcessRunning(null!);
+            bool result = ProcessChecker.IsAnyProcessRunning(null!);
 
             // Assert
             result.Should().BeFalse(
@@ -61,8 +62,8 @@ namespace EasySave.Tests
         public void IsProcessRunning_WithExtensionExe_SameResultAsWithoutExtension()
         {
             // Act
-            bool withExe = ProcessChecker.IsProcessRunning("explorer.exe");
-            bool withoutExe = ProcessChecker.IsProcessRunning("explorer");
+            bool withExe = ProcessChecker.IsAnyProcessRunning(new List<string> { "explorer.exe" });
+            bool withoutExe = ProcessChecker.IsAnyProcessRunning(new List<string> { "explorer" });
 
             // Assert
             withExe.Should().Be(withoutExe,
