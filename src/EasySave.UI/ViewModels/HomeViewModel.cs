@@ -11,7 +11,6 @@ namespace EasySave.UI.ViewModels
         private DispatcherTimer _updateTimer;
         private readonly SaveManager _saveManager;
 
-        // 1. Total number of jobs indicator
         private int _totalJobsCount;
         public int TotalJobsCount
         {
@@ -19,7 +18,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _totalJobsCount, value);
         }
 
-        // 2. Last performed backup timestamp
         private string _lastBackupTime = "--:--";
         public string LastBackupTime
         {
@@ -27,7 +25,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _lastBackupTime, value);
         }
 
-        // 3. Business software alert boolean
         private bool _isBusinessProcessRunning;
         public bool IsBusinessProcessRunning
         {
@@ -35,7 +32,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isBusinessProcessRunning, value);
         }
 
-        // 4. Current log format (JSON or XML)
         private string _logFormat = "JSON";
         public string LogFormat
         {
@@ -43,7 +39,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _logFormat, value);
         }
 
-        // 5. LogServer connection status
         private bool _isLogServerConnected;
         public bool IsLogServerConnected
         {
@@ -56,7 +51,6 @@ namespace EasySave.UI.ViewModels
         public HomeViewModel(SaveManager saveManager)
         {
             _saveManager = saveManager;
-            // Initial fetch to populate UI immediately
             UpdateDashboard();
 
             _updateTimer = new DispatcherTimer
@@ -67,7 +61,6 @@ namespace EasySave.UI.ViewModels
             _updateTimer.Start();
         }
 
-        // Updates all dashboard indicators. Triggered by the DispatcherTimer.
         private void UpdateDashboard()
         {
             TotalJobsCount = _saveManager.GetJobs().Count;

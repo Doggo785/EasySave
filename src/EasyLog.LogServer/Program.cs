@@ -19,7 +19,6 @@ namespace EasyLog.LogServer
         private const int Port = 25549;
         private const string LogDirectory = "Logs";
 
-        // Dashboard stats
         private static int _totalConnections = 0;
         private static int _logsReceived = 0;
         private static int _logsWritten = 0;
@@ -207,7 +206,7 @@ namespace EasyLog.LogServer
                     catch (Exception)
                     {
                         Interlocked.Increment(ref _errors);
-                        _logQueue.Enqueue(logEntry); // Try again to write log
+                        _logQueue.Enqueue(logEntry);
                         await Task.Delay(1000);
                     }
                 }
@@ -289,7 +288,6 @@ namespace EasyLog.LogServer
                     }
                     catch
                     {
-                        // Ignore console errors
                     }
                 }
                 await Task.Delay(500);
