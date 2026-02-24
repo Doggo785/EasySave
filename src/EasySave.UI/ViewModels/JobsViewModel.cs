@@ -296,6 +296,7 @@ namespace EasySave.UI.ViewModels
 
         /// <summary>
         /// Checks if the log server is reachable when log target requires it.
+        /// Uses the ground truth from the background connection loop.
         /// Returns true if the job should proceed, false to cancel.
         /// </summary>
         private async Task<bool> CheckServerBeforeLaunch()
@@ -304,8 +305,7 @@ namespace EasySave.UI.ViewModels
             if (target != LogTarget.Centralized && target != LogTarget.Both)
                 return true;
 
-            bool reachable = await LoggerService.CheckServerConnectionAsync();
-            if (reachable)
+            if (LoggerService.IsServerConnected)
                 return true;
 
             var owner = GetMainWindow();

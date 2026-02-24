@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using EasySave.Core.Services;
 using EasyLog;
+using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace EasySave.UI.ViewModels
 {
     public class SettingsViewModel : ReactiveObject
     {
+        private DispatcherTimer _serverStatusTimer;
         // Language settings
         private int _selectedLanguageIndex;
         public int SelectedLanguageIndex
@@ -95,7 +97,7 @@ namespace EasySave.UI.ViewModels
                 SettingsManager.Instance.LogTarget = (LogTarget)value;
                 LoggerService.CurrentLogTarget = (LogTarget)value;
                 SettingsManager.Instance.SaveSettings();
-                CheckServerIfNeeded((LogTarget)value);
+                UpdateServerWarning();
             }
         }
 
@@ -115,14 +117,22 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _serverIp, value);
         }
 
-        private bool _serverIpConfirmationVisible;
-        public bool ServerIpConfirmationVisible
+        // Server Port settings
+        private string _serverPort = "";
+        public string ServerPort
         {
-            get => _serverIpConfirmationVisible;
-            set => this.RaiseAndSetIfChanged(ref _serverIpConfirmationVisible, value);
+            get => _serverPort;
+            set => this.RaiseAndSetIfChanged(ref _serverPort, value);
         }
 
-        public ReactiveCommand<Unit, Unit> SaveServerIpCommand { get; }
+        private bool _serverConnectionConfirmationVisible;
+        public bool ServerConnectionConfirmationVisible
+        {
+            get => _serverConnectionConfirmationVisible;
+            set => this.RaiseAndSetIfChanged(ref _serverConnectionConfirmationVisible, value);
+        }
+
+        public ReactiveCommand<Unit, Unit> SaveServerConnectionCommand { get; }
 
         public ReactiveCommand<Unit, Unit> SaveMaxSizeCommand { get; }
 
@@ -141,6 +151,7 @@ namespace EasySave.UI.ViewModels
             _selectedLogFormatIndex = settings.LogFormat ? 0 : 1;
             _selectedLogTargetIndex = (int)settings.LogTarget;
             _serverIp = settings.ServerIp;
+            _serverPort = settings.ServerPort.ToString();
 
             // Initialize observable collections
             BusinessSoftwareNames = new ObservableCollection<string>(settings.BusinessSoftwareNames);
@@ -159,9 +170,16 @@ namespace EasySave.UI.ViewModels
             RemovePriorityExtensionCommand = ReactiveCommand.Create<string>(RemovePriorityExtension);
 
             SaveMaxSizeCommand = ReactiveCommand.Create(SaveMaxSize);
-            SaveServerIpCommand = ReactiveCommand.Create(SaveServerIp);
+            SaveServerConnectionCommand = ReactiveCommand.Create(SaveServerConnection);
 
-            CheckServerIfNeeded(settings.LogTarget);
+            UpdateServerWarning();
+
+            _serverStatusTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(2)
+            };
+            _serverStatusTimer.Tick += (_, _) => UpdateServerWarning();
+            _serverStatusTimer.Start();
         }
 
         // Changes the application language
@@ -262,39 +280,48 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
-        private void SaveServerIp()
+        private void SaveServerConnection()
         {
+            bool changed = false;
+
             if (!string.IsNullOrWhiteSpace(ServerIp))
             {
                 SettingsManager.Instance.ServerIp = ServerIp.Trim();
                 LoggerService.ServerIp = ServerIp.Trim();
-                SettingsManager.Instance.SaveSettings();
+                changed = true;
+            }
 
-                ServerIpConfirmationVisible = true;
+            if (int.TryParse(ServerPort, out int port) && port > 0 && port <= 65535)
+            {
+                SettingsManager.Instance.ServerPort = port;
+                LoggerService.ServerPort = port;
+                changed = true;
+            }
+
+            if (changed)
+            {
+                SettingsManager.Instance.SaveSettings();
+                LoggerService.ForceReconnect();
+
+                ServerConnectionConfirmationVisible = true;
                 System.Threading.Tasks.Task.Delay(2000).ContinueWith(_ =>
                 {
                     Avalonia.Threading.Dispatcher.UIThread.Post(() =>
-                        ServerIpConfirmationVisible = false);
+                        ServerConnectionConfirmationVisible = false);
                 });
-
-                CheckServerIfNeeded(SettingsManager.Instance.LogTarget);
             }
         }
 
-        private void CheckServerIfNeeded(LogTarget target)
+        /// <summary>
+        /// Reads the ground truth from the background loop.
+        /// Called periodically by the timer so the warning stays in sync with the dashboard.
+        /// </summary>
+        private void UpdateServerWarning()
         {
+            var target = SettingsManager.Instance.LogTarget;
             if (target == LogTarget.Centralized || target == LogTarget.Both)
             {
-                // Instant feedback from the background loop state
                 ServerOfflineWarningVisible = !LoggerService.IsServerConnected;
-
-                // Then verify async with a short timeout to confirm
-                System.Threading.Tasks.Task.Run(async () =>
-                {
-                    bool reachable = await LoggerService.CheckServerConnectionAsync();
-                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
-                        ServerOfflineWarningVisible = !reachable);
-                });
             }
             else
             {

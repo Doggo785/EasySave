@@ -480,6 +480,15 @@
   <data name="SettingsFlow_ServerIpSuccess" xml:space="preserve">
     <value>Adresse IP du serveur mise à jour avec succès.</value>
   </data>
+  <data name="SettingsFlow_ServerPort" xml:space="preserve">
+    <value>Port du serveur</value>
+  </data>
+  <data name="SettingsFlow_ServerPortDesc" xml:space="preserve">
+    <value>Port TCP du serveur de logs centralisé (1-65535)</value>
+  </data>
+  <data name="SettingsFlow_ServerPortSuccess" xml:space="preserve">
+    <value>Port du serveur mis à jour avec succès.</value>
+  </data>
   <data name="SettingsFlow_ServerOfflineWarning" xml:space="preserve">
     <value>⚠ Le serveur de logs est injoignable ou hors ligne. Les logs centralisés ne seront pas envoyés tant que le serveur ne sera pas disponible.</value>
   </data>

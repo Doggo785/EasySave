@@ -1231,7 +1231,34 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ⚠ Le serveur de logs est injoignable ou hors ligne. Les logs centralisés ne seront pas envoyés tant que le serveur ne sera pas disponible..
+        ///   Looks up a localized string similar to Port du serveur.
+        /// </summary>
+        public static string SettingsFlow_ServerPort {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerPort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Port TCP du serveur de logs centralisé (1-65535).
+        /// </summary>
+        public static string SettingsFlow_ServerPortDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerPortDesc", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Port du serveur mis à jour avec succès..
+        /// </summary>
+        public static string SettingsFlow_ServerPortSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerPortSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ⚠ Le serveur de logs est injoignable ou hors ligne....
         /// </summary>
         public static string SettingsFlow_ServerOfflineWarning {
             get {

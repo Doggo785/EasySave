@@ -480,6 +480,15 @@
   <data name="SettingsFlow_ServerIpSuccess" xml:space="preserve">
     <value>Server IP address updated successfully.</value>
   </data>
+  <data name="SettingsFlow_ServerPort" xml:space="preserve">
+    <value>Server port</value>
+  </data>
+  <data name="SettingsFlow_ServerPortDesc" xml:space="preserve">
+    <value>TCP port of the centralized log server (1-65535)</value>
+  </data>
+  <data name="SettingsFlow_ServerPortSuccess" xml:space="preserve">
+    <value>Server port updated successfully.</value>
+  </data>
   <data name="SettingsFlow_ServerOfflineWarning" xml:space="preserve">
     <value>⚠ The log server is unreachable or offline. Centralized logs will not be sent until the server is available.</value>
   </data>
