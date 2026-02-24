@@ -9,7 +9,6 @@ using System.Threading;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Globalization;
 
 namespace EasyLog.LogServer
 {
@@ -155,34 +154,8 @@ namespace EasyLog.LogServer
                         }
                         catch
                         {
-                            try
-                            {
-                                var doc = new XmlDocument();
-                                doc.LoadXml(logData);
-                                string clientId = doc.SelectSingleNode("/DailyLog/ClientId")?.InnerText ?? "Unknown";
-                                string jobName = doc.SelectSingleNode("/DailyLog/JobName")?.InnerText ?? "-";
-                                string timestamp = doc.SelectSingleNode("/DailyLog/TimeStamp")?.InnerText ?? "-";
-                                long fileSize = long.TryParse(doc.SelectSingleNode("/DailyLog/FileSize")?.InnerText, out var fs) ? fs : 0;
-                                double transferTime = double.TryParse(doc.SelectSingleNode("/DailyLog/TransferTimeMs")?.InnerText, NumberStyles.Any, CultureInfo.InvariantCulture, out var tt) ? tt : 0;
-                                _clientStats.AddOrUpdate(clientId, 1, (_, c) => c + 1);
-                                string formattedTime = DateTime.TryParse(timestamp, out var dt)
-                                    ? dt.ToString("yyyy-MM-dd HH:mm:ss")
-                                    : timestamp;
-                                _lastLogInfo = new LastLogInfo
-                                {
-                                    Time = formattedTime,
-                                    ClientId = clientId,
-                                    JobName = jobName,
-                                    FileSize = fileSize,
-                                    TransferTimeMs = transferTime,
-                                    IsParsed = true
-                                };
-                            }
-                            catch
-                            {
-                                string clean = logData.Replace("\r", "").Replace("\n", " ");
-                                _lastLogInfo = new LastLogInfo { Raw = clean.Length > 56 ? clean[..53] + "..." : clean };
-                            }
+                            string clean = logData.Replace("\r", "").Replace("\n", " ");
+                            _lastLogInfo = new LastLogInfo { Raw = clean.Length > 56 ? clean[..53] + "..." : clean };
                         }
                     }
                 }
