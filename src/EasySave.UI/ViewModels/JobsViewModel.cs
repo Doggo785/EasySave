@@ -16,10 +16,8 @@ using System.Threading.Tasks;
 
 namespace EasySave.UI.ViewModels
 {
-    // Represents the current execution state of a job
     public enum JobState { Stopped, Running, Paused }
 
-    // View model wrapper linking a SaveJob to its UI representation and progress
     public class JobItemViewModel : ReactiveObject
     {
         public SaveJob Job { get; }
@@ -43,7 +41,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _progress, value);
         }
 
-        // Job execution state driving the UI button
         private JobState _state = JobState.Stopped;
         public JobState State
         {
@@ -56,7 +53,6 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        // Dynamic icon based on current state
         public string ActionIcon => State switch
         {
             JobState.Stopped => "▶",
@@ -65,7 +61,6 @@ namespace EasySave.UI.ViewModels
             _ => "▶"
         };
 
-        // Dynamic color based on current state
         public string ActionColor => State switch
         {
             JobState.Stopped => "#2E8B57", // Green (Ready to play)
@@ -120,9 +115,8 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _hasSelectedJobs, value);
         }
 
-        // UI Commands
         public ReactiveCommand<Unit, Unit> CreateJobCommand { get; }
-        public ReactiveCommand<int, Unit> TogglePlayPauseCommand { get; } // Single unified command
+        public ReactiveCommand<int, Unit> TogglePlayPauseCommand { get; }
         public ReactiveCommand<int, Unit> StopJobCommand { get; }
         public ReactiveCommand<int, Unit> DeleteJobCommand { get; }
         public ReactiveCommand<Unit, Unit> ExecuteAllCommand { get; }
@@ -160,7 +154,6 @@ namespace EasySave.UI.ViewModels
             catch { }
         }
 
-        // Handles Play, Pause, and Resume logic based on current state
         private async Task TogglePlayPauseAsync(int id)
         {
             var jobVm = Jobs.FirstOrDefault(j => j.Id == id);

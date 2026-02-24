@@ -154,28 +154,24 @@ namespace EasySave.Views
             Console.WriteLine("      " + new string('─', Resources.Create_Job_Header.Length));
             Console.WriteLine();
 
-            // name Input
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write($"      {Resources.Create_Job_Arg_Name} ");
             Console.ResetColor();
             string name = Console.ReadLine() ?? "Job";
             Console.WriteLine();
 
-            // source Input
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write($"      {Resources.Create_Job_Arg_Source} ");
             Console.ResetColor();
             string source = Console.ReadLine() ?? "";
             Console.WriteLine();
 
-            // destination Input
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write($"      {Resources.Create_Job_Arg_Dest} "); 
             Console.ResetColor();
             string dest = Console.ReadLine() ?? "";
             Console.WriteLine();
 
-            // backup Type Input 
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write($"      {Resources.Create_Job_Arg_TypeSave} ");
             Console.ResetColor();
@@ -189,7 +185,6 @@ namespace EasySave.Views
             return (name, source, dest, isFull);
         }
 
-        // Displays an error message in Red.
         public void DisplayError(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;

@@ -18,7 +18,6 @@ namespace EasySave.Core.Models
         private SemaphoreSlim _concurrencyLimiter;
         private static readonly SemaphoreSlim _largeFileSemaphore = new SemaphoreSlim(1, 1);
 
-        // Priority file management
         private static int _priorityFilesRemaining = 0;
         private static readonly ManualResetEventSlim _noPriorityPending = new ManualResetEventSlim(true);
 
@@ -97,7 +96,6 @@ namespace EasySave.Core.Models
             SaveJobs();
         }
 
-        // Executes a single job asynchronously
         public async Task ExecuteJob(
             int id,
             Func<string, string?>? requestPassword = null,
@@ -163,7 +161,6 @@ namespace EasySave.Core.Models
             }
         }
 
-        // Executes all jobs concurrently
         public async Task ExecuteAllJobs(
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
@@ -190,7 +187,6 @@ namespace EasySave.Core.Models
             }
         }
 
-        // thread Control Methods
         public void PauseJob(int id)
         {
             var job = _jobs.FirstOrDefault(j => j.Id == id);
@@ -253,7 +249,6 @@ namespace EasySave.Core.Models
             return DateTime.MinValue;
         }
 
-        // Checks if any configured business software is currently running
         public bool CanLaunchJob()
         {
             var businessAppNames = SettingsManager.Instance.BusinessSoftwareNames;

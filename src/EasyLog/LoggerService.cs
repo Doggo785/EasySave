@@ -23,7 +23,6 @@ namespace EasyLog
         private static readonly object _stateLock = new object();
         private static readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
 
-        // Configurable log target and server connection
         public static LogTarget CurrentLogTarget { get; set; } = LogTarget.Both;
         public static string ServerIp { get; set; } = "127.0.0.1";
         public static int ServerPort { get; set; } = 25549;
@@ -88,7 +87,6 @@ namespace EasyLog
                     }
                 }
 
-                // Enqueue for centralized server if target is Centralized or Both
                 if (CurrentLogTarget == LogTarget.Centralized || CurrentLogTarget == LogTarget.Both)
                 {
                     string serialized;
