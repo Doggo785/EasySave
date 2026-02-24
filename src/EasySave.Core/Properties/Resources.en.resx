@@ -214,25 +214,25 @@
     <value>Running job {0}...</value>
   </data>
   <data name="Header_Dest" xml:space="preserve">
-    <value>Destination </value>
+    <value>DESTINATION</value>
   </data>
   <data name="Header_Id" xml:space="preserve">
     <value>ID</value>
   </data>
   <data name="Header_Name" xml:space="preserve">
-    <value>Name</value>
+    <value>NAME</value>
   </data>
   <data name="Header_Source" xml:space="preserve">
-    <value>Source</value>
+    <value>SOURCE</value>
   </data>
   <data name="Header_Type" xml:space="preserve">
-    <value>Backup Type</value>
+    <value>TYPE</value>
   </data>
   <data name="Menu_Option1" xml:space="preserve">
     <value>LIST OF jOBS</value>
   </data>
   <data name="Menu_Option2" xml:space="preserve">
-    <value>Create a Save job</value>
+    <value>Create a save job</value>
   </data>
   <data name="Menu_Option3" xml:space="preserve">
     <value>Execute a Save job</value>
@@ -253,7 +253,7 @@
     <value>MAIN MENU</value>
   </data>
   <data name="Msg_NoJobs" xml:space="preserve">
-    <value>No Save jobs found.</value>
+    <value>No save jobs found.</value>
   </data>
   <data name="Msg_Return" xml:space="preserve">
     <value>Press Enter to return to the menu...</value>
@@ -292,7 +292,7 @@
     <value>Press any key to continue...</value>
   </data>
   <data name="SettingsFlow_Crypto" xml:space="preserve">
-    <value>Crypto Extensions</value>
+    <value>Crypto extensions</value>
   </data>
   <data name="SettingsFlow_EncryptExtenChoice" xml:space="preserve">
     <value>Enter the extensions separated by commas (e.g., .txt,.doc,.pdf):</value>
@@ -310,7 +310,7 @@
     <value>Language changed successfully!</value>
   </data>
   <data name="SettingsFlow_LogFormat" xml:space="preserve">
-    <value>Log Format</value>
+    <value>Log format</value>
   </data>
   <data name="SettingsFlow_LogFormatSuccess" xml:space="preserve">
     <value>Log format modified successfully!</value>
@@ -331,7 +331,7 @@
     <value>Priorities</value>
   </data>
   <data name="SettingsFlow_SoftwareBuis" xml:space="preserve">
-    <value>Business Software</value>
+    <value>Business software</value>
   </data>
   <data name="Menu_OptionDecrypt" xml:space="preserve">
     <value>Decrypt a file</value>
@@ -427,16 +427,16 @@
     <value>Add blocking software (e.g., calc.exe)</value>
   </data>
   <data name="HomeView_TotalconfigJob" xml:space="preserve">
-    <value>Total Configured Jobs</value>
+    <value>Total configured jobs</value>
   </data>
   <data name="HomeView_Monitor" xml:space="preserve">
-    <value>Business Software Monitor</value>
+    <value>Business software monitor</value>
   </data>
   <data name="HomeView_LastBackUp" xml:space="preserve">
-    <value>Last Performed Backup same</value>
+    <value>Last performed backup</value>
   </data>
   <data name="HomeView_ActiveLogFormat" xml:space="preserve">
-    <value>Active Log Format</value>
+    <value>Active log format</value>
   </data>
   <data name="HomeView_GlobConf" xml:space="preserve">
     <value>Global parameter configuration</value>
@@ -548,6 +548,9 @@
   </data>
   <data name="SettingsFlow_ListJobs" xml:space="preserve">
     <value>List of jobs</value>
+  </data>
+  <data name="SettingsFlow_selectionjobs" xml:space="preserve">
+    <value>Start selection</value>
   </data>
   <data name="UI_Program_CLIMOD" xml:space="preserve">
     <value>[EasySave CLI Mode]</value>

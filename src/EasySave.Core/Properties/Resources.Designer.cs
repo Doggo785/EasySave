@@ -484,7 +484,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Destination.
+        ///   Recherche une chaîne localisée semblable à DESTINATION.
         /// </summary>
         public static string Header_Dest {
             get {
@@ -502,7 +502,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Nom.
+        ///   Recherche une chaîne localisée semblable à NOM.
         /// </summary>
         public static string Header_Name {
             get {
@@ -511,7 +511,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Source.
+        ///   Recherche une chaîne localisée semblable à SOURCE.
         /// </summary>
         public static string Header_Source {
             get {
@@ -520,7 +520,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Type.
+        ///   Recherche une chaîne localisée semblable à TYPE.
         /// </summary>
         public static string Header_Type {
             get {
@@ -988,7 +988,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Extensions Crypto.
+        ///   Recherche une chaîne localisée semblable à Extensions crypto.
         /// </summary>
         public static string SettingsFlow_Crypto {
             get {
@@ -1051,7 +1051,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Format Log.
+        ///   Recherche une chaîne localisée semblable à Format des travaux.
         /// </summary>
         public static string SettingsFlow_LogFormat {
             get {
@@ -1069,7 +1069,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Destination des logs.
+        ///   Recherche une chaîne localisée semblable à Destination des travaux.
         /// </summary>
         public static string SettingsFlow_LogTarget {
             get {
@@ -1209,6 +1209,15 @@ namespace EasySave.Core.Properties {
         public static string SettingsFlow_PriorityExtensionsDesc {
             get {
                 return ResourceManager.GetString("SettingsFlow_PriorityExtensionsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Lancer la sélection.
+        /// </summary>
+        public static string SettingsFlow_selectionjobs {
+            get {
+                return ResourceManager.GetString("SettingsFlow_selectionjobs", resourceCulture);
             }
         }
         

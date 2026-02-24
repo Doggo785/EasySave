@@ -214,19 +214,19 @@
     <value>Exécution du job {0}...</value>
   </data>
   <data name="Header_Dest" xml:space="preserve">
-    <value>Destination</value>
+    <value>DESTINATION</value>
   </data>
   <data name="Header_Id" xml:space="preserve">
     <value>ID</value>
   </data>
   <data name="Header_Name" xml:space="preserve">
-    <value>Nom</value>
+    <value>NOM</value>
   </data>
   <data name="Header_Source" xml:space="preserve">
-    <value>Source</value>
+    <value>SOURCE</value>
   </data>
   <data name="Header_Type" xml:space="preserve">
-    <value>Type de Sauvegarde</value>
+    <value>TYPE</value>
   </data>
   <data name="Menu_Option1" xml:space="preserve">
     <value>LISTE DES TRAVAUX</value>
@@ -292,7 +292,7 @@
     <value>Appuyer sur une touche pour continuer ...</value>
   </data>
   <data name="SettingsFlow_Crypto" xml:space="preserve">
-    <value>Extensions Crypto</value>
+    <value>Extensions crypto</value>
   </data>
   <data name="SettingsFlow_EncryptExtenChoice" xml:space="preserve">
     <value>Entrez les extensions séparées par des virgules (ex: .txt,.doc,.pdf) : </value>
@@ -310,7 +310,7 @@
     <value>Langue modifiée avec succès !</value>
   </data>
   <data name="SettingsFlow_LogFormat" xml:space="preserve">
-    <value>Format Log</value>
+    <value>Format des travaux</value>
   </data>
   <data name="SettingsFlow_LogFormatSuccess" xml:space="preserve">
     <value>Format de log modifié avec succès !</value>
@@ -454,7 +454,7 @@
     <value>STATUT : SUSPENDU</value>
   </data>
   <data name="SettingsFlow_LogTarget" xml:space="preserve">
-    <value>Destination des logs</value>
+    <value>Destination des travaux</value>
   </data>
   <data name="SettingsFlow_LogTargetDesc" xml:space="preserve">
     <value>Choisissez où enregistrer les logs</value>
@@ -569,5 +569,8 @@
   </data>
   <data name="SettingsFlow_ListJobs" xml:space="preserve">
     <value>Liste des travaux</value>
+  </data>
+  <data name="SettingsFlow_selectionjobs" xml:space="preserve">
+    <value>Lancer la sélection</value>
   </data>
 </root>
