@@ -46,8 +46,8 @@
 						<TextBlock Text="{Binding [Header_Type], Source={x:Static services:SettingsManager.Instance}}"
 								   Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,8"/>
 						<ComboBox SelectedIndex="{Binding SelectedTypeIndex}" HorizontalAlignment="Stretch">
-							<ComboBoxItem Content="Complète (Full)"/>
-							<ComboBoxItem Content="Différentielle (Differential)"/>
+							<ComboBoxItem Content="{Binding [Full_Backup], Source={x:Static services:SettingsManager.Instance}}"/>
+							<ComboBoxItem Content="{Binding [Diff_Backup], Source={x:Static services:SettingsManager.Instance}}"/>
 						</ComboBox>
 					</StackPanel>
 
