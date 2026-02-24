@@ -18,7 +18,10 @@ namespace EasySave
             SettingsManager.Instance.LoadSettings();
             if (args.Length > 0)
             {
-                RunCommandLine(args[0]);
+                string fullCommand = string.Join("", args);
+                RunCommandLine(fullCommand);
+                Console.WriteLine($"{Resources.Button_Cancel}");
+                Console.ReadKey();
                 return;
             }
 
@@ -116,29 +119,48 @@ namespace EasySave
             }
         }
 
-
         static void RunCommandLine(string command)
         {
             if (!CheckServerBeforeLaunch()) return;
+
+            var jobs = _SaveManager.GetJobs();
 
             if (command.Contains("-"))
             {
                 var parts = command.Split('-');
                 if (parts.Length == 2 && int.TryParse(parts[0], out int start) && int.TryParse(parts[1], out int end))
                 {
-                    for (int i = start; i <= end; i++) _SaveManager.ExecuteJob(i, ConsoleRequestPassword, ConsoleDisplayMessage);
+                    for (int i = start; i <= end; i++)
+                    {
+                        if (jobs.Any(j => j.Id == i))
+                        {
+                            _SaveManager.ExecuteJob(i, ConsoleRequestPassword, ConsoleDisplayMessage).GetAwaiter().GetResult();
+                        }
+                    }
                 }
             }
             else if (command.Contains(";"))
             {
                 foreach (var idStr in command.Split(';'))
                 {
-                    if (int.TryParse(idStr, out int id)) _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
+                    if (int.TryParse(idStr, out int id) && jobs.Any(j => j.Id == id))
+                    {
+                        _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage).GetAwaiter().GetResult();
+                    }
                 }
             }
             else if (int.TryParse(command, out int id))
             {
-                _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage);
+                if (jobs.Any(j => j.Id == id))
+                {
+                    _SaveManager.ExecuteJob(id, ConsoleRequestPassword, ConsoleDisplayMessage).GetAwaiter().GetResult();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"ID {id} non trouvé.");
+                    Console.ResetColor();
+                }
             }
         }
 
