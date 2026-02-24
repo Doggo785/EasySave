@@ -91,24 +91,20 @@ namespace EasyLog
                 // Enqueue for centralized server if target is Centralized or Both
                 if (CurrentLogTarget == LogTarget.Centralized || CurrentLogTarget == LogTarget.Both)
                 {
-                    string logData;
+                    string serialized;
                     if (_logFormat)
                     {
                         var options = new JsonSerializerOptions { WriteIndented = false };
-                        logData = JsonSerializer.Serialize(logEntry, options);
+                        serialized = JsonSerializer.Serialize(logEntry, options);
                     }
                     else
                     {
-                        var sb = new StringBuilder();
                         var xmlSerializer = new XmlSerializer(typeof(DailyLog));
-                        var ns = new XmlSerializerNamespaces();
-                        ns.Add(string.Empty, string.Empty);
-                        using (var stringWriter = new StringWriter(sb))
-                            xmlSerializer.Serialize(stringWriter, logEntry, ns);
-                        // Collapse to a single line for TCP line-based transport
-                        logData = sb.ToString().ReplaceLineEndings(" ");
+                        using var sw = new StringWriter();
+                        xmlSerializer.Serialize(sw, logEntry);
+                        serialized = sw.ToString().ReplaceLineEndings(string.Empty);
                     }
-                    _logQueue.Enqueue(logData);
+                    _logQueue.Enqueue(serialized);
                 }
             }
         }
