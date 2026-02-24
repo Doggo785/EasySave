@@ -7,64 +7,59 @@
 
     <Grid Margin="30" RowDefinitions="Auto, *">
         <TextBlock Text="{Binding [Decrypt_Header], Source={x:Static services:SettingsManager.Instance}}"
-                   FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
+                   FontSize="28" FontWeight="Light" Margin="0,0,0,25" Foreground="{DynamicResource TextPrimary}"/>
 
-        <Border Grid.Row="1" Background="#252525" CornerRadius="12" Padding="30"
+        <Border Grid.Row="1" Background="{DynamicResource CardBackground}" CornerRadius="12" Padding="30"
                 VerticalAlignment="Top">
             <StackPanel Spacing="20" MaxWidth="600" HorizontalAlignment="Left">
 
-                <!-- Source: file or folder -->
                 <StackPanel Spacing="6">
                     <TextBlock Text="{Binding [Decrypt_Arg_Source], Source={x:Static services:SettingsManager.Instance}}"
-                               Foreground="#aaa" FontSize="13"/>
+                               Foreground="{DynamicResource TextSecondary}" FontSize="13"/>
                     <Grid ColumnDefinitions="*, Auto, Auto">
                         <TextBox Grid.Column="0" Text="{Binding SourcePath}" Watermark="C:\..."/>
-                        <Button Grid.Column="1" Content="&#128196;" Padding="12,8" Margin="8,0,0,0"
+                        <Button Grid.Column="1" Content="📄" Padding="12,8" Margin="8,0,0,0"
                                 ToolTip.Tip="Fichier"
                                 Command="{Binding BrowseSourceFileCommand}"
-                                Background="#2d2d2d" Foreground="White"/>
-                        <Button Grid.Column="2" Content="&#128193;" Padding="12,8" Margin="4,0,0,0"
+                                Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextPrimary}"/>
+                        <Button Grid.Column="2" Content="📁" Padding="12,8" Margin="4,0,0,0"
                                 ToolTip.Tip="Dossier"
                                 Command="{Binding BrowseSourceFolderCommand}"
-                                Background="#2d2d2d" Foreground="White"/>
+                                Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextPrimary}"/>
                     </Grid>
                 </StackPanel>
 
-                <!-- Destination -->
                 <StackPanel Spacing="6">
                     <TextBlock Text="{Binding [Decrypt_Arg_Dest], Source={x:Static services:SettingsManager.Instance}}"
-                               Foreground="#aaa" FontSize="13"/>
+                               Foreground="{DynamicResource TextSecondary}" FontSize="13"/>
                     <Grid ColumnDefinitions="*, Auto">
                         <TextBox Grid.Column="0" Text="{Binding DestPath}" Watermark="C:\..."/>
-                        <Button Grid.Column="1" Content="&#128193;" Padding="12,8" Margin="8,0,0,0"
+                        <Button Grid.Column="1" Content="📁" Padding="12,8" Margin="8,0,0,0"
                                 Command="{Binding BrowseDestCommand}"
-                                Background="#2d2d2d" Foreground="White"/>
+                                Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextPrimary}"/>
                     </Grid>
                 </StackPanel>
 
-                <!-- Password -->
                 <StackPanel Spacing="6">
                     <TextBlock Text="{Binding [Decrypt_Arg_Password], Source={x:Static services:SettingsManager.Instance}}"
-                               Foreground="#aaa" FontSize="13"/>
-                    <TextBox Text="{Binding Password}" PasswordChar="*" Watermark="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;"/>
+                               Foreground="{DynamicResource TextSecondary}" FontSize="13"/>
+                    <TextBox Text="{Binding Password}" PasswordChar="*" Watermark="••••••••"/>
                 </StackPanel>
 
-                <!-- Decrypt button -->
                 <Button Command="{Binding DecryptCommand}"
                         Background="#00bcd4" Foreground="Black"
                         HorizontalAlignment="Left"
                         Padding="25,10"
                         IsEnabled="{Binding !IsDecrypting}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="&#128275;"/>
+                        <TextBlock Text="🔓"/>
                         <TextBlock Text="{Binding [Menu_OptionDecrypt], Source={x:Static services:SettingsManager.Instance}}"/>
                     </StackPanel>
                 </Button>
 
-                <!-- Progress bar (folder mode) -->
                 <StackPanel Spacing="4" IsVisible="{Binding ShowProgress}">
                     <ProgressBar Value="{Binding Progress}" Maximum="100" Height="6"
-                                 Foreground="#00bcd4" Background="#444" CornerRadius="3">
+                                 Foreground="#00bcd4" Background="{DynamicResource BorderColor}" CornerRadius="3">
                         <ProgressBar.Transitions>
                             <Transitions>
                                 <DoubleTransition Property="Value" Duration="0:0:0.3"/>
@@ -72,10 +67,9 @@
                         </ProgressBar.Transitions>
                     </ProgressBar>
                     <TextBlock Text="{Binding Progress, StringFormat={}{0}%}"
-                               Foreground="#888" FontSize="12" HorizontalAlignment="Right"/>
+                               Foreground="{DynamicResource TextSecondary}" FontSize="12" HorizontalAlignment="Right"/>
                 </StackPanel>
 
-                <!-- Status message -->
                 <TextBlock Text="{Binding StatusMessage}"
                            TextWrapping="Wrap" FontSize="13"
                            Foreground="{Binding StatusColor}"
