@@ -92,7 +92,7 @@ namespace EasySave.Tests
 
         // Testing the execution of a complete job (Full Save) on real files
         [Fact]
-        public void Run_SaveComplete_FilesCopied()
+        public void Run_saveComplete_FilesCopied()
         {
             // Arrange
             string sourceDir = Path.Combine(Path.GetTempPath(), $"EasySave_Src_{Guid.NewGuid():N}");
