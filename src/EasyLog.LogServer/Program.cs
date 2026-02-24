@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace EasyLog.LogServer
 {
@@ -113,54 +113,49 @@ namespace EasyLog.LogServer
 
                         try
                         {
-                            var entry = JsonSerializer.Deserialize<LogEntry>(logData);
-                            if (entry != null)
+                            string? clientId, jobName, timeStamp;
+                            long fileSize;
+                            double transferTimeMs;
+
+                            if (logData.TrimStart().StartsWith('<'))
                             {
-                                _clientStats.AddOrUpdate(entry.ClientId ?? "Unknown", 1, (_, c) => c + 1);
-                                string formattedTime = DateTime.TryParse(entry.TimeStamp, out var dt)
-                                    ? dt.ToString("yyyy-MM-dd HH:mm:ss")
-                                    : entry.TimeStamp ?? "-";
-                                _lastLogInfo = new LastLogInfo
-                                {
-                                    Time = formattedTime,
-                                    ClientId = entry.ClientId ?? "Unknown",
-                                    JobName = entry.JobName ?? "-",
-                                    FileSize = entry.FileSize,
-                                    TransferTimeMs = entry.TransferTimeMs,
-                                    IsParsed = true
-                                };
+                                var root = XDocument.Parse(logData).Root;
+                                if (root == null) throw new InvalidDataException("Empty XML root.");
+                                clientId = root.Element("ClientId")?.Value;
+                                jobName = root.Element("JobName")?.Value;
+                                timeStamp = root.Element("TimeStamp")?.Value;
+                                long.TryParse(root.Element("FileSize")?.Value, out fileSize);
+                                double.TryParse(root.Element("TransferTimeMs")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out transferTimeMs);
                             }
+                            else
+                            {
+                                var entry = JsonSerializer.Deserialize<LogEntry>(logData);
+                                if (entry == null) throw new InvalidDataException("Null JSON entry.");
+                                clientId = entry.ClientId;
+                                jobName = entry.JobName;
+                                timeStamp = entry.TimeStamp;
+                                fileSize = entry.FileSize;
+                                transferTimeMs = entry.TransferTimeMs;
+                            }
+
+                            _clientStats.AddOrUpdate(clientId ?? "Unknown", 1, (_, c) => c + 1);
+                            string formattedTime = DateTime.TryParse(timeStamp, out var dt)
+                                ? dt.ToString("yyyy-MM-dd HH:mm:ss")
+                                : timeStamp ?? "-";
+                            _lastLogInfo = new LastLogInfo
+                            {
+                                Time = formattedTime,
+                                ClientId = clientId ?? "Unknown",
+                                JobName = jobName ?? "-",
+                                FileSize = fileSize,
+                                TransferTimeMs = transferTimeMs,
+                                IsParsed = true
+                            };
                         }
                         catch
                         {
-                            try
-                            {
-                                var doc = new XmlDocument();
-                                doc.LoadXml(logData);
-                                string clientId = doc.SelectSingleNode("/DailyLog/ClientId")?.InnerText ?? "Unknown";
-                                string jobName = doc.SelectSingleNode("/DailyLog/JobName")?.InnerText ?? "-";
-                                string timestamp = doc.SelectSingleNode("/DailyLog/TimeStamp")?.InnerText ?? "-";
-                                long fileSize = long.TryParse(doc.SelectSingleNode("/DailyLog/FileSize")?.InnerText, out var fs) ? fs : 0;
-                                double transferTime = double.TryParse(doc.SelectSingleNode("/DailyLog/TransferTimeMs")?.InnerText, NumberStyles.Any, CultureInfo.InvariantCulture, out var tt) ? tt : 0;
-                                _clientStats.AddOrUpdate(clientId, 1, (_, c) => c + 1);
-                                string formattedTime = DateTime.TryParse(timestamp, out var dt)
-                                    ? dt.ToString("yyyy-MM-dd HH:mm:ss")
-                                    : timestamp;
-                                _lastLogInfo = new LastLogInfo
-                                {
-                                    Time = formattedTime,
-                                    ClientId = clientId,
-                                    JobName = jobName,
-                                    FileSize = fileSize,
-                                    TransferTimeMs = transferTime,
-                                    IsParsed = true
-                                };
-                            }
-                            catch
-                            {
-                                string clean = logData.Replace("\r", "").Replace("\n", " ");
-                                _lastLogInfo = new LastLogInfo { Raw = clean.Length > 56 ? clean[..53] + "..." : clean };
-                            }
+                            string clean = logData.Replace("\r", "").Replace("\n", " ");
+                            _lastLogInfo = new LastLogInfo { Raw = clean.Length > 56 ? clean[..53] + "..." : clean };
                         }
                     }
                 }
@@ -189,36 +184,24 @@ namespace EasyLog.LogServer
 
                     try
                     {
-                        string prettyContent;
-                        if (isXml)
+                        string prettyLog;
+                        try
                         {
-                            try
+                            if (logEntry.TrimStart().StartsWith('<'))
                             {
-                                var doc = new XmlDocument();
-                                doc.LoadXml(logEntry);
-                                var sb = new StringBuilder();
-                                using (var xw = XmlWriter.Create(sb, new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true }))
-                                    doc.WriteTo(xw);
-                                prettyContent = sb.ToString();
+                                prettyLog = XDocument.Parse(logEntry).ToString();
                             }
-                            catch
-                            {
-                                prettyContent = logEntry;
-                            }
-                        }
-                        else
-                        {
-                            try
+                            else
                             {
                                 using var doc = JsonDocument.Parse(logEntry);
-                                prettyContent = JsonSerializer.Serialize(doc.RootElement, new JsonSerializerOptions { WriteIndented = true });
-                            }
-                            catch
-                            {
-                                prettyContent = logEntry;
+                                prettyLog = JsonSerializer.Serialize(doc.RootElement, new JsonSerializerOptions { WriteIndented = true });
                             }
                         }
-                        await File.AppendAllTextAsync(filePath, prettyContent + Environment.NewLine);
+                        catch
+                        {
+                            prettyLog = logEntry;
+                        }
+                        await File.AppendAllTextAsync(filePath, prettyLog + Environment.NewLine);
                         Interlocked.Increment(ref _logsWritten);
                     }
                     catch (Exception)

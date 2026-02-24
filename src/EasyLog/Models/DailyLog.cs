@@ -13,6 +13,7 @@ namespace EasySave.Core.Models
         public string TargetFile { get; set; }
         public long FileSize { get; set; }
         public double TransferTimeMs { get; set; }
+        public int EncryptionTimeMs { get; set; }
 
         public DailyLog() { }
 
@@ -24,6 +25,7 @@ namespace EasySave.Core.Models
             TargetFile = target;
             FileSize = size;
             TransferTimeMs = time;
+            EncryptionTimeMs = 0;
         }
     }
 }
