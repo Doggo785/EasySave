@@ -252,13 +252,5 @@ namespace EasySave.Core.Models
 
             SaveJobs();
         }
-
-        public string GetBlockingProcessName()
-        {
-            if (Process.GetProcessesByName("mspaint").Any()) return "Paint";
-            if (Process.GetProcessesByName("calculatorapp").Any()) return "Calculatrice";
-            if (Process.GetProcessesByName("winword").Any())return "Microsoft Word";
-            return null;
-        }
     }
 }
