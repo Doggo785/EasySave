@@ -123,7 +123,7 @@ namespace EasySave
         {
             if (!CheckServerBeforeLaunch()) return;
 
-            var jobs = _SaveManager.GetJobs();
+            var jobs = _saveManager.GetJobs();
 
             if (command.Contains("-"))
             {

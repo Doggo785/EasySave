@@ -6,7 +6,7 @@ using Xunit;
 namespace EasySave.Tests
 {
 
-    // SaveManager TESTS - with FluentAssertions   
+    // SaveManager TESTS  with FluentAssertions en suivant les règles de xUnit (Arrange, Act, Assert)
     public class SaveManagerTests
     {
         // Testing job creation with valid parameters
@@ -24,7 +24,6 @@ namespace EasySave.Tests
             manager.GetJobs().Should().HaveCount(countBefore + 1,
                 because: "the list must contain an additional job after a valid CreateJob.");
 
-            // Cleaning
             var jobs = manager.GetJobs();
             manager.DeleteJob(jobs[jobs.Count - 1].Id);
         }
@@ -116,7 +115,6 @@ namespace EasySave.Tests
             jobModified.SaveType.Should().BeFalse(
                 because: "The save type must be updated after EditJob");
 
-            // Cleaning
             manager.DeleteJob(jobToEdit.Id);
         }
 
