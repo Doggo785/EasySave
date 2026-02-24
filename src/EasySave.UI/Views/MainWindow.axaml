@@ -120,7 +120,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <TextBlock Text="📂"/>
-                        <TextBlock Text="{Binding [Menu_Option1], Source={x:Static services:SettingsManager.Instance}}"/>
+                        <TextBlock Text="{Binding [SettingsFlow_ListJobs], Source={x:Static services:SettingsManager.Instance}}"/>
                     </StackPanel>
                 </TabItem.Header>
                 <views:JobsView DataContext="{Binding JobsVM}" />

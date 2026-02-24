@@ -547,7 +547,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Tableau de bord.
+        ///   Recherche une chaîne localisée semblable à TABLEAU DE BORD.
         /// </summary>
         public static string HomeView_Dashboard {
             get {
@@ -772,7 +772,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Lister les travaux.
+        ///   Recherche une chaîne localisée semblable à LISTE DES TRAVAUX.
         /// </summary>
         public static string Menu_Option1 {
             get {
@@ -907,7 +907,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à  Sauvegarde terminée:.
+        ///   Recherche une chaîne localisée semblable à Sauvegarde terminée:.
         /// </summary>
         public static string Savejob_sauvegardefinis {
             get {
@@ -1038,6 +1038,15 @@ namespace EasySave.Core.Properties {
         public static string SettingsFlow_LanguageSucessfull {
             get {
                 return ResourceManager.GetString("SettingsFlow_LanguageSucessfull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Liste des travaux.
+        /// </summary>
+        public static string SettingsFlow_ListJobs {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ListJobs", resourceCulture);
             }
         }
         

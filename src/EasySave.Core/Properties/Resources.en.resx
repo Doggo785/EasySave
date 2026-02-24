@@ -229,7 +229,7 @@
     <value>Backup Type</value>
   </data>
   <data name="Menu_Option1" xml:space="preserve">
-    <value>List Save jobs</value>
+    <value>LIST OF jOBS</value>
   </data>
   <data name="Menu_Option2" xml:space="preserve">
     <value>Create a Save job</value>
@@ -445,7 +445,7 @@
     <value>Read from state.json</value>
   </data>
   <data name="HomeView_Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
+    <value>DASHBOARD</value>
   </data>
   <data name="HomeView_Clear" xml:space="preserve">
     <value>STATUT : CLEAR</value>
@@ -545,6 +545,9 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
+  </data>
+  <data name="SettingsFlow_ListJobs" xml:space="preserve">
+    <value>List of jobs</value>
   </data>
   <data name="UI_Program_CLIMOD" xml:space="preserve">
     <value>[EasySave CLI Mode]</value>

@@ -229,7 +229,7 @@
     <value>Type de Sauvegarde</value>
   </data>
   <data name="Menu_Option1" xml:space="preserve">
-    <value>Lister les travaux</value>
+    <value>LISTE DES TRAVAUX</value>
   </data>
   <data name="Menu_Option2" xml:space="preserve">
     <value>Créer un travail</value>
@@ -373,7 +373,7 @@
     <value>fichiers</value>
   </data>
   <data name="Savejob_sauvegardefinis" xml:space="preserve">
-    <value> Sauvegarde terminée:</value>
+    <value>Sauvegarde terminée:</value>
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>non trouvé</value>
@@ -445,7 +445,7 @@
     <value>Lu depuis state.json</value>
   </data>
   <data name="HomeView_Dashboard" xml:space="preserve">
-    <value>Tableau de bord</value>
+    <value>TABLEAU DE BORD</value>
   </data>
   <data name="HomeView_Clear" xml:space="preserve">
     <value>STATUT : LIBRE</value>
@@ -566,5 +566,8 @@
   </data>
   <data name="Diff_Backup" xml:space="preserve">
     <value>Différentielle</value>
+  </data>
+  <data name="SettingsFlow_ListJobs" xml:space="preserve">
+    <value>Liste des travaux</value>
   </data>
 </root>
