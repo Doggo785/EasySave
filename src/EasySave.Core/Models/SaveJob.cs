@@ -144,13 +144,14 @@ namespace EasySave.Core.Models
                 bool processFile = SaveType || CheckDifferential(file, targetPath);
                 if (processFile)
                 {
+                    DailyLog fileLog;
                     if (isLarge)
                     {
                         // Large file: we wait for the semaphore to become free (only one at a time)
                         grosFichierEnCours.Wait(cancellationToken);
                         try
                         {
-                            CopyFile(file.FullName, targetPath);
+                            fileLog = CopyFile(file.FullName, targetPath);
                         }
                         finally
                         {
@@ -160,22 +161,26 @@ namespace EasySave.Core.Models
                     else
                     {
                         // Small file: free parallel transfer
-                        CopyFile(file.FullName, targetPath);
+                        fileLog = CopyFile(file.FullName, targetPath);
                     }
 
+                    int encryptionTimeMs = 0;
                     if (ShouldEncrypt(file.Extension, extensionsToEncrypt))
                     {
                         string? password = requestPassword?.Invoke(Resources.PasswordRequest);
 
                         if (!string.IsNullOrEmpty(password))
                         {
-                            int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);
-                            if (encryptionTime == -1)
+                            encryptionTimeMs = CryptoService.EncryptFile(targetPath, targetPath, password);
+                            if (encryptionTimeMs == -1)
                                 displayMessage?.Invoke($"{file.FullName} {Resources.EncryptionError}");
-                            else if (encryptionTime == -2)
+                            else if (encryptionTimeMs == -2)
                                 displayMessage?.Invoke($"{file.FullName} {Resources.FileNotFound}");
                         }
                     }
+
+                    fileLog.EncryptionTimeMs = encryptionTimeMs;
+                    _logger.WriteDailyLog(fileLog);
 
                     filesProcessed++;
                 }
@@ -229,7 +234,7 @@ namespace EasySave.Core.Models
             return sourceFile.LastWriteTime > targetFile.LastWriteTime;
         }
 
-        private void CopyFile(string source, string destination)
+        private DailyLog CopyFile(string source, string destination)
         {
             long transferTime = 0;
             var sw = System.Diagnostics.Stopwatch.StartNew();
@@ -255,7 +260,7 @@ namespace EasySave.Core.Models
                 FileSize = new FileInfo(source).Length,
                 TransferTimeMs = transferTime
             };
-            _logger.WriteDailyLog(dailyLog);
+            return dailyLog;
         }
 
         private bool ShouldEncrypt(string extension, List<string> extensionsToEncrypt)
