@@ -130,9 +130,9 @@ namespace EasySave.UI.ViewModels
         public ReactiveCommand<Unit, Unit> BrowseSourceCommand { get; }
         public ReactiveCommand<Unit, Unit> BrowseDestCommand { get; }
 
-        public JobsViewModel()
+        public JobsViewModel(SaveManager saveManager)
         {
-            _saveManager = new SaveManager();
+            _saveManager = saveManager;
             Jobs = new ObservableCollection<JobItemViewModel>();
             RefreshList();
             UpdateUiStatesContinuously();

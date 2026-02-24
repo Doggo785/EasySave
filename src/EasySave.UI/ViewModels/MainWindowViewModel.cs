@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using EasySave.Core.Models;
+using ReactiveUI;
 
 namespace EasySave.UI.ViewModels
 {
@@ -10,8 +11,9 @@ namespace EasySave.UI.ViewModels
 
         public MainWindowViewModel()
         {
-            HomeVM = new HomeViewModel();
-            JobsVM = new JobsViewModel();
+            var saveManager = new SaveManager();
+            HomeVM = new HomeViewModel(saveManager);
+            JobsVM = new JobsViewModel(saveManager);
             SettingsVM = new SettingsViewModel();
         }
     }

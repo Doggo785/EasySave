@@ -83,6 +83,9 @@ namespace EasySave.Core.Services
             }
             ChangeLanguage(Language);
             ChangeTheme(IsDarkMode);
+            LoggerService.CurrentLogTarget = LogTarget;
+            LoggerService.ServerIp = ServerIp;
+            LoggerService.ServerPort = ServerPort;
         }
 
         // Saves current settings to the JSON configuration file

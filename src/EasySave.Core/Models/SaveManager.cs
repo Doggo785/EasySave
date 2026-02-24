@@ -39,6 +39,7 @@ namespace EasySave.Core.Models
         }
 
         private readonly Dictionary<int, CancellationTokenSource> _activeJobsTokens = new Dictionary<int, CancellationTokenSource>();
+        public DateTime LastBackupTime { get; private set; } = DateTime.MinValue;
 
         private static string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly string _logDirectory = Path.Combine(_appDataPath, "ProSoft", "EasySave", "UserConfig");
@@ -51,6 +52,8 @@ namespace EasySave.Core.Models
             int maxConcurrent = SettingsManager.Instance.MaxConcurrentJobs;
             if (maxConcurrent <= 0) maxConcurrent = Environment.ProcessorCount;
             _concurrencyLimiter = new SemaphoreSlim(maxConcurrent, maxConcurrent);
+
+            LastBackupTime = LoadLastBackupTime();
         }
 
         public List<SaveJob> GetJobs()
@@ -150,6 +153,7 @@ namespace EasySave.Core.Models
                     requestPassword,
                     displayMessage,
                     cts.Token);
+                LastBackupTime = DateTime.Now;
             }
             finally
             {
@@ -229,6 +233,24 @@ namespace EasySave.Core.Models
         {
             if (!Directory.Exists(_logDirectory))
                 Directory.CreateDirectory(_logDirectory);
+        }
+
+        private static DateTime LoadLastBackupTime()
+        {
+            try
+            {
+                string stateFilePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "ProSoft", "EasySave", "Logs", "state.json");
+                if (File.Exists(stateFilePath))
+                {
+                    string json = File.ReadAllText(stateFilePath);
+                    var state = JsonSerializer.Deserialize<StateLog>(json);
+                    return state?.LastActionTimestamp ?? DateTime.MinValue;
+                }
+            }
+            catch { }
+            return DateTime.MinValue;
         }
 
         // Checks if any configured business software is currently running
