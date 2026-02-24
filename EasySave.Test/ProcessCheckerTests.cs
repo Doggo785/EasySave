@@ -5,16 +5,18 @@ using Xunit;
 
 namespace EasySave.Tests
 {
-
-    // ProcessChecker TESTS - with FluentAssertions
+    // ProcessChecker TESTS with FluentAssertions en suivant les règles de xUnit (Arrange, Act, Assert)
     public class ProcessCheckerTests
     {
         // Test that a known process (explorer.exe) is detected as active
         [Fact]
-        public void IsProcessRunning_ActiveSystemProcess_ReturnTrue()
+        public void IsAnyProcessRunning_ActiveSystemProcess_ReturnTrue()
         {
+            // Arrange
+            var processNames = new List<string> { "explorer" };
+
             // Act
-            bool result = ProcessChecker.IsAnyProcessRunning(new List<string> { "explorer" });
+            bool result = ProcessChecker.IsAnyProcessRunning(processNames);
 
             // Assert
             result.Should().BeTrue(
@@ -23,51 +25,91 @@ namespace EasySave.Tests
 
         // Test that a non-existent process returns false
         [Fact]
-        public void IsProcessRunning_ProcessNonexistent_ReturnFalse()
+        public void IsAnyProcessRunning_ProcessNonexistent_ReturnFalse()
         {
+            // Arrange
+            var processNames = new List<string> { "process_that_doesnt_really_exist_12345" };
+
             // Act
-            bool result = ProcessChecker.IsAnyProcessRunning(new List<string> { "process_that_doesn't_really_exist_12345" });
+            bool result = ProcessChecker.IsAnyProcessRunning(processNames);
 
             // Assert
             result.Should().BeFalse(
                 because: "a process name that does not exist on the machine should never be detected as active");
         }
 
-        // Test with an empty name (must return false without exception)
+        // Test with an empty list (must return false without exception)
         [Fact]
-        public void IsProcessRunning_EmptyName_ReturnFalse()
+        public void IsAnyProcessRunning_EmptyList_ReturnFalse()
         {
+            // Arrange
+            var processNames = new List<string>();
+
             // Act
-            bool result = ProcessChecker.IsAnyProcessRunning(new List<string> { "" });
+            bool result = ProcessChecker.IsAnyProcessRunning(processNames);
 
             // Assert
             result.Should().BeFalse(
-                because: "an empty string is not a valid process name and must return false without raising an exception");
+                because: "an empty list has no process to check and must return false without raising an exception");
         }
 
-        // Test with a null name (must return false without exception)
+        // Test with a null list (must return false without exception)
         [Fact]
-        public void IsProcessRunning_NameNull_ReturnFalse()
+        public void IsAnyProcessRunning_NullList_ReturnFalse()
         {
             // Act
             bool result = ProcessChecker.IsAnyProcessRunning(null!);
 
             // Assert
             result.Should().BeFalse(
-                because: "a null value is not a valid process name and must return false without raising an exception");
+                because: "a null list is not valid and must return false without raising an exception");
+        }
+
+        // Test with a list containing an empty string (must be ignored)
+        [Fact]
+        public void IsAnyProcessRunning_ListWithEmptyString_ReturnFalse()
+        {
+            // Arrange
+            var processNames = new List<string> { "", "   " };
+
+            // Act
+            bool result = ProcessChecker.IsAnyProcessRunning(processNames);
+
+            // Assert
+            result.Should().BeFalse(
+                because: "empty or whitespace process names should be ignored and not cause a false positive");
         }
 
         // Test that the .exe extension is correctly ignored in the search
         [Fact]
-        public void IsProcessRunning_WithExtensionExe_SameResultAsWithoutExtension()
+        public void IsAnyProcessRunning_WithExtensionExe_SameResultAsWithoutExtension()
         {
+            // Arrange
+            var withExe = new List<string> { "explorer.exe" };
+            var withoutExe = new List<string> { "explorer" };
+
             // Act
-            bool withExe = ProcessChecker.IsAnyProcessRunning(new List<string> { "explorer.exe" });
-            bool withoutExe = ProcessChecker.IsAnyProcessRunning(new List<string> { "explorer" });
+            bool resultWithExe = ProcessChecker.IsAnyProcessRunning(withExe);
+            bool resultWithoutExe = ProcessChecker.IsAnyProcessRunning(withoutExe);
 
             // Assert
-            withExe.Should().Be(withoutExe,
+            resultWithExe.Should().Be(resultWithoutExe,
                 because: "the .exe extension should be ignored during the search; 'explorer.exe' and 'explorer' should return the same result");
+        }
+
+        // Test that at least one active process in the list returns true
+        [Fact]
+        public void IsAnyProcessRunning_OneActiveProcessInList_ReturnTrue()
+        {
+            // Arrange 
+            var processNames = new List<string> { "process_fake_12345", "explorer" };
+
+            // Act
+            bool result = ProcessChecker.IsAnyProcessRunning(processNames);
+
+            // Assert
+            result.Should().BeTrue(
+                because: "if at least one process in the list is active, the method must return true");
         }
     }
 }

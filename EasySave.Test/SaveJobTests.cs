@@ -9,8 +9,7 @@ using Xunit;
 
 namespace EasySave.Tests
 {
-
-    // SaveJob TESTS - with FluentAssertions
+    // SaveJob TESTS  with FluentAssertions en suivant les règles de xUnit (Arrange, Act, Assert)
     public class SaveJobTests
     {
         // Testing the creation of a SaveJob with its basic properties
@@ -22,11 +21,11 @@ namespace EasySave.Tests
 
             // Assert
             job.Id.Should().Be(1,
-                because: "the ID must match the one passed to the manufacturer");
+                because: "the ID must match the one passed to the constructor");
             job.Name.Should().Be("TestJob",
-                because: "the name must match the one given to the manufacturer");
+                because: "the name must match the one given to the constructor");
             job.SourceDirectory.Should().Be(@"C:\Source",
-                because: "the source directory must match the one passed to the constructor.");
+                because: "the source directory must match the one passed to the constructor");
             job.TargetDirectory.Should().Be(@"C:\Target",
                 because: "the target directory must match the one passed to the constructor");
             job.SaveType.Should().BeTrue(
@@ -46,7 +45,7 @@ namespace EasySave.Tests
             job.SourceDirectory.Should().BeEmpty(
                 because: "the source directory must be an empty string by default, not null");
             job.TargetDirectory.Should().BeEmpty(
-                because: "The target directory must be an empty string by default, not null");
+                because: "the target directory must be an empty string by default, not null");
         }
 
         // Testing the modification of SaveJob properties
@@ -66,9 +65,9 @@ namespace EasySave.Tests
             job.Name.Should().Be("NewName",
                 because: "the name must be updated after modification via the setter");
             job.SourceDirectory.Should().Be(@"C:\NewSource",
-                because: "the source directory must be updated after modification via the setter.");
+                because: "the source directory must be updated after modification via the setter");
             job.TargetDirectory.Should().Be(@"C:\NewTarget",
-                because: "the target directory must be updated after modification via the setter.");
+                because: "the target directory must be updated after modification via the setter");
             job.SaveType.Should().BeFalse(
                 because: "SaveType=false indicates a differential backup");
         }
@@ -80,20 +79,20 @@ namespace EasySave.Tests
             // Arrange
             var job = new SaveJob(1, "TestJob", @"C:\CheminQuiNExistePas_XYZ", @"C:\Target", true);
             var semaphore = new SemaphoreSlim(1, 1);
+            var noPriorityPending = new ManualResetEventSlim(true); // true = signaled = no priority pending
             var messages = new List<string>();
 
             // Act
-            var noPriority = new ManualResetEventSlim(true);
-            var act = () => job.Run(new List<string>(), semaphore, noPriority, null, msg => messages.Add(msg));
+            var act = () => job.Run(new List<string>(), semaphore, noPriorityPending, null, msg => messages.Add(msg));
 
             // Assert
             act.Should().NotThrow(
-                because: "a non-existent source directory should be silently ignored without raising an exception.");
+                because: "a non-existent source directory should be silently ignored without raising an exception");
         }
 
         // Testing the execution of a complete job (Full Save) on real files
         [Fact]
-        public void Run_SaveComplete_FilesCopies()
+        public void Run_SaveComplete_FilesCopied()
         {
             // Arrange
             string sourceDir = Path.Combine(Path.GetTempPath(), $"EasySave_Src_{Guid.NewGuid():N}");
@@ -105,18 +104,19 @@ namespace EasySave.Tests
 
             var job = new SaveJob(1, "FullTest", sourceDir, targetDir, true);
             var semaphore = new SemaphoreSlim(1, 1);
+            var noPriorityPending = new ManualResetEventSlim(true); // true = signaled = no priority pending
 
             try
             {
                 // Act
-                job.Run(new List<string>(), semaphore, new ManualResetEventSlim(true));
+                job.Run(new List<string>(), semaphore, noPriorityPending);
 
                 // Assert
                 string copiedFile = Path.Combine(targetDir, "test.txt");
                 File.Exists(copiedFile).Should().BeTrue(
-                    because: "a full backup should copy all files from the source directory to the target directory.");
+                    because: "a full backup should copy all files from the source directory to the target directory");
                 File.ReadAllText(copiedFile).Should().Be("EasySave test contents",
-                    because: "the content of the copied file must be identical to the original source file.");
+                    because: "the content of the copied file must be identical to the original source file");
             }
             finally
             {
