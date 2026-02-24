@@ -1,9 +1,9 @@
 ﻿using EasySave.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Text.Json;
+using System.Xml;
 using System.Xml.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -205,61 +205,23 @@ namespace EasyLog
         private void WriteJson(DailyLog logEntry, string dailyFileName)
         {
             string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.json");
-            List<DailyLog> logs = new List<DailyLog>();
-
-            if (File.Exists(fullPath))
-            {
-                try
-                {
-                    string existingJson = File.ReadAllText(fullPath);
-                    logs = JsonSerializer.Deserialize<List<DailyLog>>(existingJson) ?? new List<DailyLog>();
-                }
-                catch { logs = new List<DailyLog>(); }
-            }
-
-            logs.Add(logEntry);
-
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(logs, options);
-            using (var stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            using (var writer = new StreamWriter(stream))
-            {
-                writer.Write(jsonString);
-            }
+            string jsonLine = JsonSerializer.Serialize(logEntry) + Environment.NewLine;
+            using var stream = new FileStream(fullPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+            using var writer = new StreamWriter(stream, Encoding.UTF8);
+            writer.Write(jsonLine);
         }
 
         private void WriteXml(DailyLog logEntry, string dailyFileName)
         {
             string fullPath = Path.Combine(_logDirectory, $"{dailyFileName}.xml");
-            List<DailyLog> logs = new List<DailyLog>();
-            XmlSerializer serializer = new XmlSerializer(typeof(List<DailyLog>), new XmlRootAttribute("DailyLogs"));
-
-            if (File.Exists(fullPath))
-            {
-                try
-                {
-                    using (var stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    {
-                        if (stream.Length > 0)
-                            logs = (List<DailyLog>)serializer.Deserialize(stream);
-                    }
-                }
-                catch { logs = new List<DailyLog>(); }
-            }
-
-            logs.Add(logEntry);
-
-            try
-            {
-                using (var stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-                {
-                    serializer.Serialize(stream, logs);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"XML Write Error: {ex.Message}");
-            }
+            var serializer = new XmlSerializer(typeof(DailyLog));
+            var sb = new StringBuilder();
+            var xmlSettings = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true };
+            using (var xw = XmlWriter.Create(sb, xmlSettings))
+                serializer.Serialize(xw, logEntry);
+            using var stream = new FileStream(fullPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+            using var writer = new StreamWriter(stream, Encoding.UTF8);
+            writer.WriteLine(sb.ToString());
         }
     }
 }
