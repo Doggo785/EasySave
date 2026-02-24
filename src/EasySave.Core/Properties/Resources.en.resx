@@ -546,4 +546,19 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
   </data>
+  <data name="UI_Program_CLIMOD" xml:space="preserve">
+    <value>[EasySave CLI Mode]</value>
+  </data>
+  <data name="UI_Program_Error" xml:space="preserve">
+    <value>[Error] Invalid format. Use an ID (e.g., 1) or a range (e.g., 1-3).</value>
+  </data>
+  <data name="UI_Completed" xml:space="preserve">
+    <value>[Completed]</value>
+  </data>
+  <data name="UI_Password" xml:space="preserve">
+    <value>Required password:</value>
+  </data>
+  <data name="UI_Introuvable" xml:space="preserve">
+    <value>Not found.</value>
+  </data>
 </root>
