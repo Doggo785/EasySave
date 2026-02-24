@@ -45,7 +45,7 @@ namespace EasySave.Core.Services
                 {
                     aes.KeySize = 256;
 
-                    using (var key = new Rfc2898DeriveBytes(password, salt, Iterations))
+                    using (var key = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA256))
                     {
                         aes.Key = key.GetBytes(32);
                         aes.IV = key.GetBytes(16);
@@ -68,8 +68,7 @@ namespace EasySave.Core.Services
 
                 if (replaceOriginal)
                 {
-                    File.Copy(outputPath, destPath, true);
-                    File.Delete(outputPath);
+                    File.Move(outputPath, destPath, true);
                 }
 
                 stopwatch.Stop();
@@ -110,11 +109,11 @@ namespace EasySave.Core.Services
                 using (FileStream fsCrypt = new FileStream(encryptedPath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     byte[] salt = new byte[SaltSize];
-                    fsCrypt.Read(salt, 0, SaltSize);
+                    fsCrypt.ReadExactly(salt, 0, SaltSize);
 
                     using (Aes aes = Aes.Create())
                     {
-                        using (var key = new Rfc2898DeriveBytes(password, salt, Iterations))
+                        using (var key = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA256))
                         {
                             aes.Key = key.GetBytes(32);
                             aes.IV = key.GetBytes(16);
@@ -133,8 +132,7 @@ namespace EasySave.Core.Services
 
                 if (replaceOriginal)
                 {
-                    File.Copy(outputPath, destPath, true);
-                    File.Delete(outputPath);
+                    File.Move(outputPath, destPath, true);
                 }
 
                 stopwatch.Stop();
