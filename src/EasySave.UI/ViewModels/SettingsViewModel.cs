@@ -204,7 +204,6 @@ namespace EasySave.UI.ViewModels
             _serverStatusTimer.Start();
         }
 
-        // Changes the application language
         private void ChangeLanguage(int index)
         {
             string code = index == 1 ? "en" : "fr";
@@ -212,7 +211,6 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
-        // Adds a new business software to the list
         private void AddBusinessSoftware()
         {
             if (string.IsNullOrWhiteSpace(NewBusinessSoftware)) return;
@@ -227,7 +225,6 @@ namespace EasySave.UI.ViewModels
             NewBusinessSoftware = "";
         }
 
-        // Removes a business software from the list
         private void RemoveBusinessSoftware(string name)
         {
             BusinessSoftwareNames.Remove(name);
@@ -252,7 +249,6 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        // Adds a new encrypted extension to the list
         private void AddExtension()
         {
             if (string.IsNullOrWhiteSpace(NewExtension)) return;
@@ -351,7 +347,6 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        // Synchronizes the extensions collection with the settings manager
         private void SyncExtensionsToSettings()
         {
             SettingsManager.Instance.EncryptedExtensions = EncryptedExtensions.ToList();

@@ -294,11 +294,6 @@ namespace EasySave.UI.ViewModels
             return null;
         }
 
-        /// <summary>
-        /// Checks if the log server is reachable when log target requires it.
-        /// Uses the ground truth from the background connection loop.
-        /// Returns true if the job should proceed, false to cancel.
-        /// </summary>
         private async Task<bool> CheckServerBeforeLaunch()
         {
             var target = SettingsManager.Instance.LogTarget;

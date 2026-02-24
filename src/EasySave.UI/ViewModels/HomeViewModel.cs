@@ -62,7 +62,6 @@ namespace EasySave.UI.ViewModels
             // Initial fetch to populate UI immediately
             UpdateDashboard();
 
-            // Setup a timer to refresh data in real-time (every 2 seconds)
             _updateTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(2)
@@ -71,30 +70,21 @@ namespace EasySave.UI.ViewModels
             _updateTimer.Start();
         }
 
-        /// <summary>
-        /// Updates all dashboard indicators. Triggered by the DispatcherTimer.
-        /// </summary>
+        // Updates all dashboard indicators. Triggered by the DispatcherTimer.
         private void UpdateDashboard()
         {
-            // Indicator 1: Count total jobs configured dynamically from the JSON file
+
             TotalJobsCount = GetJobsCount();
 
-            // Indicator 2: Fetch last timestamp from state.json
             LastBackupTime = GetLastBackupTime();
 
-            // Indicator 3: Check if the Business Software is currently running
             CheckBusinessProcess();
 
-            // Indicator 4: Get current log format from global settings
             LogFormat = SettingsManager.Instance.LogFormat ? "JSON" : "XML";
 
-            // Indicator 5: Check LogServer connection
             CheckLogServerConnection();
         }
 
-        /// <summary>
-        /// Reads the jobs.json file in real time to get the exact number of jobs.
-        /// </summary>
         private int GetJobsCount()
         {
             try
@@ -120,9 +110,6 @@ namespace EasySave.UI.ViewModels
             return 0;
         }
 
-        /// <summary>
-        /// Reads the state.json file to extract the last action timestamp.
-        /// </summary>
         private string GetLastBackupTime()
         {
             try
@@ -151,18 +138,12 @@ namespace EasySave.UI.ViewModels
             return "--:--";
         }
 
-        /// <summary>
-        /// Checks the running processes on the machine against the BusinessSoftwareName setting.
-        /// </summary>
         private void CheckBusinessProcess()
         {
             var businessSoftwares = SettingsManager.Instance.BusinessSoftwareNames;
             IsBusinessProcessRunning = ProcessChecker.IsAnyProcessRunning(businessSoftwares);
         }
 
-        /// <summary>
-        /// Checks if the Docker LogServer is reachable.
-        /// </summary>
         private void CheckLogServerConnection()
         {
             IsLogServerConnected = EasyLog.LoggerService.IsServerConnected;

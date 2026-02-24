@@ -35,11 +35,6 @@ namespace EasyLog
         {
             _ = Task.Run(ProcessLogQueueAsync);
         }
-
-        /// <summary>
-        /// Forces the background loop to close its current connection and reconnect
-        /// using the latest ServerIp/ServerPort values.
-        /// </summary>
         public static void ForceReconnect()
         {
             var oldCts = Interlocked.Exchange(ref _reconnectCts, new CancellationTokenSource());
@@ -48,10 +43,7 @@ namespace EasyLog
             IsServerConnected = false;
         }
 
-        /// <summary>
-        /// Tests TCP connectivity to the configured log server.
-        /// Uses a CancellationToken to abort the connection attempt on timeout.
-        /// </summary>
+
         public static async Task<bool> CheckServerConnectionAsync(int timeoutMs = 500)
         {
             try
@@ -83,7 +75,6 @@ namespace EasyLog
         {
             lock (_stateLock)
             {
-                // Write locally if target is Local or Both
                 if (CurrentLogTarget == LogTarget.Local || CurrentLogTarget == LogTarget.Both)
                 {
                     string dailyFileName = $"{DateTime.Now:yyyy-MM-dd}";
@@ -165,9 +156,8 @@ namespace EasyLog
                                     catch
                                     {
                                         IsServerConnected = false;
-                                        // Re-enqueue the log data if writing fails
                                         _logQueue.Enqueue(logData);
-                                        throw; // Break the inner loop to reconnect
+                                        throw;
                                     }
                                 }
                                 else
@@ -188,14 +178,13 @@ namespace EasyLog
                 }
                 catch (OperationCanceledException) when (token.IsCancellationRequested)
                 {
-                    // ForceReconnect() was called — loop back immediately with new settings
                     IsServerConnected = false;
                 }
                 catch (Exception)
                 {
-                    // Connection timeout, refused, or server disconnected
+
                     IsServerConnected = false;
-                    // Wait before trying to reconnect, but respect cancellation
+
                     try { await Task.Delay(2000, _reconnectCts.Token); }
                     catch (OperationCanceledException) { }
                 }
