@@ -8,15 +8,27 @@
 
 	<ScrollViewer>
 		<Grid Margin="30" RowDefinitions="Auto, *">
-			<TextBlock Text="{Binding [SettingsFlow_Parameters], Source={x:Static services:SettingsManager.Instance}}" FontSize="28" FontWeight="Light" Margin="0,0,0,25"/>
+			<TextBlock Text="{Binding [SettingsFlow_Parameters], Source={x:Static services:SettingsManager.Instance}}" FontSize="28" FontWeight="Light" Margin="0,0,0,25" Foreground="{DynamicResource TextPrimary}"/>
 
 			<StackPanel Grid.Row="1" Spacing="20">
-
-				<!-- Language -->
-				<Border Background="#252525" CornerRadius="8" Padding="20">
+				
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<Grid ColumnDefinitions="*, Auto">
 						<StackPanel>
-							<TextBlock Text="{Binding [SettingsFlow_Language], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
+							<TextBlock Text="{Binding [SettingsFlow_Theme], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+							<TextBlock Text="{Binding [SettingsFlow_ThemeDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,4,0,0"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsChecked="{Binding IsDarkMode}" 
+									  OnContent="{Binding [SettingsFlow_ThemeDark], Source={x:Static services:SettingsManager.Instance}}" 
+									  OffContent="{Binding [SettingsFlow_ThemeLight], Source={x:Static services:SettingsManager.Instance}}" 
+									  VerticalAlignment="Center"/>
+					</Grid>
+				</Border>
+
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
+					<Grid ColumnDefinitions="*, Auto">
+						<StackPanel>
+							<TextBlock Text="{Binding [SettingsFlow_Language], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
 						</StackPanel>
 						<ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLanguageIndex}" Width="200" VerticalAlignment="Center">
 							<ComboBoxItem Content="Français"/>
@@ -25,12 +37,11 @@
 					</Grid>
 				</Border>
 
-				<!-- Log Format -->
-				<Border Background="#252525" CornerRadius="8" Padding="20">
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<Grid ColumnDefinitions="*, Auto">
 						<StackPanel>
-							<TextBlock Text="{Binding [SettingsFlow_LogFormat], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-							<TextBlock Text="JSON / XML" Foreground="#888" FontSize="12" Margin="0,4,0,0"/>
+							<TextBlock Text="{Binding [SettingsFlow_LogFormat], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+							<TextBlock Text="JSON / XML" Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,4,0,0"/>
 						</StackPanel>
 						<ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLogFormatIndex}" Width="200" VerticalAlignment="Center">
 							<ComboBoxItem Content="📄 JSON"/>
@@ -39,13 +50,12 @@
 					</Grid>
 				</Border>
 
-				<!-- Log Target -->
-				<Border Background="#252525" CornerRadius="8" Padding="20">
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<StackPanel Spacing="12">
 						<Grid ColumnDefinitions="*, Auto">
 							<StackPanel>
-								<TextBlock Text="{Binding [SettingsFlow_LogTarget], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-								<TextBlock Text="{Binding [SettingsFlow_LogTargetDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12" Margin="0,4,0,0"/>
+								<TextBlock Text="{Binding [SettingsFlow_LogTarget], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+								<TextBlock Text="{Binding [SettingsFlow_LogTargetDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,4,0,0"/>
 							</StackPanel>
 							<ComboBox Grid.Column="1" SelectedIndex="{Binding SelectedLogTargetIndex}" Width="200" VerticalAlignment="Center">
 								<ComboBoxItem Content="{Binding [SettingsFlow_LogTarget_Local], Source={x:Static services:SettingsManager.Instance}}"/>
@@ -61,29 +71,28 @@
 				</Border>
 
                 <!-- Server IP : Port -->
-                <Border Background="#252525" CornerRadius="8" Padding="20">
-                    <StackPanel Spacing="12">
-                        <TextBlock Text="{Binding [SettingsFlow_ServerIp], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-                        <TextBlock Text="{Binding [SettingsFlow_ServerIpDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12"/>
-                        <Grid ColumnDefinitions="3*, Auto, *, Auto" Margin="0,4,0,0">
-                            <TextBox Text="{Binding ServerIp}" Watermark="127.0.0.1" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text=" : " VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#888" Margin="6,0"/>
-                            <TextBox Grid.Column="2" Text="{Binding ServerPort}" Watermark="25549" VerticalAlignment="Center"/>
-                            <Button Grid.Column="3" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
-                                    Command="{Binding SaveServerConnectionCommand}" VerticalAlignment="Center"/>
-                        </Grid>
-                        <Border Background="#1a3a1a" CornerRadius="4" Padding="10,6"
-                                IsVisible="{Binding ServerConnectionConfirmationVisible}">
-                            <TextBlock Text="{Binding [SettingsFlow_ServerIpSuccess], Source={x:Static services:SettingsManager.Instance}}" Foreground="#4caf50" FontWeight="SemiBold"/>
-                        </Border>
-                    </StackPanel>
-                </Border>
-
-				<!-- Business Software -->
-				<Border Background="#252525" CornerRadius="8" Padding="20">
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<StackPanel Spacing="12">
-						<TextBlock Text="{Binding [SettingsFlow_SoftwareBuis], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-						<TextBlock Text="{Binding [SettingsView_Sotftwareblock], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12"/>
+						<TextBlock Text="{Binding [SettingsFlow_ServerIp], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+						<TextBlock Text="{Binding [SettingsFlow_ServerIpDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+						<Grid ColumnDefinitions="3*, Auto, *, Auto" Margin="0,4,0,0">
+							<TextBox Text="{Binding ServerIp}" Watermark="127.0.0.1" VerticalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text=" : " VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextSecondary}" Margin="6,0"/>
+							<TextBox Grid.Column="2" Text="{Binding ServerPort}" Watermark="25549" VerticalAlignment="Center"/>
+							<Button Grid.Column="3" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
+									Command="{Binding SaveServerConnectionCommand}" VerticalAlignment="Center"/>
+						</Grid>
+						<Border Background="#1a3a1a" CornerRadius="4" Padding="10,6"
+								IsVisible="{Binding ServerConnectionConfirmationVisible}">
+							<TextBlock Text="{Binding [SettingsFlow_ServerIpSuccess], Source={x:Static services:SettingsManager.Instance}}" Foreground="#4caf50" FontWeight="SemiBold"/>
+						</Border>
+					</StackPanel>
+				</Border>
+
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
+					<StackPanel Spacing="12">
+						<TextBlock Text="{Binding [SettingsFlow_SoftwareBuis], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+						<TextBlock Text="{Binding [SettingsView_Sotftwareblock], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
 						<Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
 							<TextBox Text="{Binding NewBusinessSoftware}" Watermark="calc.exe" VerticalAlignment="Center"/>
 							<Button Grid.Column="1" Content="+" FontWeight="Bold" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0" Command="{Binding AddBusinessSoftwareCommand}" VerticalAlignment="Center"/>
@@ -91,9 +100,9 @@
 						<ItemsControl ItemsSource="{Binding BusinessSoftwareNames}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate x:DataType="sys:String">
-									<Border Background="#333" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
+									<Border Background="{DynamicResource BorderColor}" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
 										<Grid ColumnDefinitions="*, Auto">
-											<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+											<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}"/>
 											<Button Grid.Column="1" Content="✕" FontSize="12" Padding="6,2" Background="#B22222" Foreground="White"
                                                     Command="{Binding $parent[UserControl].DataContext.RemoveBusinessSoftwareCommand}" CommandParameter="{Binding}"/>
 										</Grid>
@@ -104,17 +113,15 @@
 					</StackPanel>
 				</Border>
 
-				<!-- Max parallel file size -->
-				<Border Background="#252525" CornerRadius="8" Padding="20">
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<StackPanel Spacing="12">
-						<TextBlock Text="{Binding [SettingsFlow_MaxParallelSize], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-						<TextBlock Text="{Binding [SettingsFlow_MaxParallelSizeDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12"/>
+						<TextBlock Text="{Binding [SettingsFlow_MaxParallelSize], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+						<TextBlock Text="{Binding [SettingsFlow_MaxParallelSizeDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
 						<Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
 							<TextBox Text="{Binding MaxParallelFileSizeKbText}" Watermark="1000" VerticalAlignment="Center"/>
 							<Button Grid.Column="1" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
                                     Command="{Binding SaveMaxSizeCommand}" VerticalAlignment="Center"/>
 						</Grid>
-						<!-- Confirmation message -->
 						<Border Background="#1a3a1a" CornerRadius="4" Padding="10,6"
                                 IsVisible="{Binding MaxSizeConfirmationVisible}">
 							<TextBlock Text="{Binding [SettingsFlow_MaxParallelSizeConfirm], Source={x:Static services:SettingsManager.Instance}}" Foreground="#4caf50" FontWeight="SemiBold"/>
@@ -122,11 +129,10 @@
 					</StackPanel>
 				</Border>
 
-				<!-- Encrypted Extensions -->
-				<Border Background="#252525" CornerRadius="8" Padding="20">
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<StackPanel Spacing="12">
-						<TextBlock Text="{Binding [SettingsFlow_Crypto], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-						<TextBlock Text="{Binding [SettingsFlow_EncryptExtenChoice], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12" TextWrapping="Wrap"/>
+						<TextBlock Text="{Binding [SettingsFlow_Crypto], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+						<TextBlock Text="{Binding [SettingsFlow_EncryptExtenChoice], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12" TextWrapping="Wrap"/>
 
 						<Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
 							<TextBox Text="{Binding NewExtension}" Watermark=".txt" VerticalAlignment="Center"/>
@@ -136,9 +142,9 @@
 						<ItemsControl ItemsSource="{Binding EncryptedExtensions}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate x:DataType="sys:String">
-									<Border Background="#333" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
+									<Border Background="{DynamicResource BorderColor}" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
 										<Grid ColumnDefinitions="*, Auto">
-											<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+											<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}"/>
 											<Button Grid.Column="1" Content="✕" FontSize="12" Padding="6,2" Background="#B22222" Foreground="White"
                                                     Command="{Binding $parent[UserControl].DataContext.RemoveExtensionCommand}" CommandParameter="{Binding}"/>
 										</Grid>
@@ -149,11 +155,10 @@
 					</StackPanel>
 				</Border>
 
-				<!-- ── Priority Extensions ── -->
-				<Border Background="#252525" CornerRadius="8" Padding="20">
+				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<StackPanel Spacing="12">
-						<TextBlock Text="{Binding [SettingsFlow_PriorityExtensions], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-						<TextBlock Text="{Binding [SettingsFlow_PriorityExtensionsDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12" TextWrapping="Wrap"/>
+						<TextBlock Text="{Binding [SettingsFlow_PriorityExtensions], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+						<TextBlock Text="{Binding [SettingsFlow_PriorityExtensionsDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12" TextWrapping="Wrap"/>
 						<Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
 							<TextBox Text="{Binding NewPriorityExtension}" Watermark=".pdf" VerticalAlignment="Center"/>
 							<Button Grid.Column="1" Content="+" FontWeight="Bold" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
@@ -162,10 +167,10 @@
 						<ItemsControl ItemsSource="{Binding PriorityExtensions}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate x:DataType="sys:String">
-									<Border Background="#333" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
+									<Border Background="{DynamicResource BorderColor}" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
 										<Grid ColumnDefinitions="*, Auto">
 											<StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-												<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+												<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}"/>
 											</StackPanel>
 											<Button Grid.Column="1" Content="✕" FontSize="12" Padding="6,2" Background="#B22222" Foreground="White"
                                                     Command="{Binding $parent[UserControl].DataContext.RemovePriorityExtensionCommand}" CommandParameter="{Binding}"/>

@@ -1,4 +1,3 @@
-<!-- Window starts maximized with no title bar or borders -->
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:EasySave.UI.ViewModels"
@@ -13,214 +12,192 @@
         WindowStartupLocation="CenterScreen"
         
         Title="EasySave V3"
-        Background="#1e1e1e" Foreground="White">
+        Background="{DynamicResource AppBackground}" Foreground="{DynamicResource TextPrimary}">
 
-	<Window.Styles>
-		<FluentTheme />
-		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+    <Window.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
 
-		<!-- Global button style -->
-		<Style Selector="Button">
-			<Setter Property="Background" Value="#2d2d2d"/>
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="CornerRadius" Value="5"/>
-			<Setter Property="Padding" Value="15,8"/>
-			<Setter Property="Margin" Value="2"/>
-			<Setter Property="Cursor" Value="Hand"/>
-			<Setter Property="FontWeight" Value="SemiBold"/>
-		</Style>
-		<!-- Button hover effect -->
-		<Style Selector="Button:pointerover /template/ ContentPresenter">
-			<Setter Property="Background" Value="#00bcd4"/>
-			<Setter Property="Foreground" Value="Black"/>
-		</Style>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#00bcd4"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
 
-		<!-- Global text input style -->
-		<Style Selector="TextBox">
-			<Setter Property="Background" Value="#252525"/>
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="BorderBrush" Value="#444"/>
-			<Setter Property="CornerRadius" Value="4"/>
-			<Setter Property="Padding" Value="8"/>
-		</Style>
-		<!-- Text input focus highlight -->
-		<Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
-			<Setter Property="BorderBrush" Value="#00bcd4"/>
-		</Style>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8"/>
+        </Style>
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#00bcd4"/>
+        </Style>
 
-		<!-- Sidebar navigation tab style -->
-		<Style Selector="TabItem">
-			<Setter Property="FontSize" Value="16"/>
-			<Setter Property="Height" Value="50"/>
-			<Setter Property="VerticalContentAlignment" Value="Center"/>
-			<Setter Property="Foreground" Value="#aaa"/>
-			<Setter Property="Margin" Value="0,0,0,5"/>
-			<Setter Property="Padding" Value="20,0"/>
-		</Style>
-		<!-- Tab hover effect -->
-		<Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="Background" Value="#252525"/>
-		</Style>
-		<!-- Active tab highlight -->
-		<Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
-			<Setter Property="Background" Value="#252525"/>
-			<Setter Property="Foreground" Value="#00bcd4"/>
-		</Style>
-		<!-- Active tab left border accent -->
-		<Style Selector="TabItem:selected">
-			<Setter Property="BorderBrush" Value="#00bcd4"/>
-			<Setter Property="BorderThickness" Value="4,0,0,0"/>
-		</Style>
-	</Window.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="Padding" Value="20,0"/>
+        </Style>
+        <Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        </Style>
+        <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+            <Setter Property="Foreground" Value="#00bcd4"/>
+        </Style>
+        <Style Selector="TabItem:selected">
+            <Setter Property="BorderBrush" Value="#00bcd4"/>
+            <Setter Property="BorderThickness" Value="4,0,0,0"/>
+        </Style>
+    </Window.Styles>
 
-	<!-- Panel allows layering: TabControl as base, overlay buttons on top -->
-	<Panel>
+    <Panel>
 
-		<!-- Main navigation layout -->
-		<TabControl TabStripPlacement="Left" Padding="0">
+        <TabControl TabStripPlacement="Left" Padding="0">
 
-			<TabControl.Template>
-				<ControlTemplate TargetType="TabControl">
-					<Grid RowDefinitions="Auto, *">
+            <TabControl.Template>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid RowDefinitions="Auto, *">
 
-						<!-- Top header bar with app logo and title -->
-						<Border Grid.Row="0" Background="#1a1a1a" BorderBrush="#333" BorderThickness="0,0,0,1" Padding="25,10">
-							<Grid ColumnDefinitions="Auto, *">
-								<StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
+                        <Border Grid.Row="0" Background="{DynamicResource AppBackground}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="25,10">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
 
-									<Image Source="avares://EasySave.UI/assets/LogoApp.ico"
-										   Width="55" Height="55"
-										   VerticalAlignment="Center"/>
+                                    <Image Source="avares://EasySave.UI/assets/LogoApp.ico"
+                                           Width="55" Height="55"
+                                           VerticalAlignment="Center"/>
 
-									<StackPanel VerticalAlignment="Center">
-										<TextBlock Text="EasySave" FontSize="20" FontWeight="Bold" Foreground="White"/>
-										<TextBlock Text="v3.0 Enterprise" FontSize="12" Foreground="#888"/>
-									</StackPanel>
-								</StackPanel>
-							</Grid>
-						</Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="EasySave" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                                        <TextBlock Text="v3.0 Enterprise" FontSize="12" Foreground="{DynamicResource TextSecondary}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
 
-						<Grid Grid.Row="1" ColumnDefinitions="250, *">
+                        <Grid Grid.Row="1" ColumnDefinitions="250, *">
 
-							<!-- Left sidebar with navigation tabs -->
-							<Border Grid.Column="0" Background="#1a1a1a" BorderBrush="#333" BorderThickness="0,0,1,0">
-								<Grid RowDefinitions="*, Auto" Margin="0,20,0,0">
-									<ItemsPresenter Grid.Row="0" Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
-									<!-- Footer copyright -->
-									<TextBlock Grid.Row="1" Text="© 2026 ProSoft" HorizontalAlignment="Center" Margin="0,0,0,20" Foreground="#555" FontSize="10"/>
-								</Grid>
-							</Border>
+                            <Border Grid.Column="0" Background="{DynamicResource AppBackground}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                <Grid RowDefinitions="*, Auto" Margin="0,20,0,0">
+                                    <ItemsPresenter Grid.Row="0" Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                    <TextBlock Grid.Row="1" Text="© 2026 ProSoft" HorizontalAlignment="Center" Margin="0,0,0,20" Foreground="{DynamicResource TextSecondary}" FontSize="10"/>
+                                </Grid>
+                            </Border>
 
-							<!-- Main content area that renders the selected tab view -->
-							<ContentPresenter Grid.Column="1" Name="PART_SelectedContentHost"
+                            <ContentPresenter Grid.Column="1" Name="PART_SelectedContentHost"
                                               Content="{TemplateBinding SelectedContent}"
                                               Margin="0"/>
-						</Grid>
-					</Grid>
-				</ControlTemplate>
-			</TabControl.Template>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </TabControl.Template>
 
-			<!-- Home tab -->
-			<TabItem>
-				<TabItem.Header>
-					<StackPanel Orientation="Horizontal" Spacing="15">
-						<TextBlock Text="🏠"/>
-						<TextBlock Text="{Binding [Menu_Option_Home], Source={x:Static services:SettingsManager.Instance}}"/>
-					</StackPanel>
-				</TabItem.Header>
-				<views:HomeView DataContext="{Binding HomeVM}" />
-			</TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock Text="🏠"/>
+                        <TextBlock Text="{Binding [Menu_Option_Home], Source={x:Static services:SettingsManager.Instance}}"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <views:HomeView DataContext="{Binding HomeVM}" />
+            </TabItem>
 
-			<!-- Jobs list tab -->
-			<TabItem>
-				<TabItem.Header>
-					<StackPanel Orientation="Horizontal" Spacing="15">
-						<TextBlock Text="📂"/>
-						<TextBlock Text="{Binding [Menu_Option1], Source={x:Static services:SettingsManager.Instance}}"/>
-					</StackPanel>
-				</TabItem.Header>
-				<views:JobsView DataContext="{Binding JobsVM}" />
-			</TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock Text="📂"/>
+                        <TextBlock Text="{Binding [Menu_Option1], Source={x:Static services:SettingsManager.Instance}}"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <views:JobsView DataContext="{Binding JobsVM}" />
+            </TabItem>
 
-			<!-- Create job tab -->
-			<TabItem>
-				<TabItem.Header>
-					<StackPanel Orientation="Horizontal" Spacing="15">
-						<TextBlock Text="➕"/>
-						<TextBlock Text="{Binding [Menu_Option2], Source={x:Static services:SettingsManager.Instance}}"/>
-					</StackPanel>
-				</TabItem.Header>
-				<views:CreateJobView DataContext="{Binding JobsVM}" />
-			</TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock Text="➕"/>
+                        <TextBlock Text="{Binding [Menu_Option2], Source={x:Static services:SettingsManager.Instance}}"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <views:CreateJobView DataContext="{Binding JobsVM}" />
+            </TabItem>
 
-			<!-- Settings tab -->
-			<TabItem>
-				<TabItem.Header>
-					<StackPanel Orientation="Horizontal" Spacing="15">
-						<TextBlock Text="⚙️"/>
-						<TextBlock Text="{Binding [Menu_OptionSettings], Source={x:Static services:SettingsManager.Instance}}"/>
-					</StackPanel>
-				</TabItem.Header>
-				<views:SettingsView DataContext="{Binding SettingsVM}" />
-			</TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock Text="⚙️"/>
+                        <TextBlock Text="{Binding [Menu_OptionSettings], Source={x:Static services:SettingsManager.Instance}}"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <views:SettingsView DataContext="{Binding SettingsVM}" />
+            </TabItem>
 
-		</TabControl>
+        </TabControl>
 
-		<!-- Overlay buttons displayed on top of all content (top-right corner) -->
-		<StackPanel HorizontalAlignment="Right"
-					VerticalAlignment="Top"
-					Orientation="Horizontal"
-					Margin="0,12,12,0"
-					Spacing="8"
-					ZIndex="100">
+        <StackPanel HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Margin="0,12,12,0"
+                    Spacing="8"
+                    ZIndex="100">
 
-			<!-- Minimize button : sends window to taskbar -->
-			<Button Width="32" Height="32"
-					Padding="0"
-					Background="#444"
-					Foreground="White"
-					FontSize="16"
-					FontWeight="Bold"
-					CornerRadius="16"
-					Click="MinimizeButton_Click">
-				<TextBlock Text="─"
-						   HorizontalAlignment="Center"
-						   VerticalAlignment="Center"
-						   TextAlignment="Center"/>
-			</Button>
+            <Button Width="32" Height="32"
+                    Padding="0"
+                    Background="{DynamicResource BorderColor}"
+                    Foreground="{DynamicResource TextPrimary}"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    CornerRadius="16"
+                    Click="MinimizeButton_Click">
+                <TextBlock Text="─"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"/>
+            </Button>
 
-			<!-- Fullscreen toggle button : switches between maximized and windowed mode -->
-			<Button Width="32" Height="32"
-					Padding="0"
-					Background="#555"
-					Foreground="White"
-					FontSize="16"
-					FontWeight="Bold"
-					CornerRadius="16"
-					Click="ToggleFullscreenButton_Click">
-				<TextBlock Text="□"
-						   HorizontalAlignment="Center"
-						   VerticalAlignment="Center"
-						   TextAlignment="Center"/>
-			</Button>
+            <Button Width="32" Height="32"
+                    Padding="0"
+                    Background="{DynamicResource BorderColor}"
+                    Foreground="{DynamicResource TextPrimary}"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    CornerRadius="16"
+                    Click="ToggleFullscreenButton_Click">
+                <TextBlock Text="□"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"/>
+            </Button>
 
-			<!-- Close button : exits the application -->
-			<Button Width="32" Height="32"
-					Padding="0"
-					Background="#e53935"
-					Foreground="White"
-					FontSize="14"
-					FontWeight="Bold"
-					CornerRadius="16"
-					Click="CloseButton_Click">
-				<TextBlock Text="✕"
-						   HorizontalAlignment="Center"
-						   VerticalAlignment="Center"
-						   TextAlignment="Center"/>
-			</Button>
+            <Button Width="32" Height="32"
+                    Padding="0"
+                    Background="#e53935"
+                    Foreground="White"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    CornerRadius="16"
+                    Click="CloseButton_Click">
+                <TextBlock Text="✕"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"/>
+            </Button>
 
-		</StackPanel>
+        </StackPanel>
 
-	</Panel>
+    </Panel>
 </Window>
