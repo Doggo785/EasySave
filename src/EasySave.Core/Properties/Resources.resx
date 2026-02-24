@@ -516,4 +516,10 @@
   <data name="Button_Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="SettingsFlow_PriorityExtensions" xml:space="preserve">
+    <value>Fichiers prioritaires</value>
+  </data>
+  <data name="SettingsFlow_PriorityExtensionsDesc" xml:space="preserve">
+    <value>Entrez les types de fichiers qui seront copiés en priorité. Aucun fichier non-prioritaire ne sera transféré tant qu'il reste des fichiers prioritaires en attente. (ex: .txt,.doc,.pdf)</value>
+  </data>
 </root>

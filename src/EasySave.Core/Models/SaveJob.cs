@@ -26,7 +26,7 @@ namespace EasySave.Core.Models
         // Thread control elements
         [JsonIgnore]
         public ManualResetEventSlim PauseEvent { get; } = new ManualResetEventSlim(true);
-        public event EventHandler<int> ProgressChanged;
+        public event EventHandler<int>? ProgressChanged;
 
         public SaveJob(int id, string name, string source, string target, bool type)
         {
@@ -58,6 +58,7 @@ namespace EasySave.Core.Models
         public void Run(
             List<string> extensionsToEncrypt,
             SemaphoreSlim grosFichierEnCours,
+            ManualResetEventSlim noPriorityPending,
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
             CancellationToken cancellationToken = default)
@@ -76,6 +77,22 @@ namespace EasySave.Core.Models
                 string targetSubDir = Path.Combine(TargetDirectory, relativePath);
                 Directory.CreateDirectory(targetSubDir);
             }
+
+            // Priority and non-priority separation
+            var priorityExtensions = SettingsManager.Instance.PriorityExtensions;
+            long tailleMax = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
+
+            var priorityFiles = allFiles
+                .Where(f => priorityExtensions != null &&
+                            priorityExtensions.Contains(f.Extension, StringComparer.OrdinalIgnoreCase))
+                .ToList();
+            var normalFiles = allFiles
+                .Where(f => priorityExtensions == null ||
+                            !priorityExtensions.Contains(f.Extension, StringComparer.OrdinalIgnoreCase))
+                .ToList();
+
+            // Announcement, before the start of the job, of the number of priority files in order to immediately block non-priority files from all jobs.
+            SaveManager.RegisterPriorityFiles(priorityFiles.Count);
 
             long totalSize = allFiles.Sum(f => f.Length);
             int totalFiles = allFiles.Length;
@@ -97,11 +114,22 @@ namespace EasySave.Core.Models
             };
             _logger.UpdateStateLog(stateLog);
 
-            foreach (var file in allFiles)
+            // Priority files first, then regular ones
+            foreach (var file in priorityFiles.Concat(normalFiles))
             {
                 // Thread control checkpoints
                 cancellationToken.ThrowIfCancellationRequested();
                 PauseEvent.Wait(cancellationToken);
+
+                bool isPriority = priorityExtensions != null &&
+                                  priorityExtensions.Contains(file.Extension, StringComparer.OrdinalIgnoreCase);
+                bool isLarge = file.Length > tailleMax;
+
+                /// Non-priority files are blocked as long as there are priority files waiting on a job in progress.
+                if (!isPriority)
+                {
+                    noPriorityPending.Wait(cancellationToken);
+                }
 
                 string relativePath = Path.GetRelativePath(SourceDirectory, file.FullName);
                 string targetPath = Path.Combine(TargetDirectory, relativePath);
@@ -115,13 +143,10 @@ namespace EasySave.Core.Models
                 bool processFile = SaveType || CheckDifferential(file, targetPath);
                 if (processFile)
                 {
-                    long tailleFichier = file.Length;
-                    long tailleMax = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
-
-                    if (tailleFichier > tailleMax)
+                    if (isLarge)
                     {
                         // Large file: we wait for the semaphore to become free (only one at a time)
-                        grosFichierEnCours.Wait();
+                        grosFichierEnCours.Wait(cancellationToken);
                         try
                         {
                             CopyFile(file.FullName, targetPath);
@@ -144,8 +169,6 @@ namespace EasySave.Core.Models
                         if (!string.IsNullOrEmpty(password))
                         {
                             int encryptionTime = CryptoService.EncryptFile(targetPath, targetPath, password);
-                            //if (encryptionTime > 0)
-                            //    displayMessage?.Invoke($"{file.FullName} {Resources.FileEncrypted} ({encryptionTime} ms)");
                             if (encryptionTime == -1)
                                 displayMessage?.Invoke($"{file.FullName} {Resources.EncryptionError}");
                             else if (encryptionTime == -2)
@@ -155,8 +178,13 @@ namespace EasySave.Core.Models
 
                     filesProcessed++;
                 }
-                sizeProcessed += file.Length;
 
+                if (isPriority)
+                {
+                    SaveManager.OnPriorityFileDone();
+                }
+
+                sizeProcessed += file.Length;
                 stateLog.NbFilesLeftToDo = totalFiles - filesProcessed;
                 stateLog.RemainingFilesSize = totalSize - sizeProcessed;
                 stateLog.Progression = totalFiles > 0 ? (int)((double)filesProcessed / totalFiles * 100) : 100;
@@ -164,8 +192,6 @@ namespace EasySave.Core.Models
 
                 // Notify UI of progression
                 ProgressChanged?.Invoke(this, stateLog.Progression);
-
-                //displayMessage?.Invoke($"Progression: {stateLog.Progression}% ({filesProcessed}/{totalFiles} {Resources.File})");
 
             }
 
@@ -176,7 +202,7 @@ namespace EasySave.Core.Models
             stateLog.Progression = 100;
             _logger.UpdateStateLog(stateLog);
 
-            // Ensure final completion state is sent to UI
+            // final completion state is sent to UI
             ProgressChanged?.Invoke(this, 100);
 
             displayMessage?.Invoke($"\u2705 {Resources.Savejob_sauvegardefinis} {Name}");
@@ -186,11 +212,12 @@ namespace EasySave.Core.Models
         public async Task RunAsync(
             List<string> extensionsToEncrypt,
             SemaphoreSlim grosFichierEnCours,
+            ManualResetEventSlim noPriorityPending,
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
             CancellationToken cancellationToken = default)
         {
-            await Task.Run(() => Run(extensionsToEncrypt, grosFichierEnCours, requestPassword, displayMessage, cancellationToken), cancellationToken);
+            await Task.Run(() => Run(extensionsToEncrypt, grosFichierEnCours, noPriorityPending, requestPassword, displayMessage, cancellationToken), cancellationToken);
         }
 
         // Checks if source file is newer than target file for differential backup
