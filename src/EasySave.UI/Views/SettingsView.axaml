@@ -71,23 +71,23 @@
 				</Border>
 
                 <!-- Server IP : Port -->
-                <Border Background="#252525" CornerRadius="8" Padding="20">
-                    <StackPanel Spacing="12">
-                        <TextBlock Text="{Binding [SettingsFlow_ServerIp], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16"/>
-                        <TextBlock Text="{Binding [SettingsFlow_ServerIpDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="#888" FontSize="12"/>
-                        <Grid ColumnDefinitions="3*, Auto, *, Auto" Margin="0,4,0,0">
-                            <TextBox Text="{Binding ServerIp}" Watermark="127.0.0.1" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text=" : " VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#888" Margin="6,0"/>
-                            <TextBox Grid.Column="2" Text="{Binding ServerPort}" Watermark="25549" VerticalAlignment="Center"/>
-                            <Button Grid.Column="3" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
-                                    Command="{Binding SaveServerConnectionCommand}" VerticalAlignment="Center"/>
-                        </Grid>
-                        <Border Background="#1a3a1a" CornerRadius="4" Padding="10,6"
-                                IsVisible="{Binding ServerConnectionConfirmationVisible}">
-                            <TextBlock Text="{Binding [SettingsFlow_ServerIpSuccess], Source={x:Static services:SettingsManager.Instance}}" Foreground="#4caf50" FontWeight="SemiBold"/>
-                        </Border>
-                    </StackPanel>
-                </Border>
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
+					<StackPanel Spacing="12">
+						<TextBlock Text="{Binding [SettingsFlow_ServerIp], Source={x:Static services:SettingsManager.Instance}}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}"/>
+						<TextBlock Text="{Binding [SettingsFlow_ServerIpDesc], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+						<Grid ColumnDefinitions="3*, Auto, *, Auto" Margin="0,4,0,0">
+							<TextBox Text="{Binding ServerIp}" Watermark="127.0.0.1" VerticalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text=" : " VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextSecondary}" Margin="6,0"/>
+							<TextBox Grid.Column="2" Text="{Binding ServerPort}" Watermark="25549" VerticalAlignment="Center"/>
+							<Button Grid.Column="3" Content="✓" Background="#00bcd4" Foreground="Black" Margin="10,0,0,0"
+									Command="{Binding SaveServerConnectionCommand}" VerticalAlignment="Center"/>
+						</Grid>
+						<Border Background="#1a3a1a" CornerRadius="4" Padding="10,6"
+								IsVisible="{Binding ServerConnectionConfirmationVisible}">
+							<TextBlock Text="{Binding [SettingsFlow_ServerIpSuccess], Source={x:Static services:SettingsManager.Instance}}" Foreground="#4caf50" FontWeight="SemiBold"/>
+						</Border>
+					</StackPanel>
+				</Border>
 
 				<Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20">
 					<StackPanel Spacing="12">

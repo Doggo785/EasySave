@@ -4,6 +4,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using ReactiveUI;
+using EasySave.Core.Services;
 
 namespace EasySave.UI.ViewModels
 {
