@@ -14,7 +14,7 @@
         Title="EasySave V3"
         Background="{DynamicResource AppBackground}" Foreground="{DynamicResource TextPrimary}">
 
-    <Window.Styles>
+<Window.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
 
@@ -50,19 +50,34 @@
             <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="Margin" Value="0,0,0,5"/>
             <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="BorderThickness" Value="0"/> </Style>
+
+        <Style Selector="TabItem /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="CornerRadius" Value="0"/> <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.25"/>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.25"/>
+                    <ThicknessTransition Property="Padding" Duration="0:0:0.15"/> </Transitions>
+            </Setter>
         </Style>
+
         <Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
             <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
-        </Style>
+            <Setter Property="Padding" Value="26,0,14,0"/> </Style>
+
         <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
             <Setter Property="Foreground" Value="#00bcd4"/>
+            <Setter Property="Padding" Value="26,0,14,0"/> <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                        <GradientStop Offset="0" Color="#4000bcd4"/>
+                        <GradientStop Offset="1" Color="Transparent"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
         </Style>
-        <Style Selector="TabItem:selected">
-            <Setter Property="BorderBrush" Value="#00bcd4"/>
-            <Setter Property="BorderThickness" Value="4,0,0,0"/>
-        </Style>
+
     </Window.Styles>
 
     <Panel>
