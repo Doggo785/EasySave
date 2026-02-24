@@ -226,7 +226,7 @@
     <value>Source</value>
   </data>
   <data name="Header_Type" xml:space="preserve">
-    <value>Type</value>
+    <value>Backup Type</value>
   </data>
   <data name="Menu_Option1" xml:space="preserve">
     <value>List Save jobs</value>
@@ -560,5 +560,11 @@
   </data>
   <data name="UI_Introuvable" xml:space="preserve">
     <value>Not found.</value>
+  </data>
+  <data name="Full_Backup" xml:space="preserve">
+    <value>Full</value>
+  </data>
+  <data name="Diff_Backup" xml:space="preserve">
+    <value>Differential</value>
   </data>
 </root>
