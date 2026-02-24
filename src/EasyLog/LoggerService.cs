@@ -102,7 +102,7 @@ namespace EasyLog
                         var xmlSerializer = new XmlSerializer(typeof(DailyLog));
                         using var sw = new StringWriter();
                         xmlSerializer.Serialize(sw, logEntry);
-                        serialized = sw.ToString();
+                        serialized = sw.ToString().ReplaceLineEndings(string.Empty);
                     }
                     _logQueue.Enqueue(serialized);
                 }
