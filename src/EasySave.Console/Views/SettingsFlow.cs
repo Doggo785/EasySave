@@ -47,7 +47,7 @@ namespace EasySave
                 switch (choice)
                 {
                     case "1":
-                        ChangeLangue(view);
+                        ChangeLanguage(view);
                         break;
                     case "2":
                         ModifyLogFormat(settings);
@@ -77,7 +77,7 @@ namespace EasySave
             }
         }
 
-        private static void ChangeLangue(ConsoleView view)
+        private static void ChangeLanguage(ConsoleView view)
         {
             ConsoleView.DisplayHeader();
 

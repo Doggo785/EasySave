@@ -130,9 +130,9 @@ namespace EasySave.UI.ViewModels
         public ReactiveCommand<Unit, Unit> BrowseSourceCommand { get; }
         public ReactiveCommand<Unit, Unit> BrowseDestCommand { get; }
 
-        public JobsViewModel()
+        public JobsViewModel(SaveManager saveManager)
         {
-            _saveManager = new SaveManager();
+            _saveManager = saveManager;
             Jobs = new ObservableCollection<JobItemViewModel>();
             RefreshList();
             UpdateUiStatesContinuously();
@@ -257,7 +257,7 @@ namespace EasySave.UI.ViewModels
             if (owner == null) return;
 
             var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
-            string jobName = jobVm != null ? jobVm.Name : "ce travail";
+            string jobName = jobVm != null ? jobVm.Name : "null";
 
             string template = SettingsManager.Instance["Confirm_Delete_Message"];
 
