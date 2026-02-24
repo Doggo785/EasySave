@@ -88,7 +88,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Annuler.
+        ///   Recherche une chaîne localisée semblable à Annuler.
         /// </summary>
         public static string Button_Cancel {
             get {
@@ -97,7 +97,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oui.
+        ///   Recherche une chaîne localisée semblable à Oui.
         /// </summary>
         public static string Button_Yes {
             get {
@@ -106,7 +106,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Annulé: Job.
+        ///   Recherche une chaîne localisée semblable à Annulé: Job.
         /// </summary>
         public static string Cancel_job {
             get {
@@ -133,7 +133,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Veuillez fermer le logiciel métier..
+        ///   Recherche une chaîne localisée semblable à Veuillez fermer le logiciel métier..
         /// </summary>
         public static string Canlaunch_Erreur2 {
             get {
@@ -142,7 +142,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre....
+        ///   Recherche une chaîne localisée semblable à Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre....
         /// </summary>
         public static string CanLaunch_Erreur3 {
             get {
@@ -187,7 +187,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Êtes-vous sûr de vouloir supprimer la sauvegarde ?.
+        ///   Recherche une chaîne localisée semblable à Êtes-vous sûr de vouloir supprimer la sauvegarde ?.
         /// </summary>
         public static string Confirm_Delete_Message {
             get {
@@ -196,7 +196,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirmation de suppression.
+        ///   Recherche une chaîne localisée semblable à Confirmation de suppression.
         /// </summary>
         public static string Confirm_Delete_Title {
             get {
@@ -205,7 +205,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Destination (Chemin complet) : .
+        ///   Recherche une chaîne localisée semblable à Destination (Chemin complet) : .
         /// </summary>
         public static string Create_Job_Arg_Dest {
             get {
@@ -259,7 +259,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sauvegarde créée avec succès !.
+        ///   Recherche une chaîne localisée semblable à Sauvegarde créée avec succès !.
         /// </summary>
         public static string Create_Job_Succes {
             get {
@@ -637,7 +637,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Annuler.
+        ///   Recherche une chaîne localisée semblable à Annuler.
         /// </summary>
         public static string JobLaunch_Cancel {
             get {
@@ -646,7 +646,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continuer quand même.
+        ///   Recherche une chaîne localisée semblable à Continuer quand même.
         /// </summary>
         public static string JobLaunch_ContinueAnyway {
             get {
@@ -655,7 +655,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Le serveur de logs centralisé est injoignable. Les logs risquent d&apos;être perdus..
+        ///   Recherche une chaîne localisée semblable à Le serveur de logs centralisé est injoignable. Les logs risquent d&apos;être perdus..
         /// </summary>
         public static string JobLaunch_ServerOfflineMessage {
             get {
@@ -664,7 +664,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Serveur de logs hors ligne.
+        ///   Recherche une chaîne localisée semblable à Serveur de logs hors ligne.
         /// </summary>
         public static string JobLaunch_ServerOfflineTitle {
             get {
@@ -673,7 +673,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mode de logs basculé en local pour éviter la perte de données..
+        ///   Recherche une chaîne localisée semblable à Mode de logs basculé en local pour éviter la perte de données..
         /// </summary>
         public static string JobLaunch_SwitchedToLocal {
             get {
@@ -682,7 +682,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Passer en local.
+        ///   Recherche une chaîne localisée semblable à Passer en local.
         /// </summary>
         public static string JobLaunch_SwitchToLocal {
             get {
@@ -898,7 +898,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lancer la sélection.
+        ///   Recherche une chaîne localisée semblable à Lancer la sélection.
         /// </summary>
         public static string Run_selection {
             get {
@@ -907,7 +907,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Sauvegarde terminée:.
+        ///   Recherche une chaîne localisée semblable à  Sauvegarde terminée:.
         /// </summary>
         public static string Savejob_sauvegardefinis {
             get {
@@ -943,7 +943,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MODIFICATION DE LA LANGUE.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DE LA LANGUE.
         /// </summary>
         public static string SettingsFlow_Changementlang {
             get {
@@ -1060,7 +1060,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Destination des logs.
+        ///   Recherche une chaîne localisée semblable à Destination des logs.
         /// </summary>
         public static string SettingsFlow_LogTarget {
             get {
@@ -1069,7 +1069,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Les deux.
+        ///   Recherche une chaîne localisée semblable à Les deux.
         /// </summary>
         public static string SettingsFlow_LogTarget_Both {
             get {
@@ -1078,7 +1078,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Centralisé uniquement.
+        ///   Recherche une chaîne localisée semblable à Centralisé uniquement.
         /// </summary>
         public static string SettingsFlow_LogTarget_Centralized {
             get {
@@ -1087,7 +1087,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local uniquement.
+        ///   Recherche une chaîne localisée semblable à Local uniquement.
         /// </summary>
         public static string SettingsFlow_LogTarget_Local {
             get {
@@ -1096,7 +1096,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choisissez où enregistrer les logs.
+        ///   Recherche une chaîne localisée semblable à Choisissez où enregistrer les logs.
         /// </summary>
         public static string SettingsFlow_LogTargetDesc {
             get {
@@ -1105,7 +1105,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Destination des logs mise à jour avec succès..
+        ///   Recherche une chaîne localisée semblable à Destination des logs mise à jour avec succès..
         /// </summary>
         public static string SettingsFlow_LogTargetSuccess {
             get {
@@ -1114,7 +1114,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Taille max transfert parallèle.
+        ///   Recherche une chaîne localisée semblable à Taille max transfert parallèle.
         /// </summary>
         public static string SettingsFlow_MaxParallelSize {
             get {
@@ -1123,7 +1123,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paramètre sauvegardé !.
+        ///   Recherche une chaîne localisée semblable à Paramètre sauvegardé !.
         /// </summary>
         public static string SettingsFlow_MaxParallelSizeConfirm {
             get {
@@ -1132,34 +1132,16 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Un seul fichier à la fois au dessus de cette taille (Ko).
+        ///   Recherche une chaîne localisée semblable à Un seul fichier à la fois au dessus de cette taille (Ko).
         /// </summary>
         public static string SettingsFlow_MaxParallelSizeDesc {
             get {
                 return ResourceManager.GetString("SettingsFlow_MaxParallelSizeDesc", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Adresse IP du serveur.
-        /// </summary>
-        public static string SettingsFlow_ServerIp {
-            get {
-                return ResourceManager.GetString("SettingsFlow_ServerIp", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Adresse IP du serveur de logs.
-        /// </summary>
-        public static string SettingsFlow_ServerIpDesc {
-            get {
-                return ResourceManager.GetString("SettingsFlow_ServerIpDesc", resourceCulture);
-            }
-        }
         
         /// <summary>
-        ///   Looks up a localized string similar to MODIFICATION DU LOGICIEL MÉTIER.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DU LOGICIEL MÉTIER.
         /// </summary>
         public static string SettingsFlow_ModifBusinesSoftWare {
             get {
@@ -1168,7 +1150,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MODIFICATION DES EXTENSIONS CRYPTO.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DES EXTENSIONS CRYPTO.
         /// </summary>
         public static string SettingsFlow_ModifEncrypt {
             get {
@@ -1177,7 +1159,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MODIFICATION DU FORMAT DE LOG.
+        ///   Recherche une chaîne localisée semblable à MODIFICATION DU FORMAT DE LOG.
         /// </summary>
         public static string SettingsFlow_ModifLogFormat {
             get {
@@ -1186,7 +1168,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PARAMÈTRES.
+        ///   Recherche une chaîne localisée semblable à PARAMÈTRES.
         /// </summary>
         public static string SettingsFlow_Parameters {
             get {
@@ -1195,7 +1177,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Priorités.
+        ///   Recherche une chaîne localisée semblable à Priorités.
         /// </summary>
         public static string SettingsFlow_Priorities {
             get {
@@ -1204,7 +1186,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fichiers prioritaires.
+        ///   Recherche une chaîne localisée semblable à Fichiers prioritaires.
         /// </summary>
         public static string SettingsFlow_PriorityExtensions {
             get {
@@ -1213,7 +1195,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entrez les types de fichiers qui seront copiés en priorité. Aucun fichier non-prioritaire ne sera transféré tant qu&apos;il reste des fichiers prioritaires en attente. (ex: .txt,.doc,.pdf).
+        ///   Recherche une chaîne localisée semblable à Entrez les types de fichiers qui seront copiés en priorité. Aucun fichier non-prioritaire ne sera transféré tant qu&apos;il reste des fichiers prioritaires en attente. (ex: .txt,.doc,.pdf).
         /// </summary>
         public static string SettingsFlow_PriorityExtensionsDesc {
             get {
@@ -1222,7 +1204,25 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresse IP du serveur.
+        ///   Recherche une chaîne localisée semblable à Adresse IP du serveur.
+        /// </summary>
+        public static string SettingsFlow_ServerIp {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IP ou nom de domaine du serveur de logs centralisé.
+        /// </summary>
+        public static string SettingsFlow_ServerIpDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerIpDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adresse IP du serveur mise à jour avec succès..
         /// </summary>
         public static string SettingsFlow_ServerIpSuccess {
             get {
@@ -1240,6 +1240,33 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Port du serveur.
+        /// </summary>
+        public static string SettingsFlow_ServerPort {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Port TCP du serveur de logs centralisé (1-65535).
+        /// </summary>
+        public static string SettingsFlow_ServerPortDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerPortDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Port du serveur mis à jour avec succès..
+        /// </summary>
+        public static string SettingsFlow_ServerPortSuccess {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerPortSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Logiciel métier.
         /// </summary>
         public static string SettingsFlow_SoftwareBuis {
@@ -1249,34 +1276,7 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Port du serveur.
-        /// </summary>
-        public static string SettingsFlow_ServerPort {
-            get {
-                return ResourceManager.GetString("SettingsFlow_ServerPort", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Port TCP du serveur de logs centralisé (1-65535).
-        /// </summary>
-        public static string SettingsFlow_ServerPortDesc {
-            get {
-                return ResourceManager.GetString("SettingsFlow_ServerPortDesc", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Port du serveur mis à jour avec succès..
-        /// </summary>
-        public static string SettingsFlow_ServerPortSuccess {
-            get {
-                return ResourceManager.GetString("SettingsFlow_ServerPortSuccess", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to ⚠ Le serveur de logs est injoignable ou hors ligne....
+        ///   Recherche une chaîne localisée semblable à Thème de l&apos;application.
         /// </summary>
         public static string SettingsFlow_Theme {
             get {
@@ -1285,21 +1285,38 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ajoutez les logiciels bloquants (ex: calc.exe).
+        ///   Recherche une chaîne localisée semblable à Sombre.
         /// </summary>
-        public static string SettingsView_Sotftwareblock {
+        public static string SettingsFlow_ThemeDark {
             get {
-                return ResourceManager.GetString("SettingsView_Sotftwareblock", resourceCulture);
+                return ResourceManager.GetString("SettingsFlow_ThemeDark", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Démarrage.
+        ///   Recherche une chaîne localisée semblable à Basculer entre le mode clair et le mode sombre.
+        /// </summary>
+        public static string SettingsFlow_ThemeDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ThemeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Clair.
         /// </summary>
         public static string SettingsFlow_ThemeLight {
             get {
                 return ResourceManager.GetString("SettingsFlow_ThemeLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajoutez les logiciels bloquants (ex: calc.exe).
+        /// </summary>
+        public static string SettingsView_Sotftwareblock {
+            get {
+                return ResourceManager.GetString("SettingsView_Sotftwareblock", resourceCulture);
             }
         }
         
@@ -1313,11 +1330,65 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source, destination et mot de passe ne peuvent pas être vides..
+        ///   Recherche une chaîne localisée semblable à Source, destination et mot de passe ne peuvent pas être vides..
         /// </summary>
         public static string ThrowWrongInput {
             get {
                 return ResourceManager.GetString("ThrowWrongInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à [Terminé].
+        /// </summary>
+        public static string UI_Completed {
+            get {
+                return ResourceManager.GetString("UI_Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à introuvable..
+        /// </summary>
+        public static string UI_Introuvable {
+            get {
+                return ResourceManager.GetString("UI_Introuvable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Password requis :.
+        /// </summary>
+        public static string UI_Password {
+            get {
+                return ResourceManager.GetString("UI_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à [EasySave CLI Mode].
+        /// </summary>
+        public static string UI_Program_CLIMOD {
+            get {
+                return ResourceManager.GetString("UI_Program_CLIMOD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à [Erreur] Format invalide. Utilisez un ID (ex: 1) ou une plage (ex: 1-3)..
+        /// </summary>
+        public static string UI_Program_Error {
+            get {
+                return ResourceManager.GetString("UI_Program_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bienvenue.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }
