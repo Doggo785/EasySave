@@ -9,17 +9,13 @@ using Xunit;
 
 namespace EasySave.Tests
 {
-    // SaveJob TESTS  with FluentAssertions en suivant les règles de xUnit (Arrange, Act, Assert)
     public class SaveJobTests
     {
-        // Testing the creation of a SaveJob with its basic properties
         [Fact]
         public void CreationSaveJob_PropertiesAreCorrect()
         {
-            // Arrange & Act
             var job = new SaveJob(1, "TestJob", @"C:\Source", @"C:\Target", true);
 
-            // Assert
             job.Id.Should().Be(1,
                 because: "the ID must match the one passed to the constructor");
             job.Name.Should().Be("TestJob",
@@ -32,14 +28,11 @@ namespace EasySave.Tests
                 because: "SaveType=true indicates a full backup (Full Save)");
         }
 
-        // Testing the creation of an empty SaveJob (constructor without parameters)
         [Fact]
         public void CreationSaveJob_Empty_DefaultProperties()
         {
-            // Arrange & Act
             var job = new SaveJob();
 
-            // Assert
             job.Name.Should().BeEmpty(
                 because: "the name must be an empty string by default, not null");
             job.SourceDirectory.Should().BeEmpty(
@@ -48,20 +41,16 @@ namespace EasySave.Tests
                 because: "the target directory must be an empty string by default, not null");
         }
 
-        // Testing the modification of SaveJob properties
         [Fact]
         public void ModificationSaveJob_ModifiedProperties()
         {
-            // Arrange
             var job = new SaveJob(1, "OldName", @"C:\OldSource", @"C:\OldTarget", true);
 
-            // Act
             job.Name = "NewName";
             job.SourceDirectory = @"C:\NewSource";
             job.TargetDirectory = @"C:\NewTarget";
             job.SaveType = false;
 
-            // Assert
             job.Name.Should().Be("NewName",
                 because: "the name must be updated after modification via the setter");
             job.SourceDirectory.Should().Be(@"C:\NewSource",
@@ -72,29 +61,23 @@ namespace EasySave.Tests
                 because: "SaveType=false indicates a differential backup");
         }
 
-        // Testing the execution of a job on a non-existent source directory (must not crash)
         [Fact]
         public void Run_SourceDirectoryNonexistent_ReturnWithoutError()
         {
-            // Arrange
             var job = new SaveJob(1, "TestJob", @"C:\CheminQuiNExistePas_XYZ", @"C:\Target", true);
             var semaphore = new SemaphoreSlim(1, 1);
-            var noPriorityPending = new ManualResetEventSlim(true); // true = signaled = no priority pending
+            var noPriorityPending = new ManualResetEventSlim(true); // signaled = no priority pending
             var messages = new List<string>();
 
-            // Act
             var act = () => job.Run(new List<string>(), semaphore, noPriorityPending, null, msg => messages.Add(msg));
 
-            // Assert
             act.Should().NotThrow(
                 because: "a non-existent source directory should be silently ignored without raising an exception");
         }
 
-        // Testing the execution of a complete job (Full Save) on real files
         [Fact]
         public void Run_saveComplete_FilesCopied()
         {
-            // Arrange
             string sourceDir = Path.Combine(Path.GetTempPath(), $"EasySave_Src_{Guid.NewGuid():N}");
             string targetDir = Path.Combine(Path.GetTempPath(), $"EasySave_Dst_{Guid.NewGuid():N}");
             Directory.CreateDirectory(sourceDir);
@@ -104,14 +87,12 @@ namespace EasySave.Tests
 
             var job = new SaveJob(1, "FullTest", sourceDir, targetDir, true);
             var semaphore = new SemaphoreSlim(1, 1);
-            var noPriorityPending = new ManualResetEventSlim(true); // true = signaled = no priority pending
+            var noPriorityPending = new ManualResetEventSlim(true); // signaled = no priority pending
 
             try
             {
-                // Act
                 job.Run(new List<string>(), semaphore, noPriorityPending);
 
-                // Assert
                 string copiedFile = Path.Combine(targetDir, "test.txt");
                 File.Exists(copiedFile).Should().BeTrue(
                     because: "a full backup should copy all files from the source directory to the target directory");

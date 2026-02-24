@@ -12,7 +12,6 @@ namespace EasySave.UI.ViewModels
     public class SettingsViewModel : ReactiveObject
     {
         private DispatcherTimer _serverStatusTimer;
-        // Language settings
         private int _selectedLanguageIndex;
         public int SelectedLanguageIndex
         {
@@ -24,7 +23,6 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        // Log format settings
         private int _selectedLogFormatIndex;
         public int SelectedLogFormatIndex
         {
@@ -60,7 +58,6 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        // Business software properties
         private string _newBusinessSoftware = "";
         public string NewBusinessSoftware
         {
@@ -72,7 +69,6 @@ namespace EasySave.UI.ViewModels
         public ReactiveCommand<Unit, Unit> AddBusinessSoftwareCommand { get; }
         public ReactiveCommand<string, Unit> RemoveBusinessSoftwareCommand { get; }
 
-        // Encrypted extensions properties
         private string _newExtension = "";
         public string NewExtension
         {
@@ -80,7 +76,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _newExtension, value);
         }
 
-        // Priority extensions properties
         private string _newPriorityExtension = "";
         public string NewPriorityExtension
         {
@@ -106,7 +101,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _maxSizeConfirmationVisible, value);
         }
 
-        // Log target settings
         private int _selectedLogTargetIndex;
         public int SelectedLogTargetIndex
         {
@@ -121,7 +115,6 @@ namespace EasySave.UI.ViewModels
             }
         }
 
-        // Server offline warning
         private bool _serverOfflineWarningVisible;
         public bool ServerOfflineWarningVisible
         {
@@ -129,7 +122,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _serverOfflineWarningVisible, value);
         }
 
-        // Server IP settings
         private string _serverIp = "";
         public string ServerIp
         {
@@ -137,7 +129,6 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _serverIp, value);
         }
 
-        // Server Port settings
         private string _serverPort = "";
         public string ServerPort
         {
@@ -166,7 +157,6 @@ namespace EasySave.UI.ViewModels
 
             var settings = SettingsManager.Instance;
 
-            // Initialize base settings
             _selectedLanguageIndex = settings.Language == "en" ? 1 : 0;
             _selectedLogFormatIndex = settings.LogFormat ? 0 : 1;
             _selectedLogTargetIndex = (int)settings.LogTarget;
@@ -175,13 +165,11 @@ namespace EasySave.UI.ViewModels
             _isDarkMode = settings.IsDarkMode;
             IsDarkMode = settings.IsDarkMode;
 
-            // Initialize observable collections
             BusinessSoftwareNames = new ObservableCollection<string>(settings.BusinessSoftwareNames);
             _maxParallelFileSizeKbText = settings.MaxParallelFileSizeKb.ToString();
             EncryptedExtensions = new ObservableCollection<string>(settings.EncryptedExtensions);
             PriorityExtensions = new ObservableCollection<string>(settings.PriorityExtensions);
 
-            // Initialize commands
             AddBusinessSoftwareCommand = ReactiveCommand.Create(AddBusinessSoftware);
             RemoveBusinessSoftwareCommand = ReactiveCommand.Create<string>(RemoveBusinessSoftware);
 
@@ -239,7 +227,6 @@ namespace EasySave.UI.ViewModels
                 SettingsManager.Instance.MaxParallelFileSizeKb = value;
                 SettingsManager.Instance.SaveSettings();
 
-                // Displays confirmation then cache after 2 seconds
                 MaxSizeConfirmationVisible = true;
                 System.Threading.Tasks.Task.Delay(2000).ContinueWith(_ =>
                 {
@@ -270,7 +257,6 @@ namespace EasySave.UI.ViewModels
             SyncExtensionsToSettings();
         }
 
-        // Priority files methods
         private void AddPriorityExtension()
         {
             if (string.IsNullOrWhiteSpace(NewPriorityExtension)) return;

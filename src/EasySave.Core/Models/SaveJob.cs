@@ -55,7 +55,6 @@ namespace EasySave.Core.Models
             LoggerService.ServerPort = SettingsManager.Instance.ServerPort;
         }
 
-        // Executes the backup process synchronously
         public void Run(
             List<string> extensionsToEncrypt,
             SemaphoreSlim largeFileSemaphore,
@@ -79,7 +78,6 @@ namespace EasySave.Core.Models
                 Directory.CreateDirectory(targetSubDir);
             }
 
-            // Priority and non-priority separation
             var priorityExtensions = SettingsManager.Instance.PriorityExtensions;
             long maxFileSizeBytes = SettingsManager.Instance.MaxParallelFileSizeKb * 1024;
 
@@ -94,7 +92,7 @@ namespace EasySave.Core.Models
                     normalFiles.Add(f);
             }
 
-            // Announcement, before the start of the job, of the number of priority files in order to immediately block non-priority files from all jobs.
+            // Announcement to immediately block non-priority files from all jobs.
             SaveManager.RegisterPriorityFiles(priorityFiles.Count);
 
             long totalSize = allFiles.Sum(f => f.Length);
@@ -104,7 +102,6 @@ namespace EasySave.Core.Models
 
             displayMessage?.Invoke($"\u25b6 Total: {totalFiles} {Resources.File} ({totalSize / 1024 / 1024} MB)");
 
-            // Ask password once before the loop if any file needs encryption
             bool hasFilesToEncrypt = extensionsToEncrypt != null &&
                 allFiles.Any(f => extensionsToEncrypt.Contains(f.Extension, StringComparer.OrdinalIgnoreCase));
             string? encryptionPassword = null;
@@ -126,17 +123,14 @@ namespace EasySave.Core.Models
             };
             _logger.UpdateStateLog(stateLog);
 
-            // Priority files first, then regular ones
             foreach (var (file, isPriority) in
                 priorityFiles.Select(f => (f, true)).Concat(normalFiles.Select(f => (f, false))))
             {
-                // Thread control checkpoints
                 cancellationToken.ThrowIfCancellationRequested();
                 PauseEvent.Wait(cancellationToken);
 
                 bool isLarge = file.Length > maxFileSizeBytes;
 
-                // Non-priority files are blocked as long as there are priority files waiting on a job in progress.
                 if (!isPriority)
                 {
                     noPriorityPending.Wait(cancellationToken);
@@ -157,7 +151,6 @@ namespace EasySave.Core.Models
                     DailyLog fileLog;
                     if (isLarge)
                     {
-                        // Large file: we wait for the semaphore to become free (only one at a time)
                         largeFileSemaphore.Wait(cancellationToken);
                         try
                         {
@@ -170,7 +163,6 @@ namespace EasySave.Core.Models
                     }
                     else
                     {
-                        // Small file: free parallel transfer
                         fileLog = CopyFile(file, targetPath);
                     }
 
@@ -206,7 +198,6 @@ namespace EasySave.Core.Models
                 stateLog.Progression = totalFiles > 0 ? (int)((double)filesProcessed / totalFiles * 100) : 100;
                 _logger.UpdateStateLog(stateLog);
 
-                // Notify UI of progression
                 ProgressChanged?.Invoke(this, stateLog.Progression);
 
             }
@@ -218,13 +209,11 @@ namespace EasySave.Core.Models
             stateLog.Progression = 100;
             _logger.UpdateStateLog(stateLog);
 
-            // final completion state is sent to UI
             ProgressChanged?.Invoke(this, 100);
 
             displayMessage?.Invoke($"\u2705 {Resources.Savejob_sauvegardefinis} {Name}");
         }
 
-        // Executes the backup process asynchronously using a background thread
         public async Task RunAsync(
             List<string> extensionsToEncrypt,
             SemaphoreSlim grosFichierEnCours,

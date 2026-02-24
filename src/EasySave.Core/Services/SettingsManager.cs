@@ -7,7 +7,6 @@ using System.Text.Json;
 
 namespace EasySave.Core.Services
 {
-    // Manages application settings using a Singleton pattern
     public class SettingsManager : INotifyPropertyChanged
     {
         public string Language { get; set; } = "fr";
@@ -26,14 +25,12 @@ namespace EasySave.Core.Services
 
         private static SettingsManager? _instance;
 
-        // Singleton instance of SettingsManager
         public static SettingsManager Instance => _instance ??= new SettingsManager();
 
         private readonly string _configFilePath;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        // Retrieves localized resource strings
         public string this[string key]
         {
             get { return Properties.Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
@@ -46,7 +43,6 @@ namespace EasySave.Core.Services
             _configFilePath = Path.Combine(appDataPath, "config.json");
         }
 
-        // Loads settings from the JSON configuration file
         public void LoadSettings()
         {
             if (File.Exists(_configFilePath))
@@ -88,7 +84,6 @@ namespace EasySave.Core.Services
             LoggerService.ServerPort = ServerPort;
         }
 
-        // Saves current settings to the JSON configuration file
         public void SaveSettings()
         {
             var settings = new SettingsModel
@@ -144,14 +139,12 @@ namespace EasySave.Core.Services
             ServerPort = 25549;
         }
 
-        // theme parameters
         public void ChangeTheme(bool isDark)
         {
             IsDarkMode = isDark;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsDarkMode)));
         }
 
-        // Internal model for JSON serialization
         private class SettingsModel
         {
             public string Language { get; set; } = "fr";
