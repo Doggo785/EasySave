@@ -543,4 +543,7 @@
   <data name="SettingsFlow_PriorityExtensionsDesc" xml:space="preserve">
     <value>Enter the file types that will be copied first. No non-priority files will be transferred while there are priority files pending. (e.g., .txt, .doc, .pdf)</value>
   </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
 </root>
