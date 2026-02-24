@@ -1139,6 +1139,24 @@ namespace EasySave.Core.Properties {
                 return ResourceManager.GetString("SettingsFlow_MaxParallelSizeDesc", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adresse IP du serveur.
+        /// </summary>
+        public static string SettingsFlow_ServerIp {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerIp", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adresse IP du serveur de logs.
+        /// </summary>
+        public static string SettingsFlow_ServerIpDesc {
+            get {
+                return ResourceManager.GetString("SettingsFlow_ServerIpDesc", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to MODIFICATION DU LOGICIEL MÉTIER.
