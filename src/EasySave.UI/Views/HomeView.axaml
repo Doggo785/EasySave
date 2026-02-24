@@ -1,82 +1,82 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:EasySave.UI.ViewModels"
-			 xmlns:services="using:EasySave.Core.Services"
+             xmlns:services="using:EasySave.Core.Services"
              x:Class="EasySave.UI.Views.HomeView"
              x:DataType="vm:HomeViewModel">
     
     <Grid RowDefinitions="Auto, *" Margin="40">
 
-		<Grid ColumnDefinitions="*, Auto, *" Margin="0,0,0,30">
-			<TextBlock Grid.Column="0"
-					   Text="{Binding [HomeView_Dashboard], Source={x:Static services:SettingsManager.Instance}}"
-					   FontSize="32"
-					   FontWeight="Light"
-					   Foreground="White"
-					   VerticalAlignment="Center"/>
+        <Grid ColumnDefinitions="*, Auto, *" Margin="0,0,0,30">
+            <TextBlock Grid.Column="0"
+                       Text="{Binding [HomeView_Dashboard], Source={x:Static services:SettingsManager.Instance}}"
+                       FontSize="32"
+                       FontWeight="Light"
+                       Foreground="{DynamicResource TextPrimary}"
+                       VerticalAlignment="Center"/>
 
-			<TextBlock Grid.Column="1"
-					   Text="{Binding WelcomeMessage}"
-					   FontSize="32"
-					   FontWeight="SemiBold"
-					   Foreground="White"
-					   VerticalAlignment="Center"
-					   HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding WelcomeMessage}"
+                       FontSize="32"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource TextPrimary}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
 
-			<Panel Grid.Column="2" />
-		</Grid>
+            <Panel Grid.Column="2" />
+        </Grid>
 
         <Grid Grid.Row="1" ColumnDefinitions="*, 20, *" RowDefinitions="Auto, 20, Auto, 20, Auto">
 
-            <Border Grid.Row="0" Grid.Column="0" Background="#252525" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #111111">
+            <Border Grid.Row="0" Grid.Column="0" Background="{DynamicResource CardBackground}" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #15000000">
                 <StackPanel>
-					<TextBlock Text="{Binding [HomeView_TotalconfigJob], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="#888" Margin="0,0,0,10"/>
+                    <TextBlock Text="{Binding [HomeView_TotalconfigJob], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,10"/>
                     <TextBlock Text="{Binding TotalJobsCount}" FontSize="48" FontWeight="Bold" Foreground="#00bcd4"/>
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="0" Grid.Column="2" Background="#252525" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #111111">
+            <Border Grid.Row="0" Grid.Column="2" Background="{DynamicResource CardBackground}" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #15000000">
                 <StackPanel>
-					<TextBlock Text="{Binding [HomeView_LastBackUp], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="#888" Margin="0,0,0,10"/>
-                    <TextBlock Text="{Binding LastBackupTime}" FontSize="28" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" Height="56"/>
-					<TextBlock Text="{Binding [HomeView_JsonRead], Source={x:Static services:SettingsManager.Instance}}" FontSize="12" Foreground="#555"/>
+                    <TextBlock Text="{Binding [HomeView_LastBackUp], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,10"/>
+                    <TextBlock Text="{Binding LastBackupTime}" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center" Height="56"/>
+                    <TextBlock Text="{Binding [HomeView_JsonRead], Source={x:Static services:SettingsManager.Instance}}" FontSize="12" Foreground="{DynamicResource TextSecondary}"/>
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="2" Grid.Column="0" Background="#252525" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #111111">
+            <Border Grid.Row="2" Grid.Column="0" Background="{DynamicResource CardBackground}" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #15000000">
                 <StackPanel>
-					<TextBlock Text="{Binding [HomeView_Monitor], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="#888" Margin="0,0,0,15"/>
+                    <TextBlock Text="{Binding [HomeView_Monitor], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
-					<Border Background="#1a4d2e" CornerRadius="6" Padding="15,10" IsVisible="{Binding !IsBusinessProcessRunning}" HorizontalAlignment="Left">
+                    <Border Background="#1a4d2e" CornerRadius="6" Padding="15,10" IsVisible="{Binding !IsBusinessProcessRunning}" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBlock Text="✓" Foreground="#4caf50" FontWeight="Bold" FontSize="18"/>
-							<TextBlock Text="{Binding [HomeView_Clear], Source={x:Static services:SettingsManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#4caf50"/>
+                            <TextBlock Text="{Binding [HomeView_Clear], Source={x:Static services:SettingsManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#4caf50"/>
                         </StackPanel>
                     </Border>
                     
                     <Border Background="#4d1a1a" CornerRadius="6" Padding="15,10" IsVisible="{Binding IsBusinessProcessRunning}" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBlock Text="⚠" Foreground="#f44336" FontWeight="Bold" FontSize="18"/>
-							<TextBlock Text="{Binding [HomeView_Suspended], Source={x:Static services:SettingsManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#f44336"/>
+                            <TextBlock Text="{Binding [HomeView_Suspended], Source={x:Static services:SettingsManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#f44336"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="2" Grid.Column="2" Background="#252525" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #111111">
+            <Border Grid.Row="2" Grid.Column="2" Background="{DynamicResource CardBackground}" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #15000000">
                 <StackPanel>
-					<TextBlock Text="{Binding [HomeView_ActiveLogFormat], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="#888" Margin="0,0,0,15"/>
+                    <TextBlock Text="{Binding [HomeView_ActiveLogFormat], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
                     
-                    <Border Background="#333333" CornerRadius="6" Padding="15,10" HorizontalAlignment="Left">
-                        <TextBlock Text="{Binding LogFormat}" FontSize="20" FontWeight="Bold" Foreground="#ffeb3b" LetterSpacing="2"/>
+                    <Border Background="{DynamicResource BorderColor}" CornerRadius="6" Padding="15,10" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding LogFormat}" FontSize="20" FontWeight="Bold" Foreground="#00bcd4" LetterSpacing="2"/>
                     </Border>
-					<TextBlock Text="{Binding [HomeView_GlobConf], Source={x:Static services:SettingsManager.Instance}}" FontSize="12" Foreground="#555" Margin="0,10,0,0"/>
-				</StackPanel>
+                    <TextBlock Text="{Binding [HomeView_GlobConf], Source={x:Static services:SettingsManager.Instance}}" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,10,0,0"/>
+                </StackPanel>
             </Border>
 
-            <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Background="#252525" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #111111">
+            <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Background="{DynamicResource CardBackground}" CornerRadius="12" Padding="30" BoxShadow="0 8 16 0 #15000000">
                 <StackPanel>
-                    <TextBlock Text="{Binding [HomeView_LogServerConnection], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="#888" Margin="0,0,0,15"/>
+                    <TextBlock Text="{Binding [HomeView_LogServerConnection], Source={x:Static services:SettingsManager.Instance}}" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                     <Border Background="#1a4d2e" CornerRadius="6" Padding="15,10" IsVisible="{Binding IsLogServerConnected}" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal" Spacing="10">

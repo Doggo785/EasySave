@@ -1,12 +1,9 @@
 ﻿using EasySave.Core.Models;
 using EasyLog;
-using System;
-using System.Collections.Generic;
+using EasySave.Core.Properties;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Text.Json;
-using System.Threading;
 
 namespace EasySave.Core.Services
 {
@@ -16,6 +13,7 @@ namespace EasySave.Core.Services
         // General settings
         public string Language { get; set; } = "fr";
         public bool LogFormat { get; set; } = true;
+        public bool IsDarkMode { get; set; } = true;
         public LogTarget LogTarget { get; set; } = LogTarget.Both;
         public string ServerIp { get; set; } = "127.0.0.1";
         public int ServerPort { get; set; } = 25549;
@@ -66,6 +64,7 @@ namespace EasySave.Core.Services
                     {
                         Language = settings.Language;
                         LogFormat = settings.LogFormat;
+                        IsDarkMode = settings.IsDarkMode;
                         BusinessSoftwareNames = settings.BusinessSoftwareNames ?? new List<string>();
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
                         PriorityExtensions = settings.PriorityExtensions ?? new List<string>(); 
@@ -87,6 +86,7 @@ namespace EasySave.Core.Services
                 SaveSettings();
             }
             ChangeLanguage(Language);
+            ChangeTheme(IsDarkMode);
         }
 
         // Saves current settings to the JSON configuration file
@@ -96,6 +96,7 @@ namespace EasySave.Core.Services
             {
                 Language = Language,
                 LogFormat = LogFormat,
+                IsDarkMode = IsDarkMode,
                 EncryptedExtensions = EncryptedExtensions,
                 PriorityExtensions = PriorityExtensions,
                 MaxConcurrentJobs = MaxConcurrentJobs,
@@ -135,6 +136,7 @@ namespace EasySave.Core.Services
         {
             Language = "fr";
             LogFormat = true;
+            IsDarkMode = true;
             BusinessSoftwareNames = new List<string>();
             EncryptedExtensions = new List<string>();
             PriorityExtensions = new List<string>();
@@ -145,17 +147,25 @@ namespace EasySave.Core.Services
             ServerPort = 25549;
         }
 
+        // theme parameters
+        public void ChangeTheme(bool isDark)
+        {
+            IsDarkMode = isDark;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsDarkMode)));
+        }
+
         // Internal model for JSON serialization
         private class SettingsModel
         {
             public string Language { get; set; } = "fr";
             public bool LogFormat { get; set; } = true;
+            public bool IsDarkMode { get; set; } = true;
             public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
             public List<string> EncryptedExtensions { get; set; } = new List<string>();
             public List<string> PriorityExtensions { get; set; } = new List<string>();
             public int MaxConcurrentJobs { get; set; } = 0;
             public long MaxParallelFileSizeKb { get; set; } = 1000;
-            public int LogTarget { get; set; } = 2;
+            public int LogTarget { get; set; } = 2; // Both
             public string ServerIp { get; set; } = "127.0.0.1";
             public int ServerPort { get; set; } = 25549;
         }

@@ -16,6 +16,9 @@ namespace EasySave.UI
 
         public override void OnFrameworkInitializationCompleted()
         {
+            var isDark = EasySave.Core.Services.SettingsManager.Instance.IsDarkMode;
+            RequestedThemeVariant = isDark ? Avalonia.Styling.ThemeVariant.Dark : Avalonia.Styling.ThemeVariant.Light;
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow

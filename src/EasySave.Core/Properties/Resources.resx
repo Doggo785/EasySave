@@ -22,6 +22,12 @@
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
         <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
+  <data name="SettingsFlow_ServerIp" xml:space="preserve">
+    <value>Adresse IP du serveur</value>
+  </data>
+  <data name="SettingsFlow_ServerIpDesc" xml:space="preserve">
+    <value>Adresse IP du serveur de logs</value>
+  </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
@@ -510,7 +516,7 @@
   <data name="JobLaunch_SwitchedToLocal" xml:space="preserve">
     <value>Mode de logs basculé en local pour éviter la perte de données.</value>
   </data>
-<data name="Run_selection" xml:space="preserve">
+  <data name="Run_selection" xml:space="preserve">
     <value>Lancer la sélection</value>
   </data>
   <data name="Confirm_Delete_Title" xml:space="preserve">
@@ -525,10 +531,25 @@
   <data name="Button_Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="SettingsFlow_Theme" xml:space="preserve">
+    <value>Thème de l'application</value>
+  </data>
+  <data name="SettingsFlow_ThemeDesc" xml:space="preserve">
+    <value>Basculer entre le mode clair et le mode sombre</value>
+  </data>
+  <data name="SettingsFlow_ThemeDark" xml:space="preserve">
+    <value>Sombre</value>
+  </data>
+  <data name="SettingsFlow_ThemeLight" xml:space="preserve">
+    <value>Clair</value>
+  </data>
   <data name="SettingsFlow_PriorityExtensions" xml:space="preserve">
     <value>Fichiers prioritaires</value>
   </data>
   <data name="SettingsFlow_PriorityExtensionsDesc" xml:space="preserve">
     <value>Entrez les types de fichiers qui seront copiés en priorité. Aucun fichier non-prioritaire ne sera transféré tant qu'il reste des fichiers prioritaires en attente. (ex: .txt,.doc,.pdf)</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bienvenue</value>
   </data>
 </root>
