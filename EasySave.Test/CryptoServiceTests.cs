@@ -6,7 +6,7 @@ using Xunit;
 
 namespace EasySave.Tests
 {
-    // CryptoService TESTS - with FluentAssertions
+    // CryptoService TESTS  with FluentAssertions en suivant les règles de xUnit (Arrange, Act, Assert)
 
     public class CryptoServiceTests
     {
@@ -108,7 +108,7 @@ namespace EasySave.Tests
             }
         }
 
-        // Full test: encryption followed by decryption with recovery of the original content
+        // Encryption followed by decryption with recovery of the original content
         [Fact]
         public void EncryptThenDecrypt_OriginalContentRetrieved()
         {
