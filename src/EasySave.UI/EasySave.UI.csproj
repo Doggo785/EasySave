@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationIcon>LogoApp.ico</ApplicationIcon>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -31,6 +32,14 @@
     <PackageReference Include="ReactiveUI" Version="20.1.1" />
     <PackageReference Include="System.Reactive" Version="6.0.1" />
   </ItemGroup>
+
+	<ItemGroup>
+		<AvaloniaResource Include="assets\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="LogoApp.ico" />
+	</ItemGroup>
 
   <ItemGroup>
     <Compile Update="Views\JobsView.axaml.cs">
