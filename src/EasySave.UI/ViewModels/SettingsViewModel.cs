@@ -58,6 +58,18 @@ namespace EasySave.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _newExtension, value);
         }
 
+        // Priority extensions properties
+        private string _newPriorityExtension = "";
+        public string NewPriorityExtension
+        {
+            get => _newPriorityExtension;
+            set => this.RaiseAndSetIfChanged(ref _newPriorityExtension, value);
+        }
+
+        public ObservableCollection<string> PriorityExtensions { get; }
+        public ReactiveCommand<Unit, Unit> AddPriorityExtensionCommand { get; }
+        public ReactiveCommand<string, Unit> RemovePriorityExtensionCommand { get; }
+
         private string _maxParallelFileSizeKbText = "";
         public string MaxParallelFileSizeKbText
         {
@@ -134,6 +146,7 @@ namespace EasySave.UI.ViewModels
             BusinessSoftwareNames = new ObservableCollection<string>(settings.BusinessSoftwareNames);
             _maxParallelFileSizeKbText = settings.MaxParallelFileSizeKb.ToString();
             EncryptedExtensions = new ObservableCollection<string>(settings.EncryptedExtensions);
+            PriorityExtensions = new ObservableCollection<string>(settings.PriorityExtensions);
 
             // Initialize commands
             AddBusinessSoftwareCommand = ReactiveCommand.Create(AddBusinessSoftware);
@@ -141,6 +154,10 @@ namespace EasySave.UI.ViewModels
 
             AddExtensionCommand = ReactiveCommand.Create(AddExtension);
             RemoveExtensionCommand = ReactiveCommand.Create<string>(RemoveExtension);
+
+            AddPriorityExtensionCommand = ReactiveCommand.Create(AddPriorityExtension);
+            RemovePriorityExtensionCommand = ReactiveCommand.Create<string>(RemovePriorityExtension);
+
             SaveMaxSizeCommand = ReactiveCommand.Create(SaveMaxSize);
             SaveServerIpCommand = ReactiveCommand.Create(SaveServerIp);
 
@@ -161,14 +178,12 @@ namespace EasySave.UI.ViewModels
             if (string.IsNullOrWhiteSpace(NewBusinessSoftware)) return;
 
             string name = NewBusinessSoftware.Trim();
-
             if (!BusinessSoftwareNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
                 BusinessSoftwareNames.Add(name);
                 SettingsManager.Instance.BusinessSoftwareNames = BusinessSoftwareNames.ToList();
                 SettingsManager.Instance.SaveSettings();
             }
-
             NewBusinessSoftware = "";
         }
 
@@ -203,8 +218,7 @@ namespace EasySave.UI.ViewModels
             if (string.IsNullOrWhiteSpace(NewExtension)) return;
 
             string ext = NewExtension.Trim();
-            if (!ext.StartsWith("."))
-                ext = "." + ext;
+            if (!ext.StartsWith(".")) ext = "." + ext;
 
             if (!EncryptedExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase))
             {
@@ -214,11 +228,38 @@ namespace EasySave.UI.ViewModels
             NewExtension = "";
         }
 
-        // Removes an encrypted extension from the list
         private void RemoveExtension(string ext)
         {
             EncryptedExtensions.Remove(ext);
             SyncExtensionsToSettings();
+        }
+
+        // Méthodes Priority files
+        private void AddPriorityExtension()
+        {
+            if (string.IsNullOrWhiteSpace(NewPriorityExtension)) return;
+
+            string ext = NewPriorityExtension.Trim();
+            if (!ext.StartsWith(".")) ext = "." + ext;
+
+            if (!PriorityExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase))
+            {
+                PriorityExtensions.Add(ext);
+                SyncPriorityExtensionsToSettings();
+            }
+            NewPriorityExtension = "";
+        }
+
+        private void RemovePriorityExtension(string ext)
+        {
+            PriorityExtensions.Remove(ext);
+            SyncPriorityExtensionsToSettings();
+        }
+
+        private void SyncPriorityExtensionsToSettings()
+        {
+            SettingsManager.Instance.PriorityExtensions = PriorityExtensions.ToList();
+            SettingsManager.Instance.SaveSettings();
         }
 
         private void SaveServerIp()

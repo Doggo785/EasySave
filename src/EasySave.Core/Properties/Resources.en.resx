@@ -517,4 +517,10 @@
   <data name="Button_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="SettingsFlow_PriorityExtensions" xml:space="preserve">
+    <value>Priority files</value>
+  </data>
+  <data name="SettingsFlow_PriorityExtensionsDesc" xml:space="preserve">
+    <value>Enter the file types that will be copied first. No non-priority files will be transferred while there are priority files pending. (e.g., .txt, .doc, .pdf)</value>
+  </data>
 </root>
