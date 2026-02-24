@@ -691,60 +691,6 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to travaux configurés.
-        /// </summary>
-        public static string JobLaunch_Cancel {
-            get {
-                return ResourceManager.GetString("JobLaunch_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Continuer quand même.
-        /// </summary>
-        public static string JobLaunch_ContinueAnyway {
-            get {
-                return ResourceManager.GetString("JobLaunch_ContinueAnyway", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Le serveur de logs centralisé est injoignable. Les logs risquent d&apos;être perdus..
-        /// </summary>
-        public static string JobLaunch_ServerOfflineMessage {
-            get {
-                return ResourceManager.GetString("JobLaunch_ServerOfflineMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Serveur de logs hors ligne.
-        /// </summary>
-        public static string JobLaunch_ServerOfflineTitle {
-            get {
-                return ResourceManager.GetString("JobLaunch_ServerOfflineTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Mode de logs basculé en local pour éviter la perte de données..
-        /// </summary>
-        public static string JobLaunch_SwitchedToLocal {
-            get {
-                return ResourceManager.GetString("JobLaunch_SwitchedToLocal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Passer en local.
-        /// </summary>
-        public static string JobLaunch_SwitchToLocal {
-            get {
-                return ResourceManager.GetString("JobLaunch_SwitchToLocal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à travaux configurés.
         /// </summary>
         public static string JobsView_Config_Jog {
@@ -1321,15 +1267,6 @@ namespace EasySave.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logiciel métier.
-        /// </summary>
-        public static string SettingsFlow_SoftwareBuis {
-            get {
-                return ResourceManager.GetString("SettingsFlow_SoftwareBuis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ajoutez les logiciels bloquants (ex: calc.exe).
         /// </summary>
         public static string SettingsView_Sotftwareblock {
@@ -1345,15 +1282,6 @@ namespace EasySave.Core.Properties {
         public static string SettingsFlow_ThemeLight {
             get {
                 return ResourceManager.GetString("SettingsFlow_ThemeLight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Ajoutez les logiciels bloquants (ex: calc.exe).
-        /// </summary>
-        public static string SettingsView_Sotftwareblock {
-            get {
-                return ResourceManager.GetString("SettingsView_Sotftwareblock", resourceCulture);
             }
         }
         
