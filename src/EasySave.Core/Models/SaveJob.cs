@@ -221,7 +221,6 @@ namespace EasySave.Core.Models
             await Task.Run(() => Run(extensionsToEncrypt, grosFichierEnCours, noPriorityPending, requestPassword, displayMessage, cancellationToken), cancellationToken);
         }
 
-        // Checks if source file is newer than target file for differential backup
         private bool CheckDifferential(FileInfo sourceFile, string targetPath)
         {
             if (!File.Exists(targetPath)) return true;
@@ -230,7 +229,6 @@ namespace EasySave.Core.Models
             return sourceFile.LastWriteTime > targetFile.LastWriteTime;
         }
 
-        // Handles file copying and logs the operation
         private void CopyFile(string source, string destination)
         {
             long transferTime = 0;
@@ -260,7 +258,6 @@ namespace EasySave.Core.Models
             _logger.WriteDailyLog(dailyLog);
         }
 
-        // Checks if the file extension matches the encryption list
         private bool ShouldEncrypt(string extension, List<string> extensionsToEncrypt)
         {
             return extensionsToEncrypt != null &&

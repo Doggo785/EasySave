@@ -10,7 +10,6 @@ namespace EasySave.Core.Services
     // Manages application settings using a Singleton pattern
     public class SettingsManager : INotifyPropertyChanged
     {
-        // General settings
         public string Language { get; set; } = "fr";
         public bool LogFormat { get; set; } = true;
         public bool IsDarkMode { get; set; } = true;
@@ -18,12 +17,10 @@ namespace EasySave.Core.Services
         public string ServerIp { get; set; } = "127.0.0.1";
         public int ServerPort { get; set; } = 25549;
 
-        // Lists for restrictions and cryptography
         public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
         public List<string> EncryptedExtensions { get; set; } = new List<string>();
         public List<string> PriorityExtensions { get; set; } = new List<string>();
 
-        // Job execution settings
         public int MaxConcurrentJobs { get; set; } = Environment.ProcessorCount;
         public long MaxParallelFileSizeKb { get; set; } = 1000;
 
@@ -42,7 +39,6 @@ namespace EasySave.Core.Services
             get { return Properties.Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
         }
 
-        // Initializes the settings directory and file path
         private SettingsManager()
         {
             var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ProSoft", "EasySave", "UserConfig");
@@ -112,7 +108,6 @@ namespace EasySave.Core.Services
             File.WriteAllText(_configFilePath, json);
         }
 
-        // Updates the application's culture and language
         public void ChangeLanguage(string languageCode)
         {
             try
@@ -130,8 +125,6 @@ namespace EasySave.Core.Services
             {
         }
         }
-
-        // Resets settings to their default values
         private void ResetSettings()
         {
             Language = "fr";
@@ -165,7 +158,7 @@ namespace EasySave.Core.Services
             public List<string> PriorityExtensions { get; set; } = new List<string>();
             public int MaxConcurrentJobs { get; set; } = 0;
             public long MaxParallelFileSizeKb { get; set; } = 1000;
-            public int LogTarget { get; set; } = 2; // Both
+            public int LogTarget { get; set; } = 2;
             public string ServerIp { get; set; } = "127.0.0.1";
             public int ServerPort { get; set; } = 25549;
         }
