@@ -73,22 +73,21 @@
                 <ControlTemplate TargetType="TabControl">
                     <Grid RowDefinitions="Auto, *">
 
-						<!-- Top header bar with app logo and title -->
-						<Border Grid.Row="0" Background="#1a1a1a" BorderBrush="#333" BorderThickness="0,0,0,1" Padding="25,10">
-							<Grid ColumnDefinitions="Auto, *">
-								<StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
+                        <Border Grid.Row="0" Background="{DynamicResource AppBackground}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="25,10">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
 
-									<Image Source="avares://EasySave.UI/assets/LogoApp.ico"
-										   Width="55" Height="55"
-										   VerticalAlignment="Center"/>
+                                    <Image Source="avares://EasySave.UI/assets/LogoApp.ico"
+                                           Width="55" Height="55"
+                                           VerticalAlignment="Center"/>
 
-									<StackPanel VerticalAlignment="Center">
-										<TextBlock Text="EasySave" FontSize="20" FontWeight="Bold" Foreground="White"/>
-										<TextBlock Text="v3.0 Enterprise" FontSize="12" Foreground="#888"/>
-									</StackPanel>
-								</StackPanel>
-							</Grid>
-						</Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="EasySave" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                                        <TextBlock Text="v3.0 Enterprise" FontSize="12" Foreground="{DynamicResource TextSecondary}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
 
                         <Grid Grid.Row="1" ColumnDefinitions="250, *">
 
