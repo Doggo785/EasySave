@@ -5,7 +5,6 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Sockets;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -163,25 +162,9 @@ namespace EasySave.UI.ViewModels
         /// <summary>
         /// Checks if the Docker LogServer is reachable.
         /// </summary>
-        private async void CheckLogServerConnection()
+        private void CheckLogServerConnection()
         {
-            try
-            {
-                using var client = new TcpClient();
-                var connectTask = client.ConnectAsync("127.0.0.1", 5000);
-                if (await Task.WhenAny(connectTask, Task.Delay(500)) == connectTask)
-                {
-                    IsLogServerConnected = client.Connected;
-                }
-                else
-                {
-                    IsLogServerConnected = false;
-                }
-            }
-            catch
-            {
-                IsLogServerConnected = false;
-            }
+            IsLogServerConnected = EasyLog.LoggerService.IsServerConnected;
         }
     }
 }

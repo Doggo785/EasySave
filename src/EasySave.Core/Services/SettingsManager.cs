@@ -18,6 +18,7 @@ namespace EasySave.Core.Services
         public bool LogFormat { get; set; } = true;
         public LogTarget LogTarget { get; set; } = LogTarget.Both;
         public string ServerIp { get; set; } = "127.0.0.1";
+        public int ServerPort { get; set; } = 25549;
 
         // Lists for restrictions and cryptography
         public List<string> BusinessSoftwareNames { get; set; } = new List<string>();
@@ -72,6 +73,7 @@ namespace EasySave.Core.Services
                         MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000;
                         LogTarget = (LogTarget)settings.LogTarget;
                         ServerIp = !string.IsNullOrWhiteSpace(settings.ServerIp) ? settings.ServerIp : "127.0.0.1";
+                        ServerPort = settings.ServerPort > 0 ? settings.ServerPort : 25549;
                     }
                 }
                 catch
@@ -100,7 +102,8 @@ namespace EasySave.Core.Services
                 MaxParallelFileSizeKb = MaxParallelFileSizeKb,
                 BusinessSoftwareNames = BusinessSoftwareNames,
                 LogTarget = (int)LogTarget,
-                ServerIp = ServerIp
+                ServerIp = ServerIp,
+                ServerPort = ServerPort
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -139,6 +142,7 @@ namespace EasySave.Core.Services
             MaxParallelFileSizeKb = 1000;
             LogTarget = LogTarget.Both;
             ServerIp = "127.0.0.1";
+            ServerPort = 25549;
         }
 
         // Internal model for JSON serialization
@@ -153,6 +157,7 @@ namespace EasySave.Core.Services
             public long MaxParallelFileSizeKb { get; set; } = 1000;
             public int LogTarget { get; set; } = 2;
             public string ServerIp { get; set; } = "127.0.0.1";
+            public int ServerPort { get; set; } = 25549;
         }
     }
 }
