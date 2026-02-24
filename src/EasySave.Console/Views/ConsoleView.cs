@@ -197,7 +197,7 @@ namespace EasySave.Views
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"\n      [X] {message}");
             Console.ResetColor();
-            Console.WriteLine($"      {Resources.Back_To_Menu}"); // "press any key..."
+            Console.WriteLine($"      {Resources.Back_To_Menu}"); // press any key
             Console.ReadKey();
         }
 

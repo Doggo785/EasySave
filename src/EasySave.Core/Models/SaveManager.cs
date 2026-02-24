@@ -48,7 +48,6 @@ namespace EasySave.Core.Models
         {
             _jobs = LoadJobs();
 
-            // Initialize concurrent jobs limit
             int maxConcurrent = SettingsManager.Instance.MaxConcurrentJobs;
             if (maxConcurrent <= 0) maxConcurrent = Environment.ProcessorCount;
             _concurrencyLimiter = new SemaphoreSlim(maxConcurrent, maxConcurrent);
