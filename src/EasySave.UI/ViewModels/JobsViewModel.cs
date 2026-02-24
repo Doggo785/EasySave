@@ -170,7 +170,7 @@ namespace EasySave.UI.ViewModels
                 if (!_saveManager.CanLaunchJob())
                 {
                     StatusMessage = Resources.JobsViewModel_Error_BS;
-                    return; 
+                    return;
                 }
             }
 
