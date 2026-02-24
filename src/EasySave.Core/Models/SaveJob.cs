@@ -114,7 +114,7 @@ namespace EasySave.Core.Models
             };
             _logger.UpdateStateLog(stateLog);
 
-            // Priority vehicles first, then regular ones
+            // Priority files first, then regular ones
             foreach (var file in priorityFiles.Concat(normalFiles))
             {
                 // Thread control checkpoints
@@ -202,7 +202,7 @@ namespace EasySave.Core.Models
             stateLog.Progression = 100;
             _logger.UpdateStateLog(stateLog);
 
-            // Ensure final completion state is sent to UI
+            // final completion state is sent to UI
             ProgressChanged?.Invoke(this, 100);
 
             displayMessage?.Invoke($"\u2705 {Resources.Savejob_sauvegardefinis} {Name}");
