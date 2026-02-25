@@ -260,10 +260,10 @@ namespace EasySave.UI.ViewModels
             bool result = await dialog.ShowDialog<bool>(owner);
 
             if (result)
-            {
+                {
                 _saveManager.DeleteJob(id);
-                RefreshList();
-            }
+                    RefreshList();
+                }
         }
 
         private async Task<string?> RequestPasswordIfNeeded()
@@ -370,8 +370,6 @@ namespace EasySave.UI.ViewModels
                     await Task.Delay(1000);
                 }
             });
-
-
         }
 
         private async Task BrowseSourceAsync()

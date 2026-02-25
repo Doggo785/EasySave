@@ -41,8 +41,8 @@ namespace EasySave.Core.Models
         public DateTime LastBackupTime { get; private set; } = DateTime.MinValue;
 
         private static string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private static readonly string _logDirectory = Path.Combine(_appDataPath, "ProSoft", "EasySave", "UserConfig");
-        private readonly string _saveFilePath = Path.Combine(_logDirectory, "jobs.json");
+        private static readonly string _jobsDirectory = Path.Combine(_appDataPath, "ProSoft", "EasySave", "UserConfig");
+        private readonly string _saveFilePath = Path.Combine(_jobsDirectory, "jobs.json");
 
         public SaveManager()
         {
@@ -227,8 +227,8 @@ namespace EasySave.Core.Models
 
         public void EnsureDirectoryExist()
         {
-            if (!Directory.Exists(_logDirectory))
-                Directory.CreateDirectory(_logDirectory);
+            if (!Directory.Exists(_jobsDirectory))
+                Directory.CreateDirectory(_jobsDirectory);
         }
 
         private static DateTime LoadLastBackupTime()
