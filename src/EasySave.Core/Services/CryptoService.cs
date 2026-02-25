@@ -1,5 +1,6 @@
 ﻿using EasySave.Core.Properties;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -123,7 +124,7 @@ namespace EasySave.Core.Services
         {
             try
             {
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                var stopwatch = Stopwatch.StartNew();
                 action();
                 stopwatch.Stop();
                 return (int)stopwatch.ElapsedMilliseconds;

@@ -245,7 +245,10 @@ namespace EasySave.Core.Models
                     return state?.LastActionTimestamp ?? DateTime.MinValue;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[SaveManager] Failed to load last backup time: {ex}");
+            }
             return DateTime.MinValue;
         }
 
