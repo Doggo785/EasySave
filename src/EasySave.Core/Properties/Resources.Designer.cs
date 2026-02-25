@@ -117,45 +117,45 @@ namespace EasySave.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to [ERREUR] Le logiciel métier.
         /// </summary>
-        public static string CanLaunch_Erreur1 {
+        public static string CanLaunch_Error1 {
             get {
-                return ResourceManager.GetString("CanLaunch_Erreur1", resourceCulture);
+                return ResourceManager.GetString("CanLaunch_Error1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to est détecté..
         /// </summary>
-        public static string CanLaunch_Erreur1_1 {
+        public static string CanLaunch_Error1_1 {
             get {
-                return ResourceManager.GetString("CanLaunch_Erreur1_1", resourceCulture);
+                return ResourceManager.GetString("CanLaunch_Error1_1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veuillez fermer le logiciel métier..
         /// </summary>
-        public static string Canlaunch_Erreur2 {
+        public static string CanLaunch_Error2 {
             get {
-                return ResourceManager.GetString("Canlaunch_Erreur2", resourceCulture);
+                return ResourceManager.GetString("CanLaunch_Error2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre....
         /// </summary>
-        public static string CanLaunch_Erreur3 {
+        public static string CanLaunch_Error3 {
             get {
-                return ResourceManager.GetString("CanLaunch_Erreur3", resourceCulture);
+                return ResourceManager.GetString("CanLaunch_Error3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Action interdite : Logiciel métier détecté..
         /// </summary>
-        public static string CanLaunch_ErreurMetier {
+        public static string CanLaunch_ErrorBusinessSoft {
             get {
-                return ResourceManager.GetString("CanLaunch_ErreurMetier", resourceCulture);
+                return ResourceManager.GetString("CanLaunch_ErrorBusinessSoft", resourceCulture);
             }
         }
         
@@ -387,36 +387,36 @@ namespace EasySave.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Erreur : Tous les champs doivent être remplis.
         /// </summary>
-        public static string Erreur_Creation_Blank {
+        public static string Error_Creation_Blank {
             get {
-                return ResourceManager.GetString("Erreur_Creation_Blank", resourceCulture);
+                return ResourceManager.GetString("Error_Creation_Blank", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Erreur : Les chemins source et destination doivent être valides (ex: C:\\Dossier)..
         /// </summary>
-        public static string Erreur_Creation_Chemin {
+        public static string Error_Create_Path {
             get {
-                return ResourceManager.GetString("Erreur_Creation_Chemin", resourceCulture);
+                return ResourceManager.GetString("Error_Create_Path", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nombre maximum de jobs atteint..
         /// </summary>
-        public static string Erreur_Creation_Trop_Nombreux {
+        public static string Error_Create_TooMany {
             get {
-                return ResourceManager.GetString("Erreur_Creation_Trop_Nombreux", resourceCulture);
+                return ResourceManager.GetString("Error_Create_TooMany", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to  Erreur Job.
         /// </summary>
-        public static string Erreur_job {
+        public static string Error_Job {
             get {
-                return ResourceManager.GetString("Erreur_job", resourceCulture);
+                return ResourceManager.GetString("Error_Job", resourceCulture);
             }
         }
         
@@ -972,18 +972,18 @@ namespace EasySave.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Choix invalide. Appuyez sur une touche....
         /// </summary>
-        public static string SettingsFlow_ChoixErreur {
+        public static string SettingsFlow_ChoiceError {
             get {
-                return ResourceManager.GetString("SettingsFlow_ChoixErreur", resourceCulture);
+                return ResourceManager.GetString("SettingsFlow_ChoiceError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Quel paramètre souhaitez-vous modifier ?.
         /// </summary>
-        public static string SettingsFlow_Choixmodif {
+        public static string SettingsFlow_ChoiceEdit {
             get {
-                return ResourceManager.GetString("SettingsFlow_Choixmodif", resourceCulture);
+                return ResourceManager.GetString("SettingsFlow_ChoiceEdit", resourceCulture);
             }
         }
         
@@ -1161,36 +1161,36 @@ namespace EasySave.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to MODIFICATION DU LOGICIEL MÉTIER.
         /// </summary>
-        public static string SettingsFlow_ModifBusinesSoftWare {
+        public static string SettingsFlow_EditBusinessSoftware {
             get {
-                return ResourceManager.GetString("SettingsFlow_ModifBusinesSoftWare", resourceCulture);
+                return ResourceManager.GetString("SettingsFlow_EditBusinessSoftware", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to MODIFICATION DES EXTENSIONS CRYPTO.
         /// </summary>
-        public static string SettingsFlow_ModifEncrypt {
+        public static string SettingsFlow_EditEncrypt {
             get {
-                return ResourceManager.GetString("SettingsFlow_ModifEncrypt", resourceCulture);
+                return ResourceManager.GetString("SettingsFlow_EditEncrypt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to MODIFICATION DU FORMAT DE LOG.
         /// </summary>
-        public static string SettingsFlow_ModifLogFormat {
+        public static string SettingsFlow_EditLogFormat {
             get {
-                return ResourceManager.GetString("SettingsFlow_ModifLogFormat", resourceCulture);
+                return ResourceManager.GetString("SettingsFlow_EditLogFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to PARAMÈTRES.
         /// </summary>
-        public static string SettingsFlow_Parameters {
+        public static string SettingsFlow_Settings {
             get {
-                return ResourceManager.GetString("SettingsFlow_Parameters", resourceCulture);
+                return ResourceManager.GetString("SettingsFlow_Settings", resourceCulture);
             }
         }
         
@@ -1377,9 +1377,9 @@ namespace EasySave.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to introuvable..
         /// </summary>
-        public static string UI_Introuvable {
+        public static string UI_NotFound {
             get {
-                return ResourceManager.GetString("UI_Introuvable", resourceCulture);
+                return ResourceManager.GetString("UI_NotFound", resourceCulture);
             }
         }
         

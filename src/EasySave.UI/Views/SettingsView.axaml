@@ -8,7 +8,7 @@
 
 	<ScrollViewer>
 		<Grid Margin="30" RowDefinitions="Auto, *">
-			<TextBlock Text="{Binding [SettingsFlow_Parameters], Source={x:Static services:SettingsManager.Instance}}" FontSize="28" FontWeight="Light" Margin="0,0,0,25" Foreground="{DynamicResource TextPrimary}"/>
+			<TextBlock Text="{Binding [SettingsFlow_Settings], Source={x:Static services:SettingsManager.Instance}}" FontSize="28" FontWeight="Light" Margin="0,0,0,25" Foreground="{DynamicResource TextPrimary}"/>
 
 			<StackPanel Grid.Row="1" Spacing="20">
 				

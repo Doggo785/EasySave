@@ -175,11 +175,11 @@ namespace EasySave.UI.ViewModels
                 jobVm.Progress = 0;
                 StatusMessage = "";
 
-                string? password = await RequestPasswordIfNeeded();
+                string? CryptoKey = await RequestPasswordIfNeeded();
 
                 _ = Task.Run(async () =>
                 {
-                    await _saveManager.ExecuteJob(id, _ => password, DisplayMessage);
+                    await _saveManager.ExecuteJob(id, _ => CryptoKey, DisplayMessage);
                     Dispatcher.UIThread.Post(() => jobVm.State = JobState.Stopped);
                 });
             }

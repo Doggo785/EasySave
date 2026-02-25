@@ -69,12 +69,12 @@ namespace EasySave.Core.Models
                 string.IsNullOrWhiteSpace(src) ||
                 string.IsNullOrWhiteSpace(dest))
             {
-                throw new ArgumentException(Resources.Erreur_Creation_Blank);
+                throw new ArgumentException(Resources.Error_Creation_Blank);
             }
 
             if (!Path.IsPathRooted(src) || !Path.IsPathRooted(dest))
             {
-                throw new ArgumentException(Resources.Erreur_Creation_Chemin);
+                throw new ArgumentException(Resources.Error_Create_Path);
             }
 
             lock (_jobsLock)
@@ -104,7 +104,7 @@ namespace EasySave.Core.Models
         {
             if (!CanLaunchJob())
             {
-                displayMessage?.Invoke($"{Resources.CanLaunch_ErreurMetier}");
+                displayMessage?.Invoke($"{Resources.CanLaunch_ErrorBusinessSoft}");
                 return;
             }
 
