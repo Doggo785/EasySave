@@ -19,27 +19,13 @@ namespace EasySave.Core.Services
             if (!File.Exists(sourcePath))
                 return -2;
 
-            try
+            return ExecuteTimed(() =>
             {
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                var (outputPath, replaceOriginal) = PrepareOutputPath(sourcePath, destPath);
 
                 byte[] salt = new byte[SaltSize];
                 using (var rng = RandomNumberGenerator.Create())
                     rng.GetBytes(salt);
-
-                string? destDirectory = Path.GetDirectoryName(destPath);
-                if (!string.IsNullOrWhiteSpace(destDirectory))
-                {
-                    Directory.CreateDirectory(destDirectory);
-                }
-
-                string outputPath = destPath;
-                bool replaceOriginal = string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase);
-                if (replaceOriginal)
-                {
-                    string fileName = Path.GetFileName(destPath);
-                    outputPath = Path.Combine(destDirectory ?? Path.GetTempPath(), $"{fileName}.{Guid.NewGuid():N}.tmp");
-                }
 
                 using (Aes aes = Aes.Create())
                 {
@@ -66,18 +52,8 @@ namespace EasySave.Core.Services
                     }
                 }
 
-                if (replaceOriginal)
-                {
-                    File.Move(outputPath, destPath, true);
-                }
-
-                stopwatch.Stop();
-                return (int)stopwatch.ElapsedMilliseconds;
-            }
-            catch
-            {
-                return -1;
-            }
+                FinalizeOutput(outputPath, destPath, replaceOriginal);
+            });
         }
 
         public static int DecryptFile(string encryptedPath, string destPath, string password)
@@ -88,23 +64,9 @@ namespace EasySave.Core.Services
             if (!File.Exists(encryptedPath))
                 return -2;
 
-            try
+            return ExecuteTimed(() =>
             {
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-
-                string? destDirectory = Path.GetDirectoryName(destPath);
-                if (!string.IsNullOrWhiteSpace(destDirectory))
-                {
-                    Directory.CreateDirectory(destDirectory);
-                }
-
-                string outputPath = destPath;
-                bool replaceOriginal = string.Equals(Path.GetFullPath(encryptedPath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase);
-                if (replaceOriginal)
-                {
-                    string fileName = Path.GetFileName(destPath);
-                    outputPath = Path.Combine(destDirectory ?? Path.GetTempPath(), $"{fileName}.{Guid.NewGuid():N}.tmp");
-                }
+                var (outputPath, replaceOriginal) = PrepareOutputPath(encryptedPath, destPath);
 
                 using (FileStream fsCrypt = new FileStream(encryptedPath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
@@ -130,17 +92,45 @@ namespace EasySave.Core.Services
                     }
                 }
 
-                if (replaceOriginal)
-                {
-                    File.Move(outputPath, destPath, true);
-                }
+                FinalizeOutput(outputPath, destPath, replaceOriginal);
+            });
+        }
 
+        private static (string outputPath, bool replaceOriginal) PrepareOutputPath(string sourcePath, string destPath)
+        {
+            string? destDirectory = Path.GetDirectoryName(destPath);
+            if (!string.IsNullOrWhiteSpace(destDirectory))
+                Directory.CreateDirectory(destDirectory);
+
+            bool replaceOriginal = string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase);
+            string outputPath = destPath;
+            if (replaceOriginal)
+            {
+                string fileName = Path.GetFileName(destPath);
+                outputPath = Path.Combine(destDirectory ?? Path.GetTempPath(), $"{fileName}.{Guid.NewGuid():N}.tmp");
+            }
+
+            return (outputPath, replaceOriginal);
+        }
+
+        private static void FinalizeOutput(string outputPath, string destPath, bool replaceOriginal)
+        {
+            if (replaceOriginal)
+                File.Move(outputPath, destPath, true);
+        }
+
+        private static int ExecuteTimed(Action action)
+        {
+            try
+            {
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                action();
                 stopwatch.Stop();
                 return (int)stopwatch.ElapsedMilliseconds;
             }
             catch
             {
-                return -1; 
+                return -1;
             }
         }
     }
