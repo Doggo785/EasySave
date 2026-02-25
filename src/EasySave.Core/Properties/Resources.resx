@@ -417,9 +417,6 @@
   <data name="JobsView_Config_Jog" xml:space="preserve">
     <value>travaux configurés</value>
   </data>
-  <data name="CreateJobView_Chiffrement" xml:space="preserve">
-    <value>Activer le chiffrement (CryptoSoft)</value>
-  </data>
   <data name="CreateJobView_EnterName" xml:space="preserve">
     <value>Entrez un nom unique...</value>
   </data>

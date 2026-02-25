@@ -417,9 +417,6 @@
   <data name="JobsView_Config_Jog" xml:space="preserve">
     <value>jobs configured</value>
   </data>
-  <data name="CreateJobView_Chiffrement" xml:space="preserve">
-    <value>Enable encryption (CryptoSoft)</value>
-  </data>
   <data name="CreateJobView_EnterName" xml:space="preserve">
     <value>Enter a unique name...</value>
   </data>
@@ -546,12 +543,6 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
   </data>
-  <data name="SettingsFlow_ListJobs" xml:space="preserve">
-    <value>List of jobs</value>
-  </data>
-  <data name="SettingsFlow_selectionjobs" xml:space="preserve">
-    <value>Start selection</value>
-  </data>
   <data name="UI_Program_CLIMOD" xml:space="preserve">
     <value>[EasySave CLI Mode]</value>
   </data>
@@ -572,5 +563,11 @@
   </data>
   <data name="Diff_Backup" xml:space="preserve">
     <value>Differential</value>
+  </data>
+  <data name="SettingsFlow_ListJobs" xml:space="preserve">
+    <value>List of jobs</value>
+  </data>
+  <data name="SettingsFlow_selectionjobs" xml:space="preserve">
+    <value>Start selection</value>
   </data>
 </root>
