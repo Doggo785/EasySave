@@ -1,0 +1,40 @@
+name: Deploiement DocFX
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Configuration de .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Installation de DocFX
+        run: dotnet tool update -g docfx
+
+      - name: Build de la documentation
+        run: docfx docfx.json
+
+      - name: Upload de l'artefact Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploiement sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -21,7 +21,9 @@ namespace EasySave.Core.Models
         private static int _priorityFilesRemaining = 0;
         private static readonly ManualResetEventSlim _noPriorityPending = new ManualResetEventSlim(true);
 
-        /// Called before the job starts to report the number of priority files and close the lock if > 0.
+        /// <summary>
+        /// Signals that priority files are pending (blocks normal file operations).
+        /// </summary>
         public static void RegisterPriorityFiles(int count)
         {
             if (count <= 0) return;
@@ -29,7 +31,9 @@ namespace EasySave.Core.Models
             _noPriorityPending.Reset();
         }
 
-        /// Called after processing a priority file to open the lock once all priority files have finished.
+        /// <summary>
+        /// Unblocks normal files if no priority files are remaining.
+        /// </summary>
         public static void OnPriorityFileDone()
         {
             int remaining = Interlocked.Decrement(ref _priorityFilesRemaining);
@@ -60,9 +64,13 @@ namespace EasySave.Core.Models
             lock (_jobsLock)
             {
                 return _jobs.ToList();
-        }
+            }
         }
 
+        /// <summary>
+        /// Creates and saves a new backup job.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown if paths are invalid.</exception>
         public void CreateJob(string name, string src, string dest, bool type)
         {
             if (string.IsNullOrWhiteSpace(name) ||
@@ -96,6 +104,9 @@ namespace EasySave.Core.Models
             SaveJobs();
         }
 
+        /// <summary>
+        /// Executes a specific job with continuous business software monitoring.
+        /// </summary>
         public async Task ExecuteJob(
             int id,
             Func<string, string?>? requestPassword = null,
@@ -110,6 +121,7 @@ namespace EasySave.Core.Models
 
             await _concurrencyLimiter.WaitAsync(cancellationToken);
 
+            // Background task to monitor business software status during execution
             using var watcherCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             var watchTask = Task.Run(async () =>
             {
@@ -118,14 +130,17 @@ namespace EasySave.Core.Models
                     bool businessAppRunning = !CanLaunchJob();
                     SaveJob? currentJob;
                     lock (_jobsLock) { currentJob = _jobs.FirstOrDefault(j => j.Id == id); }
+
                     if (currentJob != null)
                     {
                         if (businessAppRunning)
                         {
-                            currentJob.PauseEvent.Reset(); 
+                            // Automatically pause the job if business software is detected
+                            currentJob.PauseEvent.Reset();
                         }
                         else
                         {
+                            // Resume if business software is closed, provided it wasn't manually paused
                             if (!currentJob.IsManuallyPaused)
                             {
                                 currentJob.PauseEvent.Set();
@@ -151,6 +166,7 @@ namespace EasySave.Core.Models
                     requestPassword,
                     displayMessage,
                     cts.Token);
+
                 LastBackupTime = DateTime.Now;
             }
             finally
@@ -161,6 +177,9 @@ namespace EasySave.Core.Models
             }
         }
 
+        /// <summary>
+        /// Triggers the simultaneous execution of all jobs.
+        /// </summary>
         public async Task ExecuteAllJobs(
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
@@ -204,6 +223,7 @@ namespace EasySave.Core.Models
             if (_activeJobsTokens.TryGetValue(id, out var tokenSource))
             {
                 tokenSource.Cancel();
+                // Ensure the job is unblocked from a pause state so it can process the cancellation
                 ResumeJob(id);
 
                 _activeJobsTokens.Remove(id);
@@ -238,6 +258,7 @@ namespace EasySave.Core.Models
                 string stateFilePath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     "ProSoft", "EasySave", "Logs", "state.json");
+
                 if (File.Exists(stateFilePath))
                 {
                     string json = File.ReadAllText(stateFilePath);
@@ -252,6 +273,9 @@ namespace EasySave.Core.Models
             return DateTime.MinValue;
         }
 
+        /// <summary>
+        /// Checks if any business software is currently running.
+        /// </summary>
         public bool CanLaunchJob()
         {
             var businessAppNames = SettingsManager.Instance.BusinessSoftwareNames;

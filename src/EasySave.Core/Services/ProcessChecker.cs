@@ -5,6 +5,11 @@ namespace EasySave.Core.Services
 {
     public static class ProcessChecker
     {
+        /// <summary>
+        /// Checks if a business process is currently active.
+        /// </summary>
+        /// <param name="processNames">List of process names (with or without .exe).</param>
+        /// <returns>True if at least one process is running; otherwise, false.</returns>
         public static bool IsAnyProcessRunning(List<string> processNames)
         {
             if (processNames == null || processNames.Count == 0)
