@@ -3,7 +3,6 @@
     <Project Path="src/EasyLog.LogServer/EasyLog.LogServer.csproj" />
     <Project Path="EasySave.Test/EasySave.Tests.csproj" Id="f3f1d213-f6d7-4759-aab7-802bb55d86d6" />
     <Project Path="src/EasyLog/EasyLog.csproj" />
-    <Project Path="src/EasySave.Console/EasySave.Console.csproj" />
     <Project Path="src/EasySave.Core/EasySave.Core.csproj" />
     <Project Path="src/EasySave.UI/EasySave.UI.csproj" />
   </Folder>
