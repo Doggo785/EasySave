@@ -76,7 +76,6 @@ namespace EasySave.UI.ViewModels
             {
                 Dispatcher.UIThread.Post(() =>
                 {
-
                     if (State == JobState.Stopped) return;
 
                     Progress = value;
@@ -142,6 +141,9 @@ namespace EasySave.UI.ViewModels
             BrowseDestCommand = ReactiveCommand.CreateFromTask(BrowseDestAsync);
         }
 
+        /// <summary>
+        /// Creates a backup job and refreshes the UI list.
+        /// </summary>
         private void CreateJob()
         {
             bool isFull = (SelectedTypeIndex == 0);
@@ -154,6 +156,9 @@ namespace EasySave.UI.ViewModels
             catch { }
         }
 
+        /// <summary>
+        /// Toggles between execution and pause.
+        /// </summary>
         private async Task TogglePlayPauseAsync(int id)
         {
             var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
@@ -198,6 +203,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Definitively interrupts a backup in progress.
+        /// </summary>
         private void StopJob(int id)
         {
             _saveManager.StopJob(id);
@@ -210,9 +218,11 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Launches all backup jobs simultaneously.
+        /// </summary>
         private async Task ExecuteAllAsync()
         {
-
             if (_isExecutingAll) return;
 
             if (!await CheckServerBeforeLaunch()) return;
@@ -231,7 +241,6 @@ namespace EasySave.UI.ViewModels
                     job.Progress = 0;
                 }
 
-
                 await _saveManager.ExecuteAllJobs(_ => CryptoKey, DisplayMessage);
             }
             finally
@@ -245,6 +254,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Deletes a backup job after user confirmation.
+        /// </summary>
         private async Task DeleteJobAsync(int id)
         {
             var owner = GetMainWindow();
@@ -254,17 +266,16 @@ namespace EasySave.UI.ViewModels
             string jobName = jobVm != null ? jobVm.Name : "null";
 
             string template = SettingsManager.Instance["Confirm_Delete_Message"];
-
             string localizedMessage = string.Format(template, jobName);
 
             var dialog = new ConfirmDialog(localizedMessage);
             bool result = await dialog.ShowDialog<bool>(owner);
 
             if (result)
-                {
+            {
                 _saveManager.DeleteJob(id);
-                    RefreshList();
-                }
+                RefreshList();
+            }
         }
 
         private async Task<(bool wasCancelled, string? CryptoKey)> RequestPasswordIfNeeded()
@@ -351,6 +362,9 @@ namespace EasySave.UI.ViewModels
             HasSelectedJobs = Jobs.Any(j => j.IsSelected);
         }
 
+        /// <summary>
+        /// Synchronization loop for UI states.
+        /// </summary>
         private void UpdateUiStatesContinuously()
         {
             _ = Task.Run(async () =>
@@ -407,6 +421,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Launches only the selected backup jobs.
+        /// </summary>
         private async Task ExecuteSelectedAsync()
         {
             if (_isExecutingAll) return;
@@ -442,7 +459,7 @@ namespace EasySave.UI.ViewModels
             }
             catch (Exception ex)
             {
-                DisplayMessage($"Erreur : {ex.Message}");
+                DisplayMessage($"Error : {ex.Message}");
             }
             finally
             {

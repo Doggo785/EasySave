@@ -12,6 +12,14 @@ namespace EasySave.Core.Services
 
         private const int Iterations = 100_000;
 
+        /// <summary>
+        /// Encrypts a file using the AES-256 algorithm.
+        /// </summary>
+        /// <param name="sourcePath">Path of the source file to encrypt.</param>
+        /// <param name="destPath">Path of the destination file.</param>
+        /// <param name="password">Encryption password.</param>
+        /// <returns>Execution time (ms), or error code.</returns>
+        /// <exception cref="ArgumentException">Thrown if any path is empty.</exception>
         public static int EncryptFile(string sourcePath, string destPath, string password)
         {
             if (string.IsNullOrWhiteSpace(sourcePath) || string.IsNullOrWhiteSpace(destPath) || string.IsNullOrWhiteSpace(password))
@@ -57,6 +65,14 @@ namespace EasySave.Core.Services
             });
         }
 
+        /// <summary>
+        /// Decrypts a file using the AES-256 algorithm.
+        /// </summary>
+        /// <param name="encryptedPath">Path of the source encrypted file.</param>
+        /// <param name="destPath">Path of the destination file.</param>
+        /// <param name="password">Decryption password.</param>
+        /// <returns>Execution time (ms), or error code.</returns>
+        /// <exception cref="ArgumentException">Thrown if any path is empty.</exception>
         public static int DecryptFile(string encryptedPath, string destPath, string password)
         {
             if (string.IsNullOrWhiteSpace(encryptedPath) || string.IsNullOrWhiteSpace(destPath) || string.IsNullOrWhiteSpace(password))

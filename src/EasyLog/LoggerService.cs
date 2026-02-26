@@ -1,4 +1,6 @@
 ﻿using EasySave.Core.Models;
+using EasyLog;
+using EasySave.Core.Properties;
 using System;
 using System.Text;
 using System.IO;
@@ -9,8 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
-
-
 
 namespace EasyLog
 {
@@ -34,6 +34,10 @@ namespace EasyLog
         {
             _ = Task.Run(ProcessLogQueueAsync);
         }
+
+        /// <summary>
+        /// Cancels and restarts the connection to the log server.
+        /// </summary>
         public static void ForceReconnect()
         {
             var oldCts = Interlocked.Exchange(ref _reconnectCts, new CancellationTokenSource());
@@ -42,7 +46,10 @@ namespace EasyLog
             IsServerConnected = false;
         }
 
-
+        /// <summary>
+        /// Verifies that the remote server is responding.
+        /// </summary>
+        /// <returns>True if the TCP handshake is successful.</returns>
         public static async Task<bool> CheckServerConnectionAsync(int timeoutMs = 500)
         {
             try
@@ -70,6 +77,10 @@ namespace EasyLog
 
             LogFormat = logFormat;
         }
+
+        /// <summary>
+        /// Writes a daily log (local and/or network thread-safe).
+        /// </summary>
         public void WriteDailyLog(DailyLog logEntry)
         {
             lock (_stateLock)
@@ -107,6 +118,9 @@ namespace EasyLog
             }
         }
 
+        /// <summary>
+        /// Updates the progression state file (thread-safe).
+        /// </summary>
         public void UpdateStateLog(StateLog stateEntry)
         {
             lock (_stateLock)
@@ -117,6 +131,7 @@ namespace EasyLog
                 File.WriteAllText(_stateFilePath, jsonString);
             }
         }
+
         public void EnsureDirectoryExist()
         {
             if (!Directory.Exists(_logDirectory))
@@ -125,6 +140,9 @@ namespace EasyLog
             }
         }
 
+        /// <summary>
+        /// Perpetual thread dequeuing and sending TCP logs.
+        /// </summary>
         private static async Task ProcessLogQueueAsync()
         {
             while (true)
@@ -134,10 +152,6 @@ namespace EasyLog
                 {
                     using (var client = new TcpClient())
                     {
-                        // Use a linked token that also enforces a 5-second connection timeout.
-                        // Without this, ConnectAsync waits for the OS TCP timeout (20-75s)
-                        // when the remote host silently drops packets or a transparent proxy
-                        // intercepts the connection.
                         using (var connectCts = CancellationTokenSource.CreateLinkedTokenSource(token))
                         {
                             connectCts.CancelAfter(TimeSpan.FromSeconds(5));
@@ -171,9 +185,6 @@ namespace EasyLog
                                 }
                                 else
                                 {
-                                    // Detect if the remote server has closed the connection:
-                                    // Poll returns true when data is available OR the connection is closed.
-                                    // If true but Available == 0, the remote end has disconnected.
                                     if (client.Client.Poll(0, SelectMode.SelectRead) && client.Client.Available == 0)
                                     {
                                         IsServerConnected = false;
@@ -191,7 +202,6 @@ namespace EasyLog
                 }
                 catch (Exception)
                 {
-
                     IsServerConnected = false;
 
                     try { await Task.Delay(2000, _reconnectCts.Token); }
