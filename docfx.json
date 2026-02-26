@@ -3,18 +3,20 @@
     {
       "src": [
         {
+          "src": ".",
           "files": [
             "src/**/*.csproj"
           ],
           "exclude": [
-            "**/obj/**",
-            "**/bin/**"
-          ],
-          "src": "."
+            "src/**/obj/**",
+            "src/**/bin/**"
+          ]
         }
       ],
       "dest": "api",
-      "disableGitFeatures": false
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "filterConfig.yml"
     }
   ],
   "build": {
@@ -28,9 +30,9 @@
       {
         "files": [
           "docs/**.md",
-          "index.md",
+          "docs/**/toc.yml",
           "toc.yml",
-          "docs/toc.yml"
+          "*.md"
         ]
       }
     ],
@@ -38,18 +40,21 @@
       {
         "files": [
           "docs/**/*.png",
-          "src/EasySave.UI/assets/LogoApp.ico"
+          "docs/**/*.pdf",
+          "src/EasySave.UI/assets/LogoApp.png"
         ]
       }
     ],
-    "output": "_site",
+    "dest": "_site",
+    "globalMetadata": {
+      "_appTitle": "EasySave Documentation",
+      "_appFooter": "EasySave - Enterprise Backup Solution",
+      "_enableSearch": true,
+      "_appLogoPath": "src/EasySave.UI/assets/LogoApp.png"
+    },
     "template": [
       "default",
       "modern"
-    ],
-    "globalMetadata": {
-      "_appTitle": "Documentation EasySave",
-      "_enableSearch": true
-    }
+    ]
   }
 }

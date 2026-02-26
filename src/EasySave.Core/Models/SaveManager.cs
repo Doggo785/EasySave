@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
+using EasyLog.Models;
 using System.Threading.Tasks;
 
 namespace EasySave.Core.Models

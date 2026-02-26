@@ -1,6 +1,4 @@
-﻿using EasySave.Core.Models;
-using EasyLog;
-using EasySave.Core.Properties;
+﻿using EasyLog;
 using System;
 using System.Text;
 using System.IO;
@@ -11,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
+using EasyLog.Models;
 
 namespace EasyLog
 {

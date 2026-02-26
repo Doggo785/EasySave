@@ -1,6 +1,7 @@
 using EasyLog;
 using EasySave.Core.Properties;
 using EasySave.Core.Services;
+using EasyLog.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;

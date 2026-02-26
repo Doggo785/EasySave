@@ -1,17 +1,16 @@
-# Documentation Technique - EasySave
+---
+_layout: landing
+---
 
-Cette documentation couvre l'architecture et l'implémentation du logiciel de sauvegarde EasySave.
+# Welcome to EasySave Documentation
 
-## Architecture Modulaire
+EasySave is a robust, enterprise-grade backup software solution designed to manage sequential and parallel backup jobs efficiently.
 
-La solution est segmentée en plusieurs composants distincts pour garantir la séparation des responsabilités :
+## Core Features
 
-* **EasySave.Core** : Moteur principal gérant les travaux de sauvegarde (SaveJob), la cryptographie (CryptoService) et la vérification des processus (ProcessChecker).
-* **EasySave.UI** : Interface graphique développée avec Avalonia UI, implémentant le pattern MVVM.
-* **EasySave.Console** : Interface en ligne de commande alternative.
-* **EasyLog** : Service de journalisation centralisé gérant les logs journaliers et les logs d'état.
+* **Real-time Monitoring**: Track backup progress dynamically.
+* **State & Daily Logging**: Comprehensive XML/JSON logging mechanisms.
+* **Encryption Integration**: Secure data handling via CryptoSoft integration.
+* **Business Software Detection**: Automatic pause/resume logic when business-critical applications are running.
 
-## Navigation Rapide
-
-* [Guides et Architecture (Use Cases, Diagrammes)](docs/introduction.md)
-* [Documentation de l'API (Classes et Méthodes)](api/)
+Navigate to the [Articles](docs/introduction.md) to understand the architecture, or browse the [API Reference](api/EasyLog.html) for code-level details.
