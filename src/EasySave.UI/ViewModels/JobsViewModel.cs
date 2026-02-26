@@ -171,15 +171,16 @@ namespace EasySave.UI.ViewModels
             {
                 if (!await CheckServerBeforeLaunch()) return;
 
+                var (cancelled, CryptoKey) = await RequestPasswordIfNeeded();
+                if (cancelled) return;
+
                 jobVm.State = JobState.Running;
                 jobVm.Progress = 0;
                 StatusMessage = "";
 
-                string? password = await RequestPasswordIfNeeded();
-
                 _ = Task.Run(async () =>
                 {
-                    await _saveManager.ExecuteJob(id, _ => password, DisplayMessage);
+                    await _saveManager.ExecuteJob(id, _ => CryptoKey, DisplayMessage);
                     Dispatcher.UIThread.Post(() => jobVm.State = JobState.Stopped);
                 });
             }
@@ -221,8 +222,8 @@ namespace EasySave.UI.ViewModels
                 _isExecutingAll = true;
                 StatusMessage = "";
 
-                string? password = await RequestPasswordIfNeeded();
-
+                var (cancelled, CryptoKey) = await RequestPasswordIfNeeded();
+                if (cancelled) return;
 
                 foreach (var job in Jobs)
                 {
@@ -231,7 +232,7 @@ namespace EasySave.UI.ViewModels
                 }
 
 
-                await _saveManager.ExecuteAllJobs(_ => password, DisplayMessage);
+                await _saveManager.ExecuteAllJobs(_ => CryptoKey, DisplayMessage);
             }
             finally
             {
@@ -260,24 +261,24 @@ namespace EasySave.UI.ViewModels
             bool result = await dialog.ShowDialog<bool>(owner);
 
             if (result)
-            {
+                {
                 _saveManager.DeleteJob(id);
-                RefreshList();
-            }
+                    RefreshList();
+                }
         }
 
-        private async Task<string?> RequestPasswordIfNeeded()
+        private async Task<(bool wasCancelled, string? CryptoKey)> RequestPasswordIfNeeded()
         {
             var extensions = SettingsManager.Instance.EncryptedExtensions;
             if (extensions == null || extensions.Count == 0)
-                return null;
+                return (false, null);
 
             var owner = GetMainWindow();
-            if (owner == null) return null;
+            if (owner == null) return (false, null);
 
             var dialog = new PasswordDialog(SettingsManager.Instance[Resources.JobsViewModel_Passwordrequest]);
             var result = await dialog.ShowDialog<string?>(owner);
-            return result;
+            return result == null ? (true, null) : (false, result);
         }
 
         private static Window? GetMainWindow()
@@ -370,8 +371,6 @@ namespace EasySave.UI.ViewModels
                     await Task.Delay(1000);
                 }
             });
-
-
         }
 
         private async Task BrowseSourceAsync()
@@ -415,12 +414,15 @@ namespace EasySave.UI.ViewModels
             var selectedJobs = Jobs.Where(j => j.IsSelected).ToList();
             if (!selectedJobs.Any()) return;
 
+            if (!await CheckServerBeforeLaunch()) return;
+
             try
             {
                 _isExecutingAll = true;
                 StatusMessage = "";
 
-                string? password = await RequestPasswordIfNeeded();
+                var (cancelled, password) = await RequestPasswordIfNeeded();
+                if (cancelled) return;
 
                 foreach (var job in selectedJobs)
                 {

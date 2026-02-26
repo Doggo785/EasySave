@@ -124,7 +124,7 @@ namespace EasySave.UI.ViewModels
 
             if (string.IsNullOrWhiteSpace(SourcePath) || string.IsNullOrWhiteSpace(Password))
             {
-                StatusMessage = Resources.Erreur_Creation_Blank;
+                StatusMessage = Resources.Error_Creation_Blank;
                 return;
             }
 
@@ -242,7 +242,7 @@ namespace EasySave.UI.ViewModels
             }
             else
             {
-                StatusMessage = $"{success}/{total} {Resources.File} OK — {errors} {Resources.Erreur_job}";
+                StatusMessage = $"{success}/{total} {Resources.File} OK — {errors} {Resources.Error_Job}";
             }
         }
 

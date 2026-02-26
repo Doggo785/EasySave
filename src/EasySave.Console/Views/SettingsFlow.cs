@@ -22,8 +22,8 @@ namespace EasySave
                 ConsoleView.DisplayHeader();
 
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($"      {Resources.SettingsFlow_Parameters}");
-                Console.WriteLine("      " + new string('─', Resources.SettingsFlow_Parameters.Length));
+                Console.WriteLine($"      {Resources.SettingsFlow_Settings}");
+                Console.WriteLine("      " + new string('─', Resources.SettingsFlow_Settings.Length));
                 Console.WriteLine();
 
                 ConsoleView.PrintMenuOption("1", $"{Resources.SettingsFlow_Language} : {settings.Language}");
@@ -71,7 +71,7 @@ namespace EasySave
                         exit = true;
                         break;
                     default:
-                        view.DisplayError(Resources.SettingsFlow_ChoixErreur);
+                        view.DisplayError(Resources.SettingsFlow_ChoiceError);
                         break;
                 }
             }
@@ -106,7 +106,7 @@ namespace EasySave
             }
             else
             {
-                view.DisplayError(Resources.SettingsFlow_ChoixErreur);
+                view.DisplayError(Resources.SettingsFlow_ChoiceError);
                 return;
             }
 
@@ -119,8 +119,8 @@ namespace EasySave
             ConsoleView.DisplayHeader();
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"      {Resources.SettingsFlow_ModifLogFormat}");
-            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ModifLogFormat.Length));
+            Console.WriteLine($"      {Resources.SettingsFlow_EditLogFormat}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_EditLogFormat.Length));
             Console.WriteLine();
 
             ConsoleView.PrintMenuOption("1", "JSON");
@@ -143,7 +143,7 @@ namespace EasySave
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                    Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoiceError}");
                     Console.ResetColor();
                     Console.WriteLine($"      {Resources.SettingsFlow_Continue}");
                     Console.ReadKey();
@@ -163,8 +163,8 @@ namespace EasySave
             ConsoleView.DisplayHeader();
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"      {Resources.SettingsFlow_ModifBusinesSoftWare}");
-            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ModifBusinesSoftWare.Length));
+            Console.WriteLine($"      {Resources.SettingsFlow_EditBusinessSoftware}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_EditBusinessSoftware.Length));
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -205,8 +205,8 @@ namespace EasySave
             ConsoleView.DisplayHeader();
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"      {Resources.SettingsFlow_ModifEncrypt}");
-            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_ModifEncrypt.Length));
+            Console.WriteLine($"      {Resources.SettingsFlow_EditEncrypt}");
+            Console.WriteLine("      " + new string('─', Resources.SettingsFlow_EditEncrypt.Length));
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -288,7 +288,7 @@ namespace EasySave
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                    Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoiceError}");
                     Console.ResetColor();
                     Console.WriteLine($"      {Resources.SettingsFlow_Continue}");
                     Console.ReadKey();
@@ -371,7 +371,7 @@ namespace EasySave
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoiceError}");
                 Console.ResetColor();
             }
 
@@ -428,7 +428,7 @@ namespace EasySave
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoixErreur}");
+                Console.WriteLine($"\n      [X] {Resources.SettingsFlow_ChoiceError}");
                 Console.ResetColor();
             }
 

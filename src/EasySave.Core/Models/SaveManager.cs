@@ -41,8 +41,8 @@ namespace EasySave.Core.Models
         public DateTime LastBackupTime { get; private set; } = DateTime.MinValue;
 
         private static string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private static readonly string _logDirectory = Path.Combine(_appDataPath, "ProSoft", "EasySave", "UserConfig");
-        private readonly string _saveFilePath = Path.Combine(_logDirectory, "jobs.json");
+        private static readonly string _jobsDirectory = Path.Combine(_appDataPath, "ProSoft", "EasySave", "UserConfig");
+        private readonly string _saveFilePath = Path.Combine(_jobsDirectory, "jobs.json");
 
         public SaveManager()
         {
@@ -69,12 +69,12 @@ namespace EasySave.Core.Models
                 string.IsNullOrWhiteSpace(src) ||
                 string.IsNullOrWhiteSpace(dest))
             {
-                throw new ArgumentException(Resources.Erreur_Creation_Blank);
+                throw new ArgumentException(Resources.Error_Creation_Blank);
             }
 
             if (!Path.IsPathRooted(src) || !Path.IsPathRooted(dest))
             {
-                throw new ArgumentException(Resources.Erreur_Creation_Chemin);
+                throw new ArgumentException(Resources.Error_Create_Path);
             }
 
             lock (_jobsLock)
@@ -104,7 +104,7 @@ namespace EasySave.Core.Models
         {
             if (!CanLaunchJob())
             {
-                displayMessage?.Invoke($"{Resources.CanLaunch_ErreurMetier}");
+                displayMessage?.Invoke($"{Resources.CanLaunch_ErrorBusinessSoft}");
                 return;
             }
 
@@ -227,8 +227,8 @@ namespace EasySave.Core.Models
 
         public void EnsureDirectoryExist()
         {
-            if (!Directory.Exists(_logDirectory))
-                Directory.CreateDirectory(_logDirectory);
+            if (!Directory.Exists(_jobsDirectory))
+                Directory.CreateDirectory(_jobsDirectory);
         }
 
         private static DateTime LoadLastBackupTime()
@@ -245,7 +245,10 @@ namespace EasySave.Core.Models
                     return state?.LastActionTimestamp ?? DateTime.MinValue;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[SaveManager] Failed to load last backup time: {ex}");
+            }
             return DateTime.MinValue;
         }
 

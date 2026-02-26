@@ -50,11 +50,6 @@
 							<ComboBoxItem Content="{Binding [Diff_Backup], Source={x:Static services:SettingsManager.Instance}}"/>
 						</ComboBox>
 					</StackPanel>
-
-					<StackPanel Grid.Column="2">
-						<TextBlock Text=" " Margin="0,0,0,8"/>
-						<CheckBox IsChecked="True" Content="{Binding [CreateJobView_Chiffrement], Source={x:Static services:SettingsManager.Instance}}" Foreground="{DynamicResource TextPrimary}"/>
-					</StackPanel>
 				</Grid>
 
                 <Button Command="{Binding CreateJobCommand}"
