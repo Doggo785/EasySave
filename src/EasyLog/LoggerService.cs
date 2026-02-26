@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
+using EasyLog.Models
 
 namespace EasyLog
 {
