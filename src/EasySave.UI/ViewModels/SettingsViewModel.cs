@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Threading.Tasks;
 using ReactiveUI;
 using EasySave.Core.Services;
 
@@ -220,6 +221,9 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
+        /// <summary>
+        /// Saves the size limit (parallel files).
+        /// </summary>
         private void SaveMaxSize()
         {
             if (long.TryParse(MaxParallelFileSizeKbText, out long value) && value > 0)
@@ -228,14 +232,17 @@ namespace EasySave.UI.ViewModels
                 SettingsManager.Instance.SaveSettings();
 
                 MaxSizeConfirmationVisible = true;
-                System.Threading.Tasks.Task.Delay(2000).ContinueWith(_ =>
+                Task.Delay(2000).ContinueWith(_ =>
                 {
-                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                    Dispatcher.UIThread.Post(() =>
                         MaxSizeConfirmationVisible = false);
                 });
             }
         }
 
+        /// <summary>
+        /// Adds and saves an extension to be encrypted.
+        /// </summary>
         private void AddExtension()
         {
             if (string.IsNullOrWhiteSpace(NewExtension)) return;
@@ -257,6 +264,9 @@ namespace EasySave.UI.ViewModels
             SyncExtensionsToSettings();
         }
 
+        /// <summary>
+        /// Adds and saves a priority extension.
+        /// </summary>
         private void AddPriorityExtension()
         {
             if (string.IsNullOrWhiteSpace(NewPriorityExtension)) return;
@@ -284,6 +294,9 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
+        /// <summary>
+        /// Saves IP/Port and forces a server reconnection.
+        /// </summary>
         private void SaveServerConnection()
         {
             bool changed = false;
@@ -308,17 +321,16 @@ namespace EasySave.UI.ViewModels
                 LoggerService.ForceReconnect();
 
                 ServerConnectionConfirmationVisible = true;
-                System.Threading.Tasks.Task.Delay(2000).ContinueWith(_ =>
+                Task.Delay(2000).ContinueWith(_ =>
                 {
-                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                    Dispatcher.UIThread.Post(() =>
                         ServerConnectionConfirmationVisible = false);
                 });
             }
         }
 
         /// <summary>
-        /// Reads the ground truth from the background loop.
-        /// Called periodically by the timer so the warning stays in sync with the dashboard.
+        /// Displays an alert if the log server is disconnected.
         /// </summary>
         private void UpdateServerWarning()
         {
@@ -338,7 +350,5 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.EncryptedExtensions = EncryptedExtensions.ToList();
             SettingsManager.Instance.SaveSettings();
         }
-
-
     }
 }
