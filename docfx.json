@@ -3,13 +3,8 @@
     {
       "src": [
         {
-          "files": [
-            "src/**/*.csproj"
-          ],
-          "exclude": [
-            "**/obj/**",
-            "**/bin/**"
-          ],
+          "files": ["src/**/*.csproj"],
+          "exclude": ["**/obj/**", "**/bin/**"],
           "src": "."
         }
       ],
@@ -21,13 +16,13 @@
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md"
+          "api/**/*.yml",
+          "api/**/*.md"
         ]
       },
       {
         "files": [
-          "docs/**.md",
+          "docs/**/*.md",
           "index.md",
           "toc.yml",
           "docs/toc.yml"
