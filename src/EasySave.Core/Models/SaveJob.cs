@@ -102,13 +102,6 @@ namespace EasySave.Core.Models
 
             displayMessage?.Invoke($"\u25b6 Total: {totalFiles} {Resources.File} ({totalSize / 1024 / 1024} MB)");
 
-            bool hasFilesToEncrypt = extensionsToEncrypt != null &&
-                allFiles.Any(f => extensionsToEncrypt.Contains(f.Extension, StringComparer.OrdinalIgnoreCase));
-            string? encryptionPassword = null;
-            if (hasFilesToEncrypt)
-            {
-                encryptionPassword = requestPassword?.Invoke(Resources.PasswordRequest);
-            }
 
             var stateLog = new StateLog
             {
@@ -216,13 +209,13 @@ namespace EasySave.Core.Models
 
         public async Task RunAsync(
             List<string> extensionsToEncrypt,
-            SemaphoreSlim grosFichierEnCours,
+            SemaphoreSlim largeFileInProgress,
             ManualResetEventSlim noPriorityPending,
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
             CancellationToken cancellationToken = default)
         {
-            await Task.Run(() => Run(extensionsToEncrypt, grosFichierEnCours, noPriorityPending, requestPassword, displayMessage, cancellationToken), cancellationToken);
+            await Task.Run(() => Run(extensionsToEncrypt, largeFileInProgress, noPriorityPending, requestPassword, displayMessage, cancellationToken), cancellationToken);
         }
 
         private bool CheckDifferential(FileInfo sourceFile, string targetPath)

@@ -82,7 +82,7 @@ namespace EasySave.UI
             }
             else
             {
-                Console.WriteLine($"[!] ID {id} {Resources.UI_Introuvable}");
+                Console.WriteLine($"[!] ID {id} {Resources.UI_NotFound}");
             }
         }
     }

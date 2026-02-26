@@ -123,19 +123,19 @@
   <data name="Back_To_Menu" xml:space="preserve">
     <value>Appuyez sur une touche pour revenir au menu...</value>
   </data>
-  <data name="CanLaunch_Erreur1" xml:space="preserve">
+  <data name="CanLaunch_Error1" xml:space="preserve">
     <value>[ERREUR] Le logiciel métier</value>
   </data>
-  <data name="CanLaunch_Erreur1_1" xml:space="preserve">
+  <data name="CanLaunch_Error1_1" xml:space="preserve">
     <value>est détecté.</value>
   </data>
-  <data name="Canlaunch_Erreur2" xml:space="preserve">
+  <data name="CanLaunch_Error2" xml:space="preserve">
     <value>Veuillez fermer le logiciel métier.</value>
   </data>
-  <data name="CanLaunch_Erreur3" xml:space="preserve">
+  <data name="CanLaunch_Error3" xml:space="preserve">
     <value>Appuyez sur [ENTRÉE] pour valider la fermeture et reprendre...</value>
   </data>
-  <data name="CanLaunch_ErreurMetier" xml:space="preserve">
+  <data name="CanLaunch_ErrorBusinessSoft" xml:space="preserve">
     <value>Action interdite : Logiciel métier détecté.</value>
   </data>
   <data name="CanLaunch_Resume" xml:space="preserve">
@@ -177,13 +177,13 @@
   <data name="EncryptionError" xml:space="preserve">
     <value>Un fichier a rencontré une erreur pendant le chiffrement.</value>
   </data>
-  <data name="Erreur_Creation_Blank" xml:space="preserve">
+  <data name="Error_Creation_Blank" xml:space="preserve">
     <value>Erreur : Tous les champs doivent être remplis</value>
   </data>
-  <data name="Erreur_Creation_Chemin" xml:space="preserve">
+  <data name="Error_Create_Path" xml:space="preserve">
     <value>Erreur : Les chemins source et destination doivent être valides (ex: C:\\Dossier).</value>
   </data>
-  <data name="Erreur_Creation_Trop_Nombreux" xml:space="preserve">
+  <data name="Error_Create_TooMany" xml:space="preserve">
     <value>Nombre maximum de jobs atteint.</value>
   </data>
   <data name="FileEncrypted" xml:space="preserve">
@@ -282,10 +282,10 @@
   <data name="SettingsFlow_Choice" xml:space="preserve">
     <value>Votre choix :</value>
   </data>
-  <data name="SettingsFlow_ChoixErreur" xml:space="preserve">
+  <data name="SettingsFlow_ChoiceError" xml:space="preserve">
     <value>Choix invalide. Appuyez sur une touche...</value>
   </data>
-  <data name="SettingsFlow_Choixmodif" xml:space="preserve">
+  <data name="SettingsFlow_ChoiceEdit" xml:space="preserve">
     <value>Quel paramètre souhaitez-vous modifier ?</value>
   </data>
   <data name="SettingsFlow_Continue" xml:space="preserve">
@@ -315,16 +315,16 @@
   <data name="SettingsFlow_LogFormatSuccess" xml:space="preserve">
     <value>Format de log modifié avec succès !</value>
   </data>
-  <data name="SettingsFlow_ModifBusinesSoftWare" xml:space="preserve">
+  <data name="SettingsFlow_EditBusinessSoftware" xml:space="preserve">
     <value>MODIFICATION DU LOGICIEL MÉTIER</value>
   </data>
-  <data name="SettingsFlow_ModifEncrypt" xml:space="preserve">
+  <data name="SettingsFlow_EditEncrypt" xml:space="preserve">
     <value>MODIFICATION DES EXTENSIONS CRYPTO</value>
   </data>
-  <data name="SettingsFlow_ModifLogFormat" xml:space="preserve">
+  <data name="SettingsFlow_EditLogFormat" xml:space="preserve">
     <value>MODIFICATION DU FORMAT DE LOG</value>
   </data>
-  <data name="SettingsFlow_Parameters" xml:space="preserve">
+  <data name="SettingsFlow_Settings" xml:space="preserve">
     <value>PARAMÈTRES</value>
   </data>
   <data name="SettingsFlow_Priorities" xml:space="preserve">
@@ -387,7 +387,7 @@
   <data name="Cancel_job" xml:space="preserve">
     <value>Annulé: Job</value>
   </data>
-  <data name="Erreur_job" xml:space="preserve">
+  <data name="Error_Job" xml:space="preserve">
     <value> Erreur Job</value>
   </data>
   <data name="Alljob_Completed" xml:space="preserve">
@@ -416,9 +416,6 @@
   </data>
   <data name="JobsView_Config_Jog" xml:space="preserve">
     <value>travaux configurés</value>
-  </data>
-  <data name="CreateJobView_Chiffrement" xml:space="preserve">
-    <value>Activer le chiffrement (CryptoSoft)</value>
   </data>
   <data name="CreateJobView_EnterName" xml:space="preserve">
     <value>Entrez un nom unique...</value>
@@ -558,7 +555,7 @@
   <data name="UI_Password" xml:space="preserve">
     <value>Password requis :</value>
   </data>
-  <data name="UI_Introuvable" xml:space="preserve">
+  <data name="UI_NotFound" xml:space="preserve">
     <value>introuvable.</value>
   </data>
   <data name="Full_Backup" xml:space="preserve">
