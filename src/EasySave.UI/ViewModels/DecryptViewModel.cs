@@ -115,6 +115,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Déclenche le déchiffrement selon le type de source.
+        /// </summary>
         private async Task DecryptAsync()
         {
             StatusMessage = "";
@@ -146,6 +149,9 @@ namespace EasySave.UI.ViewModels
             IsDecrypting = false;
         }
 
+        /// <summary>
+        /// Déchiffre un fichier unique via le thread UI.
+        /// </summary>
         private async Task DecryptSingleFileAsync()
         {
             string effectiveDest = DestPath;
@@ -171,6 +177,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Déchiffre un dossier complet et met à jour l'UI.
+        /// </summary>
         private async Task DecryptFolderAsync()
         {
             var extensions = SettingsManager.Instance.EncryptedExtensions;

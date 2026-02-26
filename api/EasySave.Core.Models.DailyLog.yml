@@ -1,0 +1,740 @@
+### YamlMime:ManagedReference
+items:
+- uid: EasySave.Core.Models.DailyLog
+  commentId: T:EasySave.Core.Models.DailyLog
+  id: DailyLog
+  parent: EasySave.Core.Models
+  children:
+  - EasySave.Core.Models.DailyLog.#ctor
+  - EasySave.Core.Models.DailyLog.#ctor(System.String,System.String,System.String,System.Int64,System.Double)
+  - EasySave.Core.Models.DailyLog.ClientId
+  - EasySave.Core.Models.DailyLog.EncryptionTimeMs
+  - EasySave.Core.Models.DailyLog.FileSize
+  - EasySave.Core.Models.DailyLog.JobName
+  - EasySave.Core.Models.DailyLog.SourceFile
+  - EasySave.Core.Models.DailyLog.TargetFile
+  - EasySave.Core.Models.DailyLog.TimeStamp
+  - EasySave.Core.Models.DailyLog.TransferTimeMs
+  langs:
+  - csharp
+  - vb
+  name: DailyLog
+  nameWithType: DailyLog
+  fullName: EasySave.Core.Models.DailyLog
+  type: Class
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: DailyLog
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 9
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  summary: Represents a daily log entry.
+  example: []
+  syntax:
+    content: public class DailyLog
+    content.vb: Public Class DailyLog
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: EasySave.Core.Models.DailyLog.TimeStamp
+  commentId: P:EasySave.Core.Models.DailyLog.TimeStamp
+  id: TimeStamp
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: TimeStamp
+  nameWithType: DailyLog.TimeStamp
+  fullName: EasySave.Core.Models.DailyLog.TimeStamp
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: TimeStamp
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 11
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public DateTime TimeStamp { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property TimeStamp As Date
+  overload: EasySave.Core.Models.DailyLog.TimeStamp*
+- uid: EasySave.Core.Models.DailyLog.ClientId
+  commentId: P:EasySave.Core.Models.DailyLog.ClientId
+  id: ClientId
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: ClientId
+  nameWithType: DailyLog.ClientId
+  fullName: EasySave.Core.Models.DailyLog.ClientId
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: ClientId
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 12
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public string ClientId { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ClientId As String
+  overload: EasySave.Core.Models.DailyLog.ClientId*
+- uid: EasySave.Core.Models.DailyLog.JobName
+  commentId: P:EasySave.Core.Models.DailyLog.JobName
+  id: JobName
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: JobName
+  nameWithType: DailyLog.JobName
+  fullName: EasySave.Core.Models.DailyLog.JobName
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: JobName
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 13
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public string JobName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property JobName As String
+  overload: EasySave.Core.Models.DailyLog.JobName*
+- uid: EasySave.Core.Models.DailyLog.SourceFile
+  commentId: P:EasySave.Core.Models.DailyLog.SourceFile
+  id: SourceFile
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: SourceFile
+  nameWithType: DailyLog.SourceFile
+  fullName: EasySave.Core.Models.DailyLog.SourceFile
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: SourceFile
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 14
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public string SourceFile { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property SourceFile As String
+  overload: EasySave.Core.Models.DailyLog.SourceFile*
+- uid: EasySave.Core.Models.DailyLog.TargetFile
+  commentId: P:EasySave.Core.Models.DailyLog.TargetFile
+  id: TargetFile
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: TargetFile
+  nameWithType: DailyLog.TargetFile
+  fullName: EasySave.Core.Models.DailyLog.TargetFile
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: TargetFile
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 15
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public string TargetFile { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TargetFile As String
+  overload: EasySave.Core.Models.DailyLog.TargetFile*
+- uid: EasySave.Core.Models.DailyLog.FileSize
+  commentId: P:EasySave.Core.Models.DailyLog.FileSize
+  id: FileSize
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: FileSize
+  nameWithType: DailyLog.FileSize
+  fullName: EasySave.Core.Models.DailyLog.FileSize
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: FileSize
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 16
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public long FileSize { get; set; }
+    parameters: []
+    return:
+      type: System.Int64
+    content.vb: Public Property FileSize As Long
+  overload: EasySave.Core.Models.DailyLog.FileSize*
+- uid: EasySave.Core.Models.DailyLog.TransferTimeMs
+  commentId: P:EasySave.Core.Models.DailyLog.TransferTimeMs
+  id: TransferTimeMs
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: TransferTimeMs
+  nameWithType: DailyLog.TransferTimeMs
+  fullName: EasySave.Core.Models.DailyLog.TransferTimeMs
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: TransferTimeMs
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 17
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public double TransferTimeMs { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property TransferTimeMs As Double
+  overload: EasySave.Core.Models.DailyLog.TransferTimeMs*
+- uid: EasySave.Core.Models.DailyLog.EncryptionTimeMs
+  commentId: P:EasySave.Core.Models.DailyLog.EncryptionTimeMs
+  id: EncryptionTimeMs
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: EncryptionTimeMs
+  nameWithType: DailyLog.EncryptionTimeMs
+  fullName: EasySave.Core.Models.DailyLog.EncryptionTimeMs
+  type: Property
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: EncryptionTimeMs
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 18
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  syntax:
+    content: public int EncryptionTimeMs { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property EncryptionTimeMs As Integer
+  overload: EasySave.Core.Models.DailyLog.EncryptionTimeMs*
+- uid: EasySave.Core.Models.DailyLog.#ctor
+  commentId: M:EasySave.Core.Models.DailyLog.#ctor
+  id: '#ctor'
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: DailyLog()
+  nameWithType: DailyLog.DailyLog()
+  fullName: EasySave.Core.Models.DailyLog.DailyLog()
+  type: Constructor
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: .ctor
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 23
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  summary: Initializes an empty log entry.
+  example: []
+  syntax:
+    content: public DailyLog()
+    content.vb: Public Sub New()
+  overload: EasySave.Core.Models.DailyLog.#ctor*
+  nameWithType.vb: DailyLog.New()
+  fullName.vb: EasySave.Core.Models.DailyLog.New()
+  name.vb: New()
+- uid: EasySave.Core.Models.DailyLog.#ctor(System.String,System.String,System.String,System.Int64,System.Double)
+  commentId: M:EasySave.Core.Models.DailyLog.#ctor(System.String,System.String,System.String,System.Int64,System.Double)
+  id: '#ctor(System.String,System.String,System.String,System.Int64,System.Double)'
+  parent: EasySave.Core.Models.DailyLog
+  langs:
+  - csharp
+  - vb
+  name: DailyLog(string, string, string, long, double)
+  nameWithType: DailyLog.DailyLog(string, string, string, long, double)
+  fullName: EasySave.Core.Models.DailyLog.DailyLog(string, string, string, long, double)
+  type: Constructor
+  source:
+    remote:
+      path: src/EasyLog/Models/DailyLog.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: .ctor
+    path: src/EasyLog/Models/DailyLog.cs
+    startLine: 33
+  assemblies:
+  - EasyLog
+  namespace: EasySave.Core.Models
+  summary: Initializes log with file data.
+  example: []
+  syntax:
+    content: public DailyLog(string jobName, string source, string target, long size, double time)
+    parameters:
+    - id: jobName
+      type: System.String
+      description: Name of backup job.
+    - id: source
+      type: System.String
+      description: Original file source path.
+    - id: target
+      type: System.String
+      description: Target file destination path.
+    - id: size
+      type: System.Int64
+      description: Total file size bytes.
+    - id: time
+      type: System.Double
+      description: Total transfer duration milliseconds.
+    content.vb: Public Sub New(jobName As String, source As String, target As String, size As Long, time As Double)
+  overload: EasySave.Core.Models.DailyLog.#ctor*
+  nameWithType.vb: DailyLog.New(String, String, String, Long, Double)
+  fullName.vb: EasySave.Core.Models.DailyLog.New(String, String, String, Long, Double)
+  name.vb: New(String, String, String, Long, Double)
+references:
+- uid: EasySave.Core.Models
+  commentId: N:EasySave.Core.Models
+  href: EasySave.html
+  name: EasySave.Core.Models
+  nameWithType: EasySave.Core.Models
+  fullName: EasySave.Core.Models
+  spec.csharp:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.Core
+    name: Core
+    href: EasySave.Core.html
+  - name: .
+  - uid: EasySave.Core.Models
+    name: Models
+    href: EasySave.Core.Models.html
+  spec.vb:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.Core
+    name: Core
+    href: EasySave.Core.html
+  - name: .
+  - uid: EasySave.Core.Models
+    name: Models
+    href: EasySave.Core.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: EasySave.Core.Models.DailyLog.TimeStamp*
+  commentId: Overload:EasySave.Core.Models.DailyLog.TimeStamp
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_TimeStamp
+  name: TimeStamp
+  nameWithType: DailyLog.TimeStamp
+  fullName: EasySave.Core.Models.DailyLog.TimeStamp
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: EasySave.Core.Models.DailyLog.ClientId*
+  commentId: Overload:EasySave.Core.Models.DailyLog.ClientId
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_ClientId
+  name: ClientId
+  nameWithType: DailyLog.ClientId
+  fullName: EasySave.Core.Models.DailyLog.ClientId
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: EasySave.Core.Models.DailyLog.JobName*
+  commentId: Overload:EasySave.Core.Models.DailyLog.JobName
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_JobName
+  name: JobName
+  nameWithType: DailyLog.JobName
+  fullName: EasySave.Core.Models.DailyLog.JobName
+- uid: EasySave.Core.Models.DailyLog.SourceFile*
+  commentId: Overload:EasySave.Core.Models.DailyLog.SourceFile
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_SourceFile
+  name: SourceFile
+  nameWithType: DailyLog.SourceFile
+  fullName: EasySave.Core.Models.DailyLog.SourceFile
+- uid: EasySave.Core.Models.DailyLog.TargetFile*
+  commentId: Overload:EasySave.Core.Models.DailyLog.TargetFile
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_TargetFile
+  name: TargetFile
+  nameWithType: DailyLog.TargetFile
+  fullName: EasySave.Core.Models.DailyLog.TargetFile
+- uid: EasySave.Core.Models.DailyLog.FileSize*
+  commentId: Overload:EasySave.Core.Models.DailyLog.FileSize
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_FileSize
+  name: FileSize
+  nameWithType: DailyLog.FileSize
+  fullName: EasySave.Core.Models.DailyLog.FileSize
+- uid: System.Int64
+  commentId: T:System.Int64
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int64
+  name: long
+  nameWithType: long
+  fullName: long
+  nameWithType.vb: Long
+  fullName.vb: Long
+  name.vb: Long
+- uid: EasySave.Core.Models.DailyLog.TransferTimeMs*
+  commentId: Overload:EasySave.Core.Models.DailyLog.TransferTimeMs
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_TransferTimeMs
+  name: TransferTimeMs
+  nameWithType: DailyLog.TransferTimeMs
+  fullName: EasySave.Core.Models.DailyLog.TransferTimeMs
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: EasySave.Core.Models.DailyLog.EncryptionTimeMs*
+  commentId: Overload:EasySave.Core.Models.DailyLog.EncryptionTimeMs
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog_EncryptionTimeMs
+  name: EncryptionTimeMs
+  nameWithType: DailyLog.EncryptionTimeMs
+  fullName: EasySave.Core.Models.DailyLog.EncryptionTimeMs
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: EasySave.Core.Models.DailyLog.#ctor*
+  commentId: Overload:EasySave.Core.Models.DailyLog.#ctor
+  href: EasySave.Core.Models.DailyLog.html#EasySave_Core_Models_DailyLog__ctor
+  name: DailyLog
+  nameWithType: DailyLog.DailyLog
+  fullName: EasySave.Core.Models.DailyLog.DailyLog
+  nameWithType.vb: DailyLog.New
+  fullName.vb: EasySave.Core.Models.DailyLog.New
+  name.vb: New

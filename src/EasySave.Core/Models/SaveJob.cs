@@ -23,7 +23,9 @@ namespace EasySave.Core.Models
 
         private LoggerService _logger;
 
-        // Thread control elements
+        /// <summary>
+        /// Événement gérant la pause du thread de sauvegarde.
+        /// </summary>
         [JsonIgnore]
         public ManualResetEventSlim PauseEvent { get; } = new ManualResetEventSlim(true);
         public event EventHandler<int>? ProgressChanged;
@@ -55,6 +57,15 @@ namespace EasySave.Core.Models
             LoggerService.ServerPort = SettingsManager.Instance.ServerPort;
         }
 
+        /// <summary>
+        /// Exécute la sauvegarde avec gestion des threads et priorités.
+        /// </summary>
+        /// <param name="extensionsToEncrypt">Liste des extensions à chiffrer.</param>
+        /// <param name="largeFileSemaphore">Limite les gros fichiers concurrents.</param>
+        /// <param name="noPriorityPending">Bloque si des fichiers prioritaires attendent.</param>
+        /// <param name="requestPassword">Fonction demandant le mot de passe de chiffrement.</param>
+        /// <param name="displayMessage">Action d'affichage des logs UI.</param>
+        /// <param name="cancellationToken">Jeton d'annulation de la tâche.</param>
         public void Run(
             List<string> extensionsToEncrypt,
             SemaphoreSlim largeFileSemaphore,
@@ -207,6 +218,9 @@ namespace EasySave.Core.Models
             displayMessage?.Invoke($"\u2705 {Resources.Savejob_sauvegardefinis} {Name}");
         }
 
+        /// <summary>
+        /// Version asynchrone de la méthode Run.
+        /// </summary>
         public async Task RunAsync(
             List<string> extensionsToEncrypt,
             SemaphoreSlim largeFileInProgress,

@@ -1,0 +1,1260 @@
+### YamlMime:ManagedReference
+items:
+- uid: EasySave.Core.Models.SaveManager
+  commentId: T:EasySave.Core.Models.SaveManager
+  id: SaveManager
+  parent: EasySave.Core.Models
+  children:
+  - EasySave.Core.Models.SaveManager.#ctor
+  - EasySave.Core.Models.SaveManager.CanLaunchJob
+  - EasySave.Core.Models.SaveManager.CreateJob(System.String,System.String,System.String,System.Boolean)
+  - EasySave.Core.Models.SaveManager.DeleteJob(System.Int32)
+  - EasySave.Core.Models.SaveManager.EditJob(EasySave.Core.Models.SaveJob)
+  - EasySave.Core.Models.SaveManager.EnsureDirectoryExist
+  - EasySave.Core.Models.SaveManager.ExecuteAllJobs(System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  - EasySave.Core.Models.SaveManager.ExecuteJob(System.Int32,System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  - EasySave.Core.Models.SaveManager.GetJobs
+  - EasySave.Core.Models.SaveManager.OnPriorityFileDone
+  - EasySave.Core.Models.SaveManager.PauseJob(System.Int32)
+  - EasySave.Core.Models.SaveManager.RegisterPriorityFiles(System.Int32)
+  - EasySave.Core.Models.SaveManager.ResumeJob(System.Int32)
+  - EasySave.Core.Models.SaveManager.StopJob(System.Int32)
+  langs:
+  - csharp
+  - vb
+  name: SaveManager
+  nameWithType: SaveManager
+  fullName: EasySave.Core.Models.SaveManager
+  type: Class
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: SaveManager
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 16
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Manages backup job lifecycle.
+  example: []
+  syntax:
+    content: public class SaveManager
+    content.vb: Public Class SaveManager
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: EasySave.Core.Models.SaveManager.RegisterPriorityFiles(System.Int32)
+  commentId: M:EasySave.Core.Models.SaveManager.RegisterPriorityFiles(System.Int32)
+  id: RegisterPriorityFiles(System.Int32)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: RegisterPriorityFiles(int)
+  nameWithType: SaveManager.RegisterPriorityFiles(int)
+  fullName: EasySave.Core.Models.SaveManager.RegisterPriorityFiles(int)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: RegisterPriorityFiles
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 30
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Registers pending priority files.
+  example: []
+  syntax:
+    content: public static void RegisterPriorityFiles(int count)
+    parameters:
+    - id: count
+      type: System.Int32
+      description: Number of priority files.
+    content.vb: Public Shared Sub RegisterPriorityFiles(count As Integer)
+  overload: EasySave.Core.Models.SaveManager.RegisterPriorityFiles*
+  nameWithType.vb: SaveManager.RegisterPriorityFiles(Integer)
+  fullName.vb: EasySave.Core.Models.SaveManager.RegisterPriorityFiles(Integer)
+  name.vb: RegisterPriorityFiles(Integer)
+- uid: EasySave.Core.Models.SaveManager.OnPriorityFileDone
+  commentId: M:EasySave.Core.Models.SaveManager.OnPriorityFileDone
+  id: OnPriorityFileDone
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: OnPriorityFileDone()
+  nameWithType: SaveManager.OnPriorityFileDone()
+  fullName: EasySave.Core.Models.SaveManager.OnPriorityFileDone()
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: OnPriorityFileDone
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 40
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Updates priority counter on completion.
+  example: []
+  syntax:
+    content: public static void OnPriorityFileDone()
+    content.vb: Public Shared Sub OnPriorityFileDone()
+  overload: EasySave.Core.Models.SaveManager.OnPriorityFileDone*
+- uid: EasySave.Core.Models.SaveManager.#ctor
+  commentId: M:EasySave.Core.Models.SaveManager.#ctor
+  id: '#ctor'
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: SaveManager()
+  nameWithType: SaveManager.SaveManager()
+  fullName: EasySave.Core.Models.SaveManager.SaveManager()
+  type: Constructor
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: .ctor
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 56
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Initializes manager and loads jobs.
+  example: []
+  syntax:
+    content: public SaveManager()
+    content.vb: Public Sub New()
+  overload: EasySave.Core.Models.SaveManager.#ctor*
+  nameWithType.vb: SaveManager.New()
+  fullName.vb: EasySave.Core.Models.SaveManager.New()
+  name.vb: New()
+- uid: EasySave.Core.Models.SaveManager.GetJobs
+  commentId: M:EasySave.Core.Models.SaveManager.GetJobs
+  id: GetJobs
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: GetJobs()
+  nameWithType: SaveManager.GetJobs()
+  fullName: EasySave.Core.Models.SaveManager.GetJobs()
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: GetJobs
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 69
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Returns thread-safe job list.
+  example: []
+  syntax:
+    content: public List<SaveJob> GetJobs()
+    return:
+      type: System.Collections.Generic.List{EasySave.Core.Models.SaveJob}
+      description: List of save jobs.
+    content.vb: Public Function GetJobs() As List(Of SaveJob)
+  overload: EasySave.Core.Models.SaveManager.GetJobs*
+- uid: EasySave.Core.Models.SaveManager.CreateJob(System.String,System.String,System.String,System.Boolean)
+  commentId: M:EasySave.Core.Models.SaveManager.CreateJob(System.String,System.String,System.String,System.Boolean)
+  id: CreateJob(System.String,System.String,System.String,System.Boolean)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: CreateJob(string, string, string, bool)
+  nameWithType: SaveManager.CreateJob(string, string, string, bool)
+  fullName: EasySave.Core.Models.SaveManager.CreateJob(string, string, string, bool)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: CreateJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 84
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Creates and saves new job.
+  example: []
+  syntax:
+    content: public void CreateJob(string name, string src, string dest, bool type)
+    parameters:
+    - id: name
+      type: System.String
+      description: Job display name.
+    - id: src
+      type: System.String
+      description: Source directory path.
+    - id: dest
+      type: System.String
+      description: Target directory path.
+    - id: type
+      type: System.Boolean
+      description: Full or differential type.
+    content.vb: Public Sub CreateJob(name As String, src As String, dest As String, type As Boolean)
+  overload: EasySave.Core.Models.SaveManager.CreateJob*
+  nameWithType.vb: SaveManager.CreateJob(String, String, String, Boolean)
+  fullName.vb: EasySave.Core.Models.SaveManager.CreateJob(String, String, String, Boolean)
+  name.vb: CreateJob(String, String, String, Boolean)
+- uid: EasySave.Core.Models.SaveManager.DeleteJob(System.Int32)
+  commentId: M:EasySave.Core.Models.SaveManager.DeleteJob(System.Int32)
+  id: DeleteJob(System.Int32)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: DeleteJob(int)
+  nameWithType: SaveManager.DeleteJob(int)
+  fullName: EasySave.Core.Models.SaveManager.DeleteJob(int)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: DeleteJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 111
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Removes job by identifier.
+  example: []
+  syntax:
+    content: public void DeleteJob(int id)
+    parameters:
+    - id: id
+      type: System.Int32
+      description: Unique job ID.
+    content.vb: Public Sub DeleteJob(id As Integer)
+  overload: EasySave.Core.Models.SaveManager.DeleteJob*
+  nameWithType.vb: SaveManager.DeleteJob(Integer)
+  fullName.vb: EasySave.Core.Models.SaveManager.DeleteJob(Integer)
+  name.vb: DeleteJob(Integer)
+- uid: EasySave.Core.Models.SaveManager.ExecuteJob(System.Int32,System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  commentId: M:EasySave.Core.Models.SaveManager.ExecuteJob(System.Int32,System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  id: ExecuteJob(System.Int32,System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: ExecuteJob(int, Func<string, string?>?, Action<string>?, CancellationToken)
+  nameWithType: SaveManager.ExecuteJob(int, Func<string, string?>?, Action<string>?, CancellationToken)
+  fullName: EasySave.Core.Models.SaveManager.ExecuteJob(int, System.Func<string, string?>?, System.Action<string>?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: ExecuteJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 128
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Runs job with monitoring.
+  example: []
+  syntax:
+    content: public Task ExecuteJob(int id, Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: id
+      type: System.Int32
+      description: Target job ID.
+    - id: requestPassword
+      type: System.Func{System.String,System.String}
+      description: Password request callback.
+    - id: displayMessage
+      type: System.Action{System.String}
+      description: Status message callback.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: Task cancellation token.
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function ExecuteJob(id As Integer, requestPassword As Func(Of String, String) = Nothing, displayMessage As Action(Of String) = Nothing, cancellationToken As CancellationToken = Nothing) As Task
+  overload: EasySave.Core.Models.SaveManager.ExecuteJob*
+  nameWithType.vb: SaveManager.ExecuteJob(Integer, Func(Of String, String), Action(Of String), CancellationToken)
+  fullName.vb: EasySave.Core.Models.SaveManager.ExecuteJob(Integer, System.Func(Of String, String), System.Action(Of String), System.Threading.CancellationToken)
+  name.vb: ExecuteJob(Integer, Func(Of String, String), Action(Of String), CancellationToken)
+- uid: EasySave.Core.Models.SaveManager.ExecuteAllJobs(System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  commentId: M:EasySave.Core.Models.SaveManager.ExecuteAllJobs(System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  id: ExecuteAllJobs(System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAllJobs(Func<string, string?>?, Action<string>?, CancellationToken)
+  nameWithType: SaveManager.ExecuteAllJobs(Func<string, string?>?, Action<string>?, CancellationToken)
+  fullName: EasySave.Core.Models.SaveManager.ExecuteAllJobs(System.Func<string, string?>?, System.Action<string>?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: ExecuteAllJobs
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 198
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Executes all configured jobs.
+  example: []
+  syntax:
+    content: public Task ExecuteAllJobs(Func<string, string?>? requestPassword = null, Action<string>? displayMessage = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: requestPassword
+      type: System.Func{System.String,System.String}
+      description: Password request callback.
+    - id: displayMessage
+      type: System.Action{System.String}
+      description: Status message callback.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: Global cancellation token.
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function ExecuteAllJobs(requestPassword As Func(Of String, String) = Nothing, displayMessage As Action(Of String) = Nothing, cancellationToken As CancellationToken = Nothing) As Task
+  overload: EasySave.Core.Models.SaveManager.ExecuteAllJobs*
+  nameWithType.vb: SaveManager.ExecuteAllJobs(Func(Of String, String), Action(Of String), CancellationToken)
+  fullName.vb: EasySave.Core.Models.SaveManager.ExecuteAllJobs(System.Func(Of String, String), System.Action(Of String), System.Threading.CancellationToken)
+  name.vb: ExecuteAllJobs(Func(Of String, String), Action(Of String), CancellationToken)
+- uid: EasySave.Core.Models.SaveManager.PauseJob(System.Int32)
+  commentId: M:EasySave.Core.Models.SaveManager.PauseJob(System.Int32)
+  id: PauseJob(System.Int32)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: PauseJob(int)
+  nameWithType: SaveManager.PauseJob(int)
+  fullName: EasySave.Core.Models.SaveManager.PauseJob(int)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: PauseJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 228
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Pauses specified backup job.
+  example: []
+  syntax:
+    content: public void PauseJob(int id)
+    parameters:
+    - id: id
+      type: System.Int32
+      description: Target job ID.
+    content.vb: Public Sub PauseJob(id As Integer)
+  overload: EasySave.Core.Models.SaveManager.PauseJob*
+  nameWithType.vb: SaveManager.PauseJob(Integer)
+  fullName.vb: EasySave.Core.Models.SaveManager.PauseJob(Integer)
+  name.vb: PauseJob(Integer)
+- uid: EasySave.Core.Models.SaveManager.ResumeJob(System.Int32)
+  commentId: M:EasySave.Core.Models.SaveManager.ResumeJob(System.Int32)
+  id: ResumeJob(System.Int32)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: ResumeJob(int)
+  nameWithType: SaveManager.ResumeJob(int)
+  fullName: EasySave.Core.Models.SaveManager.ResumeJob(int)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: ResumeJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 238
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Resumes specified backup job.
+  example: []
+  syntax:
+    content: public void ResumeJob(int id)
+    parameters:
+    - id: id
+      type: System.Int32
+      description: Target job ID.
+    content.vb: Public Sub ResumeJob(id As Integer)
+  overload: EasySave.Core.Models.SaveManager.ResumeJob*
+  nameWithType.vb: SaveManager.ResumeJob(Integer)
+  fullName.vb: EasySave.Core.Models.SaveManager.ResumeJob(Integer)
+  name.vb: ResumeJob(Integer)
+- uid: EasySave.Core.Models.SaveManager.StopJob(System.Int32)
+  commentId: M:EasySave.Core.Models.SaveManager.StopJob(System.Int32)
+  id: StopJob(System.Int32)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: StopJob(int)
+  nameWithType: SaveManager.StopJob(int)
+  fullName: EasySave.Core.Models.SaveManager.StopJob(int)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: StopJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 248
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Stops job via token.
+  example: []
+  syntax:
+    content: public void StopJob(int id)
+    parameters:
+    - id: id
+      type: System.Int32
+      description: Target job ID.
+    content.vb: Public Sub StopJob(id As Integer)
+  overload: EasySave.Core.Models.SaveManager.StopJob*
+  nameWithType.vb: SaveManager.StopJob(Integer)
+  fullName.vb: EasySave.Core.Models.SaveManager.StopJob(Integer)
+  name.vb: StopJob(Integer)
+- uid: EasySave.Core.Models.SaveManager.EnsureDirectoryExist
+  commentId: M:EasySave.Core.Models.SaveManager.EnsureDirectoryExist
+  id: EnsureDirectoryExist
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: EnsureDirectoryExist()
+  nameWithType: SaveManager.EnsureDirectoryExist()
+  fullName: EasySave.Core.Models.SaveManager.EnsureDirectoryExist()
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: EnsureDirectoryExist
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 284
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Validates config directory existence.
+  example: []
+  syntax:
+    content: public void EnsureDirectoryExist()
+    content.vb: Public Sub EnsureDirectoryExist()
+  overload: EasySave.Core.Models.SaveManager.EnsureDirectoryExist*
+- uid: EasySave.Core.Models.SaveManager.CanLaunchJob
+  commentId: M:EasySave.Core.Models.SaveManager.CanLaunchJob
+  id: CanLaunchJob
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: CanLaunchJob()
+  nameWithType: SaveManager.CanLaunchJob()
+  fullName: EasySave.Core.Models.SaveManager.CanLaunchJob()
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: CanLaunchJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 294
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Checks for running business-apps.
+  example: []
+  syntax:
+    content: public bool CanLaunchJob()
+    return:
+      type: System.Boolean
+      description: True if clear.
+    content.vb: Public Function CanLaunchJob() As Boolean
+  overload: EasySave.Core.Models.SaveManager.CanLaunchJob*
+- uid: EasySave.Core.Models.SaveManager.EditJob(EasySave.Core.Models.SaveJob)
+  commentId: M:EasySave.Core.Models.SaveManager.EditJob(EasySave.Core.Models.SaveJob)
+  id: EditJob(EasySave.Core.Models.SaveJob)
+  parent: EasySave.Core.Models.SaveManager
+  langs:
+  - csharp
+  - vb
+  name: EditJob(SaveJob)
+  nameWithType: SaveManager.EditJob(SaveJob)
+  fullName: EasySave.Core.Models.SaveManager.EditJob(EasySave.Core.Models.SaveJob)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Models/SaveManager.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: EditJob
+    path: src/EasySave.Core/Models/SaveManager.cs
+    startLine: 304
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Models
+  summary: Updates existing job properties.
+  example: []
+  syntax:
+    content: public void EditJob(SaveJob job)
+    parameters:
+    - id: job
+      type: EasySave.Core.Models.SaveJob
+      description: Updated job data.
+    content.vb: Public Sub EditJob(job As SaveJob)
+  overload: EasySave.Core.Models.SaveManager.EditJob*
+references:
+- uid: EasySave.Core.Models
+  commentId: N:EasySave.Core.Models
+  href: EasySave.html
+  name: EasySave.Core.Models
+  nameWithType: EasySave.Core.Models
+  fullName: EasySave.Core.Models
+  spec.csharp:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.Core
+    name: Core
+    href: EasySave.Core.html
+  - name: .
+  - uid: EasySave.Core.Models
+    name: Models
+    href: EasySave.Core.Models.html
+  spec.vb:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.Core
+    name: Core
+    href: EasySave.Core.html
+  - name: .
+  - uid: EasySave.Core.Models
+    name: Models
+    href: EasySave.Core.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: EasySave.Core.Models.SaveManager.RegisterPriorityFiles*
+  commentId: Overload:EasySave.Core.Models.SaveManager.RegisterPriorityFiles
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_RegisterPriorityFiles_System_Int32_
+  name: RegisterPriorityFiles
+  nameWithType: SaveManager.RegisterPriorityFiles
+  fullName: EasySave.Core.Models.SaveManager.RegisterPriorityFiles
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: EasySave.Core.Models.SaveManager.OnPriorityFileDone*
+  commentId: Overload:EasySave.Core.Models.SaveManager.OnPriorityFileDone
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_OnPriorityFileDone
+  name: OnPriorityFileDone
+  nameWithType: SaveManager.OnPriorityFileDone
+  fullName: EasySave.Core.Models.SaveManager.OnPriorityFileDone
+- uid: EasySave.Core.Models.SaveManager.#ctor*
+  commentId: Overload:EasySave.Core.Models.SaveManager.#ctor
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager__ctor
+  name: SaveManager
+  nameWithType: SaveManager.SaveManager
+  fullName: EasySave.Core.Models.SaveManager.SaveManager
+  nameWithType.vb: SaveManager.New
+  fullName.vb: EasySave.Core.Models.SaveManager.New
+  name.vb: New
+- uid: EasySave.Core.Models.SaveManager.GetJobs*
+  commentId: Overload:EasySave.Core.Models.SaveManager.GetJobs
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_GetJobs
+  name: GetJobs
+  nameWithType: SaveManager.GetJobs
+  fullName: EasySave.Core.Models.SaveManager.GetJobs
+- uid: System.Collections.Generic.List{EasySave.Core.Models.SaveJob}
+  commentId: T:System.Collections.Generic.List{EasySave.Core.Models.SaveJob}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<SaveJob>
+  nameWithType: List<SaveJob>
+  fullName: System.Collections.Generic.List<EasySave.Core.Models.SaveJob>
+  nameWithType.vb: List(Of SaveJob)
+  fullName.vb: System.Collections.Generic.List(Of EasySave.Core.Models.SaveJob)
+  name.vb: List(Of SaveJob)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: EasySave.Core.Models.SaveJob
+    name: SaveJob
+    href: EasySave.Core.Models.SaveJob.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: EasySave.Core.Models.SaveJob
+    name: SaveJob
+    href: EasySave.Core.Models.SaveJob.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: EasySave.Core.Models.SaveManager.CreateJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.CreateJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_CreateJob_System_String_System_String_System_String_System_Boolean_
+  name: CreateJob
+  nameWithType: SaveManager.CreateJob
+  fullName: EasySave.Core.Models.SaveManager.CreateJob
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: EasySave.Core.Models.SaveManager.DeleteJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.DeleteJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_DeleteJob_System_Int32_
+  name: DeleteJob
+  nameWithType: SaveManager.DeleteJob
+  fullName: EasySave.Core.Models.SaveManager.DeleteJob
+- uid: EasySave.Core.Models.SaveManager.ExecuteJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.ExecuteJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_ExecuteJob_System_Int32_System_Func_System_String_System_String__System_Action_System_String__System_Threading_CancellationToken_
+  name: ExecuteJob
+  nameWithType: SaveManager.ExecuteJob
+  fullName: EasySave.Core.Models.SaveManager.ExecuteJob
+- uid: System.Func{System.String,System.String}
+  commentId: T:System.Func{System.String,System.String}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<string, string>
+  nameWithType: Func<string, string>
+  fullName: System.Func<string, string>
+  nameWithType.vb: Func(Of String, String)
+  fullName.vb: System.Func(Of String, String)
+  name.vb: Func(Of String, String)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Action{System.String}
+  commentId: T:System.Action{System.String}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<string>
+  nameWithType: Action<string>
+  fullName: System.Action<string>
+  nameWithType.vb: Action(Of String)
+  fullName.vb: System.Action(Of String)
+  name.vb: Action(Of String)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: EasySave.Core.Models.SaveManager.ExecuteAllJobs*
+  commentId: Overload:EasySave.Core.Models.SaveManager.ExecuteAllJobs
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_ExecuteAllJobs_System_Func_System_String_System_String__System_Action_System_String__System_Threading_CancellationToken_
+  name: ExecuteAllJobs
+  nameWithType: SaveManager.ExecuteAllJobs
+  fullName: EasySave.Core.Models.SaveManager.ExecuteAllJobs
+- uid: EasySave.Core.Models.SaveManager.PauseJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.PauseJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_PauseJob_System_Int32_
+  name: PauseJob
+  nameWithType: SaveManager.PauseJob
+  fullName: EasySave.Core.Models.SaveManager.PauseJob
+- uid: EasySave.Core.Models.SaveManager.ResumeJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.ResumeJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_ResumeJob_System_Int32_
+  name: ResumeJob
+  nameWithType: SaveManager.ResumeJob
+  fullName: EasySave.Core.Models.SaveManager.ResumeJob
+- uid: EasySave.Core.Models.SaveManager.StopJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.StopJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_StopJob_System_Int32_
+  name: StopJob
+  nameWithType: SaveManager.StopJob
+  fullName: EasySave.Core.Models.SaveManager.StopJob
+- uid: EasySave.Core.Models.SaveManager.EnsureDirectoryExist*
+  commentId: Overload:EasySave.Core.Models.SaveManager.EnsureDirectoryExist
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_EnsureDirectoryExist
+  name: EnsureDirectoryExist
+  nameWithType: SaveManager.EnsureDirectoryExist
+  fullName: EasySave.Core.Models.SaveManager.EnsureDirectoryExist
+- uid: EasySave.Core.Models.SaveManager.CanLaunchJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.CanLaunchJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_CanLaunchJob
+  name: CanLaunchJob
+  nameWithType: SaveManager.CanLaunchJob
+  fullName: EasySave.Core.Models.SaveManager.CanLaunchJob
+- uid: EasySave.Core.Models.SaveManager.EditJob*
+  commentId: Overload:EasySave.Core.Models.SaveManager.EditJob
+  href: EasySave.Core.Models.SaveManager.html#EasySave_Core_Models_SaveManager_EditJob_EasySave_Core_Models_SaveJob_
+  name: EditJob
+  nameWithType: SaveManager.EditJob
+  fullName: EasySave.Core.Models.SaveManager.EditJob
+- uid: EasySave.Core.Models.SaveJob
+  commentId: T:EasySave.Core.Models.SaveJob
+  parent: EasySave.Core.Models
+  href: EasySave.Core.Models.SaveJob.html
+  name: SaveJob
+  nameWithType: SaveJob
+  fullName: EasySave.Core.Models.SaveJob

@@ -1,0 +1,149 @@
+### YamlMime:ManagedReference
+items:
+- uid: EasySave.UI.ViewModels.JobState
+  commentId: T:EasySave.UI.ViewModels.JobState
+  id: JobState
+  parent: EasySave.UI.ViewModels
+  children:
+  - EasySave.UI.ViewModels.JobState.Paused
+  - EasySave.UI.ViewModels.JobState.Running
+  - EasySave.UI.ViewModels.JobState.Stopped
+  langs:
+  - csharp
+  - vb
+  name: JobState
+  nameWithType: JobState
+  fullName: EasySave.UI.ViewModels.JobState
+  type: Enum
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: JobState
+    path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+    startLine: 21
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  summary: Defines possible job execution states.
+  example: []
+  syntax:
+    content: public enum JobState
+    content.vb: Public Enum JobState
+- uid: EasySave.UI.ViewModels.JobState.Stopped
+  commentId: F:EasySave.UI.ViewModels.JobState.Stopped
+  id: Stopped
+  parent: EasySave.UI.ViewModels.JobState
+  langs:
+  - csharp
+  - vb
+  name: Stopped
+  nameWithType: JobState.Stopped
+  fullName: EasySave.UI.ViewModels.JobState.Stopped
+  type: Field
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: Stopped
+    path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+    startLine: 21
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: Stopped = 0
+    return:
+      type: EasySave.UI.ViewModels.JobState
+- uid: EasySave.UI.ViewModels.JobState.Running
+  commentId: F:EasySave.UI.ViewModels.JobState.Running
+  id: Running
+  parent: EasySave.UI.ViewModels.JobState
+  langs:
+  - csharp
+  - vb
+  name: Running
+  nameWithType: JobState.Running
+  fullName: EasySave.UI.ViewModels.JobState.Running
+  type: Field
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: Running
+    path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+    startLine: 21
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: Running = 1
+    return:
+      type: EasySave.UI.ViewModels.JobState
+- uid: EasySave.UI.ViewModels.JobState.Paused
+  commentId: F:EasySave.UI.ViewModels.JobState.Paused
+  id: Paused
+  parent: EasySave.UI.ViewModels.JobState
+  langs:
+  - csharp
+  - vb
+  name: Paused
+  nameWithType: JobState.Paused
+  fullName: EasySave.UI.ViewModels.JobState.Paused
+  type: Field
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: Paused
+    path: src/EasySave.UI/ViewModels/JobsViewModel.cs
+    startLine: 21
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: Paused = 2
+    return:
+      type: EasySave.UI.ViewModels.JobState
+references:
+- uid: EasySave.UI.ViewModels
+  commentId: N:EasySave.UI.ViewModels
+  href: EasySave.html
+  name: EasySave.UI.ViewModels
+  nameWithType: EasySave.UI.ViewModels
+  fullName: EasySave.UI.ViewModels
+  spec.csharp:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.UI
+    name: UI
+    href: EasySave.UI.html
+  - name: .
+  - uid: EasySave.UI.ViewModels
+    name: ViewModels
+    href: EasySave.UI.ViewModels.html
+  spec.vb:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.UI
+    name: UI
+    href: EasySave.UI.html
+  - name: .
+  - uid: EasySave.UI.ViewModels
+    name: ViewModels
+    href: EasySave.UI.ViewModels.html
+- uid: EasySave.UI.ViewModels.JobState
+  commentId: T:EasySave.UI.ViewModels.JobState
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.JobState.html
+  name: JobState
+  nameWithType: JobState
+  fullName: EasySave.UI.ViewModels.JobState

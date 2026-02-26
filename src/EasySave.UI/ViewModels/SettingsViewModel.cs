@@ -220,6 +220,9 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
+        /// <summary>
+        /// Sauvegarde la limite de taille (fichiers parallèles).
+        /// </summary>
         private void SaveMaxSize()
         {
             if (long.TryParse(MaxParallelFileSizeKbText, out long value) && value > 0)
@@ -236,6 +239,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Ajoute et sauvegarde une extension à chiffrer.
+        /// </summary>
         private void AddExtension()
         {
             if (string.IsNullOrWhiteSpace(NewExtension)) return;
@@ -257,6 +263,9 @@ namespace EasySave.UI.ViewModels
             SyncExtensionsToSettings();
         }
 
+        /// <summary>
+        /// Ajoute et sauvegarde une extension prioritaire.
+        /// </summary>
         private void AddPriorityExtension()
         {
             if (string.IsNullOrWhiteSpace(NewPriorityExtension)) return;
@@ -284,6 +293,9 @@ namespace EasySave.UI.ViewModels
             SettingsManager.Instance.SaveSettings();
         }
 
+        /// <summary>
+        /// Sauvegarde IP/Port et force la reconnexion serveur.
+        /// </summary>
         private void SaveServerConnection()
         {
             bool changed = false;
@@ -317,8 +329,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Reads the ground truth from the background loop.
-        /// Called periodically by the timer so the warning stays in sync with the dashboard.
+        /// Affiche l'alerte si le serveur de logs est déconnecté.
         /// </summary>
         private void UpdateServerWarning()
         {

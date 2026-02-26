@@ -48,6 +48,9 @@ namespace EasySave.UI.ViewModels
 
         public string WelcomeMessage => $"{SettingsManager.Instance["Welcome"]} {Environment.UserName}";
 
+        /// <summary>
+        /// Initialise le dashboard et son rafraîchissement périodique.
+        /// </summary>
         public HomeViewModel(SaveManager saveManager)
         {
             _saveManager = saveManager;
@@ -61,6 +64,9 @@ namespace EasySave.UI.ViewModels
             _updateTimer.Start();
         }
 
+        /// <summary>
+        /// Met à jour les statistiques globales de l'interface.
+        /// </summary>
         private void UpdateDashboard()
         {
             TotalJobsCount = _saveManager.GetJobs().Count;

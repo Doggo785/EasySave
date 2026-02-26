@@ -31,6 +31,11 @@ namespace EasySave.Core.Services
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Récupère une chaîne de texte traduite.
+        /// </summary>
+        /// <param name="key">Clé de la ressource ciblée.</param>
+        /// <returns>Texte traduit, ou la clé par défaut.</returns>
         public string this[string key]
         {
             get { return Properties.Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
@@ -43,6 +48,9 @@ namespace EasySave.Core.Services
             _configFilePath = Path.Combine(appDataPath, "config.json");
         }
 
+        /// <summary>
+        /// Charge et applique les paramètres depuis le fichier JSON.
+        /// </summary>
         public void LoadSettings()
         {
             if (File.Exists(_configFilePath))
@@ -59,7 +67,7 @@ namespace EasySave.Core.Services
                         IsDarkMode = settings.IsDarkMode;
                         BusinessSoftwareNames = settings.BusinessSoftwareNames ?? new List<string>();
                         EncryptedExtensions = settings.EncryptedExtensions ?? new List<string>();
-                        PriorityExtensions = settings.PriorityExtensions ?? new List<string>(); 
+                        PriorityExtensions = settings.PriorityExtensions ?? new List<string>();
                         MaxConcurrentJobs = settings.MaxConcurrentJobs > 0 ? settings.MaxConcurrentJobs : Environment.ProcessorCount;
                         MaxParallelFileSizeKb = settings.MaxParallelFileSizeKb > 0 ? settings.MaxParallelFileSizeKb : 1000;
                         LogTarget = (LogTarget)settings.LogTarget;
@@ -84,6 +92,9 @@ namespace EasySave.Core.Services
             LoggerService.ServerPort = ServerPort;
         }
 
+        /// <summary>
+        /// Sauvegarde la configuration actuelle dans l'AppData.
+        /// </summary>
         public void SaveSettings()
         {
             var settings = new SettingsModel
@@ -106,6 +117,10 @@ namespace EasySave.Core.Services
             File.WriteAllText(_configFilePath, json);
         }
 
+        /// <summary>
+        /// Modifie la culture globale des threads de l'application.
+        /// </summary>
+        /// <param name="languageCode">Code de langue (ex: "fr").</param>
         public void ChangeLanguage(string languageCode)
         {
             try

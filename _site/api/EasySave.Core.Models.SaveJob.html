@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SaveJob | Doc_EasySave </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SaveJob | Doc_EasySave ">
+      
+      <meta name="description" content="Represents a single backup job.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Doggo785/EasySave/new/dev/apiSpec/new?filename=EasySave_Core_Models_SaveJob.md&amp;value=---%0Auid%3A%20EasySave.Core.Models.SaveJob%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Doc_EasySave">
+            Doc_EasySave
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="EasySave.Core.Models.SaveJob">
+
+
+
+  <h1 id="EasySave_Core_Models_SaveJob" data-uid="EasySave.Core.Models.SaveJob" class="text-break">
+Class SaveJob  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="EasySave.html">EasySave</a>.<a class="xref" href="EasySave.Core.html">Core</a>.<a class="xref" href="EasySave.Core.Models.html">Models</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>EasySave.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a single backup job.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SaveJob</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">SaveJob</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="EasySave_Core_Models_SaveJob__ctor_" data-uid="EasySave.Core.Models.SaveJob.#ctor*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob__ctor" data-uid="EasySave.Core.Models.SaveJob.#ctor">
+  SaveJob()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes empty job instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SaveJob()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob__ctor_" data-uid="EasySave.Core.Models.SaveJob.#ctor*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob__ctor_System_Int32_System_String_System_String_System_String_System_Boolean_" data-uid="EasySave.Core.Models.SaveJob.#ctor(System.Int32,System.String,System.String,System.String,System.Boolean)">
+  SaveJob(int, string, string, string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes job with parameters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SaveJob(int id, string name, string source, string target, bool type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>target</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>type</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="EasySave_Core_Models_SaveJob_Id_" data-uid="EasySave.Core.Models.SaveJob.Id*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_Id" data-uid="EasySave.Core.Models.SaveJob.Id">
+  Id
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Id { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob_IsManuallyPaused_" data-uid="EasySave.Core.Models.SaveJob.IsManuallyPaused*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_IsManuallyPaused" data-uid="EasySave.Core.Models.SaveJob.IsManuallyPaused">
+  IsManuallyPaused
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsManuallyPaused { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob_Name_" data-uid="EasySave.Core.Models.SaveJob.Name*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_Name" data-uid="EasySave.Core.Models.SaveJob.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob_PauseEvent_" data-uid="EasySave.Core.Models.SaveJob.PauseEvent*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_PauseEvent" data-uid="EasySave.Core.Models.SaveJob.PauseEvent">
+  PauseEvent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public ManualResetEventSlim PauseEvent { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.manualreseteventslim">ManualResetEventSlim</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob_SaveType_" data-uid="EasySave.Core.Models.SaveJob.SaveType*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_SaveType" data-uid="EasySave.Core.Models.SaveJob.SaveType">
+  SaveType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SaveType { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob_SourceDirectory_" data-uid="EasySave.Core.Models.SaveJob.SourceDirectory*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_SourceDirectory" data-uid="EasySave.Core.Models.SaveJob.SourceDirectory">
+  SourceDirectory
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SourceDirectory { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob_TargetDirectory_" data-uid="EasySave.Core.Models.SaveJob.TargetDirectory*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_TargetDirectory" data-uid="EasySave.Core.Models.SaveJob.TargetDirectory">
+  TargetDirectory
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TargetDirectory { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="EasySave_Core_Models_SaveJob_Run_" data-uid="EasySave.Core.Models.SaveJob.Run*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_Run_System_Collections_Generic_List_System_String__System_Threading_SemaphoreSlim_System_Threading_ManualResetEventSlim_System_Func_System_String_System_String__System_Action_System_String__System_Threading_CancellationToken_" data-uid="EasySave.Core.Models.SaveJob.Run(System.Collections.Generic.List{System.String},System.Threading.SemaphoreSlim,System.Threading.ManualResetEventSlim,System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)">
+  Run(List&lt;string&gt;, SemaphoreSlim, ManualResetEventSlim, Func&lt;string, string?&gt;?, Action&lt;string&gt;?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Starts synchronous backup execution.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Run(List&lt;string&gt; extensionsToEncrypt, SemaphoreSlim grosFichierEnCours, ManualResetEventSlim noPriorityPending, Func&lt;string, string?&gt;? requestPassword = null, Action&lt;string&gt;? displayMessage = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>extensionsToEncrypt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>Encrypted file extensions.</p>
+</dd>
+    <dt><code>grosFichierEnCours</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.semaphoreslim">SemaphoreSlim</a></dt>
+    <dd><p>Large file semaphore.</p>
+</dd>
+    <dt><code>noPriorityPending</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.manualreseteventslim">ManualResetEventSlim</a></dt>
+    <dd><p>Priority synchronization event.</p>
+</dd>
+    <dt><code>requestPassword</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>Password prompt callback.</p>
+</dd>
+    <dt><code>displayMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>Status update action.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Operation cancel token.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="EasySave_Core_Models_SaveJob_RunAsync_" data-uid="EasySave.Core.Models.SaveJob.RunAsync*"></a>
+
+  <h3 id="EasySave_Core_Models_SaveJob_RunAsync_System_Collections_Generic_List_System_String__System_Threading_SemaphoreSlim_System_Threading_ManualResetEventSlim_System_Func_System_String_System_String__System_Action_System_String__System_Threading_CancellationToken_" data-uid="EasySave.Core.Models.SaveJob.RunAsync(System.Collections.Generic.List{System.String},System.Threading.SemaphoreSlim,System.Threading.ManualResetEventSlim,System.Func{System.String,System.String},System.Action{System.String},System.Threading.CancellationToken)">
+  RunAsync(List&lt;string&gt;, SemaphoreSlim, ManualResetEventSlim, Func&lt;string, string?&gt;?, Action&lt;string&gt;?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L227"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Runs backup task asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task RunAsync(List&lt;string&gt; extensionsToEncrypt, SemaphoreSlim grosFichierEnCours, ManualResetEventSlim noPriorityPending, Func&lt;string, string?&gt;? requestPassword = null, Action&lt;string&gt;? displayMessage = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>extensionsToEncrypt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>grosFichierEnCours</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.semaphoreslim">SemaphoreSlim</a></dt>
+    <dd></dd>
+    <dt><code>noPriorityPending</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.manualreseteventslim">ManualResetEventSlim</a></dt>
+    <dd></dd>
+    <dt><code>requestPassword</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>displayMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="EasySave_Core_Models_SaveJob_ProgressChanged" data-uid="EasySave.Core.Models.SaveJob.ProgressChanged">
+  ProgressChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;int&gt;? ProgressChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Doggo785/EasySave/blob/dev/src/EasySave.Core/Models/SaveJob.cs/#L17" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

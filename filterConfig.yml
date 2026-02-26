@@ -1,0 +1,7 @@
+apiRules:
+- exclude:
+    uidRegex: ^EasySave\.UI\.Views.*
+    type: Type
+- include:
+    uidRegex: ^EasySave\.UI\.ViewModels.*
+    type: Type

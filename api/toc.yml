@@ -1,0 +1,78 @@
+### YamlMime:TableOfContent
+items:
+- uid: EasyLog
+  name: EasyLog
+  type: Namespace
+  items:
+  - uid: EasyLog.LogTarget
+    name: LogTarget
+    type: Enum
+  - uid: EasyLog.LoggerService
+    name: LoggerService
+    type: Class
+- uid: EasySave.Core.Models
+  name: EasySave.Core.Models
+  type: Namespace
+  items:
+  - uid: EasySave.Core.Models.DailyLog
+    name: DailyLog
+    type: Class
+  - uid: EasySave.Core.Models.SaveJob
+    name: SaveJob
+    type: Class
+  - uid: EasySave.Core.Models.SaveManager
+    name: SaveManager
+    type: Class
+  - uid: EasySave.Core.Models.StateLog
+    name: StateLog
+    type: Class
+- uid: EasySave.Core.Properties
+  name: EasySave.Core.Properties
+  type: Namespace
+  items:
+  - uid: EasySave.Core.Properties.Resources
+    name: Resources
+    type: Class
+- uid: EasySave.Core.Services
+  name: EasySave.Core.Services
+  type: Namespace
+  items:
+  - uid: EasySave.Core.Services.CryptoService
+    name: CryptoService
+    type: Class
+  - uid: EasySave.Core.Services.ProcessChecker
+    name: ProcessChecker
+    type: Class
+  - uid: EasySave.Core.Services.SettingsManager
+    name: SettingsManager
+    type: Class
+- uid: EasySave.UI
+  name: EasySave.UI
+  type: Namespace
+  items:
+  - uid: EasySave.UI.App
+    name: App
+    type: Class
+- uid: EasySave.UI.ViewModels
+  name: EasySave.UI.ViewModels
+  type: Namespace
+  items:
+  - uid: EasySave.UI.ViewModels.HomeViewModel
+    name: HomeViewModel
+    type: Class
+  - uid: EasySave.UI.ViewModels.JobItemViewModel
+    name: JobItemViewModel
+    type: Class
+  - uid: EasySave.UI.ViewModels.JobState
+    name: JobState
+    type: Enum
+  - uid: EasySave.UI.ViewModels.JobsViewModel
+    name: JobsViewModel
+    type: Class
+  - uid: EasySave.UI.ViewModels.MainWindowViewModel
+    name: MainWindowViewModel
+    type: Class
+  - uid: EasySave.UI.ViewModels.SettingsViewModel
+    name: SettingsViewModel
+    type: Class
+memberLayout: SamePage

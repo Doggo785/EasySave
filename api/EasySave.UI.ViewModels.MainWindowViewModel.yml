@@ -1,0 +1,720 @@
+### YamlMime:ManagedReference
+items:
+- uid: EasySave.UI.ViewModels.MainWindowViewModel
+  commentId: T:EasySave.UI.ViewModels.MainWindowViewModel
+  id: MainWindowViewModel
+  parent: EasySave.UI.ViewModels
+  children:
+  - EasySave.UI.ViewModels.MainWindowViewModel.#ctor
+  - EasySave.UI.ViewModels.MainWindowViewModel.HomeVM
+  - EasySave.UI.ViewModels.MainWindowViewModel.JobsVM
+  - EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM
+  langs:
+  - csharp
+  - vb
+  name: MainWindowViewModel
+  nameWithType: MainWindowViewModel
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel
+  type: Class
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: MainWindowViewModel
+    path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+    startLine: 4
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: 'public class MainWindowViewModel : ReactiveObject, IReactiveNotifyPropertyChanged<IReactiveObject>, IHandleObservableErrors, IReactiveObject, INotifyPropertyChanged, INotifyPropertyChanging, IEnableLogger'
+    content.vb: Public Class MainWindowViewModel Inherits ReactiveObject Implements IReactiveNotifyPropertyChanged(Of IReactiveObject), IHandleObservableErrors, IReactiveObject, INotifyPropertyChanged, INotifyPropertyChanging, IEnableLogger
+  inheritance:
+  - System.Object
+  - ReactiveUI.ReactiveObject
+  implements:
+  - ReactiveUI.IReactiveNotifyPropertyChanged{ReactiveUI.IReactiveObject}
+  - ReactiveUI.IHandleObservableErrors
+  - ReactiveUI.IReactiveObject
+  - System.ComponentModel.INotifyPropertyChanged
+  - System.ComponentModel.INotifyPropertyChanging
+  - Splat.IEnableLogger
+  inheritedMembers:
+  - ReactiveUI.ReactiveObject.SuppressChangeNotifications
+  - ReactiveUI.ReactiveObject.AreChangeNotificationsEnabled
+  - ReactiveUI.ReactiveObject.DelayChangeNotifications
+  - ReactiveUI.ReactiveObject.Changing
+  - ReactiveUI.ReactiveObject.Changed
+  - ReactiveUI.ReactiveObject.ThrownExceptions
+  - ReactiveUI.ReactiveObject.PropertyChanging
+  - ReactiveUI.ReactiveObject.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.HomeVM
+  commentId: P:EasySave.UI.ViewModels.MainWindowViewModel.HomeVM
+  id: HomeVM
+  parent: EasySave.UI.ViewModels.MainWindowViewModel
+  langs:
+  - csharp
+  - vb
+  name: HomeVM
+  nameWithType: MainWindowViewModel.HomeVM
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.HomeVM
+  type: Property
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: HomeVM
+    path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+    startLine: 6
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: public HomeViewModel HomeVM { get; }
+    parameters: []
+    return:
+      type: EasySave.UI.ViewModels.HomeViewModel
+    content.vb: Public ReadOnly Property HomeVM As HomeViewModel
+  overload: EasySave.UI.ViewModels.MainWindowViewModel.HomeVM*
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.JobsVM
+  commentId: P:EasySave.UI.ViewModels.MainWindowViewModel.JobsVM
+  id: JobsVM
+  parent: EasySave.UI.ViewModels.MainWindowViewModel
+  langs:
+  - csharp
+  - vb
+  name: JobsVM
+  nameWithType: MainWindowViewModel.JobsVM
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.JobsVM
+  type: Property
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: JobsVM
+    path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+    startLine: 7
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: public JobsViewModel JobsVM { get; }
+    parameters: []
+    return:
+      type: EasySave.UI.ViewModels.JobsViewModel
+    content.vb: Public ReadOnly Property JobsVM As JobsViewModel
+  overload: EasySave.UI.ViewModels.MainWindowViewModel.JobsVM*
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM
+  commentId: P:EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM
+  id: SettingsVM
+  parent: EasySave.UI.ViewModels.MainWindowViewModel
+  langs:
+  - csharp
+  - vb
+  name: SettingsVM
+  nameWithType: MainWindowViewModel.SettingsVM
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM
+  type: Property
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: SettingsVM
+    path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+    startLine: 8
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: public SettingsViewModel SettingsVM { get; }
+    parameters: []
+    return:
+      type: EasySave.UI.ViewModels.SettingsViewModel
+    content.vb: Public ReadOnly Property SettingsVM As SettingsViewModel
+  overload: EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM*
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.#ctor
+  commentId: M:EasySave.UI.ViewModels.MainWindowViewModel.#ctor
+  id: '#ctor'
+  parent: EasySave.UI.ViewModels.MainWindowViewModel
+  langs:
+  - csharp
+  - vb
+  name: MainWindowViewModel()
+  nameWithType: MainWindowViewModel.MainWindowViewModel()
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.MainWindowViewModel()
+  type: Constructor
+  source:
+    remote:
+      path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: .ctor
+    path: src/EasySave.UI/ViewModels/MainWindowViewModel.cs
+    startLine: 10
+  assemblies:
+  - EasySave.UI
+  namespace: EasySave.UI.ViewModels
+  syntax:
+    content: public MainWindowViewModel()
+    content.vb: Public Sub New()
+  overload: EasySave.UI.ViewModels.MainWindowViewModel.#ctor*
+  nameWithType.vb: MainWindowViewModel.New()
+  fullName.vb: EasySave.UI.ViewModels.MainWindowViewModel.New()
+  name.vb: New()
+references:
+- uid: EasySave.UI.ViewModels
+  commentId: N:EasySave.UI.ViewModels
+  href: EasySave.html
+  name: EasySave.UI.ViewModels
+  nameWithType: EasySave.UI.ViewModels
+  fullName: EasySave.UI.ViewModels
+  spec.csharp:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.UI
+    name: UI
+    href: EasySave.UI.html
+  - name: .
+  - uid: EasySave.UI.ViewModels
+    name: ViewModels
+    href: EasySave.UI.ViewModels.html
+  spec.vb:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.UI
+    name: UI
+    href: EasySave.UI.html
+  - name: .
+  - uid: EasySave.UI.ViewModels
+    name: ViewModels
+    href: EasySave.UI.ViewModels.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: ReactiveUI.ReactiveObject
+  commentId: T:ReactiveUI.ReactiveObject
+  parent: ReactiveUI
+  isExternal: true
+  name: ReactiveObject
+  nameWithType: ReactiveObject
+  fullName: ReactiveUI.ReactiveObject
+- uid: ReactiveUI.IReactiveNotifyPropertyChanged{ReactiveUI.IReactiveObject}
+  commentId: T:ReactiveUI.IReactiveNotifyPropertyChanged{ReactiveUI.IReactiveObject}
+  parent: ReactiveUI
+  definition: ReactiveUI.IReactiveNotifyPropertyChanged`1
+  name: IReactiveNotifyPropertyChanged<IReactiveObject>
+  nameWithType: IReactiveNotifyPropertyChanged<IReactiveObject>
+  fullName: ReactiveUI.IReactiveNotifyPropertyChanged<ReactiveUI.IReactiveObject>
+  nameWithType.vb: IReactiveNotifyPropertyChanged(Of IReactiveObject)
+  fullName.vb: ReactiveUI.IReactiveNotifyPropertyChanged(Of ReactiveUI.IReactiveObject)
+  name.vb: IReactiveNotifyPropertyChanged(Of IReactiveObject)
+  spec.csharp:
+  - uid: ReactiveUI.IReactiveNotifyPropertyChanged`1
+    name: IReactiveNotifyPropertyChanged
+    isExternal: true
+  - name: <
+  - uid: ReactiveUI.IReactiveObject
+    name: IReactiveObject
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: ReactiveUI.IReactiveNotifyPropertyChanged`1
+    name: IReactiveNotifyPropertyChanged
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ReactiveUI.IReactiveObject
+    name: IReactiveObject
+    isExternal: true
+  - name: )
+- uid: ReactiveUI.IHandleObservableErrors
+  commentId: T:ReactiveUI.IHandleObservableErrors
+  parent: ReactiveUI
+  isExternal: true
+  name: IHandleObservableErrors
+  nameWithType: IHandleObservableErrors
+  fullName: ReactiveUI.IHandleObservableErrors
+- uid: ReactiveUI.IReactiveObject
+  commentId: T:ReactiveUI.IReactiveObject
+  parent: ReactiveUI
+  isExternal: true
+  name: IReactiveObject
+  nameWithType: IReactiveObject
+  fullName: ReactiveUI.IReactiveObject
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: System.ComponentModel.INotifyPropertyChanging
+  commentId: T:System.ComponentModel.INotifyPropertyChanging
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanging
+  name: INotifyPropertyChanging
+  nameWithType: INotifyPropertyChanging
+  fullName: System.ComponentModel.INotifyPropertyChanging
+- uid: Splat.IEnableLogger
+  commentId: T:Splat.IEnableLogger
+  parent: Splat
+  isExternal: true
+  name: IEnableLogger
+  nameWithType: IEnableLogger
+  fullName: Splat.IEnableLogger
+- uid: ReactiveUI.ReactiveObject.SuppressChangeNotifications
+  commentId: M:ReactiveUI.ReactiveObject.SuppressChangeNotifications
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: SuppressChangeNotifications()
+  nameWithType: ReactiveObject.SuppressChangeNotifications()
+  fullName: ReactiveUI.ReactiveObject.SuppressChangeNotifications()
+  spec.csharp:
+  - uid: ReactiveUI.ReactiveObject.SuppressChangeNotifications
+    name: SuppressChangeNotifications
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ReactiveUI.ReactiveObject.SuppressChangeNotifications
+    name: SuppressChangeNotifications
+    isExternal: true
+  - name: (
+  - name: )
+- uid: ReactiveUI.ReactiveObject.AreChangeNotificationsEnabled
+  commentId: M:ReactiveUI.ReactiveObject.AreChangeNotificationsEnabled
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: AreChangeNotificationsEnabled()
+  nameWithType: ReactiveObject.AreChangeNotificationsEnabled()
+  fullName: ReactiveUI.ReactiveObject.AreChangeNotificationsEnabled()
+  spec.csharp:
+  - uid: ReactiveUI.ReactiveObject.AreChangeNotificationsEnabled
+    name: AreChangeNotificationsEnabled
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ReactiveUI.ReactiveObject.AreChangeNotificationsEnabled
+    name: AreChangeNotificationsEnabled
+    isExternal: true
+  - name: (
+  - name: )
+- uid: ReactiveUI.ReactiveObject.DelayChangeNotifications
+  commentId: M:ReactiveUI.ReactiveObject.DelayChangeNotifications
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: DelayChangeNotifications()
+  nameWithType: ReactiveObject.DelayChangeNotifications()
+  fullName: ReactiveUI.ReactiveObject.DelayChangeNotifications()
+  spec.csharp:
+  - uid: ReactiveUI.ReactiveObject.DelayChangeNotifications
+    name: DelayChangeNotifications
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ReactiveUI.ReactiveObject.DelayChangeNotifications
+    name: DelayChangeNotifications
+    isExternal: true
+  - name: (
+  - name: )
+- uid: ReactiveUI.ReactiveObject.Changing
+  commentId: P:ReactiveUI.ReactiveObject.Changing
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: Changing
+  nameWithType: ReactiveObject.Changing
+  fullName: ReactiveUI.ReactiveObject.Changing
+- uid: ReactiveUI.ReactiveObject.Changed
+  commentId: P:ReactiveUI.ReactiveObject.Changed
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: Changed
+  nameWithType: ReactiveObject.Changed
+  fullName: ReactiveUI.ReactiveObject.Changed
+- uid: ReactiveUI.ReactiveObject.ThrownExceptions
+  commentId: P:ReactiveUI.ReactiveObject.ThrownExceptions
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: ThrownExceptions
+  nameWithType: ReactiveObject.ThrownExceptions
+  fullName: ReactiveUI.ReactiveObject.ThrownExceptions
+- uid: ReactiveUI.ReactiveObject.PropertyChanging
+  commentId: E:ReactiveUI.ReactiveObject.PropertyChanging
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: PropertyChanging
+  nameWithType: ReactiveObject.PropertyChanging
+  fullName: ReactiveUI.ReactiveObject.PropertyChanging
+- uid: ReactiveUI.ReactiveObject.PropertyChanged
+  commentId: E:ReactiveUI.ReactiveObject.PropertyChanged
+  parent: ReactiveUI.ReactiveObject
+  isExternal: true
+  name: PropertyChanged
+  nameWithType: ReactiveObject.PropertyChanged
+  fullName: ReactiveUI.ReactiveObject.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ReactiveUI
+  commentId: N:ReactiveUI
+  isExternal: true
+  name: ReactiveUI
+  nameWithType: ReactiveUI
+  fullName: ReactiveUI
+- uid: ReactiveUI.IReactiveNotifyPropertyChanged`1
+  commentId: T:ReactiveUI.IReactiveNotifyPropertyChanged`1
+  isExternal: true
+  name: IReactiveNotifyPropertyChanged<TSender>
+  nameWithType: IReactiveNotifyPropertyChanged<TSender>
+  fullName: ReactiveUI.IReactiveNotifyPropertyChanged<TSender>
+  nameWithType.vb: IReactiveNotifyPropertyChanged(Of TSender)
+  fullName.vb: ReactiveUI.IReactiveNotifyPropertyChanged(Of TSender)
+  name.vb: IReactiveNotifyPropertyChanged(Of TSender)
+  spec.csharp:
+  - uid: ReactiveUI.IReactiveNotifyPropertyChanged`1
+    name: IReactiveNotifyPropertyChanged
+    isExternal: true
+  - name: <
+  - name: TSender
+  - name: '>'
+  spec.vb:
+  - uid: ReactiveUI.IReactiveNotifyPropertyChanged`1
+    name: IReactiveNotifyPropertyChanged
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TSender
+  - name: )
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Splat
+  commentId: N:Splat
+  isExternal: true
+  name: Splat
+  nameWithType: Splat
+  fullName: Splat
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.HomeVM*
+  commentId: Overload:EasySave.UI.ViewModels.MainWindowViewModel.HomeVM
+  href: EasySave.UI.ViewModels.MainWindowViewModel.html#EasySave_UI_ViewModels_MainWindowViewModel_HomeVM
+  name: HomeVM
+  nameWithType: MainWindowViewModel.HomeVM
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.HomeVM
+- uid: EasySave.UI.ViewModels.HomeViewModel
+  commentId: T:EasySave.UI.ViewModels.HomeViewModel
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.HomeViewModel.html
+  name: HomeViewModel
+  nameWithType: HomeViewModel
+  fullName: EasySave.UI.ViewModels.HomeViewModel
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.JobsVM*
+  commentId: Overload:EasySave.UI.ViewModels.MainWindowViewModel.JobsVM
+  href: EasySave.UI.ViewModels.MainWindowViewModel.html#EasySave_UI_ViewModels_MainWindowViewModel_JobsVM
+  name: JobsVM
+  nameWithType: MainWindowViewModel.JobsVM
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.JobsVM
+- uid: EasySave.UI.ViewModels.JobsViewModel
+  commentId: T:EasySave.UI.ViewModels.JobsViewModel
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.JobsViewModel.html
+  name: JobsViewModel
+  nameWithType: JobsViewModel
+  fullName: EasySave.UI.ViewModels.JobsViewModel
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM*
+  commentId: Overload:EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM
+  href: EasySave.UI.ViewModels.MainWindowViewModel.html#EasySave_UI_ViewModels_MainWindowViewModel_SettingsVM
+  name: SettingsVM
+  nameWithType: MainWindowViewModel.SettingsVM
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.SettingsVM
+- uid: EasySave.UI.ViewModels.SettingsViewModel
+  commentId: T:EasySave.UI.ViewModels.SettingsViewModel
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.SettingsViewModel.html
+  name: SettingsViewModel
+  nameWithType: SettingsViewModel
+  fullName: EasySave.UI.ViewModels.SettingsViewModel
+- uid: EasySave.UI.ViewModels.MainWindowViewModel.#ctor*
+  commentId: Overload:EasySave.UI.ViewModels.MainWindowViewModel.#ctor
+  href: EasySave.UI.ViewModels.MainWindowViewModel.html#EasySave_UI_ViewModels_MainWindowViewModel__ctor
+  name: MainWindowViewModel
+  nameWithType: MainWindowViewModel.MainWindowViewModel
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel.MainWindowViewModel
+  nameWithType.vb: MainWindowViewModel.New
+  fullName.vb: EasySave.UI.ViewModels.MainWindowViewModel.New
+  name.vb: New

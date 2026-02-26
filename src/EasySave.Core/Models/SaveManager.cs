@@ -21,7 +21,9 @@ namespace EasySave.Core.Models
         private static int _priorityFilesRemaining = 0;
         private static readonly ManualResetEventSlim _noPriorityPending = new ManualResetEventSlim(true);
 
-        /// Called before the job starts to report the number of priority files and close the lock if > 0.
+        /// <summary>
+        /// Signale l'attente de fichiers prioritaires (bloque les normaux).
+        /// </summary>
         public static void RegisterPriorityFiles(int count)
         {
             if (count <= 0) return;
@@ -29,7 +31,9 @@ namespace EasySave.Core.Models
             _noPriorityPending.Reset();
         }
 
-        /// Called after processing a priority file to open the lock once all priority files have finished.
+        /// <summary>
+        /// Débloque les fichiers normaux si plus aucun prioritaire.
+        /// </summary>
         public static void OnPriorityFileDone()
         {
             int remaining = Interlocked.Decrement(ref _priorityFilesRemaining);
@@ -60,9 +64,13 @@ namespace EasySave.Core.Models
             lock (_jobsLock)
             {
                 return _jobs.ToList();
-        }
+            }
         }
 
+        /// <summary>
+        /// Crée et enregistre un nouveau travail de sauvegarde.
+        /// </summary>
+        /// <exception cref="ArgumentException">Si les chemins sont invalides.</exception>
         public void CreateJob(string name, string src, string dest, bool type)
         {
             if (string.IsNullOrWhiteSpace(name) ||
@@ -96,6 +104,9 @@ namespace EasySave.Core.Models
             SaveJobs();
         }
 
+        /// <summary>
+        /// Exécute un job spécifique avec surveillance métier continue.
+        /// </summary>
         public async Task ExecuteJob(
             int id,
             Func<string, string?>? requestPassword = null,
@@ -122,7 +133,7 @@ namespace EasySave.Core.Models
                     {
                         if (businessAppRunning)
                         {
-                            currentJob.PauseEvent.Reset(); 
+                            currentJob.PauseEvent.Reset();
                         }
                         else
                         {
@@ -161,6 +172,9 @@ namespace EasySave.Core.Models
             }
         }
 
+        /// <summary>
+        /// Lance l'exécution simultanée de tous les jobs.
+        /// </summary>
         public async Task ExecuteAllJobs(
             Func<string, string?>? requestPassword = null,
             Action<string>? displayMessage = null,
@@ -252,6 +266,9 @@ namespace EasySave.Core.Models
             return DateTime.MinValue;
         }
 
+        /// <summary>
+        /// Vérifie si aucun logiciel métier n'est en cours.
+        /// </summary>
         public bool CanLaunchJob()
         {
             var businessAppNames = SettingsManager.Instance.BusinessSoftwareNames;

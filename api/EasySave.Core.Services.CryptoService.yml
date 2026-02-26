@@ -1,0 +1,432 @@
+### YamlMime:ManagedReference
+items:
+- uid: EasySave.Core.Services.CryptoService
+  commentId: T:EasySave.Core.Services.CryptoService
+  id: CryptoService
+  parent: EasySave.Core.Services
+  children:
+  - EasySave.Core.Services.CryptoService.DecryptFile(System.String,System.String,System.String)
+  - EasySave.Core.Services.CryptoService.EncryptFile(System.String,System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: CryptoService
+  nameWithType: CryptoService
+  fullName: EasySave.Core.Services.CryptoService
+  type: Class
+  source:
+    remote:
+      path: src/EasySave.Core/Services/CryptoService.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: CryptoService
+    path: src/EasySave.Core/Services/CryptoService.cs
+    startLine: 11
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Services
+  summary: Provides AES file encryption services.
+  example: []
+  syntax:
+    content: public class CryptoService
+    content.vb: Public Class CryptoService
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: EasySave.Core.Services.CryptoService.EncryptFile(System.String,System.String,System.String)
+  commentId: M:EasySave.Core.Services.CryptoService.EncryptFile(System.String,System.String,System.String)
+  id: EncryptFile(System.String,System.String,System.String)
+  parent: EasySave.Core.Services.CryptoService
+  langs:
+  - csharp
+  - vb
+  name: EncryptFile(string, string, string)
+  nameWithType: CryptoService.EncryptFile(string, string, string)
+  fullName: EasySave.Core.Services.CryptoService.EncryptFile(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Services/CryptoService.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: EncryptFile
+    path: src/EasySave.Core/Services/CryptoService.cs
+    startLine: 24
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Services
+  summary: Encrypts file using AES-256.
+  example: []
+  syntax:
+    content: public static int EncryptFile(string sourcePath, string destPath, string password)
+    parameters:
+    - id: sourcePath
+      type: System.String
+      description: Input file path.
+    - id: destPath
+      type: System.String
+      description: Output encrypted path.
+    - id: password
+      type: System.String
+      description: Encryption password string.
+    return:
+      type: System.Int32
+      description: Execution time or error code.
+    content.vb: Public Shared Function EncryptFile(sourcePath As String, destPath As String, password As String) As Integer
+  overload: EasySave.Core.Services.CryptoService.EncryptFile*
+  nameWithType.vb: CryptoService.EncryptFile(String, String, String)
+  fullName.vb: EasySave.Core.Services.CryptoService.EncryptFile(String, String, String)
+  name.vb: EncryptFile(String, String, String)
+- uid: EasySave.Core.Services.CryptoService.DecryptFile(System.String,System.String,System.String)
+  commentId: M:EasySave.Core.Services.CryptoService.DecryptFile(System.String,System.String,System.String)
+  id: DecryptFile(System.String,System.String,System.String)
+  parent: EasySave.Core.Services.CryptoService
+  langs:
+  - csharp
+  - vb
+  name: DecryptFile(string, string, string)
+  nameWithType: CryptoService.DecryptFile(string, string, string)
+  fullName: EasySave.Core.Services.CryptoService.DecryptFile(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: src/EasySave.Core/Services/CryptoService.cs
+      branch: dev
+      repo: https://github.com/Doggo785/EasySave.git
+    id: DecryptFile
+    path: src/EasySave.Core/Services/CryptoService.cs
+    startLine: 101
+  assemblies:
+  - EasySave.Core
+  namespace: EasySave.Core.Services
+  summary: Decrypts AES encrypted file.
+  example: []
+  syntax:
+    content: public static int DecryptFile(string encryptedPath, string destPath, string password)
+    parameters:
+    - id: encryptedPath
+      type: System.String
+      description: Source encrypted path.
+    - id: destPath
+      type: System.String
+      description: Output decrypted path.
+    - id: password
+      type: System.String
+      description: Decryption password string.
+    return:
+      type: System.Int32
+      description: Execution time or error code.
+    content.vb: Public Shared Function DecryptFile(encryptedPath As String, destPath As String, password As String) As Integer
+  overload: EasySave.Core.Services.CryptoService.DecryptFile*
+  nameWithType.vb: CryptoService.DecryptFile(String, String, String)
+  fullName.vb: EasySave.Core.Services.CryptoService.DecryptFile(String, String, String)
+  name.vb: DecryptFile(String, String, String)
+references:
+- uid: EasySave.Core.Services
+  commentId: N:EasySave.Core.Services
+  href: EasySave.html
+  name: EasySave.Core.Services
+  nameWithType: EasySave.Core.Services
+  fullName: EasySave.Core.Services
+  spec.csharp:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.Core
+    name: Core
+    href: EasySave.Core.html
+  - name: .
+  - uid: EasySave.Core.Services
+    name: Services
+    href: EasySave.Core.Services.html
+  spec.vb:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.Core
+    name: Core
+    href: EasySave.Core.html
+  - name: .
+  - uid: EasySave.Core.Services
+    name: Services
+    href: EasySave.Core.Services.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: EasySave.Core.Services.CryptoService.EncryptFile*
+  commentId: Overload:EasySave.Core.Services.CryptoService.EncryptFile
+  href: EasySave.Core.Services.CryptoService.html#EasySave_Core_Services_CryptoService_EncryptFile_System_String_System_String_System_String_
+  name: EncryptFile
+  nameWithType: CryptoService.EncryptFile
+  fullName: EasySave.Core.Services.CryptoService.EncryptFile
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: EasySave.Core.Services.CryptoService.DecryptFile*
+  commentId: Overload:EasySave.Core.Services.CryptoService.DecryptFile
+  href: EasySave.Core.Services.CryptoService.html#EasySave_Core_Services_CryptoService_DecryptFile_System_String_System_String_System_String_
+  name: DecryptFile
+  nameWithType: CryptoService.DecryptFile
+  fullName: EasySave.Core.Services.CryptoService.DecryptFile

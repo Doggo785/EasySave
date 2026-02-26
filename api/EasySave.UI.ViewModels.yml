@@ -1,0 +1,92 @@
+### YamlMime:ManagedReference
+items:
+- uid: EasySave.UI.ViewModels
+  commentId: N:EasySave.UI.ViewModels
+  id: EasySave.UI.ViewModels
+  children:
+  - EasySave.UI.ViewModels.HomeViewModel
+  - EasySave.UI.ViewModels.JobItemViewModel
+  - EasySave.UI.ViewModels.JobState
+  - EasySave.UI.ViewModels.JobsViewModel
+  - EasySave.UI.ViewModels.MainWindowViewModel
+  - EasySave.UI.ViewModels.SettingsViewModel
+  langs:
+  - csharp
+  - vb
+  name: EasySave.UI.ViewModels
+  nameWithType: EasySave.UI.ViewModels
+  fullName: EasySave.UI.ViewModels
+  type: Namespace
+  assemblies:
+  - EasySave.UI
+references:
+- uid: EasySave.UI.ViewModels.HomeViewModel
+  commentId: T:EasySave.UI.ViewModels.HomeViewModel
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.HomeViewModel.html
+  name: HomeViewModel
+  nameWithType: HomeViewModel
+  fullName: EasySave.UI.ViewModels.HomeViewModel
+- uid: EasySave.UI.ViewModels.JobState
+  commentId: T:EasySave.UI.ViewModels.JobState
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.JobState.html
+  name: JobState
+  nameWithType: JobState
+  fullName: EasySave.UI.ViewModels.JobState
+- uid: EasySave.UI.ViewModels.JobItemViewModel
+  commentId: T:EasySave.UI.ViewModels.JobItemViewModel
+  href: EasySave.UI.ViewModels.JobItemViewModel.html
+  name: JobItemViewModel
+  nameWithType: JobItemViewModel
+  fullName: EasySave.UI.ViewModels.JobItemViewModel
+- uid: EasySave.UI.ViewModels.JobsViewModel
+  commentId: T:EasySave.UI.ViewModels.JobsViewModel
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.JobsViewModel.html
+  name: JobsViewModel
+  nameWithType: JobsViewModel
+  fullName: EasySave.UI.ViewModels.JobsViewModel
+- uid: EasySave.UI.ViewModels.MainWindowViewModel
+  commentId: T:EasySave.UI.ViewModels.MainWindowViewModel
+  href: EasySave.UI.ViewModels.MainWindowViewModel.html
+  name: MainWindowViewModel
+  nameWithType: MainWindowViewModel
+  fullName: EasySave.UI.ViewModels.MainWindowViewModel
+- uid: EasySave.UI.ViewModels.SettingsViewModel
+  commentId: T:EasySave.UI.ViewModels.SettingsViewModel
+  parent: EasySave.UI.ViewModels
+  href: EasySave.UI.ViewModels.SettingsViewModel.html
+  name: SettingsViewModel
+  nameWithType: SettingsViewModel
+  fullName: EasySave.UI.ViewModels.SettingsViewModel
+- uid: EasySave.UI.ViewModels
+  commentId: N:EasySave.UI.ViewModels
+  href: EasySave.html
+  name: EasySave.UI.ViewModels
+  nameWithType: EasySave.UI.ViewModels
+  fullName: EasySave.UI.ViewModels
+  spec.csharp:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.UI
+    name: UI
+    href: EasySave.UI.html
+  - name: .
+  - uid: EasySave.UI.ViewModels
+    name: ViewModels
+    href: EasySave.UI.ViewModels.html
+  spec.vb:
+  - uid: EasySave
+    name: EasySave
+    href: EasySave.html
+  - name: .
+  - uid: EasySave.UI
+    name: UI
+    href: EasySave.UI.html
+  - name: .
+  - uid: EasySave.UI.ViewModels
+    name: ViewModels
+    href: EasySave.UI.ViewModels.html

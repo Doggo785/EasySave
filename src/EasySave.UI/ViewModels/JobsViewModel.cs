@@ -142,6 +142,9 @@ namespace EasySave.UI.ViewModels
             BrowseDestCommand = ReactiveCommand.CreateFromTask(BrowseDestAsync);
         }
 
+        /// <summary>
+        /// Crée une sauvegarde et rafraîchit la liste UI.
+        /// </summary>
         private void CreateJob()
         {
             bool isFull = (SelectedTypeIndex == 0);
@@ -154,6 +157,9 @@ namespace EasySave.UI.ViewModels
             catch { }
         }
 
+        /// <summary>
+        /// Alterne entre l'exécution et la mise en pause.
+        /// </summary>
         private async Task TogglePlayPauseAsync(int id)
         {
             var jobVm = Jobs.FirstOrDefault(j => j.Id == id);
@@ -198,6 +204,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Interrompt définitivement une sauvegarde en cours.
+        /// </summary>
         private void StopJob(int id)
         {
             _saveManager.StopJob(id);
@@ -210,6 +219,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Lance toutes les sauvegardes simultanément.
+        /// </summary>
         private async Task ExecuteAllAsync()
         {
 
@@ -245,6 +257,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Supprime une sauvegarde après confirmation utilisateur.
+        /// </summary>
         private async Task DeleteJobAsync(int id)
         {
             var owner = GetMainWindow();
@@ -261,10 +276,10 @@ namespace EasySave.UI.ViewModels
             bool result = await dialog.ShowDialog<bool>(owner);
 
             if (result)
-                {
+            {
                 _saveManager.DeleteJob(id);
-                    RefreshList();
-                }
+                RefreshList();
+            }
         }
 
         private async Task<(bool wasCancelled, string? CryptoKey)> RequestPasswordIfNeeded()
@@ -351,6 +366,9 @@ namespace EasySave.UI.ViewModels
             HasSelectedJobs = Jobs.Any(j => j.IsSelected);
         }
 
+        /// <summary>
+        /// Boucle de synchronisation des états UI.
+        /// </summary>
         private void UpdateUiStatesContinuously()
         {
             _ = Task.Run(async () =>
@@ -407,6 +425,9 @@ namespace EasySave.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Lance uniquement les sauvegardes cochées.
+        /// </summary>
         private async Task ExecuteSelectedAsync()
         {
             if (_isExecutingAll) return;

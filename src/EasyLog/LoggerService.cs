@@ -34,6 +34,10 @@ namespace EasyLog
         {
             _ = Task.Run(ProcessLogQueueAsync);
         }
+
+        /// <summary>
+        /// Annule et relance la connexion au serveur de log.
+        /// </summary>
         public static void ForceReconnect()
         {
             var oldCts = Interlocked.Exchange(ref _reconnectCts, new CancellationTokenSource());
@@ -42,7 +46,10 @@ namespace EasyLog
             IsServerConnected = false;
         }
 
-
+        /// <summary>
+        /// Vérifie que le serveur distant répond.
+        /// </summary>
+        /// <returns>Vrai si handshake TCP réussi.</returns>
         public static async Task<bool> CheckServerConnectionAsync(int timeoutMs = 500)
         {
             try
@@ -70,6 +77,10 @@ namespace EasyLog
 
             LogFormat = logFormat;
         }
+
+        /// <summary>
+        /// Écrit un log journalier (local et/ou réseau thread-safe).
+        /// </summary>
         public void WriteDailyLog(DailyLog logEntry)
         {
             lock (_stateLock)
@@ -107,6 +118,9 @@ namespace EasyLog
             }
         }
 
+        /// <summary>
+        /// Met à jour le fichier d'état d'avancement (thread-safe).
+        /// </summary>
         public void UpdateStateLog(StateLog stateEntry)
         {
             lock (_stateLock)
@@ -125,6 +139,9 @@ namespace EasyLog
             }
         }
 
+        /// <summary>
+        /// Thread perpétuel dépilant et envoyant les logs TCP.
+        /// </summary>
         private static async Task ProcessLogQueueAsync()
         {
             while (true)

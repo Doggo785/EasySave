@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: EasySave.Core.Properties
+  commentId: N:EasySave.Core.Properties
+  id: EasySave.Core.Properties
+  children:
+  - EasySave.Core.Properties.Resources
+  langs:
+  - csharp
+  - vb
+  name: EasySave.Core.Properties
+  nameWithType: EasySave.Core.Properties
+  fullName: EasySave.Core.Properties
+  type: Namespace
+  assemblies:
+  - EasySave.Core
+references:
+- uid: EasySave.Core.Properties.Resources
+  commentId: T:EasySave.Core.Properties.Resources
+  href: EasySave.Core.Properties.Resources.html
+  name: Resources
+  nameWithType: Resources
+  fullName: EasySave.Core.Properties.Resources

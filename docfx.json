@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "src",
+          "files": [
+            "EasyLog/EasyLog.csproj",
+            "EasySave.Core/EasySave.Core.csproj",
+            "EasySave.UI/EasySave.UI.csproj"
+          ]
+        }
+      ],
+      "dest": "api",
+      "filter": "filterConfig.yml"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**",
+          "docs/**/*.png",
+          "docs/**/*.jpg"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "Doc_EasySave",
+      "_appTitle": "Doc_EasySave",
+      "_enableSearch": true,
+      "pdf": true
+    }
+  }
+}
