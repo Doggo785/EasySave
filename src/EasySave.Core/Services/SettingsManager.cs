@@ -32,10 +32,10 @@ namespace EasySave.Core.Services
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        /// Récupère une chaîne de texte traduite.
+        /// Retrieves a translated text string.
         /// </summary>
-        /// <param name="key">Clé de la ressource ciblée.</param>
-        /// <returns>Texte traduit, ou la clé par défaut.</returns>
+        /// <param name="key">The key of the target resource.</param>
+        /// <returns>Translated text, or the key by default.</returns>
         public string this[string key]
         {
             get { return Properties.Resources.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]"; }
@@ -49,7 +49,7 @@ namespace EasySave.Core.Services
         }
 
         /// <summary>
-        /// Charge et applique les paramètres depuis le fichier JSON.
+        /// Loads and applies settings from the JSON file.
         /// </summary>
         public void LoadSettings()
         {
@@ -93,7 +93,7 @@ namespace EasySave.Core.Services
         }
 
         /// <summary>
-        /// Sauvegarde la configuration actuelle dans l'AppData.
+        /// Saves the current configuration to AppData.
         /// </summary>
         public void SaveSettings()
         {
@@ -118,9 +118,9 @@ namespace EasySave.Core.Services
         }
 
         /// <summary>
-        /// Modifie la culture globale des threads de l'application.
+        /// Modifies the global culture of the application's threads.
         /// </summary>
-        /// <param name="languageCode">Code de langue (ex: "fr").</param>
+        /// <param name="languageCode">Language code (e.g., "fr").</param>
         public void ChangeLanguage(string languageCode)
         {
             try

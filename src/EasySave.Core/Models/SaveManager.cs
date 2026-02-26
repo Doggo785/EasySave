@@ -22,7 +22,7 @@ namespace EasySave.Core.Models
         private static readonly ManualResetEventSlim _noPriorityPending = new ManualResetEventSlim(true);
 
         /// <summary>
-        /// Signale l'attente de fichiers prioritaires (bloque les normaux).
+        /// Signals that priority files are pending (blocks normal file operations).
         /// </summary>
         public static void RegisterPriorityFiles(int count)
         {
@@ -32,7 +32,7 @@ namespace EasySave.Core.Models
         }
 
         /// <summary>
-        /// Débloque les fichiers normaux si plus aucun prioritaire.
+        /// Unblocks normal files if no priority files are remaining.
         /// </summary>
         public static void OnPriorityFileDone()
         {
@@ -68,9 +68,9 @@ namespace EasySave.Core.Models
         }
 
         /// <summary>
-        /// Crée et enregistre un nouveau travail de sauvegarde.
+        /// Creates and saves a new backup job.
         /// </summary>
-        /// <exception cref="ArgumentException">Si les chemins sont invalides.</exception>
+        /// <exception cref="ArgumentException">Thrown if paths are invalid.</exception>
         public void CreateJob(string name, string src, string dest, bool type)
         {
             if (string.IsNullOrWhiteSpace(name) ||
@@ -105,7 +105,7 @@ namespace EasySave.Core.Models
         }
 
         /// <summary>
-        /// Exécute un job spécifique avec surveillance métier continue.
+        /// Executes a specific job with continuous business software monitoring.
         /// </summary>
         public async Task ExecuteJob(
             int id,
@@ -121,6 +121,7 @@ namespace EasySave.Core.Models
 
             await _concurrencyLimiter.WaitAsync(cancellationToken);
 
+            // Background task to monitor business software status during execution
             using var watcherCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             var watchTask = Task.Run(async () =>
             {
@@ -129,14 +130,17 @@ namespace EasySave.Core.Models
                     bool businessAppRunning = !CanLaunchJob();
                     SaveJob? currentJob;
                     lock (_jobsLock) { currentJob = _jobs.FirstOrDefault(j => j.Id == id); }
+
                     if (currentJob != null)
                     {
                         if (businessAppRunning)
                         {
+                            // Automatically pause the job if business software is detected
                             currentJob.PauseEvent.Reset();
                         }
                         else
                         {
+                            // Resume if business software is closed, provided it wasn't manually paused
                             if (!currentJob.IsManuallyPaused)
                             {
                                 currentJob.PauseEvent.Set();
@@ -162,6 +166,7 @@ namespace EasySave.Core.Models
                     requestPassword,
                     displayMessage,
                     cts.Token);
+
                 LastBackupTime = DateTime.Now;
             }
             finally
@@ -173,7 +178,7 @@ namespace EasySave.Core.Models
         }
 
         /// <summary>
-        /// Lance l'exécution simultanée de tous les jobs.
+        /// Triggers the simultaneous execution of all jobs.
         /// </summary>
         public async Task ExecuteAllJobs(
             Func<string, string?>? requestPassword = null,
@@ -218,6 +223,7 @@ namespace EasySave.Core.Models
             if (_activeJobsTokens.TryGetValue(id, out var tokenSource))
             {
                 tokenSource.Cancel();
+                // Ensure the job is unblocked from a pause state so it can process the cancellation
                 ResumeJob(id);
 
                 _activeJobsTokens.Remove(id);
@@ -252,6 +258,7 @@ namespace EasySave.Core.Models
                 string stateFilePath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     "ProSoft", "EasySave", "Logs", "state.json");
+
                 if (File.Exists(stateFilePath))
                 {
                     string json = File.ReadAllText(stateFilePath);
@@ -267,7 +274,7 @@ namespace EasySave.Core.Models
         }
 
         /// <summary>
-        /// Vérifie si aucun logiciel métier n'est en cours.
+        /// Checks if any business software is currently running.
         /// </summary>
         public bool CanLaunchJob()
         {

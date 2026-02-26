@@ -116,7 +116,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Déclenche le déchiffrement selon le type de source.
+        /// Triggers decryption based on the source type.
         /// </summary>
         private async Task DecryptAsync()
         {
@@ -150,7 +150,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Déchiffre un fichier unique via le thread UI.
+        /// Decrypts a single file via the UI thread.
         /// </summary>
         private async Task DecryptSingleFileAsync()
         {
@@ -178,7 +178,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Déchiffre un dossier complet et met à jour l'UI.
+        /// Decrypts an entire folder and updates the UI.
         /// </summary>
         private async Task DecryptFolderAsync()
         {

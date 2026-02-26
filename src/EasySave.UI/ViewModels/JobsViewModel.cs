@@ -76,7 +76,6 @@ namespace EasySave.UI.ViewModels
             {
                 Dispatcher.UIThread.Post(() =>
                 {
-
                     if (State == JobState.Stopped) return;
 
                     Progress = value;
@@ -143,7 +142,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Crée une sauvegarde et rafraîchit la liste UI.
+        /// Creates a backup job and refreshes the UI list.
         /// </summary>
         private void CreateJob()
         {
@@ -158,7 +157,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Alterne entre l'exécution et la mise en pause.
+        /// Toggles between execution and pause.
         /// </summary>
         private async Task TogglePlayPauseAsync(int id)
         {
@@ -205,7 +204,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Interrompt définitivement une sauvegarde en cours.
+        /// Definitively interrupts a backup in progress.
         /// </summary>
         private void StopJob(int id)
         {
@@ -220,11 +219,10 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Lance toutes les sauvegardes simultanément.
+        /// Launches all backup jobs simultaneously.
         /// </summary>
         private async Task ExecuteAllAsync()
         {
-
             if (_isExecutingAll) return;
 
             if (!await CheckServerBeforeLaunch()) return;
@@ -243,7 +241,6 @@ namespace EasySave.UI.ViewModels
                     job.Progress = 0;
                 }
 
-
                 await _saveManager.ExecuteAllJobs(_ => CryptoKey, DisplayMessage);
             }
             finally
@@ -258,7 +255,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Supprime une sauvegarde après confirmation utilisateur.
+        /// Deletes a backup job after user confirmation.
         /// </summary>
         private async Task DeleteJobAsync(int id)
         {
@@ -269,7 +266,6 @@ namespace EasySave.UI.ViewModels
             string jobName = jobVm != null ? jobVm.Name : "null";
 
             string template = SettingsManager.Instance["Confirm_Delete_Message"];
-
             string localizedMessage = string.Format(template, jobName);
 
             var dialog = new ConfirmDialog(localizedMessage);
@@ -367,7 +363,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Boucle de synchronisation des états UI.
+        /// Synchronization loop for UI states.
         /// </summary>
         private void UpdateUiStatesContinuously()
         {
@@ -426,7 +422,7 @@ namespace EasySave.UI.ViewModels
         }
 
         /// <summary>
-        /// Lance uniquement les sauvegardes cochées.
+        /// Launches only the selected backup jobs.
         /// </summary>
         private async Task ExecuteSelectedAsync()
         {
@@ -463,7 +459,7 @@ namespace EasySave.UI.ViewModels
             }
             catch (Exception ex)
             {
-                DisplayMessage($"Erreur : {ex.Message}");
+                DisplayMessage($"Error : {ex.Message}");
             }
             finally
             {
