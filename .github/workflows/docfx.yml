@@ -3,17 +3,16 @@ name: Deploiement DocFX
 on:
   push:
     branches: ["main"]
-
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout du code
@@ -42,6 +41,14 @@ jobs:
         with:
           path: '_site'
 
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploiement sur GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
