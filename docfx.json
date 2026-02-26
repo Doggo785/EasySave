@@ -1,38 +1,44 @@
 {
-  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
   "metadata": [
     {
       "src": [
         {
-          "src": "src",
           "files": [
-            "EasyLog/EasyLog.csproj",
-            "EasySave.Core/EasySave.Core.csproj",
-            "EasySave.UI/EasySave.UI.csproj"
-          ]
+            "src/**/*.csproj"
+          ],
+          "exclude": [
+            "**/obj/**",
+            "**/bin/**"
+          ],
+          "src": "."
         }
       ],
       "dest": "api",
-      "filter": "filterConfig.yml"
+      "disableGitFeatures": false
     }
   ],
   "build": {
     "content": [
       {
         "files": [
-          "**/*.{md,yml}"
-        ],
-        "exclude": [
-          "_site/**"
+          "api/**.yml",
+          "api/index.md"
+        ]
+      },
+      {
+        "files": [
+          "docs/**.md",
+          "index.md",
+          "toc.yml",
+          "docs/toc.yml"
         ]
       }
     ],
     "resource": [
       {
         "files": [
-          "images/**",
           "docs/**/*.png",
-          "docs/**/*.jpg"
+          "src/EasySave.UI/assets/LogoApp.ico"
         ]
       }
     ],
@@ -42,10 +48,8 @@
       "modern"
     ],
     "globalMetadata": {
-      "_appName": "Doc_EasySave",
-      "_appTitle": "Doc_EasySave",
-      "_enableSearch": true,
-      "pdf": true
+      "_appTitle": "Documentation EasySave",
+      "_enableSearch": true
     }
   }
 }
