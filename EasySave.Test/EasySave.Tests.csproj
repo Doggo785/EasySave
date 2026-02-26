@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\EasyLog\EasyLog.csproj" />
-    <ProjectReference Include="..\src\EasySave.Console\EasySave.Console.csproj" />
     <ProjectReference Include="..\src\EasySave.Core\EasySave.Core.csproj" />
     <ProjectReference Include="..\src\EasySave.UI\EasySave.UI.csproj" />
   </ItemGroup>
