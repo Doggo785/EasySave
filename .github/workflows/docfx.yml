@@ -18,11 +18,18 @@ jobs:
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Configuration de .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.x'
+
+      - name: Restauration et Compilation du projet
+        run: |
+          dotnet restore EasySave.slnx
+          dotnet build EasySave.slnx --configuration Release --no-restore
 
       - name: Installation de DocFX
         run: dotnet tool update -g docfx
