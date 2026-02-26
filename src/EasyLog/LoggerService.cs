@@ -1,6 +1,4 @@
-﻿using EasySave.Core.Models;
-using EasyLog;
-using EasySave.Core.Properties;
+﻿using EasyLog;
 using System;
 using System.Text;
 using System.IO;
